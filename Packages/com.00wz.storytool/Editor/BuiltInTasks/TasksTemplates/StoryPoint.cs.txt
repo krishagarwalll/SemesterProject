@@ -1,0 +1,13 @@
+using StoryTool.BuiltInTasks;
+using StoryTool.Runtime;
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : StoryPoint
+{
+    protected override void ReceiveExecute()
+    {
+        // This is where the StoryPoint actions take place
+    }
+}
+#ROOTNAMESPACEEND#

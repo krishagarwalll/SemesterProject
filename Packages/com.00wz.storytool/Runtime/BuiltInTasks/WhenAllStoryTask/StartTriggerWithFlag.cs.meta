@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 67035ff0408d8a84fa12b411f18cb9c9
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Runtime/BuiltInTasks/WhenAllStoryTask/StartTriggerWithFlag.cs
+  uploadId: 870226

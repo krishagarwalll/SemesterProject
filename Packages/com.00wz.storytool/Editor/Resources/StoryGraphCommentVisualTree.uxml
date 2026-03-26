@@ -1,0 +1,8 @@
+<UXML xmlns:ui="UnityEngine.UIElements" xmlns:graph="UnityEditor.Experimental.GraphView" editor-extension-mode="False">
+    <ui:VisualElement name="node-border" picking-mode="Ignore">
+        <ui:Label name="title" />
+        <ui:TextField name="title-field" multiline="true"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="selection-border" picking-mode="Ignore" />
+    <graph:ResizableElement picking-mode="Ignore" />
+</UXML>

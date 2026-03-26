@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c1148caadf0ee584cac2dc01d74076ac
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/BuiltInTasks/StoryTool.BuiltInTasks.Editor.asmdef
+  uploadId: 870226

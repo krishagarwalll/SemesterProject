@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: a9bc8a5d93cc9904aaff64818f0c7263
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Runtime/Triggers/StartTrigger.cs
+  uploadId: 870226

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 75263f8335aa20045aacc4da6f1283fe
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Samples~/VisualNovelSample/Data/Scenes/controlRoom-dark.asset
+  uploadId: 870226

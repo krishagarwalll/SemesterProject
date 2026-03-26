@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 77b0f76654501e74ea9c3709b339c92a
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/Graph/Elements/StoryGraphComment.cs
+  uploadId: 870226

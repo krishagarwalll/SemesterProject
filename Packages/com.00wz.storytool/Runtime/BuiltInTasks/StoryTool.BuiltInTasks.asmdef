@@ -1,0 +1,16 @@
+{
+  "name": "StoryTool.BuiltInTasks",
+  "rootNamespace": "StoryTool.BuiltInTasks",
+  "references": [
+    "StoryTool.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

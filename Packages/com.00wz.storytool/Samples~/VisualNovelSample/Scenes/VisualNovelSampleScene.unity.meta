@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: de27a8d6727dd664ebb9f903fa1e1c9e
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Samples~/VisualNovelSample/Scenes/VisualNovelSampleScene.unity
+  uploadId: 870226

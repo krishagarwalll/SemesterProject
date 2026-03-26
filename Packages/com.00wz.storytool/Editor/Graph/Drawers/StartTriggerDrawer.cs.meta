@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 4b89b75e39352f64ebc8c94b8e179a1b
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/Graph/Drawers/StartTriggerDrawer.cs
+  uploadId: 870226

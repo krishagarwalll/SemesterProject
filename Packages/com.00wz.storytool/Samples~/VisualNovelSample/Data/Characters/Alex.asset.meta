@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3751a067e8611a340b0dc8d2edfff14d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Samples~/VisualNovelSample/Data/Characters/Alex.asset
+  uploadId: 870226

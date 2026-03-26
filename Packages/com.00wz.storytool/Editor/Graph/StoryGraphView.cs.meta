@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: edb1fa1bbee05cd4f86e15bb96e4fb2d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/Graph/StoryGraphView.cs
+  uploadId: 870226

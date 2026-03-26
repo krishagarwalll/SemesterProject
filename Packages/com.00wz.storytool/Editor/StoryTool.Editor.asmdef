@@ -1,0 +1,19 @@
+{
+    "name": "StoryTool.Editor",
+    "rootNamespace": "StoryTool.Editor",
+    "references": [
+        "GUID:3e584715c712afa4c9338685734ea586",
+        "GUID:3949c842dca86574b8b8899cb1420dfa"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

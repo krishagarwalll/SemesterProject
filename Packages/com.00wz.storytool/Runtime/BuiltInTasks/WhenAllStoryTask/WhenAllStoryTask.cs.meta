@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: f190f0010462e7845b20e29ca1d4ce1f
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Runtime/BuiltInTasks/WhenAllStoryTask/WhenAllStoryTask.cs
+  uploadId: 870226

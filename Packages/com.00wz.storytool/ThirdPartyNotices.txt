@@ -1,0 +1,17 @@
+Third Party Notices
+==================
+
+This package includes third-party software components. See below for details.
+
+---
+
+Component: Unity-VisualElementEvents  
+Source: https://github.com/Nomisenb/Unity-VisualElementEvents  
+License: Unlicense (Public Domain)  
+License text:  
+This is free and unencumbered software released into the public domain.  
+For more information, please refer to <https://unlicense.org>.
+
+A copy of the license is included in this package.
+
+---

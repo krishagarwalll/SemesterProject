@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 419efe05515ef4345ace16b78f517ce7
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Samples~/VisualNovelSample/Resources/StoryToolVisualNovelSample/Choise.prefab
+  uploadId: 870226

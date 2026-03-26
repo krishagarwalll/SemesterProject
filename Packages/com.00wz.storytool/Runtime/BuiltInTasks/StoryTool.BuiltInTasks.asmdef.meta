@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 624836facbe64ed438f32f056fe51d0c
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Runtime/BuiltInTasks/StoryTool.BuiltInTasks.asmdef
+  uploadId: 870226

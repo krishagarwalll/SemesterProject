@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d33a984c80bbccb4fbaa396b02db5470
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/README.md
+  uploadId: 870226

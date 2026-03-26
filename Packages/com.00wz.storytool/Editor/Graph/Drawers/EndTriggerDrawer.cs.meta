@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 64efde4fefecaeb46a4cf4f451be65fd
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/Graph/Drawers/EndTriggerDrawer.cs
+  uploadId: 870226

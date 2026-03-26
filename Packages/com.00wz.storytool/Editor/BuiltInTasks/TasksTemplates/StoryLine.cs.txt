@@ -1,0 +1,14 @@
+using StoryTool.BuiltInTasks;
+using StoryTool.Runtime;
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : StoryLine
+{
+    protected override void ReceiveExecute()
+    {
+        // This is where the StoryLine actions begin.
+        // After completing all actions, you must call FinishExecute()
+    }
+}
+#ROOTNAMESPACEEND#

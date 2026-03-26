@@ -1,0 +1,17 @@
+{
+  "name": "com.00wz.storytool",
+  "version": "1.0.0",
+  "displayName": "StoryTool",
+  "unity": "6000.0",
+  "dependencies": {
+    "com.unity.nuget.mono-cecil": "1.10.2"
+  },
+  "description": "Toolkit for creating interactive stories in Unity.",
+  "samples": [
+    {
+      "displayName": "Visual Novel Sample",
+      "description": "A short branching visual novel sample demonstrating dialogue flow, player choices, scene transitions, and multiple endings.",
+      "path": "Samples~/VisualNovelSample"
+    }
+  ]
+}

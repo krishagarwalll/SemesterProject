@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ed1b698874189574bb2103dc59d5b732
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/ThirdParty/Unity-VisualElementEvents-main/Runtime/CodeGen/Unity.VisualElementEvents.Codegen.asmdef
+  uploadId: 870226

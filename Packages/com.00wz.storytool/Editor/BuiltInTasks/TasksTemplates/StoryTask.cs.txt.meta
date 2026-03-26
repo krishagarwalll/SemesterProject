@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 937ce377b8792de4ea4d3a8fcfdcdb06
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/BuiltInTasks/TasksTemplates/StoryTask.cs.txt
+  uploadId: 870226

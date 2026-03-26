@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: a52ab5fe97f4a6941837f356d8006ade
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/Graph/Utility/StoryTaskNodeFactory.cs
+  uploadId: 870226

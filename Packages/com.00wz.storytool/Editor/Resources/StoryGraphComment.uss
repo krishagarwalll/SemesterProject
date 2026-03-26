@@ -1,0 +1,42 @@
+.story-comment {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+.story-comment #title, .story-comment #title-field * {
+    font-size: 20px;
+    white-space: normal;
+    border-radius: 4px;
+}
+
+.story-comment #title {
+    background-color: rgba(110, 110, 110, 1);
+    color:  rgba(238, 238, 238, 1);
+    -unity-text-outline-color: rgba(47, 47, 47, 1);
+    -unity-text-outline-width: 0.5px;
+    -unity-font-style: bold;
+}
+
+.story-comment #title-field *{
+    background-color: rgba(238, 238, 238, 1);
+    color: black;
+}
+
+.unity-text-field , * .unity-text-field > .unity-base-text-field__input
+{
+    background-color: transparent;
+}
+
+.unity-text-field > .unity-base-text-field__input
+{
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+* .unity-label
+{
+    margin-left: 1px;
+    margin-right: 1px;
+    padding-left: 8px;
+    padding-right: 8px;
+}

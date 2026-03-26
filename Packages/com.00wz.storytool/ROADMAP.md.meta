@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9f697c561591cd6408a5068f398caff3
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/ROADMAP.md
+  uploadId: 870226

@@ -1,0 +1,19 @@
+{
+  "name": "StoryTool.BuiltInTasks.Editor",
+  "rootNamespace": "StoryTool.Editor.BuiltInTasks",
+  "references": [
+    "StoryTool.BuiltInTasks",
+    "StoryTool.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

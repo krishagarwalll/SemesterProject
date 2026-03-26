@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0a5d63e2fc767724ca98454d23a39f82
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/StoryTool.Editor.asmdef
+  uploadId: 870226

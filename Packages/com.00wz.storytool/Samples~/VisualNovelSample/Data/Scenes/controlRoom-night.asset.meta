@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a5b4fc19be502384cb8fd9694f606229
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Samples~/VisualNovelSample/Data/Scenes/controlRoom-night.asset
+  uploadId: 870226

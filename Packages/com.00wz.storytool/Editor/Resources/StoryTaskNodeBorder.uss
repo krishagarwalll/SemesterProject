@@ -1,0 +1,20 @@
+/* Active (orange) border */
+.active-border {
+    border-width: 4px;
+    border-color: rgb(255, 128, 0);
+    border-radius: 8px;
+}
+
+/* Failed (red) border */
+.failed-border {
+    border-width: 2px;
+    border-color: rgb(255, 0, 0);
+    border-radius: 8px;
+}
+
+/* Completed (green) border */
+.completed-border {
+    border-width: 10px;
+    border-color: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+}

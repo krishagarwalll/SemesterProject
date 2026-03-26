@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 4929d2e320d0ad24b85b094d85c553d4
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Runtime/Attributes/StoryTaskMenuAttribute.cs
+  uploadId: 870226

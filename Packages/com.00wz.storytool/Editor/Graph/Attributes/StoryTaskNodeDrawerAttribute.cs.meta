@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 7ba22c85fb3889a4c98d659d63672d10
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/Graph/Attributes/StoryTaskNodeDrawerAttribute.cs
+  uploadId: 870226

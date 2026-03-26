@@ -1,0 +1,12 @@
+using StoryTool.Runtime;
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : StoryTask
+{
+    protected override void OnAwake()
+    {
+        
+    }
+}
+#ROOTNAMESPACEEND#

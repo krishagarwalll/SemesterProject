@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 568af58410718ce46bcb541e9f986646
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Samples~/VisualNovelSample/Data/Scenes/controlRoom-launch.asset
+  uploadId: 870226

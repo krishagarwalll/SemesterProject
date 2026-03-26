@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3949c842dca86574b8b8899cb1420dfa
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/ThirdParty/Unity-VisualElementEvents-main/Runtime/com.bsigame.VisualElementEvents.asmdef
+  uploadId: 870226

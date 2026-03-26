@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 4f4a4e96055cb3048b328177cd9ee412
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/BuiltInTasks/TasksTemplates/StoryTasksTemplatesUtil.cs
+  uploadId: 870226

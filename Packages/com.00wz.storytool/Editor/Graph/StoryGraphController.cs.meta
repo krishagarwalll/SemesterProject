@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: f7cd3c88a202065459af6722da8d7f9d
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Editor/Graph/StoryGraphController.cs
+  uploadId: 870226

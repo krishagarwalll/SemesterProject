@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: aafca08c0d7c43f469f6f4c5ac55475a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 354962
+  packageName: StoryTool
+  packageVersion: 1.0
+  assetPath: Packages/com.00wz.storytool/Samples~/VisualNovelSample/Data/Scenes/endGame-scene.asset
+  uploadId: 870226
