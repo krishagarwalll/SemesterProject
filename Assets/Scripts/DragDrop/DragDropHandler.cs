@@ -17,6 +17,18 @@ public class DragDropHandler : MonoBehaviour
     public bool IsDragging => activeDraggedObject != null;
     public WorldPuzzleDragObject ActiveDraggedObject => activeDraggedObject;
 
+    public bool BlocksMovementClick(Vector2 screenPosition)
+    {
+        if (ignorePointerOverUI && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+
+        Vector3 worldPosition = GetWorldPosition(screenPosition);
+        WorldPuzzleDragObject dragObject = FindObjectAtPoint(worldPosition);
+        return dragObject != null && dragObject.CanStartDrag();
+    }
+
     private void Awake()
     {
         if (worldCamera == null)

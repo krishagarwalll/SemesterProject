@@ -8,6 +8,7 @@ public class PointToMove : MonoBehaviour
     // delete // when added player animation
     //Animator anim;
     Rigidbody2D rb;
+    private DragDropHandler dragDropHandler;
 
     [SerializeField] private Transform head; //position for head accessories - assign in inspector
     //add other transforms for other decorations - body, feet, necklace, etc
@@ -23,6 +24,7 @@ public class PointToMove : MonoBehaviour
 
         //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        dragDropHandler = FindFirstObjectByType<DragDropHandler>();
     }
 
 
@@ -32,6 +34,11 @@ public class PointToMove : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             var mouse = Mouse.current.position.ReadValue();
+            if (dragDropHandler != null && dragDropHandler.BlocksMovementClick(mouse))
+            {
+                return;
+            }
+
             var pos = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 0));
             pos.z = 0;
 
