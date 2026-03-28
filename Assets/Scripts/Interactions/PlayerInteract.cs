@@ -7,7 +7,9 @@ public class PlayerInteract : MonoBehaviour{
             float interactRange = 2f;
             Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, interactRange);
             foreach (Collider2D collider in colliderArray) {
-                Debug.Log(collider);
+                if (collider.TryGetComponent(out NPCInteractable npcInteractable)) {
+                    npcInteractable.Interact();
+                }
             }
         } 
     }
