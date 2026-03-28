@@ -628,6 +628,7 @@ GameObject:
   - component: {fileID: 1541618949}
   - component: {fileID: 1541618948}
   - component: {fileID: 1541618947}
+  - component: {fileID: 1541618950}
   m_Layer: 0
   m_Name: bow
   m_TagString: decoration
@@ -766,6 +767,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1541618950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541618946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e06d0aafdf6f04296efabbe8dc2cdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: StoryTool.Runtime::StoryTool.Runtime.StoryTool
+  _storyGraph:
+    storyTasks:
+    - rid: 2660988078752530502
+    - rid: 2660988078752530503
+    comments: []
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2660988078752530502
+      type: {class: StartStoryTask, ns: StoryTool.BuiltInTasks, asm: StoryTool.BuiltInTasks}
+      data:
+        _editorNodePosition: {x: 151, y: 148}
+        _activityFlag_editor: 0
+        start:
+          _nextTriggerLink:
+            rid: 2660988078752530504
+    - rid: 2660988078752530503
+      type: {class: TestStoryPpint, ns: , asm: Assembly-CSharp}
+      data:
+        _editorNodePosition: {x: 382, y: 148}
+        _activityFlag_editor: 0
+        start:
+          _triggerlink:
+            rid: 2660988078752530504
+        end:
+          _nextTriggerLink:
+            rid: -2
+    - rid: 2660988078752530504
+      type: {class: TriggerLink, ns: StoryTool.Runtime, asm: StoryTool.Runtime}
+      data: 
 --- !u!1 &1774586240
 GameObject:
   m_ObjectHideFlags: 0
