@@ -6,6 +6,9 @@ TagManager:
   tags:
   - decoration
   - enemy
+  - Bow
+  - InteractableNPC
+  - InteractableItem
   layers:
   - Default
   - TransparentFX
