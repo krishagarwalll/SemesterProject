@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 219474062}
   - component: {fileID: 219474061}
   - component: {fileID: 219474066}
+  - component: {fileID: 219474067}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -396,6 +397,18 @@ PolygonCollider2D:
       - {x: 0.085, y: 0.31}
       - {x: 0.065, y: 0.29}
   m_UseDelaunayMesh: 1
+--- !u!114 &219474067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219474060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8afd888a60453e956136d4433b3910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
 --- !u!1 &387542782
 GameObject:
   m_ObjectHideFlags: 0

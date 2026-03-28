@@ -1,0 +1,14 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerInteract : MonoBehaviour{
+    private void Update(){
+        if (Keyboard.current.eKey.wasPressedThisFrame) {
+            float interactRange = 2f;
+            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, interactRange);
+            foreach (Collider2D collider in colliderArray) {
+                Debug.Log(collider);
+            }
+        } 
+    }
+}
