@@ -5,22 +5,20 @@ using UnityEngine.InputSystem;
 public class PlayerInteract : MonoBehaviour{
     private void Update(){
         if (Keyboard.current.eKey.wasPressedThisFrame) {
-            float interactRange = 2f;
-            Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, interactRange);
-            foreach (Collider2D collider in colliderArray) {
-                if (collider.TryGetComponent(out NPCInteractable npcInteractable)) {
-                    npcInteractable.Interact();
-                }
+            IInteractable interactable = GetInteractableObject();
+            if (interactable != null)
+            {
+                interactable.Interact();
             }
         }
     }
     
-    public NPCInteractable GetInteractableObject() {
+    public IInteractable GetInteractableObject() {
         float interactRange = 3f;
         Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, interactRange);
         foreach (Collider2D collider in colliderArray) {
-            if (collider.TryGetComponent(out NPCInteractable npcInteractable)) {
-                return npcInteractable;
+            if (collider.TryGetComponent(out IInteractable interactable)) {
+                return interactable;
             }
         }
         return null;
