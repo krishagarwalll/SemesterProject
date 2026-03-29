@@ -1171,6 +1171,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCInteractable
   interactiveText: Talk with Box
+  speechBubble: {fileID: 1771017307890631712, guid: b35a6f1628059564fb24b088d697d27f, type: 3}
+  interactThingoOffset: 0
+  dialogue: Hello there im a box. If you want to leave you need to solve my puzzle.
+    If you refuse imma leak your search history
 --- !u!212 &1321313887
 SpriteRenderer:
   serializedVersion: 2
