@@ -88,5 +88,10 @@ public class PointToMove : MonoBehaviour
             // Snap to head position
             collision.transform.localPosition = Vector3.zero;
         }
+        else if(collision.CompareTag("minigame"))
+        {
+            Debug.Log("enter minigame");
+            //minigame logic here
+        }
     }
 }

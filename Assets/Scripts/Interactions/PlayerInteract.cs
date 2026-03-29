@@ -2,9 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInteract : MonoBehaviour{
-    private void Update(){
-        if (Keyboard.current.eKey.wasPressedThisFrame) {
+public class PlayerInteract : MonoBehaviour
+{
+    private void Update()
+    {
+        if (Keyboard.current.eKey.wasPressedThisFrame) 
+        {
             IInteractable interactable = GetInteractableObject();
             if (interactable != null)
             {
@@ -13,11 +16,14 @@ public class PlayerInteract : MonoBehaviour{
         }
     }
     
-    public IInteractable GetInteractableObject() {
+    public IInteractable GetInteractableObject() 
+    {
         float interactRange = 3f;
         Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, interactRange);
-        foreach (Collider2D collider in colliderArray) {
-            if (collider.TryGetComponent(out IInteractable interactable)) {
+        foreach (Collider2D collider in colliderArray) 
+        {
+            if (collider.TryGetComponent(out IInteractable interactable)) 
+            {
                 return interactable;
             }
         }

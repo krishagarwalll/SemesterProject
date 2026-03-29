@@ -7,4 +7,5 @@ public interface IInteractable {
     void Interact();
     string GetInteractiveText();
     
+    
 }

@@ -1,12 +1,14 @@
 using UnityEngine;
 using TMPro;
 
-public class NPCInteractable : MonoBehaviour, IInteractable {
+public class NPCInteractable : MonoBehaviour, IInteractable 
+{
     [SerializeField] private string interactiveText;
     [SerializeField] private GameObject speechBubble;
     [SerializeField] private float interactThingoOffset;
     [SerializeField] private string dialogue;
-    public void Interact() {
+    public void Interact() 
+    {
         Debug.Log(interactiveText);
         
         GameObject bubble = Instantiate(speechBubble, new Vector3(transform.position.x, transform.position.y - interactThingoOffset, transform.position.z), transform.rotation);
@@ -19,7 +21,8 @@ public class NPCInteractable : MonoBehaviour, IInteractable {
         
     }
 
-    public string GetInteractiveText() {
+    public string GetInteractiveText() 
+    {
         return interactiveText;
     }
 }
