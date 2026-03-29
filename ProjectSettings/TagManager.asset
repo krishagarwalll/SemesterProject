@@ -6,11 +6,13 @@ TagManager:
   tags:
   - decoration
   - enemy
+  - minigame
+  - flashlight
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - background
   - Water
   - UI
   - 
@@ -40,8 +42,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: background
+    uniqueID: 1998431271
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: collision
+    uniqueID: 3556105781
     locked: 0
   m_RenderingLayers:
   - Default
