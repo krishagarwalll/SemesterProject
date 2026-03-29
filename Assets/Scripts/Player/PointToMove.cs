@@ -59,23 +59,20 @@ public class PointToMove : MonoBehaviour
 
     IEnumerator DoTheThing(Vector3 pos) 
     {
+        while (Vector3.Distance(transform.position, pos) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                pos,
+                5.0f * Time.deltaTime
+            );
 
-        //float t = 0;
-        var original = transform.position;
-        var dir = pos - original;
-        dir.Normalize();
-        var dist = Vector3.Distance(transform.position, pos);
-
-        while (dist > 0.01f) {
-            //transform.position = Vector3.Lerp(original, pos, t);
-            transform.position += dir * Time.deltaTime * 5.0f;
-            //t += Time.deltaTime * 1.0f;
             yield return null;
-
-            dist = Vector3.Distance(transform.position, pos);
         }
-
+            transform.position = pos;
     }
+
+
 
     void OnTriggerEnter2D(Collider2D collision)
     {
