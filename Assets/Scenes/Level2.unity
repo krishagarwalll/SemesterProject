@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 14892131}
   - component: {fileID: 14892132}
   m_Layer: 0
-  m_Name: grass placeholder (2)
+  m_Name: grass4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 123699300}
   - component: {fileID: 123699301}
   m_Layer: 0
-  m_Name: garage placeholder
+  m_Name: garage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -770,8 +770,10 @@ GameObject:
   m_Component:
   - component: {fileID: 262829025}
   - component: {fileID: 262829026}
+  - component: {fileID: 262829028}
+  - component: {fileID: 262829027}
   m_Layer: 0
-  m_Name: metal detector placeholder
+  m_Name: metal detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -851,6 +853,67 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!61 &262829027
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262829024}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.37833238, y: -0.2623737}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 7.3, y: 7.94}
+    newSize: {x: 7.3, y: 7.94}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 4.984154, y: 6.948812}
+  m_EdgeRadius: 0
+--- !u!114 &262829028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262829024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &387542782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,7 +1521,6 @@ Transform:
   - {fileID: 261508472}
   - {fileID: 698874247}
   - {fileID: 123699300}
-  - {fileID: 726375078}
   - {fileID: 852664498}
   - {fileID: 1493839607}
   - {fileID: 729868041}
@@ -2146,7 +2208,7 @@ GameObject:
   - component: {fileID: 726375078}
   - component: {fileID: 726375079}
   m_Layer: 0
-  m_Name: house placeholder
+  m_Name: house
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2161,11 +2223,11 @@ Transform:
   m_GameObject: {fileID: 726375077}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -657.07245, y: -364.78656, z: 0}
-  m_LocalScale: {x: 1.7537, y: 1.7804, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 13.583498, y: 13.709473, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 501754909}
+  m_Father: {fileID: 1275998464}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &726375079
 SpriteRenderer:
@@ -2237,7 +2299,7 @@ GameObject:
   - component: {fileID: 729868041}
   - component: {fileID: 729868042}
   m_Layer: 0
-  m_Name: grass placeholder (1)
+  m_Name: grass3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2419,7 +2481,7 @@ GameObject:
   - component: {fileID: 852664498}
   - component: {fileID: 852664499}
   m_Layer: 0
-  m_Name: grass placeholder
+  m_Name: grass1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2816,6 +2878,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1275998463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1275998464}
+  - component: {fileID: 1275998465}
+  m_Layer: 0
+  m_Name: house Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1275998464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275998463}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -438.8, y: -326.9, z: 0}
+  m_LocalScale: {x: 0.12910518, y: 0.1298664, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 726375078}
+  m_Father: {fileID: 2106903414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1275998465
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275998463}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 16.45, y: 22.535933, z: 1}
+  m_Center: {x: -19.8, y: -27.68703, z: 0}
 --- !u!1 &1303334411
 GameObject:
   m_ObjectHideFlags: 0
@@ -2826,8 +2942,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1303334413}
   - component: {fileID: 1303334412}
+  - component: {fileID: 1303334415}
+  - component: {fileID: 1303334414}
   m_Layer: 0
-  m_Name: key placeholder
+  m_Name: key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2900,13 +3018,74 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1303334411}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.56, y: -3.61, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -396.9735, y: -331.06656, z: 0}
   m_LocalScale: {x: 0.12910518, y: 0.1298664, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2106903414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1303334414
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303334411}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.094963074, y: -0.00000071525574}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 7.3, y: 7.94}
+    newSize: {x: 7.3, y: 7.94}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 4.746729, y: 5.926146}
+  m_EdgeRadius: 0
+--- !u!114 &1303334415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303334411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 0
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1321313885
 GameObject:
   m_ObjectHideFlags: 0
@@ -3011,7 +3190,7 @@ Transform:
   m_GameObject: {fileID: 1321313885}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -425.67, y: -325.39, z: 0}
+  m_LocalPosition: {x: -444.67, y: -320.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3176,7 +3355,7 @@ GameObject:
   - component: {fileID: 1493839607}
   - component: {fileID: 1493839608}
   m_Layer: 0
-  m_Name: grass placeholder (3)
+  m_Name: grass2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3273,7 +3452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!60 &1541618947
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -3416,7 +3595,7 @@ GameObject:
   - component: {fileID: 1652631105}
   - component: {fileID: 1652631106}
   m_Layer: 0
-  m_Name: flower placeholder
+  m_Name: flower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3545,7 +3724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1791961497
 SpriteRenderer:
   serializedVersion: 2
@@ -3926,6 +4105,8 @@ Transform:
   - {fileID: 557610799}
   - {fileID: 1321313888}
   - {fileID: 1541618949}
+  - {fileID: 1303334413}
+  - {fileID: 1275998464}
   - {fileID: 1791961498}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4043,4 +4224,3 @@ SceneRoots:
   - {fileID: 2106903414}
   - {fileID: 501754909}
   - {fileID: 2132483798}
-  - {fileID: 1303334413}
