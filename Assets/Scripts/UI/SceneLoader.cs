@@ -3,12 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] private string sceneName; // Set in Inspector
-
+    [SerializeField] private string sceneName;
 
     public void LoadScene()
     {
-        //audio click
         if (!string.IsNullOrEmpty(sceneName))
         {
             SceneManager.LoadScene(sceneName);
