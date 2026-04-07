@@ -26,11 +26,11 @@ public class PointClickController : MonoBehaviour
     [SerializeField, Min(0f)] private float flipThreshold = 0.05f;
 
     private PointerContext pointer;
+    private Inventory inventory;
     private NavMeshAgent navMeshAgent;
     private SpriteFlipper spriteFlipper;
     private Animator animator;
-    private InteractionTarget pendingTarget;
-    private IWorldInteractable pendingInteractable;
+    private PendingInteraction pendingInteraction;
     private IWorldDraggable activeDrag;
     private ObstacleAvoidanceType defaultAvoidanceType;
     private float smoothedSpeed;
@@ -38,13 +38,14 @@ public class PointClickController : MonoBehaviour
     private Vector3 lastPosition;
 
     private PointerContext Pointer => this.ResolveSceneComponent(ref pointer);
+    private Inventory SceneInventory => this.ResolveSceneComponent(ref inventory);
     private NavMeshAgent Agent => this.ResolveComponent(ref navMeshAgent);
     private SpriteFlipper Flipper => this.ResolveComponent(ref spriteFlipper, true);
     private Animator Anim => this.ResolveComponent(ref animator, true);
     private Camera ViewCamera => Pointer && Pointer.WorldCamera ? Pointer.WorldCamera : Camera.main;
     private Vector3 Position => Agent ? Agent.transform.position : transform.position;
     private bool IsNavigating => Agent && Agent.isOnNavMesh && (Agent.pathPending || Agent.hasPath && Agent.pathStatus != NavMeshPathStatus.PathInvalid);
-    private bool HasPendingInteraction => pendingTarget && pendingInteractable != null;
+    private bool HasPendingInteraction => pendingInteraction.IsValid;
     private bool HasReachedDestination => Agent
         && Agent.isOnNavMesh
         && !Agent.pathPending
@@ -59,7 +60,12 @@ public class PointClickController : MonoBehaviour
 
     private void OnValidate()
     {
-        ClampSettings();
+        navMeshSampleDistance = Mathf.Max(0f, navMeshSampleDistance);
+        navMeshSnapDistance = Mathf.Max(0f, navMeshSnapDistance);
+        destinationReachedThreshold = Mathf.Max(0f, destinationReachedThreshold);
+        movingThreshold = Mathf.Max(0f, movingThreshold);
+        animationSmoothing = Mathf.Max(0f, animationSmoothing);
+        flipThreshold = Mathf.Max(0f, flipThreshold);
         SyncAgent();
     }
 
@@ -73,42 +79,10 @@ public class PointClickController : MonoBehaviour
         }
     }
 
-    private void ClampSettings()
-    {
-        navMeshSampleDistance = Mathf.Max(0f, navMeshSampleDistance);
-        navMeshSnapDistance = Mathf.Max(0f, navMeshSnapDistance);
-        destinationReachedThreshold = Mathf.Max(0f, destinationReachedThreshold);
-        movingThreshold = Mathf.Max(0f, movingThreshold);
-        animationSmoothing = Mathf.Max(0f, animationSmoothing);
-        flipThreshold = Mathf.Max(0f, flipThreshold);
-    }
-
-    private void SyncAgent()
-    {
-        if (Agent)
-        {
-            if (activeDrag == null)
-            {
-                defaultAvoidanceType = Agent.obstacleAvoidanceType;
-            }
-
-            Agent.updateRotation = updateRotation;
-            Agent.obstacleAvoidanceType = activeDrag == null ? defaultAvoidanceType : ObstacleAvoidanceType.NoObstacleAvoidance;
-        }
-    }
-
     private void OnDisable()
     {
         Cancel();
         ResetPresentationState();
-    }
-
-    private void ResetPresentationState()
-    {
-        smoothedSpeed = 0f;
-        smoothedDirection = Vector2.zero;
-        lastPosition = transform.position;
-        ApplyPresentation(Vector2.zero, false);
     }
 
     private void Update()
@@ -122,12 +96,6 @@ public class PointClickController : MonoBehaviour
         if (HasReachedDestination)
         {
             Stop();
-        }
-
-        if (Pointer.SecondaryPressedThisFrame)
-        {
-            Cancel();
-            return;
         }
 
         if (activeDrag != null)
@@ -148,10 +116,52 @@ public class PointClickController : MonoBehaviour
             return;
         }
 
+        if (!IsPointerBlocked && Pointer.SecondaryClickedThisFrame)
+        {
+            HandleInspectClick();
+            return;
+        }
+
         if (!IsPointerBlocked && Pointer.PrimaryClickedThisFrame)
         {
             HandlePrimaryClick();
         }
+    }
+
+    public bool TryWarp(Vector3 worldPosition)
+    {
+        if (!Agent || !Agent.TryWarpTo(transform, worldPosition, navMeshSampleDistance, navMeshSnapDistance, out Vector3 sampledPosition))
+        {
+            return false;
+        }
+
+        Agent.StopPath();
+        lastPosition = sampledPosition;
+        return true;
+    }
+
+    private void SyncAgent()
+    {
+        if (!Agent)
+        {
+            return;
+        }
+
+        if (activeDrag == null)
+        {
+            defaultAvoidanceType = Agent.obstacleAvoidanceType;
+        }
+
+        Agent.updateRotation = updateRotation;
+        Agent.obstacleAvoidanceType = activeDrag == null ? defaultAvoidanceType : ObstacleAvoidanceType.NoObstacleAvoidance;
+    }
+
+    private void ResetPresentationState()
+    {
+        smoothedSpeed = 0f;
+        smoothedDirection = Vector2.zero;
+        lastPosition = transform.position;
+        ApplyPresentation(Vector2.zero, false);
     }
 
     private void Stop()
@@ -185,34 +195,9 @@ public class PointClickController : MonoBehaviour
         return true;
     }
 
-    public bool TryDisplace(Vector3 worldOffset)
-    {
-        if (!Agent || worldOffset.sqrMagnitude <= DirectionDeadzone)
-        {
-            return false;
-        }
-
-        Vector3 targetPosition = Position + worldOffset;
-        targetPosition.y = Position.y;
-        if (!Agent.TryWarpTo(transform, targetPosition, navMeshSampleDistance, navMeshSnapDistance, out Vector3 sampledPosition))
-        {
-            return false;
-        }
-
-        Agent.StopPath();
-        lastPosition = sampledPosition;
-        return true;
-    }
-
     private void UpdateActiveDrag()
     {
-        if (Pointer.PrimaryReleasedThisFrame)
-        {
-            ClearActiveDrag();
-            return;
-        }
-
-        if (!Pointer.IsPrimaryPressed)
+        if (Pointer.PrimaryReleasedThisFrame || !Pointer.IsPrimaryPressed)
         {
             ClearActiveDrag();
         }
@@ -220,16 +205,22 @@ public class PointClickController : MonoBehaviour
 
     private void UpdatePendingInteraction()
     {
-        if (pendingInteractable == null || pendingTarget == null || !pendingInteractable.CanInteract(this))
+        if (!pendingInteraction.IsValid)
+        {
+            return;
+        }
+
+        InteractionRequest request = CreateRequest(pendingInteraction.Target, pendingInteraction.Mode);
+        if (!pendingInteraction.Target.TryGetHandler(request, out IInteractionHandler handler))
         {
             Stop();
             ClearPendingInteraction();
             return;
         }
 
-        if (!IsInRange(pendingTarget))
+        if (!IsInRange(pendingInteraction.Target))
         {
-            if (!IsNavigating && !TryApproach(pendingTarget))
+            if (!IsNavigating && !TryApproach(pendingInteraction.Target))
             {
                 ClearPendingInteraction();
             }
@@ -238,27 +229,59 @@ public class PointClickController : MonoBehaviour
         }
 
         Stop();
-        pendingInteractable.Interact(this);
+        handler.Interact(request);
         ClearPendingInteraction();
     }
 
     private void HandlePrimaryClick()
     {
-        if (Pointer.ClickedTarget)
+        if (!Pointer.ClickedTarget)
         {
-            QueueInteraction(Pointer.ClickedTarget);
+            if (Pointer.TryGetWalkPoint(out Vector3 point))
+            {
+                TrySetDestination(point);
+            }
+
             return;
         }
 
-        if (Pointer.TryGetWalkPoint(out Vector3 point))
-        {
-            TrySetDestination(point);
-        }
+        InteractionMode mode = ResolvePrimaryMode(Pointer.ClickedTarget);
+        QueueInteraction(Pointer.ClickedTarget, mode);
     }
 
-    private void QueueInteraction(InteractionTarget target)
+    private void HandleInspectClick()
     {
-        if (!target || !target.TryGetInteractable(out IWorldInteractable interactable) || !interactable.CanInteract(this))
+        if (Pointer.SecondaryClickedTarget)
+        {
+            QueueInteraction(Pointer.SecondaryClickedTarget, InteractionMode.Inspect);
+            return;
+        }
+
+        Cancel();
+    }
+
+    private InteractionMode ResolvePrimaryMode(InteractionTarget target)
+    {
+        InteractionRequest useRequest = CreateRequest(target, InteractionMode.UseSelectedItem);
+        return SceneInventory && SceneInventory.HasSelection && target.TryGetHandler(useRequest, out _)
+            ? InteractionMode.UseSelectedItem
+            : InteractionMode.Primary;
+    }
+
+    private InteractionRequest CreateRequest(InteractionTarget target, InteractionMode mode)
+    {
+        return new InteractionRequest(this, Pointer, target, mode, SceneInventory);
+    }
+
+    private void QueueInteraction(InteractionTarget target, InteractionMode mode)
+    {
+        if (!target)
+        {
+            return;
+        }
+
+        InteractionRequest request = CreateRequest(target, mode);
+        if (!target.TryGetHandler(request, out IInteractionHandler handler))
         {
             return;
         }
@@ -266,7 +289,7 @@ public class PointClickController : MonoBehaviour
         if (IsInRange(target))
         {
             Stop();
-            interactable.Interact(this);
+            handler.Interact(request);
             return;
         }
 
@@ -275,8 +298,7 @@ public class PointClickController : MonoBehaviour
             return;
         }
 
-        pendingTarget = target;
-        pendingInteractable = interactable;
+        pendingInteraction = new PendingInteraction(target, mode);
     }
 
     private void StartDrag()
@@ -315,8 +337,7 @@ public class PointClickController : MonoBehaviour
 
     private void ClearPendingInteraction()
     {
-        pendingTarget = null;
-        pendingInteractable = null;
+        pendingInteraction = default;
     }
 
     private void RefreshPresentation()
@@ -345,15 +366,14 @@ public class PointClickController : MonoBehaviour
             Flipper.SetFacing(direction);
         }
 
-        Animator animationController = Anim;
-        if (!animationController)
+        if (!Anim)
         {
             return;
         }
 
-        SetBool(animationController, movingParameter, moving);
-        SetFloat(animationController, horizontalSpeedParameter, direction.x);
-        SetFloat(animationController, verticalSpeedParameter, direction.y);
+        SetBool(movingParameter, moving);
+        SetFloat(horizontalSpeedParameter, direction.x);
+        SetFloat(verticalSpeedParameter, direction.y);
     }
 
     private Vector2 GetLocalMoveDirection(Vector3 worldDirection)
@@ -386,23 +406,36 @@ public class PointClickController : MonoBehaviour
             Mathf.Clamp(Vector3.Dot(worldDirection, forward) / speed, -1f, 1f));
     }
 
-    private static void SetBool(Animator animator, string parameterName, bool value)
+    private void SetBool(string parameterName, bool value)
     {
-        if (!animator || string.IsNullOrWhiteSpace(parameterName))
+        if (!Anim || string.IsNullOrWhiteSpace(parameterName))
         {
             return;
         }
 
-        animator.SetBool(Animator.StringToHash(parameterName), value);
+        Anim.SetBool(Animator.StringToHash(parameterName), value);
     }
 
-    private static void SetFloat(Animator animator, string parameterName, float value)
+    private void SetFloat(string parameterName, float value)
     {
-        if (!animator || string.IsNullOrWhiteSpace(parameterName))
+        if (!Anim || string.IsNullOrWhiteSpace(parameterName))
         {
             return;
         }
 
-        animator.SetFloat(Animator.StringToHash(parameterName), value);
+        Anim.SetFloat(Animator.StringToHash(parameterName), value);
+    }
+
+    private readonly struct PendingInteraction
+    {
+        public PendingInteraction(InteractionTarget target, InteractionMode mode)
+        {
+            Target = target;
+            Mode = mode;
+        }
+
+        public InteractionTarget Target { get; }
+        public InteractionMode Mode { get; }
+        public bool IsValid => Target;
     }
 }

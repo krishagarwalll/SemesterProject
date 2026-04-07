@@ -6,6 +6,7 @@ public class InteractionTarget : MonoBehaviour
     [Header("Target")]
     [SerializeField] private Transform interactionPoint;
     [SerializeField, Min(0.01f)] private float interactionRadius = 1.25f;
+    [SerializeField] private Room room;
 
     [Header("Cursor")]
     [SerializeField] private PointerCursorKind hoverCursorKind = PointerCursorKind.Interact;
@@ -13,32 +14,28 @@ public class InteractionTarget : MonoBehaviour
 
     private Collider targetCollider;
     private MonoBehaviour[] behaviours;
-    private IWorldInteractable interactable;
-    private IWorldDraggable draggable;
-    private bool resolvedInteractable;
-    private bool resolvedDraggable;
 
-    public Collider TargetCollider => this.ResolveComponent(ref targetCollider, true);
+    private Collider TargetCollider => this.ResolveComponent(ref targetCollider, true);
     public Transform InteractionPoint => interactionPoint ? interactionPoint : transform;
     public float InteractionRadius => interactionRadius;
-    public bool SupportsClick => Interactable != null;
-    public bool SupportsDrag => Draggable != null;
+    public Room OwnerRoom => room ? room : room = GetComponentInParent<Room>(true);
+    public bool SupportsDrag => TryGetDraggable(out IWorldDraggable draggable) && draggable.SupportsDrag;
+    public bool SupportsClick => CanHandle(InteractionMode.Primary) || CanHandle(InteractionMode.Inspect) || CanHandle(InteractionMode.UseSelectedItem);
     public PointerCursorKind HoverCursorKind => SupportsDrag && hoverCursorKind == PointerCursorKind.Interact
         ? PointerCursorKind.DragReady
         : hoverCursorKind;
     public PointerCursorKind DragCursorKind => dragCursorKind;
 
-    private IWorldInteractable Interactable => this.ResolveBehaviour(ref interactable, ref resolvedInteractable, ref behaviours);
-    private IWorldDraggable Draggable => this.ResolveBehaviour(ref draggable, ref resolvedDraggable, ref behaviours);
+    private MonoBehaviour[] Behaviours => behaviours ??= GetComponents<MonoBehaviour>();
 
     private void OnValidate()
     {
         targetCollider = null;
         behaviours = null;
-        interactable = null;
-        draggable = null;
-        resolvedInteractable = false;
-        resolvedDraggable = false;
+        if (!interactionPoint)
+        {
+            interactionPoint = transform;
+        }
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)
@@ -59,15 +56,48 @@ public class InteractionTarget : MonoBehaviour
         return delta.sqrMagnitude <= radius * radius;
     }
 
-    public bool TryGetInteractable(out IWorldInteractable handler)
+    public bool CanHandle(InteractionMode mode)
     {
-        handler = Interactable;
-        return handler != null;
+        for (int i = 0; i < Behaviours.Length; i++)
+        {
+            if (Behaviours[i] is IInteractionHandler handler && handler.Supports(mode))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool TryGetHandler(in InteractionRequest request, out IInteractionHandler handler)
+    {
+        for (int i = 0; i < Behaviours.Length; i++)
+        {
+            if (Behaviours[i] is not IInteractionHandler candidate || !candidate.Supports(request.Mode) || !candidate.CanInteract(request))
+            {
+                continue;
+            }
+
+            handler = candidate;
+            return true;
+        }
+
+        handler = null;
+        return false;
     }
 
     public bool TryGetDraggable(out IWorldDraggable handler)
     {
-        handler = Draggable;
-        return handler != null;
+        for (int i = 0; i < Behaviours.Length; i++)
+        {
+            if (Behaviours[i] is IWorldDraggable candidate && candidate.SupportsDrag)
+            {
+                handler = candidate;
+                return true;
+            }
+        }
+
+        handler = null;
+        return false;
     }
 }

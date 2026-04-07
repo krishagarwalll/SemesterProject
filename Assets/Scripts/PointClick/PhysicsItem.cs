@@ -5,12 +5,11 @@ using UnityEngine.AI;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(InteractionTarget))]
-public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
+public class PhysicsItem : MonoBehaviour, IInteractionHandler, IWorldDraggable
 {
-    private const int MaxPlayerResolveIterations = 6;
-    private const float PlayerClearance = 0.1f;
-    private const float MaxPlayerResolveStep = 0.75f;
-    private const float DistanceEpsilon = 0.0001f;
+    [Header("Type")]
+    [SerializeField] private PhysicsItemMode mode = PhysicsItemMode.RoomProp;
+    [SerializeField] private Room room;
 
     [Header("References")]
     [SerializeField] private Rigidbody body;
@@ -28,12 +27,14 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
 
     [Header("Movement Blocking")]
     [SerializeField] private bool blocksNavigation = true;
-    [SerializeField] private bool disableObstacleWhileDragging = true;
 
     [Header("Constraints")]
-    [SerializeField] private bool lockZPosition;
+    [SerializeField] private bool lockZPosition = true;
     [SerializeField] private bool lockRotationX = true;
     [SerializeField] private bool lockRotationY = true;
+
+    [Header("Inspect")]
+    [SerializeField, TextArea] private string inspectText;
 
     [Header("Inventory")]
     [SerializeField] private InventoryItemDefinition inventoryItemDefinition;
@@ -42,8 +43,6 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
     [SerializeField] private bool destroyOnStore;
 
     private PointerContext activePointer;
-    private Inventory inventory;
-    private PointClickController sceneController;
     private Collider[] itemColliders;
     private Collider[] playerColliders;
     private Vector3 dragOffset;
@@ -51,24 +50,23 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
     private float startZPosition;
     private RigidbodyConstraints baseConstraints;
     private bool cachedBaseConstraints;
-    private bool obstacleWasEnabled;
 
+    public bool SupportsDrag => canDrag && !CanStore;
     public bool IsDragging => activePointer != null;
 
     private Rigidbody Body => this.ResolveComponent(ref body);
     private Transform DragHandle => dragHandle ? dragHandle : transform;
     private NavMeshObstacle Obstacle => navMeshObstacle ? navMeshObstacle : navMeshObstacle = GetComponentInChildren<NavMeshObstacle>(true);
-    private Inventory SceneInventory => this.ResolveSceneComponent(ref inventory);
-    private PointClickController SceneController => this.ResolveSceneComponent(ref sceneController);
     private Collider[] ItemColliders => itemColliders ??= GetComponentsInChildren<Collider>(true);
-    private Collider[] PlayerColliders => playerColliders ??= SceneController ? SceneController.GetComponentsInChildren<Collider>(true) : Array.Empty<Collider>();
-    private bool CanStore => inventoryItemDefinition && inventoryQuantity > 0;
+    private Room OwnerRoom => room ? room : room = GetComponentInParent<Room>(true);
+    private bool CanStore => mode == PhysicsItemMode.WorldItem && inventoryItemDefinition && inventoryQuantity > 0;
 
     private void Reset()
     {
         this.ResolveComponent(ref body);
         dragHandle = transform;
         navMeshObstacle = GetComponentInChildren<NavMeshObstacle>(true);
+        room = GetComponentInParent<Room>(true);
     }
 
     private void Awake()
@@ -83,10 +81,8 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
 
     private void OnDisable()
     {
-        if (IsDragging)
-        {
-            EndDrag();
-        }
+        SetPlayerCollisionIgnored(false);
+        activePointer = null;
     }
 
     private void OnValidate()
@@ -96,14 +92,20 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
         maxForce = Mathf.Max(0f, maxForce);
         maxLiftHeight = Mathf.Max(0f, maxLiftHeight);
         inventoryQuantity = Mathf.Max(1, inventoryQuantity);
-        if (!Body)
+        if (mode == PhysicsItemMode.WorldItem)
         {
-            return;
+            canDrag = false;
+            blocksNavigation = false;
         }
 
         if (!dragHandle)
         {
             dragHandle = transform;
+        }
+
+        if (!room)
+        {
+            room = GetComponentInParent<Room>(true);
         }
 
         CaptureBaseConstraints();
@@ -113,21 +115,12 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
 
     private void FixedUpdate()
     {
-        if (!IsDragging || activePointer == null || !activePointer.TryGetDragPoint(dragBaseHeight, maxLiftHeight, out Vector3 point))
+        if (!IsDragging || activePointer == null || !TryGetDragPoint(out Vector3 targetPoint))
         {
             return;
         }
 
-        ResolvePlayerOverlap();
-
         Vector3 handlePosition = DragHandle.position;
-        Vector3 targetPoint = point + dragOffset;
-        targetPoint.y = Mathf.Clamp(targetPoint.y, dragBaseHeight, dragBaseHeight + maxLiftHeight);
-        if (lockZPosition)
-        {
-            targetPoint.z = startZPosition;
-        }
-
         Vector3 force = (targetPoint - handlePosition) * springForce - Body.GetPointVelocity(handlePosition) * dragDamping;
         if (maxForce > 0f)
         {
@@ -138,28 +131,116 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
         Body.WakeUp();
     }
 
-    public bool CanInteract(PointClickController controller)
+    public bool Supports(InteractionMode mode)
     {
-        return SceneInventory && CanStore;
+        return mode switch
+        {
+            InteractionMode.Primary => CanStore,
+            InteractionMode.Inspect => HasInspectText(),
+            _ => false
+        };
     }
 
-    public void Interact(PointClickController controller)
+    public bool CanInteract(in InteractionRequest request)
     {
-        if (!CanInteract(controller))
+        return request.Mode switch
+        {
+            InteractionMode.Primary => request.Inventory && CanStore && CanStoreIn(request.Inventory),
+            InteractionMode.Inspect => HasInspectText(),
+            _ => false
+        };
+    }
+
+    public void Interact(in InteractionRequest request)
+    {
+        switch (request.Mode)
+        {
+            case InteractionMode.Primary:
+                Store(request.Inventory);
+                break;
+
+            case InteractionMode.Inspect:
+                InteractionFeedback.Show(GetInspectText(), this);
+                break;
+        }
+    }
+
+    public bool CanStartDrag(PointerContext pointer)
+    {
+        return SupportsDrag && pointer && enabled && gameObject.activeInHierarchy && Body;
+    }
+
+    public void BeginDrag(PointerContext pointer)
+    {
+        if (!CanStartDrag(pointer))
         {
             return;
         }
 
-        if (IsDragging)
-        {
-            EndDrag();
-        }
+        activePointer = pointer;
+        dragBaseHeight = DragHandle.position.y;
+        dragOffset = TryGetPointerPoint(out Vector3 point) && keepGrabOffset ? DragHandle.position - point : Vector3.zero;
 
-        if (!SceneInventory.TryAdd(inventoryItemDefinition, inventoryQuantity))
+        SyncPlayerCollisionState();
+        SyncObstacleState();
+        SyncConstraints();
+        Body.WakeUp();
+    }
+
+    public void EndDrag()
+    {
+        if (!IsDragging)
         {
             return;
         }
 
+        activePointer = null;
+        SyncPlayerCollisionState();
+        SyncObstacleState();
+        SyncConstraints();
+    }
+
+    private bool TryGetPointerPoint(out Vector3 point)
+    {
+        point = default;
+        return activePointer && activePointer.TryGetDragPoint(dragBaseHeight, maxLiftHeight, out point);
+    }
+
+    private bool TryGetDragPoint(out Vector3 point)
+    {
+        point = default;
+        if (!TryGetPointerPoint(out Vector3 rawPoint))
+        {
+            return false;
+        }
+
+        point = rawPoint + dragOffset;
+        point.y = Mathf.Clamp(point.y, dragBaseHeight, dragBaseHeight + maxLiftHeight);
+        if (lockZPosition)
+        {
+            point.z = startZPosition;
+        }
+
+        if (OwnerRoom)
+        {
+            point = OwnerRoom.ClampPoint(point, lockZPosition ? startZPosition : point.z);
+        }
+
+        return true;
+    }
+
+    private void Store(Inventory targetInventory)
+    {
+        if (!targetInventory || !CanStore || !CanStoreIn(targetInventory) || !targetInventory.TryAdd(inventoryItemDefinition, inventoryQuantity))
+        {
+            return;
+        }
+
+        CompleteStore();
+    }
+
+    private void CompleteStore()
+    {
         if (destroyOnStore)
         {
             Destroy(gameObject);
@@ -169,44 +250,31 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
         if (disableGameObjectOnStore)
         {
             gameObject.SetActive(false);
-        }
-    }
-
-    public bool CanStartDrag(PointerContext pointer)
-    {
-        return canDrag && pointer && Body && enabled && gameObject.activeInHierarchy;
-    }
-
-    public void BeginDrag(PointerContext pointer)
-    {
-        if (!CanStartDrag(pointer) || !pointer.TryGetDragPoint(DragHandle.position.y, maxLiftHeight, out Vector3 point))
-        {
             return;
         }
 
-        activePointer = pointer;
-        dragBaseHeight = DragHandle.position.y;
-        dragOffset = keepGrabOffset ? DragHandle.position - point : Vector3.zero;
-        obstacleWasEnabled = Obstacle && Obstacle.enabled;
-
-        if (Obstacle && disableObstacleWhileDragging)
-        {
-            Obstacle.enabled = false;
-        }
-
-        SyncConstraints();
-        Body.WakeUp();
+        activePointer = null;
+        SyncState(captureStartState: false, captureBaseConstraints: false);
     }
 
-    public void EndDrag()
+    private bool HasInspectText()
     {
-        if (Obstacle && disableObstacleWhileDragging)
+        return !string.IsNullOrWhiteSpace(inspectText) || inventoryItemDefinition && !string.IsNullOrWhiteSpace(inventoryItemDefinition.Description);
+    }
+
+    private string GetInspectText()
+    {
+        if (!string.IsNullOrWhiteSpace(inspectText))
         {
-            Obstacle.enabled = blocksNavigation && obstacleWasEnabled;
+            return inspectText;
         }
 
-        activePointer = null;
-        SyncConstraints();
+        if (inventoryItemDefinition && !string.IsNullOrWhiteSpace(inventoryItemDefinition.Description))
+        {
+            return inventoryItemDefinition.Description;
+        }
+
+        return inventoryItemDefinition ? inventoryItemDefinition.DisplayName : name;
     }
 
     private void SyncState(bool captureStartState, bool captureBaseConstraints)
@@ -221,6 +289,7 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
             CaptureBaseConstraints();
         }
 
+        SyncPlayerCollisionState();
         SyncObstacleState();
         SyncConstraints();
     }
@@ -238,101 +307,20 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
 
     private void SyncObstacleState()
     {
-        if (Obstacle)
-        {
-            Obstacle.enabled = blocksNavigation;
-            Obstacle.carving = blocksNavigation;
-            Obstacle.carveOnlyStationary = true;
-        }
-    }
-
-    private void ResolvePlayerOverlap()
-    {
-        PointClickController controller = SceneController;
-        if (!controller || PlayerColliders.Length == 0)
+        if (!Obstacle)
         {
             return;
         }
 
-        for (int i = 0; i < MaxPlayerResolveIterations; i++)
-        {
-            Vector3 displacement = GetPlayerDisplacement();
-            if (displacement.sqrMagnitude <= DistanceEpsilon)
-            {
-                return;
-            }
-
-            if (!controller.TryDisplace(Vector3.ClampMagnitude(displacement, MaxPlayerResolveStep)))
-            {
-                return;
-            }
-        }
+        bool obstacleEnabled = blocksNavigation && !IsDragging;
+        Obstacle.enabled = obstacleEnabled;
+        Obstacle.carving = blocksNavigation;
+        Obstacle.carveOnlyStationary = true;
     }
 
-    private Vector3 GetPlayerDisplacement()
+    private void SyncPlayerCollisionState()
     {
-        Vector3 displacement = Vector3.zero;
-        for (int i = 0; i < ItemColliders.Length; i++)
-        {
-            Collider itemCollider = ItemColliders[i];
-            if (!itemCollider)
-            {
-                continue;
-            }
-
-            for (int j = 0; j < PlayerColliders.Length; j++)
-            {
-                Collider playerCollider = PlayerColliders[j];
-                if (!playerCollider)
-                {
-                    continue;
-                }
-
-                if (!Physics.ComputePenetration(
-                        itemCollider,
-                        itemCollider.transform.position,
-                        itemCollider.transform.rotation,
-                        playerCollider,
-                        playerCollider.transform.position,
-                        playerCollider.transform.rotation,
-                        out Vector3 direction,
-                        out float distance))
-                {
-                    displacement += GetPlayerClearanceOffset(itemCollider, playerCollider);
-                    continue;
-                }
-
-                Vector3 separation = -direction * (distance + PlayerClearance);
-                separation.y = 0f;
-                displacement += separation;
-            }
-        }
-
-        return displacement;
-    }
-
-    private static Vector3 GetPlayerClearanceOffset(Collider itemCollider, Collider playerCollider)
-    {
-        Vector3 itemPoint = itemCollider.ClosestPoint(playerCollider.bounds.center);
-        Vector3 playerPoint = playerCollider.ClosestPoint(itemPoint);
-        Vector3 horizontalDelta = playerPoint - itemPoint;
-        horizontalDelta.y = 0f;
-        float distance = horizontalDelta.magnitude;
-        if (distance >= PlayerClearance)
-        {
-            return Vector3.zero;
-        }
-
-        Vector3 direction = distance > DistanceEpsilon
-            ? horizontalDelta / distance
-            : (playerCollider.bounds.center - itemCollider.bounds.center).normalized;
-        direction.y = 0f;
-        if (direction.sqrMagnitude <= DistanceEpsilon)
-        {
-            direction = Vector3.right;
-        }
-
-        return direction.normalized * (PlayerClearance - distance);
+        SetPlayerCollisionIgnored(ShouldIgnorePlayerCollision);
     }
 
     private void SyncConstraints()
@@ -357,6 +345,52 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
         position.z = startZPosition;
         Body.position = position;
     }
+
+    private void SetPlayerCollisionIgnored(bool ignored)
+    {
+        Collider[] colliders = GetPlayerColliders();
+        if (colliders.Length == 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < ItemColliders.Length; i++)
+        {
+            Collider itemCollider = ItemColliders[i];
+            if (!itemCollider)
+            {
+                continue;
+            }
+
+            for (int j = 0; j < colliders.Length; j++)
+            {
+                Collider playerCollider = colliders[j];
+                if (playerCollider)
+                {
+                    Physics.IgnoreCollision(itemCollider, playerCollider, ignored);
+                }
+            }
+        }
+    }
+
+    private Collider[] GetPlayerColliders()
+    {
+        if (playerColliders != null && playerColliders.Length > 0)
+        {
+            return playerColliders;
+        }
+
+        PointClickController player = FindFirstObjectByType<PointClickController>(FindObjectsInactive.Include);
+        playerColliders = player ? player.GetComponentsInChildren<Collider>(true) : Array.Empty<Collider>();
+        return playerColliders;
+    }
+
+    private bool CanStoreIn(Inventory targetInventory)
+    {
+        return targetInventory && (targetInventory.Contains(inventoryItemDefinition) || !targetInventory.IsFull);
+    }
+
+    private bool ShouldIgnorePlayerCollision => IsDragging || !blocksNavigation;
 
     private RigidbodyConstraints GetManagedConstraints(bool includeDragRotation)
     {
@@ -383,4 +417,11 @@ public class PhysicsItem : MonoBehaviour, IWorldInteractable, IWorldDraggable
 
         return constraints;
     }
+}
+
+public enum PhysicsItemMode
+{
+    RoomProp = 0,
+    WorldItem = 1,
+    ObstacleProp = 2
 }

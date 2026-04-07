@@ -29,7 +29,7 @@ public class PointerContext : MonoBehaviour
     private bool primaryPressedThisFrame;
     private bool primaryReleasedThisFrame;
     private bool primaryClickedThisFrame;
-    private bool secondaryPressedThisFrame;
+    private bool secondaryClickedThisFrame;
     private bool dragStartedThisFrame;
     private bool isPrimaryPressed;
     private bool isDragging;
@@ -46,15 +46,20 @@ public class PointerContext : MonoBehaviour
     private InteractionTarget pressedTarget;
     private InteractionTarget dragTarget;
     private InteractionTarget clickedTarget;
+    private InteractionTarget secondaryClickedTarget;
 
     public bool PrimaryPressedThisFrame => primaryPressedThisFrame;
     public bool PrimaryReleasedThisFrame => primaryReleasedThisFrame;
     public bool PrimaryClickedThisFrame => primaryClickedThisFrame;
-    public bool SecondaryPressedThisFrame => secondaryPressedThisFrame;
+    public bool SecondaryClickedThisFrame => secondaryClickedThisFrame;
     public bool DragStartedThisFrame => dragStartedThisFrame;
     public bool IsPrimaryPressed => isPrimaryPressed;
     public bool IsPointerOverUi => isPointerOverUi;
+    public bool HasWalkPoint => hasWalkPoint;
+    public Vector2 ScreenPosition => screenPosition;
+    public InteractionTarget HoveredTarget => hoveredTarget;
     public InteractionTarget ClickedTarget => clickedTarget;
+    public InteractionTarget SecondaryClickedTarget => secondaryClickedTarget;
     public InteractionTarget DragTarget => dragTarget;
     public PointerCursorKind CursorKind => ResolveCursorKind();
     public Camera WorldCamera => worldCamera ? worldCamera : worldCamera = Camera.main;
@@ -104,13 +109,15 @@ public class PointerContext : MonoBehaviour
         screenPosition = pointerPositionAction.ReadValueOrDefault<Vector2>();
         primaryPressedThisFrame = primaryPressAction.WasPressedThisFrame();
         primaryReleasedThisFrame = primaryPressAction.WasReleasedThisFrame();
-        secondaryPressedThisFrame = secondaryPressAction.WasPressedThisFrame();
         primaryClickedThisFrame = false;
+        secondaryClickedThisFrame = false;
         dragStartedThisFrame = false;
         clickedTarget = null;
+        secondaryClickedTarget = null;
 
         ResolveWorldState();
-        UpdatePressState();
+        UpdatePrimaryState();
+        UpdateSecondaryState();
         ApplyCursor(force: false);
     }
 
@@ -146,7 +153,7 @@ public class PointerContext : MonoBehaviour
         return true;
     }
 
-    private void UpdatePressState()
+    private void UpdatePrimaryState()
     {
         if (primaryPressedThisFrame)
         {
@@ -180,6 +187,15 @@ public class PointerContext : MonoBehaviour
         dragTarget = null;
     }
 
+    private void UpdateSecondaryState()
+    {
+        if (secondaryPressAction.WasPressedThisFrame())
+        {
+            secondaryClickedThisFrame = true;
+            secondaryClickedTarget = hoveredTarget;
+        }
+    }
+
     private void ResolveWorldState()
     {
         hoveredTarget = null;
@@ -188,7 +204,7 @@ public class PointerContext : MonoBehaviour
         isWorldBlocked = false;
         isPointerOverUi = EventSystem.current.IsPointerOverCurrentPointer();
 
-        if (!WorldCamera || (ignoreWorldWhenOverUi && isPointerOverUi))
+        if (!WorldCamera || ignoreWorldWhenOverUi && isPointerOverUi)
         {
             return;
         }

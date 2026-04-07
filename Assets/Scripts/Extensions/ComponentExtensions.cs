@@ -19,16 +19,22 @@ public static class ComponentExtensions
 
     public static Transform EnsureChild(this Transform parent, ref Transform cache, string childName)
     {
-        if (cache)
-        {
-            return cache;
-        }
-
         if (!parent)
         {
             return null;
         }
 
+        if (cache && cache.parent == parent)
+        {
+            if (cache.name != childName)
+            {
+                cache.name = childName;
+            }
+
+            return cache;
+        }
+
+        cache = null;
         cache = parent.Find(childName);
         if (cache)
         {

@@ -29,6 +29,7 @@ public class SpriteShadowCaster : MonoBehaviour
     private Transform shadowRoot;
     private MeshFilter shadowFilter;
     private MeshRenderer shadowRenderer;
+    private Mesh shadowMesh;
     private Material runtimeMaterial;
     private MaterialPropertyBlock propertyBlock;
     private Sprite lastSprite;
@@ -67,6 +68,7 @@ public class SpriteShadowCaster : MonoBehaviour
 
     private void OnDestroy()
     {
+        DestroyShadowMesh();
         if (!runtimeMaterial)
         {
             return;
@@ -126,6 +128,11 @@ public class SpriteShadowCaster : MonoBehaviour
             return;
         }
 
+        if (ShadowRoot.name != ShadowChildName)
+        {
+            ShadowRoot.name = ShadowChildName;
+        }
+
         ShadowRoot.localPosition = localOffset;
         ShadowRoot.localRotation = Quaternion.identity;
         ShadowRoot.localScale = new Vector3(Renderer.flipX ? -1f : 1f, Renderer.flipY ? -1f : 1f, 1f);
@@ -138,16 +145,10 @@ public class SpriteShadowCaster : MonoBehaviour
             return;
         }
 
-        if (sprite == lastSprite)
+        Mesh mesh = EnsureShadowMesh();
+        if (!NeedsMeshRebuild(sprite, mesh))
         {
             return;
-        }
-
-        Mesh mesh = ShadowFilter.sharedMesh;
-        if (!mesh)
-        {
-            mesh = new Mesh { name = $"{name}_SpriteShadow" };
-            ShadowFilter.sharedMesh = mesh;
         }
 
         mesh.Clear();
@@ -178,6 +179,7 @@ public class SpriteShadowCaster : MonoBehaviour
         mesh.triangles = triangles;
         mesh.RecalculateBounds();
 
+        ShadowFilter.sharedMesh = mesh;
         lastSprite = sprite;
     }
 
@@ -253,6 +255,11 @@ public class SpriteShadowCaster : MonoBehaviour
         }
 
         root.gameObject.layer = gameObject.layer;
+        if (ShadowFilter.sharedMesh != EnsureShadowMesh())
+        {
+            ShadowFilter.sharedMesh = EnsureShadowMesh();
+        }
+
         renderer.shadowCastingMode = shadowsOnly ? ShadowCastingMode.ShadowsOnly : ShadowCastingMode.On;
         renderer.receiveShadows = false;
         renderer.lightProbeUsage = LightProbeUsage.Off;
@@ -263,6 +270,7 @@ public class SpriteShadowCaster : MonoBehaviour
 
     private void SetShadowEnabled(bool value)
     {
+        value &= Renderer && Renderer.enabled;
         if (ShadowRenderer)
         {
             ShadowRenderer.enabled = value;
@@ -272,6 +280,60 @@ public class SpriteShadowCaster : MonoBehaviour
         {
             ShadowFilter.gameObject.SetActive(value);
         }
+    }
+
+    private Mesh EnsureShadowMesh()
+    {
+        if (shadowMesh)
+        {
+            return shadowMesh;
+        }
+
+        shadowMesh = new Mesh { name = $"{name}_SpriteShadow" };
+        shadowMesh.hideFlags = HideFlags.DontSaveInEditor | HideFlags.DontSaveInBuild;
+        return shadowMesh;
+    }
+
+    private bool NeedsMeshRebuild(Sprite sprite, Mesh mesh)
+    {
+        if (!mesh || !sprite)
+        {
+            return false;
+        }
+
+        if (ShadowFilter.sharedMesh != mesh || sprite != lastSprite)
+        {
+            return true;
+        }
+
+        if (mesh.vertexCount != sprite.vertices.Length || mesh.subMeshCount == 0 || mesh.GetIndexCount(0) != sprite.triangles.Length)
+        {
+            return true;
+        }
+
+        Bounds spriteBounds = sprite.bounds;
+        Bounds meshBounds = mesh.bounds;
+        return !Mathf.Approximately(meshBounds.size.x, spriteBounds.size.x)
+            || !Mathf.Approximately(meshBounds.size.y, spriteBounds.size.y);
+    }
+
+    private void DestroyShadowMesh()
+    {
+        if (!shadowMesh)
+        {
+            return;
+        }
+
+        if (Application.isPlaying)
+        {
+            Destroy(shadowMesh);
+        }
+        else
+        {
+            DestroyImmediate(shadowMesh);
+        }
+
+        shadowMesh = null;
     }
 
     private static void ConfigureMaterial(Material material)
