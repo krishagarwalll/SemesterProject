@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8704ce35ad1dd7346a2f6aa71c43fe98
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Scenes/Bilinear3Demo.unity
+  uploadId: 866924

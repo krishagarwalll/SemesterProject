@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 19ac1529b70d988489dcd6a6e209005a
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Shaders/RetroShadowCasterPass.hlsl
+  uploadId: 866924

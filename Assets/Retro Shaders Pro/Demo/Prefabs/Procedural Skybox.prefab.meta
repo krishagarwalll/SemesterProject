@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a3f4bf6714abb4849b7ce269fcfd606a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Prefabs/Procedural Skybox.prefab
+  uploadId: 866924

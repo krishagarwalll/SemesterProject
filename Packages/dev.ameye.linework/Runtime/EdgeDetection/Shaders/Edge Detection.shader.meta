@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0049e25744c864ee4916fc340cf7957f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/EdgeDetection/Shaders/Edge Detection.shader
+  uploadId: 885802

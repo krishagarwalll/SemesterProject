@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a1887cacd567043328b8dbc6f474cd7d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/Common/OutlineOverride.cs
+  uploadId: 885802

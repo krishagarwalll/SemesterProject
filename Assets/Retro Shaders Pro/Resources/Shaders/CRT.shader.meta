@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 1444bdf57a6b9d0439ca29aa0a242e58
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Resources/Shaders/CRT.shader
+  uploadId: 866924

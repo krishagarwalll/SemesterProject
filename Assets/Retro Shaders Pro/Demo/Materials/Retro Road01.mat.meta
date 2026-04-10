@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2e61c0d6c8595f64aa1413a880a80458
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Retro Road01.mat
+  uploadId: 866924

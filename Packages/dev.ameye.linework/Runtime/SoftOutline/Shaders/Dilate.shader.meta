@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: a987f6629a694e19a74290edccde4040
+timeCreated: 1723373617
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/SoftOutline/Shaders/Dilate.shader
+  uploadId: 885802

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 77919a79a0a6848a48cc159fda371efb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Documentation/Wide Outline Settings.asset
+  uploadId: 885802

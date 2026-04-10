@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e98b65e1f1219b24ea8bffcf693c48e9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Retro Brick Wall 2.mat
+  uploadId: 866924

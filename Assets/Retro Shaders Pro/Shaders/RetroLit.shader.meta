@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 71a090e9b5b488349913abe716bb7bc6
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Shaders/RetroLit.shader
+  uploadId: 866924

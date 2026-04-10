@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: c3d9423b8a94407596116cb6ff8e3e59
+timeCreated: 1719059574
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/FastOutline/FastOutlineSettings.cs
+  uploadId: 885802

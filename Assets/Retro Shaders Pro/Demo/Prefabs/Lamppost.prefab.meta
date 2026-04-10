@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a9c74c75dd72b624b83e7721b7afc611
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Prefabs/Lamppost.prefab
+  uploadId: 866924

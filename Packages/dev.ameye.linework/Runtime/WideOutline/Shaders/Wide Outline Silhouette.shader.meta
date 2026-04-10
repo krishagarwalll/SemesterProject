@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 2a1be836d8f24bbb91714e9a51f8fec1
+timeCreated: 1719432815
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/WideOutline/Shaders/Wide Outline
+    Silhouette.shader
+  uploadId: 885802

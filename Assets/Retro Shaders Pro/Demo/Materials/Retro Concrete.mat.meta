@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0b217f0d6f78af94384960133258c5da
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Retro Concrete.mat
+  uploadId: 866924

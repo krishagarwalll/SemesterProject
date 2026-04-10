@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9d6033fe8c48f4059a892093b5eec20b
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/Common/Shaders/Clear.shader
+  uploadId: 885802

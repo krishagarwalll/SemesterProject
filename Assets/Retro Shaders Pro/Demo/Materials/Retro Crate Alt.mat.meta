@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1636a8b6c0dc86a4e8270d1fe9f2c179
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Retro Crate Alt.mat
+  uploadId: 866924

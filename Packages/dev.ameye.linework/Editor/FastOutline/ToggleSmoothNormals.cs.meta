@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 452b9d2e847e6415d8ea64ec14425354
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Editor/FastOutline/ToggleSmoothNormals.cs
+  uploadId: 885802

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c6e61731d1162bb4fa262d8857795e91
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Retro Tree Leaves.mat
+  uploadId: 866924

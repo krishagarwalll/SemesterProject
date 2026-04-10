@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: b7b25b6fd39f14aeeba46013a510a40c
+timeCreated: 1718994960
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/SoftOutline/Shaders/Soft Outline
+    Silhouette Instanced.shader
+  uploadId: 885802

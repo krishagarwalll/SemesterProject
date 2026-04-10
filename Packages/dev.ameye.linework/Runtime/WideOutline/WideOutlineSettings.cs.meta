@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 1beecfe6c40d4fc397be59c6d99409a5
+timeCreated: 1719255227
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/WideOutline/WideOutlineSettings.cs
+  uploadId: 885802

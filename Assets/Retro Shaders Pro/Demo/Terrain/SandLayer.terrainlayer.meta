@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3a90a5f84f13a15409586abb9d1b5617
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 8574412962073106934
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Terrain/SandLayer.terrainlayer
+  uploadId: 866924

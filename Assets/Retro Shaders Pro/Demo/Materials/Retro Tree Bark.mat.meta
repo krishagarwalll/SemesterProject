@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1d4f4f94e47254649a8dbc5c43cc795d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Retro Tree Bark.mat
+  uploadId: 866924

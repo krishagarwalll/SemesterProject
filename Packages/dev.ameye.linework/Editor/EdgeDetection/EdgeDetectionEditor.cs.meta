@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 7c935e17ca8d4499b1625d8366e08e12
+timeCreated: 1718982721
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Editor/EdgeDetection/EdgeDetectionEditor.cs
+  uploadId: 885802

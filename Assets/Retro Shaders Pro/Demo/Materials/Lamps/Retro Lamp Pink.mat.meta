@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4d3071ae77cbd594ab756bf649de629b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Lamps/Retro Lamp Pink.mat
+  uploadId: 866924

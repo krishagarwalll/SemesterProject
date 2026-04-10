@@ -9,18 +9,16 @@ public class InventoryHotbar : MonoBehaviour
     private const string DragPreviewName = "InventoryDragPreview";
     private static readonly Vector2 ExpandedSlotPosition = new(-12f, -72f);
 
-    [Header("References")]
     [SerializeField] private Inventory inventory;
+    [SerializeField] private InventoryTransferController transferController;
     [SerializeField] private RectTransform panel;
     [SerializeField] private RectTransform slotContainer;
     [SerializeField] private Button backpackButton;
 
-    [Header("Animation")]
     [SerializeField] private bool collapsed;
     [SerializeField, Min(0f)] private float collapsedOffset = 220f;
     [SerializeField, Min(0f)] private float slideSpeed = 1200f;
 
-    [Header("Style")]
     [SerializeField] private Vector2 slotSize = new(88f, 88f);
     [SerializeField] private Color slotColor = new(0.14f, 0.14f, 0.16f, 0.92f);
     [SerializeField] private Color selectedSlotColor = new(0.85f, 0.72f, 0.37f, 0.98f);
@@ -35,12 +33,14 @@ public class InventoryHotbar : MonoBehaviour
     private TextMeshProUGUI dragPreviewLabel;
     private TextMeshProUGUI dragPreviewQuantity;
     private int dragSourceIndex = -1;
-    private int dragDropTargetIndex = -1;
+    private Vector2 lastDragScreenPosition;
+    private bool worldPlacementActive;
 
     private RectTransform Panel => panel ? panel : panel = transform as RectTransform;
     private RectTransform SlotContainer => slotContainer ? slotContainer : slotContainer = EnsureSlotContainer();
     private Button BackpackButton => backpackButton ? backpackButton : backpackButton = EnsureBackpackButton();
     private Inventory SceneInventory => inventory ? inventory : inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
+    private InventoryTransferController TransferController => transferController ? transferController : transferController = FindFirstObjectByType<InventoryTransferController>(FindObjectsInactive.Include);
     private Canvas RootCanvas => rootCanvas ? rootCanvas : rootCanvas = GetComponentInParent<Canvas>();
 
     public bool IsCollapsed => collapsed;
@@ -60,7 +60,7 @@ public class InventoryHotbar : MonoBehaviour
         RebuildSlotCache();
         EnsureSlots();
         Refresh();
-        UpdateTargetPosition(applyImmediately: true);
+        UpdateTargetPosition(true);
     }
 
     private void OnValidate()
@@ -70,7 +70,7 @@ public class InventoryHotbar : MonoBehaviour
         backpackButton = EnsureBackpackButton();
         RebuildSlotCache();
         EnsureSlots();
-        UpdateTargetPosition(applyImmediately: true);
+        UpdateTargetPosition(true);
         Refresh();
     }
 
@@ -83,7 +83,7 @@ public class InventoryHotbar : MonoBehaviour
 
         BackpackButton.onClick.AddListener(ToggleCollapsed);
         Refresh();
-        UpdateTargetPosition(applyImmediately: true);
+        UpdateTargetPosition(true);
     }
 
     private void OnDisable()
@@ -127,7 +127,11 @@ public class InventoryHotbar : MonoBehaviour
 
     public bool CanBeginSlotDrag(int slotIndex)
     {
-        return !collapsed && SceneInventory && SceneInventory.TryGetEntry(slotIndex, out _);
+        return !collapsed
+            && !worldPlacementActive
+            && (!TransferController || !TransferController.IsActive)
+            && SceneInventory
+            && SceneInventory.TryGetEntry(slotIndex, out _);
     }
 
     public void BeginSlotDrag(int slotIndex, Vector2 screenPosition)
@@ -138,29 +142,34 @@ public class InventoryHotbar : MonoBehaviour
         }
 
         dragSourceIndex = slotIndex;
-        dragDropTargetIndex = -1;
+        lastDragScreenPosition = screenPosition;
+        worldPlacementActive = false;
         EnsureDragPreview();
         UpdateDragPreview(entry, screenPosition);
     }
 
     public void UpdateSlotDrag(Vector2 screenPosition)
     {
-        if (dragSourceIndex < 0 || !dragPreviewRoot)
+        if (dragSourceIndex < 0)
         {
             return;
         }
 
-        dragPreviewRoot.anchoredPosition = ScreenToCanvasPosition(screenPosition);
-    }
-
-    public void HandleSlotDrop(int fromIndex, int toIndex)
-    {
-        if (collapsed || fromIndex != dragSourceIndex)
+        lastDragScreenPosition = screenPosition;
+        if (!worldPlacementActive
+            && TransferController
+            && !TryGetInventoryDropTarget(screenPosition, out _, out _)
+            && TransferController.TryBeginPlacementFromInventory(dragSourceIndex))
         {
+            worldPlacementActive = true;
+            HideDragPreview();
             return;
         }
 
-        dragDropTargetIndex = toIndex;
+        if (!worldPlacementActive && dragPreviewRoot)
+        {
+            dragPreviewRoot.anchoredPosition = ScreenToCanvasPosition(screenPosition);
+        }
     }
 
     public void EndSlotDrag(Vector2 screenPosition, bool cancelled = false)
@@ -171,11 +180,42 @@ public class InventoryHotbar : MonoBehaviour
             return;
         }
 
-        if (!cancelled && SceneInventory)
+        if (screenPosition == Vector2.zero)
         {
-            if (dragDropTargetIndex >= 0 && dragDropTargetIndex != dragSourceIndex)
+            screenPosition = lastDragScreenPosition;
+        }
+
+        if (!cancelled
+            && !worldPlacementActive
+            && TransferController
+            && !TryGetInventoryDropTarget(screenPosition, out _, out _)
+            && TransferController.TryBeginPlacementFromInventory(dragSourceIndex))
+        {
+            worldPlacementActive = true;
+        }
+
+        if (worldPlacementActive)
+        {
+            TransferController?.EndPlacementDrag(screenPosition, cancelled);
+            dragSourceIndex = -1;
+            lastDragScreenPosition = Vector2.zero;
+            worldPlacementActive = false;
+            HideDragPreview();
+            return;
+        }
+
+        if (!cancelled && !worldPlacementActive && SceneInventory)
+        {
+            if (TryGetInventoryDropTarget(screenPosition, out int slotIndex, out _))
             {
-                SceneInventory.Move(dragSourceIndex, dragDropTargetIndex);
+                if (slotIndex >= 0 && slotIndex != dragSourceIndex)
+                {
+                    SceneInventory.Move(dragSourceIndex, slotIndex);
+                }
+                else if (SceneInventory.TryGetEntry(dragSourceIndex, out _))
+                {
+                    SceneInventory.Select(dragSourceIndex, toggle: false);
+                }
             }
             else if (SceneInventory.TryGetEntry(dragSourceIndex, out _))
             {
@@ -184,14 +224,51 @@ public class InventoryHotbar : MonoBehaviour
         }
 
         dragSourceIndex = -1;
-        dragDropTargetIndex = -1;
+        lastDragScreenPosition = Vector2.zero;
+        worldPlacementActive = false;
         HideDragPreview();
     }
 
     private void ToggleCollapsed()
     {
         collapsed = !collapsed;
-        UpdateTargetPosition(applyImmediately: false);
+        UpdateTargetPosition(false);
+    }
+
+    public bool IsInventoryArea(Vector2 screenPosition)
+    {
+        return TryGetInventoryDropTarget(screenPosition, out _, out _);
+    }
+
+    public bool TryGetInventoryDropTarget(Vector2 screenPosition, out int slotIndex, out bool overBackpack)
+    {
+        slotIndex = -1;
+        overBackpack = false;
+
+        Camera eventCamera = RootCanvas && RootCanvas.renderMode != RenderMode.ScreenSpaceOverlay ? RootCanvas.worldCamera : null;
+        if (BackpackButton && RectTransformUtility.RectangleContainsScreenPoint(BackpackButton.transform as RectTransform, screenPosition, eventCamera))
+        {
+            overBackpack = true;
+            return true;
+        }
+
+        if (!collapsed && TryGetExactSlotIndex(screenPosition, eventCamera, out slotIndex))
+        {
+            return true;
+        }
+
+        if (Panel && RectTransformUtility.RectangleContainsScreenPoint(Panel, screenPosition, eventCamera))
+        {
+            if (!collapsed && TryGetClosestSlotIndex(screenPosition, out slotIndex))
+            {
+                return true;
+            }
+
+            overBackpack = true;
+            return true;
+        }
+
+        return false;
     }
 
     private void Refresh()
@@ -214,8 +291,7 @@ public class InventoryHotbar : MonoBehaviour
             RebuildSlotCache();
         }
 
-        Inventory currentInventory = SceneInventory;
-        int slotCount = currentInventory ? currentInventory.Capacity : 6;
+        int slotCount = SceneInventory ? SceneInventory.Capacity : 6;
         while (slots.Count < slotCount)
         {
             slots.Add(InventoryHotbarSlot.Create(SlotContainer, slotSize));
@@ -324,12 +400,13 @@ public class InventoryHotbar : MonoBehaviour
         }
 
         InventoryItemDefinition definition = entry.Definition;
-        bool showIcon = definition && definition.Icon;
+        Sprite previewSprite = InventoryItemVisualResolver.GetSprite(definition);
+        bool showIcon = previewSprite;
         dragPreviewRoot.gameObject.SetActive(true);
         dragPreviewRoot.anchoredPosition = ScreenToCanvasPosition(screenPosition);
         dragPreviewBackground.color = slotColor;
         dragPreviewIcon.enabled = showIcon;
-        dragPreviewIcon.sprite = showIcon ? definition.Icon : null;
+        dragPreviewIcon.sprite = previewSprite;
         dragPreviewLabel.enabled = !showIcon;
         dragPreviewLabel.text = InventoryHotbarSlot.GetFallbackLabel(definition);
         dragPreviewQuantity.text = entry.Quantity > 1 ? entry.Quantity.ToString() : string.Empty;
@@ -429,6 +506,69 @@ public class InventoryHotbar : MonoBehaviour
         }
 
         return button;
+    }
+
+    private bool TryGetExactSlotIndex(Vector2 screenPosition, Camera eventCamera, out int slotIndex)
+    {
+        slotIndex = -1;
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (!slots[i] || !slots[i].gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            RectTransform slotRect = slots[i].transform as RectTransform;
+            if (slotRect && RectTransformUtility.RectangleContainsScreenPoint(slotRect, screenPosition, eventCamera))
+            {
+                slotIndex = i;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool TryGetClosestSlotIndex(Vector2 screenPosition, out int slotIndex)
+    {
+        slotIndex = -1;
+        if (collapsed)
+        {
+            return false;
+        }
+
+        Camera eventCamera = RootCanvas && RootCanvas.renderMode != RenderMode.ScreenSpaceOverlay ? RootCanvas.worldCamera : null;
+        if (TryGetExactSlotIndex(screenPosition, eventCamera, out slotIndex))
+        {
+            return true;
+        }
+
+        float closestDistance = float.PositiveInfinity;
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (!slots[i] || !slots[i].gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            RectTransform slotRect = slots[i].transform as RectTransform;
+            if (!slotRect)
+            {
+                continue;
+            }
+
+            Vector2 slotScreenPoint = RectTransformUtility.WorldToScreenPoint(eventCamera, slotRect.position);
+            float distance = (slotScreenPoint - screenPosition).sqrMagnitude;
+            if (distance >= closestDistance)
+            {
+                continue;
+            }
+
+            closestDistance = distance;
+            slotIndex = i;
+        }
+
+        return slotIndex >= 0;
     }
 
     private Vector2 ScreenToCanvasPosition(Vector2 screenPosition)

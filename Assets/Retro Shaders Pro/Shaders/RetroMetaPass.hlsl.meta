@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: fa7d85b7726583d4c9c4223001aa7be3
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Shaders/RetroMetaPass.hlsl
+  uploadId: 866924

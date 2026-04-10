@@ -1,0 +1,195 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: CRT
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: 576815941172598958}
+  - {fileID: 2182205748910702091}
+--- !u!114 &576815941172598958
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25792a1c800b6f5498b76a67b3c5b765, type: 3}
+  m_Name: CRTSettings
+  m_EditorClassIdentifier: 
+  active: 1
+  showInSceneView:
+    m_OverrideState: 1
+    m_Value: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 1
+  renderPassEvent:
+    m_OverrideState: 1
+    m_Value: 1
+  useBarrelDistortion:
+    m_OverrideState: 1
+    m_Value: 1
+  distortionStrength:
+    m_OverrideState: 1
+    m_Value: 0.05
+  distortionSmoothing:
+    m_OverrideState: 1
+    m_Value: 0.015
+  colorRampMode:
+    m_OverrideState: 1
+    m_Value: 19
+  colorRampTex:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 2899b63b2376bef4ab300146c22d1b78, type: 3}
+    dimension: 1
+  redValues:
+    m_OverrideState: 1
+    m_Value: 32
+  greenValues:
+    m_OverrideState: 1
+    m_Value: 32
+  blueValues:
+    m_OverrideState: 1
+    m_Value: 32
+  useDithering:
+    m_OverrideState: 0
+    m_Value: 0
+  tintColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  backgroundColor:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  scaleParameters:
+    m_OverrideState: 1
+    m_Value: 0
+  verticalReferenceResolution:
+    m_OverrideState: 1
+    m_Value: 1080
+  forcePointFiltering:
+    m_OverrideState: 1
+    m_Value: 0
+  rgbTex:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: fd8088cbd398ed140b8ecad39f98e566, type: 3}
+    dimension: 1
+  rgbStrength:
+    m_OverrideState: 1
+    m_Value: 0.25
+  scanlineTex:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 7b5d79ca87223054fa2cb8ee041efb01, type: 3}
+    dimension: 1
+  scanlineStrength:
+    m_OverrideState: 1
+    m_Value: 0.2
+  scanlineSize:
+    m_OverrideState: 1
+    m_Value: 4
+  scrollSpeed:
+    m_OverrideState: 1
+    m_Value: 8
+  pixelSize:
+    m_OverrideState: 1
+    m_Value: 4
+  randomWear:
+    m_OverrideState: 1
+    m_Value: 0
+  aberrationStrength:
+    m_OverrideState: 1
+    m_Value: 1
+  useTracking:
+    m_OverrideState: 1
+    m_Value: 1
+  trackingTexture:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 719d505767bc95942a4ff41e91d52eba, type: 3}
+    dimension: 1
+  trackingSize:
+    m_OverrideState: 1
+    m_Value: 0.3
+  trackingStrength:
+    m_OverrideState: 1
+    m_Value: 1
+  trackingSpeed:
+    m_OverrideState: 1
+    m_Value: 0.07
+  trackingJitter:
+    m_OverrideState: 1
+    m_Value: 0.01
+  trackingColorDamage:
+    m_OverrideState: 1
+    m_Value: 0.05
+  trackingLinesThreshold:
+    m_OverrideState: 1
+    m_Value: 0.9
+  trackingLinesColor:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 0.29803923}
+  brightness:
+    m_OverrideState: 1
+    m_Value: 2
+  contrast:
+    m_OverrideState: 1
+    m_Value: 1
+  enableInterlacing:
+    m_OverrideState: 1
+    m_Value: 0
+--- !u!114 &2182205748910702091
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: 
+  active: 1
+  skipIterations:
+    m_OverrideState: 0
+    m_Value: 1
+  threshold:
+    m_OverrideState: 1
+    m_Value: 0.7
+  intensity:
+    m_OverrideState: 1
+    m_Value: 1
+  scatter:
+    m_OverrideState: 0
+    m_Value: 0.7
+  clamp:
+    m_OverrideState: 0
+    m_Value: 65472
+  tint:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  highQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 0
+  downscale:
+    m_OverrideState: 0
+    m_Value: 0
+  maxIterations:
+    m_OverrideState: 0
+    m_Value: 6
+  dirtTexture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+    dimension: 1
+  dirtIntensity:
+    m_OverrideState: 0
+    m_Value: 0

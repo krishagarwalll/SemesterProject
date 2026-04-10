@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: b8a5ac3904514466b9d86e19e7558384
+timeCreated: 1718984317
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Editor/SoftOutline/SoftOutlineSettingsEditor.cs
+  uploadId: 885802

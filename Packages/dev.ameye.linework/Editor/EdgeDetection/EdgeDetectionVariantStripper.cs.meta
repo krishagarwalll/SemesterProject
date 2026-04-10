@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 491a0f7fe95d49f3adb5d825511da3a3
+timeCreated: 1772976437
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Editor/EdgeDetection/EdgeDetectionVariantStripper.cs
+  uploadId: 885802

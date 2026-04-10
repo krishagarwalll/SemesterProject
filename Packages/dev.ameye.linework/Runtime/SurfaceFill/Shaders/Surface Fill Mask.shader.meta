@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 7db39fa69b214149be63e199c01483e7
+timeCreated: 1722760591
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/SurfaceFill/Shaders/Surface Fill
+    Mask.shader
+  uploadId: 885802

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bd75838be8c9c0a47a9eb88b0039e7d0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Retro Terrain Lit.mat
+  uploadId: 866924

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e42b7c0c7c30af84fbe856791e67f202
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Prefabs/WindowFrameLarge.prefab
+  uploadId: 866924

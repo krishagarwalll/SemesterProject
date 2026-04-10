@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 60bd843b88e8e491eab96dca4a73ce68
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/SurfaceFill/Shaders/Surface Fill.shader
+  uploadId: 885802

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fa8ed62a0561cdb48bbac3be48b969d5
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Prefabs/Goose.prefab
+  uploadId: 866924

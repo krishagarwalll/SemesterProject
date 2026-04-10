@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3bdd062f516e7a74fbda9fd79089008f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 15600000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Terrain/TerrainData_0fe34af2-06af-489d-ae4c-b1a30c159d48.asset
+  uploadId: 866924

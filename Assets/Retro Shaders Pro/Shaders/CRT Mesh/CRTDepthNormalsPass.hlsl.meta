@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b5fb4c9476ad99342ad20d62c4dd5569
+timeCreated: 1488965025
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Shaders/CRT Mesh/CRTDepthNormalsPass.hlsl
+  uploadId: 866924

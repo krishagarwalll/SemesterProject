@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 1ed7bc804a124d559675facf61722b63
+timeCreated: 1724220914
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/WideOutline/Shaders/Wide Outline
+    Mask.shader
+  uploadId: 885802

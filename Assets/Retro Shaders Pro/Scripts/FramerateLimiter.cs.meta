@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e45bc4d90fe45734a9a67ac209a3f51f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Scripts/FramerateLimiter.cs
+  uploadId: 866924

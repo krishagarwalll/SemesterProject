@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 2b16d466469102f46a9b845e41e8a90e
+timeCreated: 1600440538
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Shaders/CRT Mesh/UnlitForwardPass.hlsl
+  uploadId: 866924

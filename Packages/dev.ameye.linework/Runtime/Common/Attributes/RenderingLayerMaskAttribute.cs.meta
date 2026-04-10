@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6dcfc0ba3ed504dfa890ebd464f79a9e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/Common/Attributes/RenderingLayerMaskAttribute.cs
+  uploadId: 885802

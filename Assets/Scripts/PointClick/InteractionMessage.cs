@@ -1,32 +1,42 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class InteractionMessage : MonoBehaviour, IInteractionHandler
+public class InteractionMessage : MonoBehaviour, IInteractionActionProvider
 {
+    [SerializeField] private string primaryLabel = "Interact";
+    [SerializeField] private string inspectLabel = "Inspect";
+    [SerializeField] private string useItemLabel = "Use";
+    [SerializeField] private string primaryGlyphId = "Primary";
+    [SerializeField] private string inspectGlyphId = "Context";
+    [SerializeField] private string useItemGlyphId = "Primary";
     [SerializeField, TextArea] private string primaryMessage;
     [SerializeField, TextArea] private string inspectMessage;
     [SerializeField, TextArea] private string selectedItemMessage;
     [SerializeField] private bool consumeSelectedItem;
 
-    public bool Supports(InteractionMode mode)
+    public void GetActions(in InteractionContext context, List<InteractionAction> actions)
     {
-        return mode switch
+        if (!string.IsNullOrWhiteSpace(primaryMessage))
         {
-            InteractionMode.Primary => !string.IsNullOrWhiteSpace(primaryMessage),
-            InteractionMode.Inspect => !string.IsNullOrWhiteSpace(inspectMessage),
-            InteractionMode.UseSelectedItem => !string.IsNullOrWhiteSpace(selectedItemMessage),
-            _ => false
-        };
+            actions.Add(new InteractionAction(this, InteractionMode.Primary, primaryLabel, primaryGlyphId));
+        }
+
+        if (!string.IsNullOrWhiteSpace(inspectMessage))
+        {
+            actions.Add(new InteractionAction(this, InteractionMode.Inspect, inspectLabel, inspectGlyphId, requiresApproach: false, priority: -10));
+        }
+
+        if (!string.IsNullOrWhiteSpace(selectedItemMessage))
+        {
+            bool enabled = context.SelectedItem;
+            actions.Add(new InteractionAction(this, InteractionMode.UseSelectedItem, useItemLabel, useItemGlyphId, enabled));
+        }
     }
 
-    public bool CanInteract(in InteractionRequest request)
+    public bool Execute(in InteractionContext context, in InteractionAction action)
     {
-        return request.Mode != InteractionMode.UseSelectedItem || request.SelectedItem;
-    }
-
-    public void Interact(in InteractionRequest request)
-    {
-        string message = request.Mode switch
+        string message = action.Mode switch
         {
             InteractionMode.Primary => primaryMessage,
             InteractionMode.Inspect => inspectMessage,
@@ -34,11 +44,17 @@ public class InteractionMessage : MonoBehaviour, IInteractionHandler
             _ => string.Empty
         };
 
-        if (request.Mode == InteractionMode.UseSelectedItem && consumeSelectedItem && request.Inventory && request.SelectedItem)
+        if (string.IsNullOrWhiteSpace(message))
         {
-            request.Inventory.TryRemove(request.SelectedItem);
+            return false;
+        }
+
+        if (action.Mode == InteractionMode.UseSelectedItem && consumeSelectedItem && context.Inventory && context.SelectedItem)
+        {
+            context.Inventory.TryRemove(context.SelectedItem);
         }
 
         InteractionFeedback.Show(message, this);
+        return true;
     }
 }

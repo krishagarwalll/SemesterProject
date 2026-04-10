@@ -11,14 +11,15 @@ public class Inventory : MonoBehaviour
         [SerializeField] private InventoryItemDefinition definition;
         [SerializeField, Min(1)] private int quantity;
 
-        public InventoryItemDefinition Definition => definition;
-        public int Quantity => quantity;
-
         public Entry(InventoryItemDefinition definition, int quantity)
         {
             this.definition = definition;
-            this.quantity = Mathf.Max(1, quantity);
+            this.quantity = Mathf.Max(0, quantity);
         }
+
+        public InventoryItemDefinition Definition => definition;
+        public int Quantity => quantity;
+        public bool IsOccupied => definition && quantity > 0;
 
         public Entry Add(int amount)
         {
@@ -35,27 +36,26 @@ public class Inventory : MonoBehaviour
     [SerializeField] private List<Entry> entries = new();
     [SerializeField] private int selectedIndex = -1;
 
+    public event Action Changed;
+
     public int Capacity => capacity;
-    public int Count => entries.Count;
-    public int SelectedIndex => IsValidIndex(selectedIndex) ? selectedIndex : -1;
+    public int Count => CountOccupiedEntries();
+    public bool IsFull => Count >= capacity;
     public bool HasSelection => SelectedIndex >= 0;
-    public bool IsFull => entries.Count >= capacity;
+    public int SelectedIndex => IsOccupiedIndex(selectedIndex) ? selectedIndex : -1;
     public IReadOnlyList<Entry> Entries => entries;
     public InventoryItemDefinition SelectedItem => TryGetSelectedEntry(out Entry entry) ? entry.Definition : null;
 
-    public event Action Changed;
+    private void Awake()
+    {
+        EnsureSlotCount();
+    }
 
     private void OnValidate()
     {
         capacity = Mathf.Max(1, capacity);
-        if (entries.Count > capacity)
-        {
-            entries.RemoveRange(capacity, entries.Count - capacity);
-        }
-
-        selectedIndex = entries.Count == 0
-            ? -1
-            : Mathf.Clamp(selectedIndex, -1, entries.Count - 1);
+        EnsureSlotCount();
+        selectedIndex = IsOccupiedIndex(selectedIndex) ? selectedIndex : -1;
     }
 
     public bool Contains(InventoryItemDefinition definition)
@@ -65,7 +65,7 @@ public class Inventory : MonoBehaviour
 
     public bool TryGetEntry(int index, out Entry entry)
     {
-        if (!IsValidIndex(index))
+        if (!IsOccupiedIndex(index))
         {
             entry = default;
             return false;
@@ -87,50 +87,80 @@ public class Inventory : MonoBehaviour
             return false;
         }
 
-        int existingIndex = FindEntryIndex(definition);
-        if (existingIndex >= 0)
+        int stackIndex = FindEntryIndex(definition);
+        if (stackIndex >= 0)
         {
-            entries[existingIndex] = entries[existingIndex].Add(quantity);
+            entries[stackIndex] = entries[stackIndex].Add(quantity);
             NotifyChanged();
             return true;
         }
 
-        if (IsFull)
+        int emptyIndex = FindEmptyIndex();
+        if (emptyIndex < 0)
         {
             return false;
         }
 
-        entries.Add(new Entry(definition, quantity));
+        entries[emptyIndex] = new Entry(definition, quantity);
+        NotifyChanged();
+        return true;
+    }
+
+    public bool TryInsert(int index, InventoryItemDefinition definition, int quantity = 1)
+    {
+        if (!definition || quantity <= 0 || !IsValidSlotIndex(index))
+        {
+            return false;
+        }
+
+        if (IsOccupiedIndex(index) && entries[index].Definition == definition)
+        {
+            entries[index] = entries[index].Add(quantity);
+            NotifyChanged();
+            return true;
+        }
+
+        int targetIndex = IsOccupiedIndex(index) ? FindNearestEmptyIndex(index) : index;
+        if (targetIndex < 0)
+        {
+            return false;
+        }
+
+        entries[targetIndex] = new Entry(definition, quantity);
+        NotifyChanged();
+        return true;
+    }
+
+    public bool TryTakeAt(int index, out Entry entry, int quantity = 1)
+    {
+        entry = default;
+        if (!IsOccupiedIndex(index) || quantity <= 0)
+        {
+            return false;
+        }
+
+        Entry current = entries[index];
+        if (current.Quantity < quantity)
+        {
+            return false;
+        }
+
+        entry = new Entry(current.Definition, quantity);
+        Entry remaining = current.Remove(quantity);
+        entries[index] = remaining.IsOccupied ? remaining : default;
+        if (!remaining.IsOccupied && selectedIndex == index)
+        {
+            selectedIndex = -1;
+        }
+
         NotifyChanged();
         return true;
     }
 
     public bool TryRemove(InventoryItemDefinition definition, int quantity = 1)
     {
-        if (!definition || quantity <= 0)
-        {
-            return false;
-        }
-
-        int entryIndex = FindEntryIndex(definition);
-        if (entryIndex < 0)
-        {
-            return false;
-        }
-
-        Entry updatedEntry = entries[entryIndex].Remove(quantity);
-        if (updatedEntry.Quantity <= 0)
-        {
-            entries.RemoveAt(entryIndex);
-            SyncSelectionAfterRemoval(entryIndex);
-        }
-        else
-        {
-            entries[entryIndex] = updatedEntry;
-        }
-
-        NotifyChanged();
-        return true;
+        int index = FindEntryIndex(definition);
+        return index >= 0 && TryTakeAt(index, out _, quantity);
     }
 
     public bool Select(int index, bool toggle = true)
@@ -140,7 +170,7 @@ public class Inventory : MonoBehaviour
             return ClearSelection();
         }
 
-        if (!IsValidIndex(index))
+        if (!IsOccupiedIndex(index))
         {
             return false;
         }
@@ -174,7 +204,7 @@ public class Inventory : MonoBehaviour
 
     public bool Swap(int fromIndex, int toIndex)
     {
-        if (!IsValidIndex(fromIndex) || !IsValidIndex(toIndex) || fromIndex == toIndex)
+        if (!IsValidSlotIndex(fromIndex) || !IsValidSlotIndex(toIndex) || !IsOccupiedIndex(fromIndex) || fromIndex == toIndex)
         {
             return false;
         }
@@ -187,29 +217,55 @@ public class Inventory : MonoBehaviour
 
     public bool Move(int fromIndex, int toIndex)
     {
-        if (!IsValidIndex(fromIndex) || !IsValidIndex(toIndex) || fromIndex == toIndex)
+        if (!IsValidSlotIndex(fromIndex) || !IsValidSlotIndex(toIndex) || !IsOccupiedIndex(fromIndex) || fromIndex == toIndex)
         {
             return false;
         }
 
-        Entry entry = entries[fromIndex];
-        entries.RemoveAt(fromIndex);
-        entries.Insert(toIndex, entry);
-        SyncSelectionAfterMove(fromIndex, toIndex);
+        if (IsOccupiedIndex(toIndex))
+        {
+            return Swap(fromIndex, toIndex);
+        }
+
+        entries[toIndex] = entries[fromIndex];
+        entries[fromIndex] = default;
+        if (selectedIndex == fromIndex)
+        {
+            selectedIndex = toIndex;
+        }
+
         NotifyChanged();
         return true;
     }
 
-    private bool IsValidIndex(int index)
+    private void EnsureSlotCount()
     {
-        return index >= 0 && index < entries.Count;
+        if (entries.Count > capacity)
+        {
+            entries.RemoveRange(capacity, entries.Count - capacity);
+        }
+
+        while (entries.Count < capacity)
+        {
+            entries.Add(default);
+        }
+    }
+
+    private bool IsValidSlotIndex(int index)
+    {
+        return index >= 0 && index < capacity;
+    }
+
+    private bool IsOccupiedIndex(int index)
+    {
+        return IsValidSlotIndex(index) && index < entries.Count && entries[index].IsOccupied;
     }
 
     private int FindEntryIndex(InventoryItemDefinition definition)
     {
         for (int i = 0; i < entries.Count; i++)
         {
-            if (entries[i].Definition == definition)
+            if (entries[i].IsOccupied && entries[i].Definition == definition)
             {
                 return i;
             }
@@ -218,18 +274,60 @@ public class Inventory : MonoBehaviour
         return -1;
     }
 
-    private void SyncSelectionAfterRemoval(int removedIndex)
+    private int FindEmptyIndex()
     {
-        if (selectedIndex == removedIndex)
+        for (int i = 0; i < entries.Count; i++)
         {
-            selectedIndex = -1;
-            return;
+            if (!entries[i].IsOccupied)
+            {
+                return i;
+            }
         }
 
-        if (selectedIndex > removedIndex)
+        return -1;
+    }
+
+    private int FindNearestEmptyIndex(int preferredIndex)
+    {
+        int bestIndex = -1;
+        int bestDistance = int.MaxValue;
+        for (int i = 0; i < entries.Count; i++)
         {
-            selectedIndex--;
+            if (entries[i].IsOccupied)
+            {
+                continue;
+            }
+
+            int distance = Mathf.Abs(i - preferredIndex);
+            if (distance > bestDistance)
+            {
+                continue;
+            }
+
+            if (distance == bestDistance && bestIndex >= 0 && i > bestIndex)
+            {
+                continue;
+            }
+
+            bestDistance = distance;
+            bestIndex = i;
         }
+
+        return bestIndex;
+    }
+
+    private int CountOccupiedEntries()
+    {
+        int count = 0;
+        for (int i = 0; i < entries.Count; i++)
+        {
+            if (entries[i].IsOccupied)
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     private void SyncSelectionAfterSwap(int fromIndex, int toIndex)
@@ -243,26 +341,6 @@ public class Inventory : MonoBehaviour
         if (selectedIndex == toIndex)
         {
             selectedIndex = fromIndex;
-        }
-    }
-
-    private void SyncSelectionAfterMove(int fromIndex, int toIndex)
-    {
-        if (selectedIndex == fromIndex)
-        {
-            selectedIndex = toIndex;
-            return;
-        }
-
-        if (fromIndex < toIndex && selectedIndex > fromIndex && selectedIndex <= toIndex)
-        {
-            selectedIndex--;
-            return;
-        }
-
-        if (toIndex < fromIndex && selectedIndex >= toIndex && selectedIndex < fromIndex)
-        {
-            selectedIndex++;
         }
     }
 

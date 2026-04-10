@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3d46a78712050ac4cb356194b0867f3b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Volumes/CRT.asset
+  uploadId: 866924

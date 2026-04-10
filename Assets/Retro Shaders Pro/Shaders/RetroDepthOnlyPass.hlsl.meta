@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6a431b528c5d9644c96337d0b7f717fe
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Shaders/RetroDepthOnlyPass.hlsl
+  uploadId: 866924

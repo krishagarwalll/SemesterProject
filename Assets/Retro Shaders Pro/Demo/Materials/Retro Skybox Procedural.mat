@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7939626805046066630
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Retro Skybox Procedural
+  m_Shader: {fileID: 4800000, guid: 61c206751217e09449cc610091e935c6, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _BACKGROUNDMODE_GRADIENT
+  - _COMBINEMODE_MULTIPLY
+  - _DITHERMODE_SCREEN
+  - _USE_CLOUDS
+  - _USE_POINT_FILTER_ON
+  m_InvalidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
+  - _USE_CLOUDS_ON
+  - _USE_POINT_FILTER
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseCubemap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints:
+    - _BackgroundMode: 0
+    - _ColorBitDepth: 16
+    - _CombineMode: 1
+    - _DitherMode: 0
+    - _ResolutionLimit: 64
+    m_Floats:
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _CastShadows: 0
+    - _Cloud_Size: 25
+    - _Cloud_Size_2: 5
+    - _ColorBitDepthOffset: 0
+    - _ColorMixPower: 1
+    - _Color_Mix_Power: 1
+    - _Cull: 1
+    - _DstBlend: 10
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Resolution: 32
+    - _Resolution_Limit: 64
+    - _Rotation: 0
+    - _Snaps_Per_Unit: 48
+    - _SrcBlend: 5
+    - _Star_Density: 5
+    - _Star_Power: 100
+    - _Surface: 1
+    - _USE_CLOUDS: 1
+    - _USE_POINT_FILTER: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _CloudColor: {r: 1, g: 1, b: 1, a: 1}
+    - _CloudDensityThresholds: {r: 0, g: 0.35, b: 0, a: 0}
+    - _CloudHeightThresholds: {r: 0.1, g: 0.5, b: 0, a: 0}
+    - _CloudSizes: {r: 5, g: 25, b: 0, a: 0}
+    - _CloudVelocity: {r: -0.2, g: -0.5, b: 0, a: 0}
+    - _Cloud_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Cloud_Height_Thresholds: {r: 0.1, g: 0.5, b: 0, a: 0}
+    - _Cloud_Sizes: {r: 5, g: 25, b: 0, a: 0}
+    - _Cloud_Velocity: {r: -0.01, g: -0.025, b: 0, a: 0}
+    - _Cloud_Visibility_Thresholds: {r: 0, g: 0.35, b: 0, a: 0}
+    - _GroundColor: {r: 0.050980393, g: 0.16078432, b: 0.8, a: 1}
+    - _Ground_Color: {r: 0.049172327, g: 0.16054267, b: 0.8018868, a: 1}
+    - _SkyColor: {r: 0.1764706, g: 0, b: 1, a: 1}
+    - _Sky_Color: {r: 0.17454815, g: 0, b: 1, a: 1}
+    - _Star_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

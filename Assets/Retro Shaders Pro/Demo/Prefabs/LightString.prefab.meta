@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9525a0beb5504814db1c5910f2b92155
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Prefabs/LightString.prefab
+  uploadId: 866924

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e1bb6646214c84437814a6e99de108c9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Documentation/Edge Detection Settings.asset
+  uploadId: 885802

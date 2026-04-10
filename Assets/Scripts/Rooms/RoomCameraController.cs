@@ -11,12 +11,13 @@ public class RoomCameraController : MonoBehaviour
 
     private CinemachineCamera virtualCamera;
     private Camera outputCamera;
+    private Vector3 localShotPosition;
     private Quaternion shotRotation;
+    private bool hasCachedShot;
     private bool isLive;
-    private float lastAspect = -1f;
-    private float lastVerticalFov = -1f;
-    private float lastOrthographicSize = -1f;
-    private bool lastOrthographic;
+    private float desiredVerticalFov = 34f;
+    private float minVerticalFov = 20f;
+    private float maxVerticalFov = 60f;
 
     private Room OwnerRoom => room ? room : room = GetComponentInParent<Room>(true);
     private CinemachineCamera VirtualCamera => virtualCamera ? virtualCamera : virtualCamera = GetComponent<CinemachineCamera>();
@@ -28,7 +29,7 @@ public class RoomCameraController : MonoBehaviour
 
     private void Awake()
     {
-        shotRotation = transform.rotation;
+        EnsureShotCached();
         RefreshShot(Camera.main);
         SetPriority(false);
     }
@@ -51,8 +52,23 @@ public class RoomCameraController : MonoBehaviour
             return;
         }
 
-        shotRotation = transform.rotation;
+        CacheShot();
         RefreshShot(Camera.main);
+    }
+
+    public void SetLive(bool live, Camera viewCamera = null, float desiredFov = 34f, float minFov = 20f, float maxFov = 60f)
+    {
+        EnsureShotCached();
+        isLive = live;
+        outputCamera = viewCamera ? viewCamera : Camera.main;
+        desiredVerticalFov = desiredFov;
+        minVerticalFov = minFov;
+        maxVerticalFov = maxFov;
+        SetPriority(live);
+        if (live)
+        {
+            RefreshShot(outputCamera);
+        }
     }
 
     private void LateUpdate()
@@ -62,44 +78,15 @@ public class RoomCameraController : MonoBehaviour
             return;
         }
 
-        Camera viewCamera = outputCamera ? outputCamera : Camera.main;
-        if (!viewCamera)
-        {
-            return;
-        }
-
-        LensSettings lens = VirtualCamera.Lens;
-        float aspect = viewCamera.aspect;
-        float verticalFov = ResolveVerticalFov(lens, viewCamera);
-        float orthographicSize = ResolveOrthographicSize(lens, viewCamera);
-        if (!Mathf.Approximately(lastAspect, aspect)
-            || !Mathf.Approximately(lastVerticalFov, verticalFov)
-            || !Mathf.Approximately(lastOrthographicSize, orthographicSize)
-            || lastOrthographic != lens.Orthographic)
-        {
-            RefreshShot(viewCamera);
-        }
-    }
-
-    public void SetLive(bool live, Camera viewCamera = null)
-    {
-        isLive = live;
-        outputCamera = viewCamera ? viewCamera : Camera.main;
-        SetPriority(live);
-        if (live)
-        {
-            RefreshShot(outputCamera);
-        }
+        RefreshShot(outputCamera ? outputCamera : Camera.main);
     }
 
     private void SetPriority(bool live)
     {
-        if (!VirtualCamera)
+        if (VirtualCamera)
         {
-            return;
+            VirtualCamera.Priority = live ? livePriority : idlePriority;
         }
-
-        VirtualCamera.Priority = live ? livePriority : idlePriority;
     }
 
     private void RefreshShot(Camera viewCamera)
@@ -109,47 +96,62 @@ public class RoomCameraController : MonoBehaviour
             return;
         }
 
+        EnsureShotCached();
         viewCamera = viewCamera ? viewCamera : Camera.main;
+        float aspect = viewCamera ? viewCamera.aspect : 16f / 9f;
+        Vector3 adjustedLocalPosition = GetAdjustedLocalShotPosition(aspect, desiredVerticalFov);
+        Vector3 cameraPosition = OwnerRoom.transform.TransformPoint(adjustedLocalPosition);
+
+        float roomMaxFov = maxVerticalFov;
+        if (OwnerRoom.TryGetCameraFit(cameraPosition, aspect, out RoomCameraFit fit))
+        {
+            roomMaxFov = Mathf.Rad2Deg * 2f * Mathf.Atan(fit.LimitedHalfHeight / Mathf.Max(0.01f, fit.NearestDepth));
+        }
+
+        float maxAllowedFov = Mathf.Max(minVerticalFov, Mathf.Min(maxVerticalFov, roomMaxFov));
+        float clampedFov = Mathf.Clamp(desiredVerticalFov, minVerticalFov, maxAllowedFov);
+
+        transform.localPosition = adjustedLocalPosition;
+        transform.localRotation = shotRotation;
+
         LensSettings lens = VirtualCamera.Lens;
-        float aspect = ResolveAspect(lens, viewCamera);
-        float verticalFov = ResolveVerticalFov(lens, viewCamera);
-        float orthographicSize = ResolveOrthographicSize(lens, viewCamera);
-        bool orthographic = lens.Orthographic;
-        transform.position = OwnerRoom.GetCameraPosition(aspect, verticalFov, orthographic, orthographicSize);
-        transform.rotation = shotRotation;
-        lastAspect = aspect;
-        lastVerticalFov = verticalFov;
-        lastOrthographicSize = orthographicSize;
-        lastOrthographic = orthographic;
+        lens.ModeOverride = LensSettings.OverrideModes.Perspective;
+        lens.FieldOfView = clampedFov;
+        VirtualCamera.Lens = lens;
     }
 
-    private static float ResolveAspect(LensSettings lens, Camera viewCamera)
+    private void CacheShot()
     {
-        if (viewCamera)
-        {
-            return viewCamera.aspect;
-        }
-
-        return lens.Aspect > 0f ? lens.Aspect : 16f / 9f;
+        localShotPosition = transform.localPosition;
+        shotRotation = transform.localRotation;
+        hasCachedShot = true;
     }
 
-    private static float ResolveVerticalFov(LensSettings lens, Camera viewCamera)
+    private void EnsureShotCached()
     {
-        if (lens.FieldOfView > 0f)
+        if (!hasCachedShot)
         {
-            return lens.FieldOfView;
+            CacheShot();
         }
-
-        return viewCamera ? viewCamera.fieldOfView : 34f;
     }
 
-    private static float ResolveOrthographicSize(LensSettings lens, Camera viewCamera)
+    private Vector3 GetAdjustedLocalShotPosition(float aspect, float desiredFov)
     {
-        if (lens.OrthographicSize > 0f)
+        Vector3 adjustedLocalPosition = localShotPosition;
+        Vector3 cameraPosition = OwnerRoom.transform.TransformPoint(adjustedLocalPosition);
+        if (!OwnerRoom.TryGetCameraFit(cameraPosition, aspect, out RoomCameraFit fit))
         {
-            return lens.OrthographicSize;
+            return adjustedLocalPosition;
         }
 
-        return viewCamera ? viewCamera.orthographicSize : 5f;
+        float targetDistance = fit.LimitedHalfHeight / Mathf.Tan(Mathf.Deg2Rad * desiredFov * 0.5f);
+        if (fit.NearestDepth <= targetDistance)
+        {
+            return adjustedLocalPosition;
+        }
+
+        float forwardDolly = Mathf.Min(fit.NearestDepth - targetDistance, OwnerRoom.CameraFitMaxForwardDolly);
+        adjustedLocalPosition += Vector3.forward * forwardDolly;
+        return adjustedLocalPosition;
     }
 }

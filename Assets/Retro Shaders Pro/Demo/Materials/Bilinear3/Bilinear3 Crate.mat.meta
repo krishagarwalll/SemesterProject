@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0248b3eef28697047b0bb3f82da52419
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Bilinear3/Bilinear3 Crate.mat
+  uploadId: 866924

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4f84797ca6a49e74eb939285bcf3ff52
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Retro Mushroom Blue.mat
+  uploadId: 866924

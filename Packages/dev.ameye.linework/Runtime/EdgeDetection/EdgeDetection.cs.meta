@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 9377bada70366419aa6301068e988aa4
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/EdgeDetection/EdgeDetection.cs
+  uploadId: 885802

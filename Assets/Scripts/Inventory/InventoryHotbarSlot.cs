@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private Image background;
     [SerializeField] private Image icon;
@@ -94,10 +94,11 @@ public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDr
         slotIndex = index;
         hasEntry = entryPresent;
 
-        bool showIcon = entryPresent && entry.Definition && entry.Definition.Icon;
+        Sprite displaySprite = entryPresent ? InventoryItemVisualResolver.GetSprite(entry.Definition) : null;
+        bool showIcon = displaySprite;
         Background.color = selected ? selectedSlotColor : entryPresent ? slotColor : emptySlotColor;
         Icon.enabled = showIcon;
-        Icon.sprite = showIcon ? entry.Definition.Icon : null;
+        Icon.sprite = displaySprite;
         if (LabelText)
         {
             LabelText.text = entryPresent ? GetFallbackLabel(entry.Definition) : string.Empty;
@@ -138,22 +139,6 @@ public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDr
         Group.blocksRaycasts = true;
         Group.alpha = 1f;
         owner?.EndSlotDrag(eventData.position);
-    }
-
-    public void OnDrop(PointerEventData eventData)
-    {
-        if (eventData.pointerDrag == null || eventData.pointerDrag == gameObject)
-        {
-            return;
-        }
-
-        InventoryHotbarSlot draggedSlot = eventData.pointerDrag.GetComponent<InventoryHotbarSlot>();
-        if (draggedSlot == null || draggedSlot.owner != owner)
-        {
-            return;
-        }
-
-        owner.HandleSlotDrop(draggedSlot.slotIndex, slotIndex);
     }
 
     public static string GetFallbackLabel(InventoryItemDefinition definition)

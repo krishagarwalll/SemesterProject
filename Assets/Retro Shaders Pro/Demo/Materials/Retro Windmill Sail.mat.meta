@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8d5343aa1c9c4c441a5d7b26949e2d35
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Retro Windmill Sail.mat
+  uploadId: 866924

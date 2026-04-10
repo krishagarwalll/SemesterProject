@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: cb6a37cd1abc46e180a83317d8fefb26
+timeCreated: 1718549890
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/SoftOutline/Shaders/Gaussian Blur.shader
+  uploadId: 885802

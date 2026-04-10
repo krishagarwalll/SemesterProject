@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: be2eaed9b9b94474d8fd2d6cc101fdca
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Prefabs/DemoRiver.prefab
+  uploadId: 866924

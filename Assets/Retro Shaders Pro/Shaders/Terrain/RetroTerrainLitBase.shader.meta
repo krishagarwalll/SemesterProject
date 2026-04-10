@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: da0dbdd5fd31f4a4185aa716bdbd20bd
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Shaders/Terrain/RetroTerrainLitBase.shader
+  uploadId: 866924

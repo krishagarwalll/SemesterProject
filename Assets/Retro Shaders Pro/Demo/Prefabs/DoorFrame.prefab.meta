@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: dcae1f9a769793244acf78e295bfa1e8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Prefabs/DoorFrame.prefab
+  uploadId: 866924

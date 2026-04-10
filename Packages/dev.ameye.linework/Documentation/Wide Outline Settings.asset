@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8707019894893232003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8345be34a994929ba7ca6c0b1a5c5c7, type: 3}
+  m_Name: Outline
+  m_EditorClassIdentifier: 
+  active: 1
+  customDepthEnabled: 0
+  RenderingLayer:
+    serializedVersion: 0
+    m_Bits: 512
+  occlusion: 3
+  closedLoop: 0
+  color: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &-8545922770492669611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8345be34a994929ba7ca6c0b1a5c5c7, type: 3}
+  m_Name: Outline
+  m_EditorClassIdentifier: 
+  active: 1
+  customDepthEnabled: 0
+  RenderingLayer:
+    serializedVersion: 0
+    m_Bits: 2
+  occlusion: 2
+  closedLoop: 0
+  color: {r: 0, g: 0.82293934, b: 1, a: 1}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1beecfe6c40d4fc397be59c6d99409a5, type: 3}
+  m_Name: Wide Outline Settings
+  m_EditorClassIdentifier: 
+  injectionPoint: 550
+  showInSceneView: 1
+  clearStencil: 0
+  debugStage: 0
+  outlines:
+  - {fileID: -8545922770492669611}
+  - {fileID: 1535833762376070601}
+  scaling: 0
+  width: 28.7
+  minWidth: 0
+  blendMode: 0
+  customDepthBuffer: 0
+  occludedColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &1535833762376070601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8345be34a994929ba7ca6c0b1a5c5c7, type: 3}
+  m_Name: Outline
+  m_EditorClassIdentifier: 
+  active: 1
+  customDepthEnabled: 0
+  RenderingLayer:
+    serializedVersion: 0
+    m_Bits: 2
+  occlusion: 1
+  closedLoop: 0
+  color: {r: 1, g: 0.8235294, b: 0, a: 1}
+--- !u!114 &2411895338341357073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8345be34a994929ba7ca6c0b1a5c5c7, type: 3}
+  m_Name: Outline
+  m_EditorClassIdentifier: 
+  active: 1
+  customDepthEnabled: 0
+  RenderingLayer:
+    serializedVersion: 0
+    m_Bits: 256
+  occlusion: 2
+  closedLoop: 0
+  color: {r: 1, g: 0.79185, b: 0.4198113, a: 1}

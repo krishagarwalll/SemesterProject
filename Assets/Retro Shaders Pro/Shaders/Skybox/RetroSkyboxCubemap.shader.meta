@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 61c206751217e09449cc610091e935c6
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Shaders/Skybox/RetroSkyboxCubemap.shader
+  uploadId: 866924

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e4f62994eadd40542ae420fcfe55c38c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Prefabs/Night Skybox.prefab
+  uploadId: 866924

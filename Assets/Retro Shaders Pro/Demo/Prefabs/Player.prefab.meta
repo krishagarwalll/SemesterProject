@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b52a33ac329f6a54e9292c1e88949b65
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Prefabs/Player.prefab
+  uploadId: 866924

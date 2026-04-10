@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 66bb1bcc44054ea3bf6082c4d4e9edf9
+timeCreated: 1742459420
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/EdgeDetection/Shaders/Section Mask.shader
+  uploadId: 885802

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d30c78400231b4e3b8e642fc0f39e82f
+PackageManifestImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/package.json
+  uploadId: 885802

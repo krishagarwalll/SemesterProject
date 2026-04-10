@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7e5c841a3d8e67b49b1670cee06c1a0c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Editor/Shaders/CRTMeshShaderGUI.cs
+  uploadId: 866924

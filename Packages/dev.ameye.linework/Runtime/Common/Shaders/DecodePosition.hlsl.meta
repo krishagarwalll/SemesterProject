@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 319647c1fddce45fc8459a6246300b57
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/Common/Shaders/DecodePosition.hlsl
+  uploadId: 885802

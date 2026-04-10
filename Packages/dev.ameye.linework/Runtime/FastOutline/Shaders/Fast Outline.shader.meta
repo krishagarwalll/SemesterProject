@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 981392195909457093e91e09efd412a1
+timeCreated: 1720009762
+AssetOrigin:
+  serializedVersion: 1
+  productId: 294140
+  packageName: 'Linework: Outlines and Edge Detection'
+  packageVersion: 1.5.5
+  assetPath: Packages/dev.ameye.linework/Runtime/FastOutline/Shaders/Fast Outline.shader
+  uploadId: 885802

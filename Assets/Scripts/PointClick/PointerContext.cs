@@ -18,25 +18,26 @@ public class PointerContext : MonoBehaviour
     [SerializeField, Min(0f)] private float rayDistance = 500f;
     [SerializeField] private QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.Ignore;
     [SerializeField] private bool ignoreWorldWhenOverUi = true;
-
     [SerializeField, Min(0f)] private float dragThresholdPixels = 8f;
-    [SerializeField] private bool logConfigurationWarnings = true;
 
     [SerializeField] private CursorMode cursorMode = CursorMode.Auto;
     [SerializeField] private PointerCursorEntry[] cursorEntries = Array.Empty<PointerCursorEntry>();
     [SerializeField] private bool resetCursorOnDisable = true;
+    [SerializeField] private bool fallbackToSoftwareCursor = true;
 
     private bool primaryPressedThisFrame;
     private bool primaryReleasedThisFrame;
     private bool primaryClickedThisFrame;
     private bool secondaryClickedThisFrame;
     private bool dragStartedThisFrame;
+    private bool dragEndedThisFrame;
     private bool isPrimaryPressed;
     private bool isDragging;
     private bool isPointerOverUi;
     private bool hasWorldPoint;
     private bool hasWalkPoint;
     private bool isWorldBlocked;
+    private bool contextMenuOpen;
     private Vector2 screenPosition;
     private Vector2 pressScreenPosition;
     private Vector3 worldPoint;
@@ -48,21 +49,33 @@ public class PointerContext : MonoBehaviour
     private InteractionTarget clickedTarget;
     private InteractionTarget secondaryClickedTarget;
 
+    public event Action<InteractionTarget, InteractionTarget> HoverChanged;
+    public event Action<PointerContext> PrimaryPressed;
+    public event Action<PointerContext> PrimaryClicked;
+    public event Action<PointerContext> SecondaryPressed;
+    public event Action<PointerContext> DragStarted;
+    public event Action<PointerContext> DragUpdated;
+    public event Action<PointerContext> DragEnded;
+
     public bool PrimaryPressedThisFrame => primaryPressedThisFrame;
     public bool PrimaryReleasedThisFrame => primaryReleasedThisFrame;
     public bool PrimaryClickedThisFrame => primaryClickedThisFrame;
     public bool SecondaryClickedThisFrame => secondaryClickedThisFrame;
     public bool DragStartedThisFrame => dragStartedThisFrame;
+    public bool DragEndedThisFrame => dragEndedThisFrame;
     public bool IsPrimaryPressed => isPrimaryPressed;
     public bool IsPointerOverUi => isPointerOverUi;
     public bool HasWalkPoint => hasWalkPoint;
+    public bool HasWorldPoint => hasWorldPoint;
+    public bool IsWorldBlocked => isWorldBlocked;
     public Vector2 ScreenPosition => screenPosition;
+    public Vector3 WorldPoint => worldPoint;
     public InteractionTarget HoveredTarget => hoveredTarget;
     public InteractionTarget ClickedTarget => clickedTarget;
     public InteractionTarget SecondaryClickedTarget => secondaryClickedTarget;
     public InteractionTarget DragTarget => dragTarget;
-    public PointerCursorKind CursorKind => ResolveCursorKind();
     public Camera WorldCamera => worldCamera ? worldCamera : worldCamera = Camera.main;
+    public PointerState State => ResolveState();
 
     private Ray PointerRay => WorldCamera ? WorldCamera.ScreenPointToRay(screenPosition) : default;
 
@@ -76,7 +89,6 @@ public class PointerContext : MonoBehaviour
         pointerPositionAction.SetEnabled(true);
         primaryPressAction.SetEnabled(true);
         secondaryPressAction.SetEnabled(true);
-        ValidateConfiguration();
         ApplyCursor(force: true);
     }
 
@@ -85,6 +97,7 @@ public class PointerContext : MonoBehaviour
         secondaryPressAction.SetEnabled(false);
         primaryPressAction.SetEnabled(false);
         pointerPositionAction.SetEnabled(false);
+        SetHoveredTarget(null);
         if (!resetCursorOnDisable)
         {
             return;
@@ -106,19 +119,32 @@ public class PointerContext : MonoBehaviour
 
     private void Update()
     {
-        screenPosition = pointerPositionAction.ReadValueOrDefault<Vector2>();
-        primaryPressedThisFrame = primaryPressAction.WasPressedThisFrame();
-        primaryReleasedThisFrame = primaryPressAction.WasReleasedThisFrame();
+        primaryPressedThisFrame = false;
+        primaryReleasedThisFrame = false;
         primaryClickedThisFrame = false;
         secondaryClickedThisFrame = false;
         dragStartedThisFrame = false;
+        dragEndedThisFrame = false;
         clickedTarget = null;
         secondaryClickedTarget = null;
 
+        screenPosition = pointerPositionAction.ReadValueOrDefault<Vector2>();
         ResolveWorldState();
         UpdatePrimaryState();
         UpdateSecondaryState();
+
+        if (isDragging)
+        {
+            DragUpdated?.Invoke(this);
+        }
+
         ApplyCursor(force: false);
+    }
+
+    public void SetContextMenuOpen(bool isOpen)
+    {
+        contextMenuOpen = isOpen;
+        ApplyCursor(force: true);
     }
 
     public bool TryGetWalkPoint(out Vector3 point)
@@ -127,15 +153,14 @@ public class PointerContext : MonoBehaviour
         return hasWalkPoint;
     }
 
+    public bool TryGetWorldPoint(out Vector3 point)
+    {
+        point = worldPoint;
+        return hasWorldPoint;
+    }
+
     public bool TryGetDragPoint(float baseHeight, float maxLiftHeight, out Vector3 point)
     {
-        if (hasWorldPoint)
-        {
-            point = worldPoint;
-            point.y = Mathf.Clamp(point.y, baseHeight, baseHeight + maxLiftHeight);
-            return true;
-        }
-
         point = default;
         if (!WorldCamera)
         {
@@ -155,11 +180,13 @@ public class PointerContext : MonoBehaviour
 
     private void UpdatePrimaryState()
     {
-        if (primaryPressedThisFrame)
+        if (primaryPressAction.WasPressedThisFrame())
         {
+            primaryPressedThisFrame = true;
             pressScreenPosition = screenPosition;
             pressedTarget = hoveredTarget;
             dragTarget = null;
+            PrimaryPressed?.Invoke(this);
         }
 
         isPrimaryPressed = primaryPressAction.IsPressed();
@@ -168,17 +195,25 @@ public class PointerContext : MonoBehaviour
             isDragging = true;
             dragStartedThisFrame = true;
             dragTarget = pressedTarget != null && pressedTarget.SupportsDrag ? pressedTarget : null;
+            DragStarted?.Invoke(this);
         }
 
-        if (!primaryReleasedThisFrame)
+        if (!primaryPressAction.WasReleasedThisFrame())
         {
             return;
         }
 
-        primaryClickedThisFrame = !isDragging && (pressedTarget == null || pressedTarget.SupportsClick);
-        if (primaryClickedThisFrame)
+        primaryReleasedThisFrame = true;
+        if (isDragging)
         {
+            dragEndedThisFrame = true;
+            DragEnded?.Invoke(this);
+        }
+        else
+        {
+            primaryClickedThisFrame = true;
             clickedTarget = pressedTarget;
+            PrimaryClicked?.Invoke(this);
         }
 
         isDragging = false;
@@ -189,16 +224,18 @@ public class PointerContext : MonoBehaviour
 
     private void UpdateSecondaryState()
     {
-        if (secondaryPressAction.WasPressedThisFrame())
+        if (!secondaryPressAction.WasPressedThisFrame())
         {
-            secondaryClickedThisFrame = true;
-            secondaryClickedTarget = hoveredTarget;
+            return;
         }
+
+        secondaryClickedThisFrame = true;
+        secondaryClickedTarget = hoveredTarget;
+        SecondaryPressed?.Invoke(this);
     }
 
     private void ResolveWorldState()
     {
-        hoveredTarget = null;
         hasWorldPoint = false;
         hasWalkPoint = false;
         isWorldBlocked = false;
@@ -206,22 +243,21 @@ public class PointerContext : MonoBehaviour
 
         if (!WorldCamera || ignoreWorldWhenOverUi && isPointerOverUi)
         {
+            SetHoveredTarget(null);
             return;
         }
 
         int mask = interactionLayers.value | walkableLayers.value | blockingLayers.value;
         if (mask == 0)
         {
+            SetHoveredTarget(null);
             return;
         }
 
+        InteractionTarget resolvedTarget = null;
         RaycastHit[] hits = Physics.RaycastAll(PointerRay, rayDistance, mask, triggerInteraction);
-        if (hits == null || hits.Length == 0)
-        {
-            return;
-        }
-
         Array.Sort(hits, static (left, right) => left.distance.CompareTo(right.distance));
+
         for (int i = 0; i < hits.Length; i++)
         {
             RaycastHit hit = hits[i];
@@ -232,32 +268,76 @@ public class PointerContext : MonoBehaviour
 
             hasWorldPoint = true;
             worldPoint = hit.point;
-
             int layer = 1 << hit.collider.gameObject.layer;
             if ((blockingLayers.value & layer) != 0)
             {
                 isWorldBlocked = true;
-                return;
+                break;
             }
 
-            InteractionTarget target = hit.collider.ResolveInteractionTarget();
-            if (target)
+            resolvedTarget = hit.collider.ResolveInteractionTarget();
+            if (resolvedTarget)
             {
-                hoveredTarget = target;
-                return;
+                break;
             }
 
             if ((walkableLayers.value & layer) != 0)
             {
                 walkPoint = hit.point;
                 hasWalkPoint = true;
-                return;
+                break;
             }
         }
+
+        SetHoveredTarget(resolvedTarget);
+    }
+
+    private void SetHoveredTarget(InteractionTarget target)
+    {
+        if (hoveredTarget == target)
+        {
+            return;
+        }
+
+        InteractionTarget previous = hoveredTarget;
+        previous?.SetHovered(false);
+        hoveredTarget = target;
+        hoveredTarget?.SetHovered(true);
+        HoverChanged?.Invoke(previous, hoveredTarget);
+    }
+
+    private PointerState ResolveState()
+    {
+        if (contextMenuOpen)
+        {
+            return PointerState.ContextMenu;
+        }
+
+        if (isDragging)
+        {
+            return dragTarget ? PointerState.DraggingWorldProp : PointerState.DraggingInventoryItem;
+        }
+
+        if (isPointerOverUi)
+        {
+            return PointerState.HoveringUi;
+        }
+
+        if (hoveredTarget)
+        {
+            return PointerState.HoveringWorld;
+        }
+
+        return PointerState.None;
     }
 
     private PointerCursorKind ResolveCursorKind()
     {
+        if (contextMenuOpen)
+        {
+            return PointerCursorKind.Default;
+        }
+
         if (isDragging)
         {
             return dragTarget ? dragTarget.DragCursorKind : PointerCursorKind.Dragging;
@@ -291,7 +371,47 @@ public class PointerContext : MonoBehaviour
 
         appliedCursorKind = kind;
         PointerCursorEntry entry = GetCursorEntry(kind);
-        Cursor.SetCursor(entry.Texture, entry.Hotspot, cursorMode);
+        Texture2D texture = IsCursorTextureUsable(entry.Texture) ? entry.Texture : null;
+        Vector2 hotspot = texture ? entry.Hotspot : Vector2.zero;
+        Cursor.SetCursor(texture, hotspot, ResolveCursorMode(texture));
+    }
+
+    private CursorMode ResolveCursorMode(Texture2D texture)
+    {
+        if (!texture || !fallbackToSoftwareCursor)
+        {
+            return cursorMode;
+        }
+
+        if (IsHardwareCursorCompatible(texture))
+        {
+            return cursorMode;
+        }
+
+        return CursorMode.ForceSoftware;
+    }
+
+    private static bool IsHardwareCursorCompatible(Texture2D texture)
+    {
+        if (!texture || !texture.isReadable)
+        {
+            return false;
+        }
+
+        if (texture.mipmapCount > 1)
+        {
+            return false;
+        }
+
+        return texture.format is TextureFormat.RGBA32 or TextureFormat.ARGB32 or TextureFormat.BGRA32;
+    }
+
+    private static bool IsCursorTextureUsable(Texture2D texture)
+    {
+        return texture
+            && texture.isReadable
+            && texture.mipmapCount <= 1
+            && texture.format is TextureFormat.RGBA32 or TextureFormat.ARGB32 or TextureFormat.BGRA32;
     }
 
     private PointerCursorEntry GetCursorEntry(PointerCursorKind kind)
@@ -313,39 +433,6 @@ public class PointerContext : MonoBehaviour
         }
 
         return default;
-    }
-
-    private void ValidateConfiguration()
-    {
-        if (!logConfigurationWarnings)
-        {
-            return;
-        }
-
-        if (!pointerPositionAction.IsAssigned())
-        {
-            Debug.LogWarning("PointerContext is missing a pointer position InputActionReference.", this);
-        }
-
-        if (!primaryPressAction.IsAssigned())
-        {
-            Debug.LogWarning("PointerContext is missing a primary press InputActionReference.", this);
-        }
-
-        if (!secondaryPressAction.IsAssigned())
-        {
-            Debug.LogWarning("PointerContext is missing a secondary press InputActionReference.", this);
-        }
-
-        if (walkableLayers.value == 0)
-        {
-            Debug.LogWarning("PointerContext has no walkable layers configured.", this);
-        }
-
-        if (!WorldCamera)
-        {
-            Debug.LogWarning("PointerContext could not find a world camera.", this);
-        }
     }
 }
 

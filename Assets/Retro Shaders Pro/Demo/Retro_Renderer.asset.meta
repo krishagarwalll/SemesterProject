@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 281fd17ad8d96e94c9c83bfe1cee377c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Retro_Renderer.asset
+  uploadId: 866924

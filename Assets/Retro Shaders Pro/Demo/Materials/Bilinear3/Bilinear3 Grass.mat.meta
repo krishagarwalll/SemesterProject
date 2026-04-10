@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a65868a6a4f7d634db2cc40bbaae76a3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287937
+  packageName: Retro Shaders Pro for URP
+  packageVersion: 1.5.2
+  assetPath: Assets/Retro Shaders Pro/Demo/Materials/Bilinear3/Bilinear3 Grass.mat
+  uploadId: 866924
