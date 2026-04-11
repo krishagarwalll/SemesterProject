@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - minigame
   - flashlight
+  - grass
   layers:
   - Default
   - TransparentFX
