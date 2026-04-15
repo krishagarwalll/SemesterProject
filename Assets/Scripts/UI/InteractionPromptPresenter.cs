@@ -83,8 +83,20 @@ public class InteractionPromptPresenter : MonoBehaviour
             return;
         }
 
+        if (Controller.HasActiveInteraction || Pointer && Pointer.IsDragging)
+        {
+            SetVisible(false);
+            return;
+        }
+
         InteractionContext context = new(Controller, Pointer, currentTarget, SceneInventory);
-        if (!currentTarget.TryGetPreferredAction(context, out InteractionAction action) || !action.Enabled)
+        if (!currentTarget.TryGetPromptAction(context, out InteractionAction action))
+        {
+            SetVisible(false);
+            return;
+        }
+
+        if (!action.Enabled)
         {
             SetVisible(false);
             return;

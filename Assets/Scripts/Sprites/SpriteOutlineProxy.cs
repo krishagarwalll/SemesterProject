@@ -22,7 +22,10 @@ public class SpriteOutlineProxy : MonoBehaviour
 
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField, Min(0f)] private float alphaCutoff = 0.1f;
-    [SerializeField] private Vector3 localOffset = Vector3.zero;
+    [SerializeField, Min(0f)] private float outlineThickness = 0.06f;
+    [SerializeField] private Color outlineColor = Color.black;
+    [SerializeField] private Vector3 localOffset = new(0f, 0f, 0.01f);
+    [SerializeField] private bool outlineEnabled;
 
     private Transform proxyRoot;
     private MeshFilter proxyFilter;
@@ -33,6 +36,9 @@ public class SpriteOutlineProxy : MonoBehaviour
     private Sprite lastSprite;
 
     public Renderer ProxyRenderer => MeshRenderer;
+    public bool OutlineEnabled => outlineEnabled;
+    public float OutlineThickness => outlineThickness;
+    public Color OutlineColor => outlineColor;
 
     private SpriteRenderer Renderer => this.ResolveComponent(ref spriteRenderer);
     private MeshFilter MeshFilter => proxyFilter ? proxyFilter : proxyFilter = ProxyRoot.GetOrAddComponent<MeshFilter>();
@@ -59,6 +65,7 @@ public class SpriteOutlineProxy : MonoBehaviour
     private void OnValidate()
     {
         alphaCutoff = Mathf.Clamp01(alphaCutoff);
+        outlineThickness = Mathf.Max(0f, outlineThickness);
         if (!spriteRenderer)
         {
             this.ResolveComponent(ref spriteRenderer);
@@ -99,6 +106,14 @@ public class SpriteOutlineProxy : MonoBehaviour
         }
     }
 
+    public void SetOutline(bool enabled, Color color, float thickness)
+    {
+        outlineEnabled = enabled;
+        outlineColor = color;
+        outlineThickness = Mathf.Max(0f, thickness);
+        SyncProxy();
+    }
+
     private void SyncProxy()
     {
         if (!Renderer || !Renderer.sprite)
@@ -115,7 +130,7 @@ public class SpriteOutlineProxy : MonoBehaviour
         SyncTransform();
         ApplyMaterial();
         RebuildMeshIfNeeded(Renderer.sprite);
-        MeshRenderer.enabled = Renderer.enabled;
+        MeshRenderer.enabled = outlineEnabled && Renderer.enabled && outlineColor.a > 0.001f && outlineThickness > 0f;
     }
 
     private void EnsureProxyObjects()
@@ -126,6 +141,8 @@ public class SpriteOutlineProxy : MonoBehaviour
         MeshRenderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
         MeshRenderer.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
         MeshRenderer.allowOcclusionWhenDynamic = false;
+        MeshRenderer.sortingLayerID = Renderer.sortingLayerID;
+        MeshRenderer.sortingOrder = Renderer.sortingOrder - 1;
         if (MeshFilter.sharedMesh != EnsureMesh())
         {
             MeshFilter.sharedMesh = EnsureMesh();
@@ -136,7 +153,24 @@ public class SpriteOutlineProxy : MonoBehaviour
     {
         ProxyRoot.localPosition = localOffset;
         ProxyRoot.localRotation = Quaternion.identity;
-        ProxyRoot.localScale = new Vector3(Renderer.flipX ? -1f : 1f, Renderer.flipY ? -1f : 1f, 1f);
+        Vector2 expansionScale = GetExpansionScale();
+        ProxyRoot.localScale = new Vector3(
+            (Renderer.flipX ? -1f : 1f) * expansionScale.x,
+            (Renderer.flipY ? -1f : 1f) * expansionScale.y,
+            1f);
+    }
+
+    private Vector2 GetExpansionScale()
+    {
+        if (!Renderer || !Renderer.sprite)
+        {
+            return Vector2.one;
+        }
+
+        Bounds spriteBounds = Renderer.sprite.bounds;
+        float width = Mathf.Max(0.001f, spriteBounds.size.x);
+        float height = Mathf.Max(0.001f, spriteBounds.size.y);
+        return new Vector2(1f + outlineThickness / width, 1f + outlineThickness / height);
     }
 
     private void RebuildMeshIfNeeded(Sprite sprite)
@@ -193,7 +227,7 @@ public class SpriteOutlineProxy : MonoBehaviour
 
         PropertyBlock.Clear();
         PropertyBlock.SetTexture(BaseMapId, Renderer.sprite.texture);
-        PropertyBlock.SetColor(BaseColorId, new Color(1f, 1f, 1f, 0f));
+        PropertyBlock.SetColor(BaseColorId, outlineColor);
         PropertyBlock.SetFloat(CutoffId, alphaCutoff);
         PropertyBlock.SetFloat(AlphaClipId, 1f);
         MeshRenderer.SetPropertyBlock(PropertyBlock);
@@ -262,7 +296,6 @@ public class SpriteOutlineProxy : MonoBehaviour
         material.SetFloat(AlphaClipId, 1f);
         material.SetFloat(CutoffId, 0.1f);
         material.SetFloat(CullId, 0f);
-        material.SetColor(BaseColorId, new Color(1f, 1f, 1f, 0f));
         material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest;
     }
 

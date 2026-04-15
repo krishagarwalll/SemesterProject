@@ -168,10 +168,21 @@ public static class InventoryItemVisualResolver
             collider.enabled = false;
         }
 
+        foreach (Collider2D collider in instance.GetComponentsInChildren<Collider2D>(true))
+        {
+            collider.enabled = false;
+        }
+
         foreach (Rigidbody body in instance.GetComponentsInChildren<Rigidbody>(true))
         {
             body.isKinematic = true;
             body.detectCollisions = false;
+        }
+
+        foreach (Rigidbody2D body in instance.GetComponentsInChildren<Rigidbody2D>(true))
+        {
+            body.bodyType = RigidbodyType2D.Kinematic;
+            body.simulated = false;
         }
 
         foreach (NavMeshObstacle obstacle in instance.GetComponentsInChildren<NavMeshObstacle>(true))

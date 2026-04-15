@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class PointerContext : MonoBehaviour
 {
     [SerializeField] private Camera worldCamera;
+    [SerializeField] private PointClickController actor;
+    [SerializeField] private Inventory inventory;
+    [SerializeField] private InventoryHotbar hotbar;
+    [SerializeField] private RoomTransitionService roomTransitionService;
 
     [SerializeField] private InputActionReference pointerPositionAction;
     [SerializeField] private InputActionReference primaryPressAction;
@@ -15,15 +22,11 @@ public class PointerContext : MonoBehaviour
     [SerializeField] private LayerMask interactionLayers = ~0;
     [SerializeField] private LayerMask walkableLayers = ~0;
     [SerializeField] private LayerMask blockingLayers;
-    [SerializeField, Min(0f)] private float rayDistance = 500f;
-    [SerializeField] private QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.Ignore;
     [SerializeField] private bool ignoreWorldWhenOverUi = true;
+    [SerializeField, Min(0f)] private float interactionProbeRadius = 1.1f;
     [SerializeField, Min(0f)] private float dragThresholdPixels = 8f;
-
-    [SerializeField] private CursorMode cursorMode = CursorMode.Auto;
+    [SerializeField, Min(0f)] private float interactionSortBias;
     [SerializeField] private PointerCursorEntry[] cursorEntries = Array.Empty<PointerCursorEntry>();
-    [SerializeField] private bool resetCursorOnDisable = true;
-    [SerializeField] private bool fallbackToSoftwareCursor = true;
 
     private bool primaryPressedThisFrame;
     private bool primaryReleasedThisFrame;
@@ -42,9 +45,13 @@ public class PointerContext : MonoBehaviour
     private Vector2 pressScreenPosition;
     private Vector3 worldPoint;
     private Vector3 walkPoint;
-    private PointerCursorKind appliedCursorKind = (PointerCursorKind)(-1);
+    private PointerCursorKind currentCursorKind;
+    private readonly List<InteractionCandidate> hoverCandidates = new();
+    private readonly List<InteractionCandidate> dragCandidates = new();
+    private readonly List<RaycastResult> uiRaycastResults = new();
     private InteractionTarget hoveredTarget;
     private InteractionTarget pressedTarget;
+    private InteractionTarget pressedWorldDragTarget;
     private InteractionTarget dragTarget;
     private InteractionTarget clickedTarget;
     private InteractionTarget secondaryClickedTarget;
@@ -56,6 +63,7 @@ public class PointerContext : MonoBehaviour
     public event Action<PointerContext> DragStarted;
     public event Action<PointerContext> DragUpdated;
     public event Action<PointerContext> DragEnded;
+    public event Action<PointerCursorKind, PointerCursorKind> CursorChanged;
 
     public bool PrimaryPressedThisFrame => primaryPressedThisFrame;
     public bool PrimaryReleasedThisFrame => primaryReleasedThisFrame;
@@ -68,6 +76,7 @@ public class PointerContext : MonoBehaviour
     public bool HasWalkPoint => hasWalkPoint;
     public bool HasWorldPoint => hasWorldPoint;
     public bool IsWorldBlocked => isWorldBlocked;
+    public bool IsDragging => isDragging;
     public Vector2 ScreenPosition => screenPosition;
     public Vector3 WorldPoint => worldPoint;
     public InteractionTarget HoveredTarget => hoveredTarget;
@@ -75,9 +84,12 @@ public class PointerContext : MonoBehaviour
     public InteractionTarget SecondaryClickedTarget => secondaryClickedTarget;
     public InteractionTarget DragTarget => dragTarget;
     public Camera WorldCamera => worldCamera ? worldCamera : worldCamera = Camera.main;
+    public PointClickController Actor => actor ? actor : actor = FindFirstObjectByType<PointClickController>(FindObjectsInactive.Include);
+    public Inventory SceneInventory => inventory ? inventory : inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
+    public InventoryHotbar Hotbar => hotbar ? hotbar : hotbar = FindFirstObjectByType<InventoryHotbar>(FindObjectsInactive.Include);
+    public RoomTransitionService Rooms => roomTransitionService ? roomTransitionService : roomTransitionService = FindFirstObjectByType<RoomTransitionService>(FindObjectsInactive.Include);
     public PointerState State => ResolveState();
-
-    private Ray PointerRay => WorldCamera ? WorldCamera.ScreenPointToRay(screenPosition) : default;
+    public PointerCursorKind CurrentCursorKind => currentCursorKind;
 
     private void Reset()
     {
@@ -89,7 +101,7 @@ public class PointerContext : MonoBehaviour
         pointerPositionAction.SetEnabled(true);
         primaryPressAction.SetEnabled(true);
         secondaryPressAction.SetEnabled(true);
-        ApplyCursor(force: true);
+        currentCursorKind = ResolveCursorKind();
     }
 
     private void OnDisable()
@@ -98,19 +110,13 @@ public class PointerContext : MonoBehaviour
         primaryPressAction.SetEnabled(false);
         pointerPositionAction.SetEnabled(false);
         SetHoveredTarget(null);
-        if (!resetCursorOnDisable)
-        {
-            return;
-        }
-
-        Cursor.SetCursor(null, Vector2.zero, cursorMode);
-        appliedCursorKind = (PointerCursorKind)(-1);
     }
 
     private void OnValidate()
     {
-        rayDistance = Mathf.Max(0f, rayDistance);
+        interactionProbeRadius = Mathf.Max(0f, interactionProbeRadius);
         dragThresholdPixels = Mathf.Max(0f, dragThresholdPixels);
+        interactionSortBias = Mathf.Max(0f, interactionSortBias);
         if (!worldCamera)
         {
             worldCamera = Camera.main;
@@ -119,16 +125,8 @@ public class PointerContext : MonoBehaviour
 
     private void Update()
     {
-        primaryPressedThisFrame = false;
-        primaryReleasedThisFrame = false;
-        primaryClickedThisFrame = false;
-        secondaryClickedThisFrame = false;
-        dragStartedThisFrame = false;
-        dragEndedThisFrame = false;
-        clickedTarget = null;
-        secondaryClickedTarget = null;
-
-        screenPosition = pointerPositionAction.ReadValueOrDefault<Vector2>();
+        ResetFrameState();
+        screenPosition = ReadScreenPosition();
         ResolveWorldState();
         UpdatePrimaryState();
         UpdateSecondaryState();
@@ -138,13 +136,25 @@ public class PointerContext : MonoBehaviour
             DragUpdated?.Invoke(this);
         }
 
-        ApplyCursor(force: false);
+        UpdateCursorKind();
+    }
+
+    private void ResetFrameState()
+    {
+        primaryPressedThisFrame = false;
+        primaryReleasedThisFrame = false;
+        primaryClickedThisFrame = false;
+        secondaryClickedThisFrame = false;
+        dragStartedThisFrame = false;
+        dragEndedThisFrame = false;
+        clickedTarget = null;
+        secondaryClickedTarget = null;
     }
 
     public void SetContextMenuOpen(bool isOpen)
     {
         contextMenuOpen = isOpen;
-        ApplyCursor(force: true);
+        UpdateCursorKind();
     }
 
     public bool TryGetWalkPoint(out Vector3 point)
@@ -159,7 +169,45 @@ public class PointerContext : MonoBehaviour
         return hasWorldPoint;
     }
 
+    public bool TryGetWorldDragTarget(out InteractionTarget target)
+    {
+        return TryGetWorldDragTarget(screenPosition, out target);
+    }
+
+    public bool TryGetWorldDragTarget(Vector2 pointerScreenPosition, out InteractionTarget target)
+    {
+        if (!isDragging && IsBlockingUi(pointerScreenPosition))
+        {
+            target = null;
+            return false;
+        }
+
+        if (!TryGetWorldPointAtDepth(pointerScreenPosition, 0f, out Vector3 dragWorldPoint))
+        {
+            target = null;
+            return false;
+        }
+
+        return TryResolveBestTarget((Vector2)dragWorldPoint, dragOnly: true, dragCandidates, out target, out _);
+    }
+
+    public bool TryGetWorldPointAtDepth(float depth, out Vector3 point)
+    {
+        return TryGetWorldPointAtDepth(screenPosition, depth, out point);
+    }
+
     public bool TryGetDragPoint(float baseHeight, float maxLiftHeight, out Vector3 point)
+    {
+        if (!TryGetPointOnPlane(Vector3.up, new Vector3(0f, baseHeight, 0f), out point))
+        {
+            return false;
+        }
+
+        point.y = Mathf.Clamp(point.y, baseHeight, baseHeight + maxLiftHeight);
+        return true;
+    }
+
+    public bool TryGetWorldPointAtDepth(Vector2 pointerScreenPosition, float depth, out Vector3 point)
     {
         point = default;
         if (!WorldCamera)
@@ -167,38 +215,139 @@ public class PointerContext : MonoBehaviour
             return false;
         }
 
-        Plane plane = new(Vector3.up, new Vector3(0f, baseHeight, 0f));
-        if (!plane.Raycast(PointerRay, out float distance) || distance < 0f)
+        if (!WorldCamera.orthographic)
+        {
+            return TryGetPointOnPlane(pointerScreenPosition, Vector3.forward, new Vector3(0f, 0f, depth), out point);
+        }
+
+        float distance = Mathf.Abs(depth - WorldCamera.transform.position.z);
+        Vector3 screenPoint = new(pointerScreenPosition.x, pointerScreenPosition.y, distance);
+        point = WorldCamera.ScreenToWorldPoint(screenPoint);
+        point.z = depth;
+        return IsFinite(point);
+    }
+
+    public bool TryGetPointOnPlane(Vector3 planeNormal, Vector3 planePoint, out Vector3 point)
+    {
+        return TryGetPointOnPlane(screenPosition, planeNormal, planePoint, out point);
+    }
+
+    public bool TryGetPointOnPlane(Vector2 pointerScreenPosition, Vector3 planeNormal, Vector3 planePoint, out Vector3 point)
+    {
+        point = default;
+        if (!WorldCamera)
         {
             return false;
         }
 
-        point = PointerRay.GetPoint(distance);
-        point.y = Mathf.Clamp(point.y, baseHeight, baseHeight + maxLiftHeight);
-        return true;
+        Plane plane = new(planeNormal, planePoint);
+        Ray ray = WorldCamera.ScreenPointToRay(pointerScreenPosition);
+        if (!plane.Raycast(ray, out float distance) || distance < 0f || !float.IsFinite(distance))
+        {
+            return false;
+        }
+
+        point = ray.GetPoint(distance);
+        return IsFinite(point);
+    }
+
+    public bool TryGetCursorEntry(PointerCursorKind kind, out PointerCursorEntry entry)
+    {
+        if (cursorEntries == null || cursorEntries.Length == 0)
+        {
+            entry = default;
+            return false;
+        }
+
+        for (int i = 0; i < cursorEntries.Length; i++)
+        {
+            if (cursorEntries[i].CursorKind == kind)
+            {
+                entry = cursorEntries[i];
+                return true;
+            }
+        }
+
+        for (int i = 0; i < cursorEntries.Length; i++)
+        {
+            if (cursorEntries[i].CursorKind == PointerCursorKind.Default)
+            {
+                entry = cursorEntries[i];
+                return true;
+            }
+        }
+
+        entry = default;
+        return false;
+    }
+
+    public int GetHoveredTargets(List<InteractionTarget> results)
+    {
+        if (results == null)
+        {
+            return 0;
+        }
+
+        results.Clear();
+        for (int i = 0; i < hoverCandidates.Count; i++)
+        {
+            InteractionTarget target = hoverCandidates[i].Target;
+            if (target)
+            {
+                results.Add(target);
+            }
+        }
+
+        return results.Count;
     }
 
     private void UpdatePrimaryState()
     {
-        if (primaryPressAction.WasPressedThisFrame())
+        bool primaryPressed = WasPrimaryPressedThisFrame();
+        bool primaryReleased = WasPrimaryReleasedThisFrame();
+
+        if (primaryPressed)
         {
             primaryPressedThisFrame = true;
             pressScreenPosition = screenPosition;
             pressedTarget = hoveredTarget;
+            TryGetWorldDragTarget(pressScreenPosition, out pressedWorldDragTarget);
+            if (!pressedTarget && hasWorldPoint)
+            {
+                TryGetBestInteraction((Vector2)worldPoint, out pressedTarget, out _);
+            }
+
+            if (!pressedTarget)
+            {
+                TryGetWorldDragTarget(pressScreenPosition, out pressedTarget);
+            }
+
             dragTarget = null;
             PrimaryPressed?.Invoke(this);
         }
 
-        isPrimaryPressed = primaryPressAction.IsPressed();
-        if (isPrimaryPressed && !isDragging && (screenPosition - pressScreenPosition).sqrMagnitude >= dragThresholdPixels * dragThresholdPixels)
+        isPrimaryPressed = IsPrimaryCurrentlyPressed();
+        if (isPrimaryPressed
+            && !isDragging
+            && (screenPosition - pressScreenPosition).sqrMagnitude >= dragThresholdPixels * dragThresholdPixels)
         {
             isDragging = true;
             dragStartedThisFrame = true;
-            dragTarget = pressedTarget != null && pressedTarget.SupportsDrag ? pressedTarget : null;
+            dragTarget = pressedTarget && pressedTarget.SupportsDrag
+                ? pressedTarget
+                : pressedWorldDragTarget
+                    ? pressedWorldDragTarget
+                    : TryGetWorldDragTarget(pressScreenPosition, out InteractionTarget resolvedDragTarget)
+                        ? resolvedDragTarget
+                        : null;
+            if (!dragTarget)
+            {
+                TryGetWorldDragTarget(screenPosition, out dragTarget);
+            }
             DragStarted?.Invoke(this);
         }
 
-        if (!primaryPressAction.WasReleasedThisFrame())
+        if (!primaryReleased)
         {
             return;
         }
@@ -219,12 +368,13 @@ public class PointerContext : MonoBehaviour
         isDragging = false;
         isPrimaryPressed = false;
         pressedTarget = null;
+        pressedWorldDragTarget = null;
         dragTarget = null;
     }
 
     private void UpdateSecondaryState()
     {
-        if (!secondaryPressAction.WasPressedThisFrame())
+        if (!WasSecondaryPressedThisFrame())
         {
             return;
         }
@@ -234,62 +384,260 @@ public class PointerContext : MonoBehaviour
         SecondaryPressed?.Invoke(this);
     }
 
+    private Vector2 ReadScreenPosition()
+    {
+        if (Mouse.current != null)
+        {
+            return Mouse.current.position.ReadValue();
+        }
+
+        return pointerPositionAction.ReadValueOrDefault<Vector2>();
+    }
+
+    private bool WasPrimaryPressedThisFrame()
+    {
+        if (Mouse.current != null)
+        {
+            return Mouse.current.leftButton.wasPressedThisFrame;
+        }
+
+        return primaryPressAction.WasPressedThisFrame();
+    }
+
+    private bool WasPrimaryReleasedThisFrame()
+    {
+        if (Mouse.current != null)
+        {
+            return Mouse.current.leftButton.wasReleasedThisFrame;
+        }
+
+        return primaryPressAction.WasReleasedThisFrame();
+    }
+
+    private bool IsPrimaryCurrentlyPressed()
+    {
+        if (Mouse.current != null)
+        {
+            return Mouse.current.leftButton.isPressed;
+        }
+
+        return primaryPressAction.IsPressed();
+    }
+
+    private bool WasSecondaryPressedThisFrame()
+    {
+        if (Mouse.current != null)
+        {
+            return Mouse.current.rightButton.wasPressedThisFrame;
+        }
+
+        return secondaryPressAction.WasPressedThisFrame();
+    }
+
     private void ResolveWorldState()
     {
-        hasWorldPoint = false;
+        hasWorldPoint = TryGetWorldPointAtDepth(0f, out worldPoint);
         hasWalkPoint = false;
         isWorldBlocked = false;
-        isPointerOverUi = EventSystem.current.IsPointerOverCurrentPointer();
+        isPointerOverUi = IsBlockingUi(screenPosition);
 
-        if (!WorldCamera || ignoreWorldWhenOverUi && isPointerOverUi)
+        if (!hasWorldPoint)
         {
+            hoverCandidates.Clear();
             SetHoveredTarget(null);
             return;
         }
 
-        int mask = interactionLayers.value | walkableLayers.value | blockingLayers.value;
-        if (mask == 0)
+        if (!WorldCamera || ignoreWorldWhenOverUi && isPointerOverUi && !isDragging)
         {
+            hoverCandidates.Clear();
             SetHoveredTarget(null);
             return;
         }
 
-        InteractionTarget resolvedTarget = null;
-        RaycastHit[] hits = Physics.RaycastAll(PointerRay, rayDistance, mask, triggerInteraction);
-        Array.Sort(hits, static (left, right) => left.distance.CompareTo(right.distance));
+        Vector2 point2D = worldPoint;
+        bool hasInteraction = TryResolveBestTarget(point2D, dragOnly: false, hoverCandidates, out InteractionTarget target, out _);
+        bool hasWalkable = TryGetBestOverlap(point2D, walkableLayers, out _, out _);
+        bool hasBlocking = TryGetBestOverlap(point2D, blockingLayers, out _, out _);
 
-        for (int i = 0; i < hits.Length; i++)
+        hasWalkPoint = true;
+        if (hasWalkPoint)
         {
-            RaycastHit hit = hits[i];
-            if (!hit.collider.IsUsable())
+            walkPoint = worldPoint;
+        }
+
+        isWorldBlocked = hasBlocking && !hasWalkable && !hasInteraction;
+        SetHoveredTarget(hasInteraction ? target : null);
+    }
+
+    private bool TryGetBestInteraction(Vector2 point, out InteractionTarget target, out int sortScore)
+    {
+        return TryResolveBestTarget(point, dragOnly: false, hoverCandidates, out target, out sortScore);
+    }
+
+    private bool TryResolveBestTarget(Vector2 point, bool dragOnly, List<InteractionCandidate> candidates, out InteractionTarget target, out int sortScore)
+    {
+        target = null;
+        sortScore = int.MinValue;
+        candidates.Clear();
+        if (interactionLayers.value == 0)
+        {
+            return false;
+        }
+
+        InteractionTarget[] targets = FindObjectsByType<InteractionTarget>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        for (int i = 0; i < targets.Length; i++)
+        {
+            AddInteractionCandidate(candidates, targets[i], point, dragOnly);
+        }
+
+        if (candidates.Count == 0)
+        {
+            return false;
+        }
+
+        candidates.Sort(CompareCandidatesDescending);
+        for (int i = 0; i < candidates.Count; i++)
+        {
+            if (!candidates[i].Target)
             {
                 continue;
             }
 
-            hasWorldPoint = true;
-            worldPoint = hit.point;
-            int layer = 1 << hit.collider.gameObject.layer;
-            if ((blockingLayers.value & layer) != 0)
+            target = candidates[i].Target;
+            sortScore = candidates[i].SortingScore;
+            return true;
+        }
+
+        return false;
+    }
+
+    private void AddInteractionCandidate(List<InteractionCandidate> candidates, InteractionTarget resolvedTarget, Vector2 point, bool dragOnly)
+    {
+        if (!resolvedTarget || !resolvedTarget.isActiveAndEnabled || !IsTargetOnInteractionLayer(resolvedTarget))
+        {
+            return;
+        }
+
+        if (!IsTargetReachableInActorRoom(resolvedTarget))
+        {
+            return;
+        }
+
+        if (dragOnly && !resolvedTarget.SupportsDrag)
+        {
+            return;
+        }
+
+        InteractionContext context = CreateInteractionContext(resolvedTarget);
+        float distanceSqr = GetTargetDistanceSqr(point, resolvedTarget);
+        float allowedRadius = GetPointerPickRadius(resolvedTarget, dragOnly);
+        bool isDirectHit = resolvedTarget.ContainsPoint(point);
+        if (!isDirectHit && distanceSqr > allowedRadius * allowedRadius)
+        {
+            return;
+        }
+
+        int existingIndex = FindCandidateIndex(candidates, resolvedTarget);
+        float actorDistanceSqr = GetActorDistanceSqr(resolvedTarget);
+        bool inInteractionRange = resolvedTarget.IsInRange(Actor ? Actor.transform.position : resolvedTarget.transform.position);
+        bool hasPrimaryAction = dragOnly
+            ? resolvedTarget.TryGetDraggable(out IWorldDraggable draggable) && draggable.SupportsDrag && draggable.CanStartDrag(this)
+            : resolvedTarget.TryGetPrimaryAction(context, out InteractionAction primaryAction) && primaryAction.Enabled;
+        bool hasAnyAction = dragOnly ? hasPrimaryAction : resolvedTarget.HasAnyEnabledAction(context);
+        InteractionCandidate candidate = new(
+            resolvedTarget,
+            isDirectHit,
+            inInteractionRange,
+            resolvedTarget.SelectionPriority,
+            hasPrimaryAction,
+            hasAnyAction,
+            GetSortingScore(resolvedTarget),
+            distanceSqr,
+            GetNormalizedTargetScore(distanceSqr, actorDistanceSqr, allowedRadius, resolvedTarget.InteractionRadius, inInteractionRange));
+
+        if (existingIndex >= 0)
+        {
+            if (CompareCandidates(candidate, candidates[existingIndex]) > 0)
             {
-                isWorldBlocked = true;
-                break;
+                candidates[existingIndex] = candidate;
             }
 
-            resolvedTarget = hit.collider.ResolveInteractionTarget();
-            if (resolvedTarget)
-            {
-                break;
-            }
+            return;
+        }
 
-            if ((walkableLayers.value & layer) != 0)
+        candidates.Add(candidate);
+    }
+
+    private bool IsTargetReachableInActorRoom(InteractionTarget target)
+    {
+        Room activeRoom = GetActiveRoom();
+        if (!target || !target.OwnerRoom || !activeRoom)
+        {
+            return true;
+        }
+
+        return target.OwnerRoom == activeRoom;
+    }
+
+    private Room GetActiveRoom()
+    {
+        if (Rooms && Rooms.ActiveRoom)
+        {
+            return Rooms.ActiveRoom;
+        }
+
+        if (!Actor)
+        {
+            return null;
+        }
+
+        Room[] rooms = FindObjectsByType<Room>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        for (int i = 0; i < rooms.Length; i++)
+        {
+            if (rooms[i] && rooms[i].ContainsPoint(Actor.transform.position))
             {
-                walkPoint = hit.point;
-                hasWalkPoint = true;
-                break;
+                return rooms[i];
             }
         }
 
-        SetHoveredTarget(resolvedTarget);
+        return null;
+    }
+
+    private bool IsTargetOnInteractionLayer(InteractionTarget target)
+    {
+        return target && ((1 << target.gameObject.layer) & interactionLayers.value) != 0;
+    }
+
+
+    private static bool TryGetBestOverlap(Vector2 point, LayerMask layerMask, out Collider2D collider, out int sortScore)
+    {
+        collider = null;
+        sortScore = int.MinValue;
+        if (layerMask.value == 0)
+        {
+            return false;
+        }
+
+        Collider2D[] hits = Physics2D.OverlapPointAll(point, layerMask);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (!hits[i].IsUsable())
+            {
+                continue;
+            }
+
+            int candidateScore = GetSortingScore(hits[i]);
+            if (collider && candidateScore < sortScore)
+            {
+                continue;
+            }
+
+            collider = hits[i];
+            sortScore = candidateScore;
+        }
+
+        return collider;
     }
 
     private void SetHoveredTarget(InteractionTarget target)
@@ -323,12 +671,7 @@ public class PointerContext : MonoBehaviour
             return PointerState.HoveringUi;
         }
 
-        if (hoveredTarget)
-        {
-            return PointerState.HoveringWorld;
-        }
-
-        return PointerState.None;
+        return hoveredTarget ? PointerState.HoveringWorld : PointerState.None;
     }
 
     private PointerCursorKind ResolveCursorKind()
@@ -348,9 +691,14 @@ public class PointerContext : MonoBehaviour
             return PointerCursorKind.Pressed;
         }
 
+        if (TryGetWorldDragTarget(out InteractionTarget _))
+        {
+            return PointerCursorKind.DragReady;
+        }
+
         if (hoveredTarget)
         {
-            return hoveredTarget.HoverCursorKind;
+            return hoveredTarget.SupportsDrag ? PointerCursorKind.DragReady : hoveredTarget.HoverCursorKind;
         }
 
         if (hasWalkPoint)
@@ -361,78 +709,245 @@ public class PointerContext : MonoBehaviour
         return isWorldBlocked ? PointerCursorKind.Blocked : PointerCursorKind.Default;
     }
 
-    private void ApplyCursor(bool force)
+    private void UpdateCursorKind()
     {
-        PointerCursorKind kind = ResolveCursorKind();
-        if (!force && kind == appliedCursorKind)
+        PointerCursorKind next = ResolveCursorKind();
+        if (next == currentCursorKind)
         {
             return;
         }
 
-        appliedCursorKind = kind;
-        PointerCursorEntry entry = GetCursorEntry(kind);
-        Texture2D texture = IsCursorTextureUsable(entry.Texture) ? entry.Texture : null;
-        Vector2 hotspot = texture ? entry.Hotspot : Vector2.zero;
-        Cursor.SetCursor(texture, hotspot, ResolveCursorMode(texture));
+        PointerCursorKind previous = currentCursorKind;
+        currentCursorKind = next;
+        CursorChanged?.Invoke(previous, currentCursorKind);
     }
 
-    private CursorMode ResolveCursorMode(Texture2D texture)
+    private static int GetSortingScore(Component component)
     {
-        if (!texture || !fallbackToSoftwareCursor)
+        if (!component)
         {
-            return cursorMode;
+            return int.MinValue;
         }
 
-        if (IsHardwareCursorCompatible(texture))
+        SortingGroup sortingGroup = component.GetComponentInParent<SortingGroup>();
+        if (sortingGroup)
         {
-            return cursorMode;
+            return SortingLayer.GetLayerValueFromID(sortingGroup.sortingLayerID) * 1000 + sortingGroup.sortingOrder;
         }
 
-        return CursorMode.ForceSoftware;
+        Renderer renderer = component.GetComponent<Renderer>() ?? component.GetComponentInParent<Renderer>();
+        if (renderer)
+        {
+            return SortingLayer.GetLayerValueFromID(renderer.sortingLayerID) * 1000 + renderer.sortingOrder;
+        }
+
+        return -1000;
     }
 
-    private static bool IsHardwareCursorCompatible(Texture2D texture)
+    private InteractionContext CreateInteractionContext(InteractionTarget target)
     {
-        if (!texture || !texture.isReadable)
+        return new InteractionContext(Actor, this, target, SceneInventory);
+    }
+
+    private bool IsBlockingUi(Vector2 pointerScreenPosition)
+    {
+        if (Hotbar && Hotbar.BlocksWorldInteractionAt(pointerScreenPosition))
+        {
+            return true;
+        }
+
+        if (EventSystem.current == null)
         {
             return false;
         }
 
-        if (texture.mipmapCount > 1)
+        PointerEventData pointerEventData = new(EventSystem.current)
         {
-            return false;
-        }
+            position = pointerScreenPosition
+        };
 
-        return texture.format is TextureFormat.RGBA32 or TextureFormat.ARGB32 or TextureFormat.BGRA32;
-    }
-
-    private static bool IsCursorTextureUsable(Texture2D texture)
-    {
-        return texture
-            && texture.isReadable
-            && texture.mipmapCount <= 1
-            && texture.format is TextureFormat.RGBA32 or TextureFormat.ARGB32 or TextureFormat.BGRA32;
-    }
-
-    private PointerCursorEntry GetCursorEntry(PointerCursorKind kind)
-    {
-        for (int i = 0; i < cursorEntries.Length; i++)
+        uiRaycastResults.Clear();
+        EventSystem.current.RaycastAll(pointerEventData, uiRaycastResults);
+        for (int i = 0; i < uiRaycastResults.Count; i++)
         {
-            if (cursorEntries[i].CursorKind == kind)
+            GameObject hitObject = uiRaycastResults[i].gameObject;
+            if (!hitObject)
             {
-                return cursorEntries[i];
+                continue;
+            }
+
+            if (hitObject.GetComponentInParent<InteractionPromptPresenter>())
+            {
+                continue;
+            }
+
+            if (hitObject.GetComponentInParent<InteractionContextMenuPresenter>())
+            {
+                return true;
+            }
+
+            if (hitObject.GetComponentInParent<InventoryHotbarSlot>())
+            {
+                return true;
+            }
+
+            if (hitObject.GetComponentInParent<Selectable>())
+            {
+                return true;
             }
         }
 
-        for (int i = 0; i < cursorEntries.Length; i++)
+        return false;
+    }
+
+    private static int FindCandidateIndex(List<InteractionCandidate> candidates, InteractionTarget target)
+    {
+        for (int i = 0; i < candidates.Count; i++)
         {
-            if (cursorEntries[i].CursorKind == PointerCursorKind.Default)
+            if (candidates[i].Target == target)
             {
-                return cursorEntries[i];
+                return i;
             }
         }
 
-        return default;
+        return -1;
+    }
+
+    private float GetPointerPickRadius(InteractionTarget target, bool dragOnly)
+    {
+        if (!target)
+        {
+            return interactionProbeRadius;
+        }
+
+        float minimumRadius = dragOnly ? Mathf.Max(interactionProbeRadius, 0.6f) : interactionProbeRadius;
+        float radius = target.GetPointerSelectionRadius(minimumRadius);
+        if (target.TryGetComponent(out RoomPortal _))
+        {
+            return Mathf.Max(0.6f, Mathf.Min(radius, 1f));
+        }
+
+        return radius;
+    }
+
+    private static float GetTargetDistanceSqr(Vector2 point, InteractionTarget target)
+    {
+        if (!target)
+        {
+            return float.PositiveInfinity;
+        }
+
+        Vector2 interactionPoint = target.InteractionPoint.position;
+        return (interactionPoint - point).sqrMagnitude;
+    }
+
+    private static int CompareCandidates(InteractionCandidate left, InteractionCandidate right)
+    {
+        int directHitComparison = left.IsDirectHit.CompareTo(right.IsDirectHit);
+        if (directHitComparison != 0)
+        {
+            return directHitComparison;
+        }
+
+        int inRangeComparison = left.IsInInteractionRange.CompareTo(right.IsInInteractionRange);
+        if (inRangeComparison != 0)
+        {
+            return inRangeComparison;
+        }
+
+        int primaryActionComparison = left.HasEnabledPrimaryAction.CompareTo(right.HasEnabledPrimaryAction);
+        if (primaryActionComparison != 0)
+        {
+            return primaryActionComparison;
+        }
+
+        int anyActionComparison = left.HasAnyEnabledAction.CompareTo(right.HasAnyEnabledAction);
+        if (anyActionComparison != 0)
+        {
+            return anyActionComparison;
+        }
+
+        int priorityComparison = left.SelectionPriority.CompareTo(right.SelectionPriority);
+        if (priorityComparison != 0)
+        {
+            return priorityComparison;
+        }
+
+        int sortingComparison = left.SortingScore.CompareTo(right.SortingScore);
+        if (sortingComparison != 0)
+        {
+            return sortingComparison;
+        }
+
+        int normalizedDistanceComparison = right.NormalizedDistanceSqr.CompareTo(left.NormalizedDistanceSqr);
+        if (normalizedDistanceComparison != 0)
+        {
+            return normalizedDistanceComparison;
+        }
+
+        return right.DistanceSqr.CompareTo(left.DistanceSqr);
+    }
+
+    private float GetActorDistanceSqr(InteractionTarget target)
+    {
+        if (!target || !Actor)
+        {
+            return float.PositiveInfinity;
+        }
+
+        Vector2 actorPosition = Actor.transform.position;
+        Vector2 approachPoint = target.GetApproachPoint(Actor.transform.position);
+        return (approachPoint - actorPosition).sqrMagnitude;
+    }
+
+    private static float GetNormalizedTargetScore(float pointerDistanceSqr, float actorDistanceSqr, float pointerRadius, float interactionRadius, bool inInteractionRange)
+    {
+        float pointerScore = pointerRadius > 0.0001f ? pointerDistanceSqr / (pointerRadius * pointerRadius) : pointerDistanceSqr;
+        float interactionScore = interactionRadius > 0.0001f && float.IsFinite(actorDistanceSqr)
+            ? actorDistanceSqr / (interactionRadius * interactionRadius)
+            : 10f;
+        return (inInteractionRange ? 0f : 1f) + interactionScore + pointerScore * 0.35f;
+    }
+
+    private static int CompareCandidatesDescending(InteractionCandidate left, InteractionCandidate right)
+    {
+        return CompareCandidates(right, left);
+    }
+
+    private static bool IsFinite(Vector3 point)
+    {
+        return float.IsFinite(point.x) && float.IsFinite(point.y) && float.IsFinite(point.z);
+    }
+
+    private readonly struct InteractionCandidate
+    {
+        public InteractionCandidate(InteractionTarget target, int selectionPriority, bool hasEnabledPrimaryAction, bool hasAnyEnabledAction, int sortingScore, float distanceSqr)
+            : this(target, false, false, selectionPriority, hasEnabledPrimaryAction, hasAnyEnabledAction, sortingScore, distanceSqr, distanceSqr)
+        {
+        }
+
+        public InteractionCandidate(InteractionTarget target, bool isDirectHit, bool isInInteractionRange, int selectionPriority, bool hasEnabledPrimaryAction, bool hasAnyEnabledAction, int sortingScore, float distanceSqr, float normalizedDistanceSqr)
+        {
+            Target = target;
+            IsDirectHit = isDirectHit;
+            IsInInteractionRange = isInInteractionRange;
+            SelectionPriority = selectionPriority;
+            HasEnabledPrimaryAction = hasEnabledPrimaryAction;
+            HasAnyEnabledAction = hasAnyEnabledAction;
+            SortingScore = sortingScore;
+            DistanceSqr = distanceSqr;
+            NormalizedDistanceSqr = normalizedDistanceSqr;
+        }
+
+        public InteractionTarget Target { get; }
+        public bool IsDirectHit { get; }
+        public bool IsInInteractionRange { get; }
+        public int SelectionPriority { get; }
+        public bool HasEnabledPrimaryAction { get; }
+        public bool HasAnyEnabledAction { get; }
+        public int SortingScore { get; }
+        public float DistanceSqr { get; }
+        public float NormalizedDistanceSqr { get; }
     }
 }
 

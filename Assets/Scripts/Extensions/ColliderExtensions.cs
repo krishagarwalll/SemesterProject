@@ -16,4 +16,19 @@ public static class ColliderExtensions
 
         return collider.GetComponent<InteractionTarget>() ?? collider.GetComponentInParent<InteractionTarget>();
     }
+
+    public static bool IsUsable(this Collider2D collider)
+    {
+        return collider && collider.enabled && collider.gameObject.activeInHierarchy;
+    }
+
+    public static InteractionTarget ResolveInteractionTarget(this Collider2D collider)
+    {
+        if (!collider)
+        {
+            return null;
+        }
+
+        return collider.GetComponent<InteractionTarget>() ?? collider.GetComponentInParent<InteractionTarget>();
+    }
 }

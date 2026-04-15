@@ -1,151 +1,66 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(InteractionTarget))]
+[RequireComponent(typeof(DragBody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDraggable
 {
-    private const float SupportSurfaceTolerance = 0.05f;
-
     [SerializeField] private InventoryItemDefinition itemDefinition;
     [SerializeField, Min(1)] private int quantity = 1;
-    [SerializeField] private Transform dragHandle;
-    [SerializeField] private RoomBoundsConstraint boundsConstraint;
-    [SerializeField] private string dragLabel = "Store";
+    [SerializeField] private DragBody2D dragBody;
+    [SerializeField] private Transform placementAnchor;
+    [SerializeField] private InventoryTransferController transferController;
+    [SerializeField] private string dragLabel = "Drag";
+    [SerializeField] private string storeLabel = "Store";
     [SerializeField] private string inspectLabel = "Inspect";
     [SerializeField] private string dragGlyphId = "Primary";
+    [SerializeField] private string storeGlyphId = "Primary";
     [SerializeField] private string inspectGlyphId = "Context";
     [SerializeField, TextArea] private string inspectText;
-    [SerializeField] private LayerMask blockingLayers = ~0;
-    [SerializeField] private bool lockZPosition = true;
-    [SerializeField] private bool lockRotationX = true;
-    [SerializeField] private bool lockRotationY = true;
-    [SerializeField, Min(0f)] private float dragSmoothTime = 0.05f;
-    [SerializeField, Min(0f)] private float liftHeight = 0.35f;
-    [SerializeField, Min(0f)] private float maxDropDistance = 2f;
-    [SerializeField, Min(0f)] private float playerClearance = 0.75f;
-    [SerializeField] private bool keepGrabOffset = true;
-
-    private enum DragMode
-    {
-        None = 0,
-        World = 1,
-        InventoryPreview = 2
-    }
-
-    private InventoryTransferController transferController;
-    private Transform transferRoot;
-    private RoomBoundsConstraint resolvedBoundsConstraint;
-    private Collider[] colliders;
-    private Rigidbody[] bodies;
-    private Renderer[] renderers;
-    private NavMeshObstacle[] obstacles;
-    private InteractionTarget[] targets;
-    private bool[] colliderEnabled;
-    private bool[] bodyUseGravity;
-    private bool[] bodyKinematic;
-    private bool[] bodyDetectCollisions;
-    private RigidbodyConstraints[] bodyConstraints;
-    private RigidbodyInterpolation[] bodyInterpolation;
-    private CollisionDetectionMode[] bodyCollisionDetection;
-    private bool[] obstacleEnabled;
-    private bool[] targetEnabled;
-    private bool cachedWorldState;
-    private PointClickController player;
-    private PointerContext activePointer;
-    private DragMode dragMode;
-    private Vector3 dragVelocity;
-    private Vector3 dragOffset;
-    private float dragBaseHeight;
-    private Vector3 startPosition;
-    private Vector3 lastValidPosition;
-    private Quaternion startRotation;
 
     public InventoryItemDefinition ItemDefinition => itemDefinition;
     public int Quantity => quantity;
-    public Room OwnerRoom => TransferRoot.GetComponentInParent<Room>(true);
-    public bool SupportsDrag => enabled && gameObject.activeInHierarchy && itemDefinition;
-    public bool IsDragging => dragMode != DragMode.None;
-    public Transform TransferRoot => transferRoot ? transferRoot : transferRoot = ResolveTransferRoot();
-    public Vector3 RootPosition => TransferRoot.position;
-    public Quaternion RootRotation => TransferRoot.rotation;
+    public Room OwnerRoom => DragBody ? DragBody.OwnerRoom : GetComponentInParent<Room>(true);
+    public bool SupportsDrag => itemDefinition && DragBody && enabled && gameObject.activeInHierarchy;
+    public bool IsDragging => DragBody && DragBody.IsDragging;
+    public Transform RootTransform => DragBody ? DragBody.RootTransform : transform;
+    public Transform PlacementAnchor => placementAnchor ? placementAnchor : RootTransform;
+    public Vector3 RootPosition => RootTransform.position;
+    public Quaternion RootRotation => RootTransform.rotation;
 
+    private DragBody2D DragBody => dragBody ? dragBody : dragBody = GetComponent<DragBody2D>() ?? gameObject.GetOrAddComponent<DragBody2D>();
     private InventoryTransferController TransferController => transferController ? transferController : transferController = FindFirstObjectByType<InventoryTransferController>(FindObjectsInactive.Include);
-    private Transform DragHandle => dragHandle ? dragHandle : TransferRoot;
-    private RoomBoundsConstraint BoundsConstraint
-    {
-        get
-        {
-            if (boundsConstraint)
-            {
-                return boundsConstraint;
-            }
 
-            return resolvedBoundsConstraint ? resolvedBoundsConstraint : resolvedBoundsConstraint = TransferRoot.GetComponent<RoomBoundsConstraint>();
-        }
+    private void Awake()
+    {
+        ApplyRuntimeSetup();
     }
-    private Collider[] Colliders => colliders ??= TransferRoot.GetComponentsInChildren<Collider>(true);
-    private Rigidbody[] Bodies => bodies ??= TransferRoot.GetComponentsInChildren<Rigidbody>(true);
-    private Renderer[] Renderers => renderers ??= TransferRoot.GetComponentsInChildren<Renderer>(true);
-    private NavMeshObstacle[] Obstacles => obstacles ??= TransferRoot.GetComponentsInChildren<NavMeshObstacle>(true);
-    private InteractionTarget[] Targets => targets ??= TransferRoot.GetComponentsInChildren<InteractionTarget>(true);
-    private PointClickController Player => player ? player : player = FindFirstObjectByType<PointClickController>(FindObjectsInactive.Include);
 
     private void Reset()
     {
-        dragHandle = transform;
-        boundsConstraint = GetComponent<RoomBoundsConstraint>();
+        dragBody = GetComponent<DragBody2D>() ?? gameObject.GetOrAddComponent<DragBody2D>();
+        placementAnchor = transform;
+        ApplyRuntimeSetup();
     }
 
     private void OnValidate()
     {
         quantity = Mathf.Max(1, quantity);
-        dragSmoothTime = Mathf.Max(0f, dragSmoothTime);
-        liftHeight = Mathf.Max(0f, liftHeight);
-        maxDropDistance = Mathf.Max(0f, maxDropDistance);
-        playerClearance = Mathf.Max(0f, playerClearance);
-        if (!dragHandle)
-        {
-            dragHandle = transform;
-        }
-
-        if (!transferRoot)
-        {
-            transferRoot = ResolveTransferRoot();
-        }
-    }
-
-    private void Awake()
-    {
-        CacheWorldState();
-        ApplyWorldState();
-        lastValidPosition = RootPosition;
-        startRotation = RootRotation;
-    }
-
-    private void OnEnable()
-    {
-        if (dragMode == DragMode.None)
-        {
-            ApplyWorldState();
-        }
-    }
-
-    private void Update()
-    {
-        if (dragMode == DragMode.None || activePointer == null)
-        {
-            return;
-        }
-
-        UpdateDraggedPosition(Time.deltaTime);
+        ApplyRuntimeSetup();
     }
 
     public void GetActions(in InteractionContext context, List<InteractionAction> actions)
     {
-        bool canDrag = SupportsDrag && TransferController;
-        actions.Add(new InteractionAction(this, InteractionMode.Drag, dragLabel, dragGlyphId, canDrag, requiresApproach: false));
+        if (!itemDefinition)
+        {
+            return;
+        }
+
+        actions.Add(new InteractionAction(this, InteractionMode.Drag, dragLabel, dragGlyphId, SupportsDrag, requiresApproach: false));
+        bool canStore = context.Inventory && (!context.Inventory.IsFull || context.Inventory.Contains(itemDefinition));
+        actions.Add(new InteractionAction(this, InteractionMode.Store, storeLabel, storeGlyphId, canStore, requiresApproach: false, priority: -5));
         if (!string.IsNullOrWhiteSpace(GetInspectText()))
         {
             actions.Add(new InteractionAction(this, InteractionMode.Inspect, inspectLabel, inspectGlyphId, requiresApproach: false, priority: -10));
@@ -156,6 +71,9 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     {
         switch (action.Mode)
         {
+            case InteractionMode.Store:
+                return TryStoreDirect(context.Inventory);
+
             case InteractionMode.Drag:
                 if (context.Pointer == null)
                 {
@@ -163,7 +81,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
                 }
 
                 BeginDrag(context.Pointer);
-                return IsDragging;
+                return IsDragging || TransferController && TransferController.IsStoreTransfer(this);
 
             case InteractionMode.Inspect:
                 string inspect = GetInspectText();
@@ -181,254 +99,125 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
 
     public bool CanStartDrag(PointerContext pointer)
     {
-        return pointer && SupportsDrag && TransferController && dragMode == DragMode.None;
+        return SupportsDrag && DragBody.CanStartDrag(pointer);
     }
 
     public void BeginDrag(PointerContext pointer)
     {
-        if (!CanStartDrag(pointer) || !TransferController.TryBeginWorldTransfer(this))
+        if (!CanStartDrag(pointer))
         {
             return;
         }
 
-        StartDrag(pointer, DragMode.World, keepGrabOffset);
+        if (!DragBody.BeginDrag(pointer))
+        {
+            return;
+        }
+
+        TransferController?.TryBeginStoreTransfer(this);
+    }
+
+    public void UpdateDrag(PointerContext pointer)
+    {
+        if (pointer)
+        {
+            DragBody.UpdateDragScreen(pointer.ScreenPosition);
+        }
     }
 
     public void EndDrag()
     {
-        switch (dragMode)
+        bool isStoreTransfer = TransferController && TransferController.IsStoreTransfer(this);
+        DragBody.EndDrag(restoreInvalidPose: true);
+        if (isStoreTransfer)
         {
-            case DragMode.World:
-                TransferController?.EndWorldTransfer();
-                break;
-
-            case DragMode.InventoryPreview:
-                TransferController?.EndPlacementDrag(Vector2.zero);
-                break;
+            TransferController.EndStoreTransfer(cancelled: false);
         }
     }
 
-    public void ConfigureFromInventory(InventoryItemDefinition definition, int entryQuantity)
+    public bool TryGetInventoryEntry(out Inventory.Entry entry)
+    {
+        if (!itemDefinition)
+        {
+            entry = default;
+            return false;
+        }
+
+        entry = new Inventory.Entry(itemDefinition, quantity);
+        return true;
+    }
+
+    public void SuspendStoreTransfer()
+    {
+        DragBody.EndDrag(restoreInvalidPose: true);
+    }
+
+    public void CancelStoreTransfer()
+    {
+        DragBody.RestoreLastValidPose();
+        SetRootActive(true);
+    }
+
+    public void CompleteStoreToInventory()
+    {
+        DragBody.EndDrag(restoreInvalidPose: false);
+        SetRootActive(false);
+    }
+
+    public void ConfigureWorldItem(InventoryItemDefinition definition, int entryQuantity, Room ownerRoom)
     {
         itemDefinition = definition;
         quantity = Mathf.Max(1, entryQuantity);
+        DragBody.SetOwnerRoom(ownerRoom);
+        SetRootActive(true);
     }
 
-    public void BindTransferRoot(Transform root)
+    public void SeedPlacementPose(Vector3 worldPosition, Quaternion worldRotation)
     {
-        transferRoot = root ? root : transform;
-        resolvedBoundsConstraint = transferRoot.GetComponent<RoomBoundsConstraint>();
-        ClearCachedComponents();
+        DragBody.SeedPose(GetPlacementRootPosition(worldPosition), worldRotation);
     }
 
-    public bool BeginInventoryPlacement(PointerContext pointer)
+    public bool BeginPlacementFromInventory(PointerContext pointer, Vector2 screenPosition, Room ownerRoom)
     {
-        if (!pointer || dragMode != DragMode.None)
+        DragBody.SetOwnerRoom(ownerRoom);
+        if (ownerRoom && pointer.TryGetWorldPointAtDepth(screenPosition, RootPosition.z, out Vector3 startPoint))
+        {
+            Vector3 anchorPoint = ownerRoom.ClampPosition(startPoint);
+            DragBody.SeedPose(GetPlacementRootPosition(anchorPoint), RootRotation);
+        }
+
+        return DragBody.BeginDrag(pointer, screenPosition);
+    }
+
+    public void UpdatePlacementDrag(Vector2 screenPosition)
+    {
+        DragBody.UpdateDragScreen(screenPosition);
+    }
+
+    public bool CanPlaceInRoom()
+    {
+        return DragBody.CanPlace();
+    }
+
+    public bool TryGetCurrentValidPose(out Vector3 worldPosition, out Quaternion worldRotation)
+    {
+        return DragBody.TryGetValidPose(out worldPosition, out worldRotation);
+    }
+
+    public void FinishPlacementDrag(bool commit)
+    {
+        DragBody.EndDrag(restoreInvalidPose: !commit);
+    }
+
+    private bool TryStoreDirect(Inventory inventory)
+    {
+        if (!inventory || !itemDefinition || !inventory.TryStoreAnywhere(itemDefinition, quantity))
         {
             return false;
         }
 
-        SnapPreviewToPointer(pointer);
-        StartDrag(pointer, DragMode.InventoryPreview, preserveGrabOffset: false);
+        CompleteStoreToInventory();
         return true;
-    }
-
-    public bool CanPlaceAtCurrentPosition()
-    {
-        return !IntersectsPlayer(lastValidPosition) && IsPlacementValid(lastValidPosition);
-    }
-
-    public bool TryGetCommittedPose(out Vector3 worldPosition, out Quaternion worldRotation)
-    {
-        worldPosition = GetResolvedReleasePosition(lastValidPosition);
-        worldRotation = startRotation;
-        return true;
-    }
-
-    public void CompleteTransfer(Vector3 worldPosition, Quaternion worldRotation, Transform parent = null)
-    {
-        StopDragging();
-        ExitTransferMode(worldPosition, worldRotation, parent);
-    }
-
-    public void CancelTransfer(Vector3 worldPosition, Quaternion worldRotation, Transform parent = null)
-    {
-        StopDragging();
-        ExitTransferMode(worldPosition, worldRotation, parent);
-    }
-
-    public void DestroyTransferRoot()
-    {
-        StopDragging();
-        if (TransferRoot)
-        {
-            Destroy(TransferRoot.gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void StartDrag(PointerContext pointer, DragMode mode, bool preserveGrabOffset)
-    {
-        activePointer = pointer;
-        dragMode = mode;
-        startPosition = RootPosition;
-        lastValidPosition = RootPosition;
-        startRotation = RootRotation;
-        dragBaseHeight = RootPosition.y;
-        dragVelocity = Vector3.zero;
-        dragOffset = Vector3.zero;
-        EnterTransferMode();
-        if (preserveGrabOffset && activePointer.TryGetDragPoint(dragBaseHeight, liftHeight, out Vector3 point))
-        {
-            dragOffset = DragHandle.position - point;
-            dragOffset.y = 0f;
-        }
-
-        UpdateDraggedPosition(0f);
-    }
-
-    private void StopDragging()
-    {
-        activePointer = null;
-        dragMode = DragMode.None;
-        dragVelocity = Vector3.zero;
-    }
-
-    private void UpdateDraggedPosition(float deltaTime)
-    {
-        if (!activePointer.TryGetDragPoint(dragBaseHeight, liftHeight, out Vector3 candidate))
-        {
-            return;
-        }
-
-        candidate += dragOffset;
-        candidate.y = dragBaseHeight + liftHeight;
-        if (lockZPosition)
-        {
-            candidate.z = startPosition.z;
-        }
-
-        if (BoundsConstraint)
-        {
-            candidate = BoundsConstraint.Clamp(candidate);
-        }
-
-        if (!TryResolvePlayerOverlap(candidate) || !IsPlacementValid(candidate))
-        {
-            candidate = lastValidPosition;
-        }
-        else
-        {
-            lastValidPosition = candidate;
-        }
-
-        Vector3 next = dragSmoothTime <= 0f || deltaTime <= 0f
-            ? candidate
-            : Vector3.SmoothDamp(RootPosition, candidate, ref dragVelocity, dragSmoothTime, Mathf.Infinity, deltaTime);
-        TransferRoot.position = next;
-    }
-
-    private bool TryResolvePlayerOverlap(Vector3 candidate)
-    {
-        if (!Player)
-        {
-            return true;
-        }
-
-        Bounds bounds = GetWorldBounds(candidate);
-        if (!bounds.Intersects(Player.GetWorldBounds(playerClearance)))
-        {
-            return true;
-        }
-
-        if (!Player.RequestSmoothClearance(bounds, playerClearance))
-        {
-            return false;
-        }
-
-        return !IntersectsPlayer(candidate);
-    }
-
-    private bool IntersectsPlayer(Vector3 candidate)
-    {
-        return Player && GetWorldBounds(candidate).Intersects(Player.GetWorldBounds(playerClearance));
-    }
-
-    private bool IsPlacementValid(Vector3 candidate)
-    {
-        Bounds bounds = GetWorldBounds(candidate);
-        return !WorldDragUtility.IsBlocked(bounds, RootRotation, blockingLayers, Colliders, SupportSurfaceTolerance);
-    }
-
-    public Bounds GetWorldBounds(Vector3 worldPosition)
-    {
-        return WorldDragUtility.GetWorldBounds(Renderers, Colliders, RootPosition, worldPosition);
-    }
-
-    public void EnterTransferMode()
-    {
-        CacheWorldState();
-
-        for (int i = 0; i < Targets.Length; i++)
-        {
-            if (Targets[i])
-            {
-                Targets[i].enabled = false;
-            }
-        }
-
-        for (int i = 0; i < Colliders.Length; i++)
-        {
-            if (Colliders[i])
-            {
-                Colliders[i].enabled = false;
-            }
-        }
-
-        for (int i = 0; i < Bodies.Length; i++)
-        {
-            Rigidbody body = Bodies[i];
-            if (!body)
-            {
-                continue;
-            }
-
-            if (!body.isKinematic)
-            {
-                body.linearVelocity = Vector3.zero;
-                body.angularVelocity = Vector3.zero;
-            }
-
-            body.useGravity = false;
-            body.isKinematic = true;
-            body.detectCollisions = false;
-            body.constraints = GetManagedConstraints();
-        }
-
-        for (int i = 0; i < Obstacles.Length; i++)
-        {
-            if (Obstacles[i])
-            {
-                Obstacles[i].enabled = false;
-            }
-        }
-    }
-
-    public void ExitTransferMode(Vector3 worldPosition, Quaternion worldRotation, Transform parent = null)
-    {
-        if (parent)
-        {
-            TransferRoot.SetParent(parent, true);
-        }
-
-        TransferRoot.SetPositionAndRotation(worldPosition, worldRotation);
-        lastValidPosition = worldPosition;
-        startPosition = worldPosition;
-        startRotation = worldRotation;
-        RestoreWorldState();
     }
 
     private string GetInspectText()
@@ -441,194 +230,56 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
         return itemDefinition ? itemDefinition.Description : string.Empty;
     }
 
-    private void CacheWorldState()
+    private void ApplyRuntimeSetup()
     {
-        if (cachedWorldState)
+        ApplyLayer("WorldItem");
+        ApplySortingLayer("WorldItem");
+    }
+
+    private void ApplyLayer(string layerName)
+    {
+        int layer = LayerMask.NameToLayer(layerName);
+        if (layer < 0)
         {
             return;
         }
 
-        colliderEnabled = new bool[Colliders.Length];
-        for (int i = 0; i < Colliders.Length; i++)
-        {
-            colliderEnabled[i] = Colliders[i] && Colliders[i].enabled;
-        }
-
-        bodyUseGravity = new bool[Bodies.Length];
-        bodyKinematic = new bool[Bodies.Length];
-        bodyDetectCollisions = new bool[Bodies.Length];
-        bodyConstraints = new RigidbodyConstraints[Bodies.Length];
-        bodyInterpolation = new RigidbodyInterpolation[Bodies.Length];
-        bodyCollisionDetection = new CollisionDetectionMode[Bodies.Length];
-        for (int i = 0; i < Bodies.Length; i++)
-        {
-            Rigidbody body = Bodies[i];
-            if (!body)
-            {
-                continue;
-            }
-
-            bodyUseGravity[i] = body.useGravity;
-            bodyKinematic[i] = body.isKinematic;
-            bodyDetectCollisions[i] = body.detectCollisions;
-            bodyConstraints[i] = body.constraints;
-            bodyInterpolation[i] = body.interpolation;
-            bodyCollisionDetection[i] = body.collisionDetectionMode;
-        }
-
-        obstacleEnabled = new bool[Obstacles.Length];
-        for (int i = 0; i < Obstacles.Length; i++)
-        {
-            obstacleEnabled[i] = Obstacles[i] && Obstacles[i].enabled;
-        }
-
-        targetEnabled = new bool[Targets.Length];
-        for (int i = 0; i < Targets.Length; i++)
-        {
-            targetEnabled[i] = Targets[i] && Targets[i].enabled;
-        }
-
-        cachedWorldState = true;
+        SetLayerRecursively(transform, layer);
     }
 
-    private void ApplyWorldState()
+    private void ApplySortingLayer(string sortingLayerName)
     {
-        for (int i = 0; i < Bodies.Length; i++)
+        Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
+        for (int i = 0; i < renderers.Length; i++)
         {
-            Rigidbody body = Bodies[i];
-            if (!body)
-            {
-                continue;
-            }
-
-            bool isKinematic = bodyKinematic != null && i < bodyKinematic.Length && bodyKinematic[i];
-            body.useGravity = bodyUseGravity != null && i < bodyUseGravity.Length && bodyUseGravity[i];
-            body.isKinematic = isKinematic;
-            body.detectCollisions = bodyDetectCollisions != null && i < bodyDetectCollisions.Length && bodyDetectCollisions[i];
-            body.interpolation = bodyInterpolation != null && i < bodyInterpolation.Length ? bodyInterpolation[i] : RigidbodyInterpolation.Interpolate;
-            body.collisionDetectionMode = bodyCollisionDetection != null && i < bodyCollisionDetection.Length
-                ? bodyCollisionDetection[i]
-                : CollisionDetectionMode.Discrete;
-            body.constraints = (bodyConstraints != null && i < bodyConstraints.Length ? bodyConstraints[i] : RigidbodyConstraints.None) | GetManagedConstraints();
-            if (!isKinematic)
-            {
-                body.linearVelocity = Vector3.zero;
-                body.angularVelocity = Vector3.zero;
-            }
+            renderers[i].sortingLayerName = sortingLayerName;
         }
     }
 
-    private void RestoreWorldState()
+    private static void SetLayerRecursively(Transform root, int layer)
     {
-        StopDragging();
-        CacheWorldState();
-
-        for (int i = 0; i < Targets.Length; i++)
+        root.gameObject.layer = layer;
+        for (int i = 0; i < root.childCount; i++)
         {
-            if (Targets[i])
-            {
-                Targets[i].enabled = targetEnabled[i];
-            }
+            SetLayerRecursively(root.GetChild(i), layer);
         }
-
-        ApplyWorldState();
-
-        for (int i = 0; i < Colliders.Length; i++)
-        {
-            if (Colliders[i])
-            {
-                Colliders[i].enabled = colliderEnabled[i];
-            }
-        }
-
-        for (int i = 0; i < Obstacles.Length; i++)
-        {
-            if (Obstacles[i])
-            {
-                Obstacles[i].enabled = obstacleEnabled[i];
-            }
-        }
-
-        Physics.SyncTransforms();
     }
 
-    private RigidbodyConstraints GetManagedConstraints()
+    private Vector3 GetPlacementRootPosition(Vector3 anchorPoint)
     {
-        RigidbodyConstraints constraints = RigidbodyConstraints.None;
-        if (lockZPosition)
-        {
-            constraints |= RigidbodyConstraints.FreezePositionZ;
-        }
-
-        if (lockRotationX)
-        {
-            constraints |= RigidbodyConstraints.FreezeRotationX;
-        }
-
-        if (lockRotationY)
-        {
-            constraints |= RigidbodyConstraints.FreezeRotationY;
-        }
-
-        return constraints;
+        Transform anchor = PlacementAnchor;
+        Vector3 rootOffset = RootPosition - anchor.position;
+        Vector3 rootPosition = anchorPoint + rootOffset;
+        rootPosition.z = RootPosition.z;
+        return rootPosition;
     }
 
-    private Transform ResolveTransferRoot()
+    private void SetRootActive(bool isActive)
     {
-        Rigidbody parentBody = GetComponentInParent<Rigidbody>(true);
-        return parentBody ? parentBody.transform : transform;
-    }
-
-    private void ClearCachedComponents()
-    {
-        colliders = null;
-        bodies = null;
-        renderers = null;
-        obstacles = null;
-        targets = null;
-        colliderEnabled = null;
-        bodyUseGravity = null;
-        bodyKinematic = null;
-        bodyDetectCollisions = null;
-        bodyConstraints = null;
-        bodyInterpolation = null;
-        bodyCollisionDetection = null;
-        obstacleEnabled = null;
-        targetEnabled = null;
-        cachedWorldState = false;
-    }
-
-    private void SnapPreviewToPointer(PointerContext pointer)
-    {
-        if (!pointer.TryGetDragPoint(TransferRoot.position.y, liftHeight, out Vector3 point))
+        GameObject rootObject = RootTransform ? RootTransform.gameObject : gameObject;
+        if (rootObject)
         {
-            return;
+            rootObject.SetActive(isActive);
         }
-
-        if (lockZPosition)
-        {
-            point.z = TransferRoot.position.z;
-        }
-
-        if (BoundsConstraint)
-        {
-            point = BoundsConstraint.Clamp(point);
-        }
-
-        TransferRoot.position = point;
-    }
-
-    private Vector3 GetResolvedReleasePosition(Vector3 liftedPosition)
-    {
-        Bounds bounds = GetWorldBounds(liftedPosition);
-        return WorldDragUtility.ResolveRestingPosition(
-            bounds,
-            liftedPosition,
-            startRotation,
-            blockingLayers,
-            Colliders,
-            SupportSurfaceTolerance,
-            dragBaseHeight,
-            maxDropDistance);
     }
 }

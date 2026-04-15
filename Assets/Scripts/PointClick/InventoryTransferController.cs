@@ -6,8 +6,15 @@ public class InventoryTransferController : MonoBehaviour
     private enum TransferMode
     {
         None = 0,
-        WorldToInventory = 1,
-        InventoryToWorld = 2
+        Store = 1,
+        Placement = 2
+    }
+
+    private enum StorePhase
+    {
+        None = 0,
+        WorldDrag = 1,
+        UiGhost = 2
     }
 
     [SerializeField] private Inventory inventory;
@@ -16,13 +23,12 @@ public class InventoryTransferController : MonoBehaviour
     [SerializeField] private RoomTransitionService roomTransitionService;
 
     private TransferMode mode;
-    private PickupItem activeWorldItem;
-    private PickupItem previewItem;
+    private StorePhase storePhase;
+    private PickupItem activeStoreItem;
+    private PickupItem activePlacementItem;
+    private GameObject activePlacementRoot;
     private Inventory.Entry sourceEntry;
     private int sourceIndex = -1;
-    private Vector3 restorePosition;
-    private Quaternion restoreRotation;
-    private Room restoreRoom;
 
     private Inventory SceneInventory => inventory ? inventory : inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
     private PointerContext Pointer => pointer ? pointer : pointer = FindFirstObjectByType<PointerContext>(FindObjectsInactive.Include);
@@ -30,80 +36,116 @@ public class InventoryTransferController : MonoBehaviour
     private RoomTransitionService Rooms => roomTransitionService ? roomTransitionService : roomTransitionService = FindFirstObjectByType<RoomTransitionService>(FindObjectsInactive.Include);
 
     public bool IsActive => mode != TransferMode.None;
-    public bool IsDragging(PickupItem item) => item && activeWorldItem == item && mode == TransferMode.WorldToInventory;
-    public bool IsPlacingFromInventory => mode == TransferMode.InventoryToWorld;
+    public bool IsPlacingFromInventory => mode == TransferMode.Placement;
 
-    public bool TryBeginWorldTransfer(PickupItem item)
+    private void Update()
     {
-        if (IsActive || !item || !SceneInventory || !Pointer || !item.ItemDefinition)
+        if (mode != TransferMode.Store || !activeStoreItem || !Pointer || !Hotbar)
+        {
+            return;
+        }
+
+        if (storePhase == StorePhase.WorldDrag && Hotbar.IsInventoryArea(Pointer.ScreenPosition))
+        {
+            activeStoreItem.SuspendStoreTransfer();
+            storePhase = StorePhase.UiGhost;
+            Hotbar.ShowTransferPreview(sourceEntry, Pointer.ScreenPosition);
+        }
+
+        if (storePhase == StorePhase.UiGhost)
+        {
+            Hotbar.UpdateTransferPreview(Pointer.ScreenPosition);
+        }
+    }
+
+    public bool IsStoreTransfer(PickupItem item)
+    {
+        return item && mode == TransferMode.Store && activeStoreItem == item;
+    }
+
+    public bool CanPreviewPlacementAt(Vector2 screenPosition)
+    {
+        if (!Pointer)
         {
             return false;
         }
 
-        mode = TransferMode.WorldToInventory;
-        activeWorldItem = item;
-        sourceEntry = new Inventory.Entry(item.ItemDefinition, item.Quantity);
+        Room room = Rooms ? Rooms.ActiveRoom : null;
+        if (!room || !Pointer.TryGetWorldPointAtDepth(screenPosition, room.DefaultItemDepth, out Vector3 pointerPoint))
+        {
+            return false;
+        }
+
+        return room.ContainsPoint(pointerPoint);
+    }
+
+    public bool TryBeginStoreTransfer(PickupItem item)
+    {
+        if (IsActive || !item || !item.TryGetInventoryEntry(out sourceEntry))
+        {
+            sourceEntry = default;
+            return false;
+        }
+
+        mode = TransferMode.Store;
+        storePhase = StorePhase.WorldDrag;
+        activeStoreItem = item;
         sourceIndex = -1;
-        restorePosition = item.RootPosition;
-        restoreRotation = item.RootRotation;
-        restoreRoom = item.OwnerRoom ? item.OwnerRoom : Rooms ? Rooms.ActiveRoom : null;
         return true;
     }
 
-    public void EndWorldTransfer(bool cancelled = false)
+    public void EndStoreTransfer(bool cancelled = false)
     {
-        if (mode != TransferMode.WorldToInventory || !activeWorldItem)
+        if (mode != TransferMode.Store || !activeStoreItem)
         {
             ClearTransferState();
             return;
         }
 
-        if (!cancelled && Hotbar && Hotbar.TryGetInventoryDropTarget(Pointer.ScreenPosition, out int slotIndex, out bool overBackpack))
+        bool stored = false;
+        if (!cancelled
+            && storePhase == StorePhase.UiGhost
+            && Pointer
+            && Hotbar
+            && SceneInventory
+            && Hotbar.TryGetStoreDropTarget(Pointer.ScreenPosition, out int slotIndex, out bool overBackpack))
         {
-            bool stored = slotIndex >= 0
-                ? SceneInventory.TryInsert(slotIndex, sourceEntry.Definition, sourceEntry.Quantity)
-                : overBackpack && SceneInventory.TryAdd(sourceEntry.Definition, sourceEntry.Quantity);
-
-            if (stored)
-            {
-                activeWorldItem.DestroyTransferRoot();
-                ClearTransferState();
-                return;
-            }
+            stored = slotIndex >= 0
+                ? SceneInventory.TryStoreExact(slotIndex, sourceEntry.Definition, sourceEntry.Quantity)
+                : overBackpack && SceneInventory.TryStoreAnywhere(sourceEntry.Definition, sourceEntry.Quantity);
         }
 
-        if (!cancelled && activeWorldItem.CanPlaceAtCurrentPosition() && activeWorldItem.TryGetCommittedPose(out Vector3 worldPosition, out Quaternion worldRotation))
+        if (stored)
         {
-            Transform parent = GetRestoreParent();
-            activeWorldItem.CompleteTransfer(worldPosition, worldRotation, parent);
-            ClearTransferState();
-            return;
+            activeStoreItem.CompleteStoreToInventory();
+        }
+        else if (storePhase == StorePhase.UiGhost)
+        {
+            activeStoreItem.CancelStoreTransfer();
         }
 
-        activeWorldItem.CancelTransfer(restorePosition, restoreRotation, GetRestoreParent());
         ClearTransferState();
     }
 
-    public bool TryBeginPlacementFromInventory(int inventoryIndex)
+    public bool TryBeginPlacementTransfer(int inventoryIndex, Vector2 screenPosition)
     {
-        if (IsActive || !SceneInventory || !Pointer || !SceneInventory.TryGetEntry(inventoryIndex, out sourceEntry) || !sourceEntry.Definition || !sourceEntry.Definition.CanPlaceBackIntoWorld)
+        if (IsActive
+            || !SceneInventory
+            || !SceneInventory.TryGetEntry(inventoryIndex, out sourceEntry)
+            || !sourceEntry.Definition
+            || !sourceEntry.Definition.CanPlaceBackIntoWorld
+            || !sourceEntry.Definition.WorldPrefab
+            || !Pointer)
         {
             sourceEntry = default;
             return false;
         }
 
-        GameObject prefab = sourceEntry.Definition.WorldPrefab;
-        if (!prefab)
+        GameObject root = Instantiate(sourceEntry.Definition.WorldPrefab);
+        PickupItem placedItem = root.GetComponentInChildren<PickupItem>(true);
+        if (!placedItem)
         {
-            sourceEntry = default;
-            return false;
-        }
-
-        GameObject previewObject = Instantiate(prefab);
-        PickupItem pickupItem = previewObject.GetComponentInChildren<PickupItem>(true);
-        if (!pickupItem)
-        {
-            Destroy(previewObject);
+            Destroy(root);
             sourceEntry = default;
             return false;
         }
@@ -111,68 +153,114 @@ public class InventoryTransferController : MonoBehaviour
         Room activeRoom = Rooms ? Rooms.ActiveRoom : null;
         if (activeRoom && activeRoom.ContentRoot)
         {
-            previewObject.transform.SetParent(activeRoom.ContentRoot, true);
+            root.transform.SetParent(activeRoom.ContentRoot, true);
         }
 
-        pickupItem.BindTransferRoot(previewObject.transform);
-        pickupItem.ConfigureFromInventory(sourceEntry.Definition, sourceEntry.Quantity);
-        if (!pickupItem.BeginInventoryPlacement(Pointer))
+        placedItem.ConfigureWorldItem(sourceEntry.Definition, sourceEntry.Quantity, activeRoom);
+        SeedPlacementPose(placedItem, activeRoom, screenPosition);
+        if (!placedItem.BeginPlacementFromInventory(Pointer, screenPosition, activeRoom))
         {
-            Destroy(previewObject);
+            Destroy(root);
             sourceEntry = default;
             return false;
         }
 
-        mode = TransferMode.InventoryToWorld;
-        previewItem = pickupItem;
+        mode = TransferMode.Placement;
+        activePlacementItem = placedItem;
+        activePlacementRoot = root;
         sourceIndex = inventoryIndex;
-        restorePosition = default;
-        restoreRotation = pickupItem.RootRotation;
-        restoreRoom = activeRoom;
         return true;
     }
 
-    public void EndPlacementDrag(Vector2 screenPosition, bool cancelled = false)
+    public void UpdatePlacementTransfer(Vector2 screenPosition)
     {
-        if (mode != TransferMode.InventoryToWorld || !previewItem)
+        if (mode == TransferMode.Placement && activePlacementItem)
+        {
+            activePlacementItem.UpdatePlacementDrag(screenPosition);
+        }
+    }
+
+    public void EndPlacementTransfer(Vector2 screenPosition, bool cancelled = false)
+    {
+        if (mode != TransferMode.Placement || !activePlacementItem)
         {
             ClearTransferState();
             return;
         }
 
-        if (!cancelled
-            && previewItem.CanPlaceAtCurrentPosition()
-            && previewItem.TryGetCommittedPose(out Vector3 worldPosition, out Quaternion worldRotation)
-            && SceneInventory.TryTakeAt(sourceIndex, out Inventory.Entry taken, sourceEntry.Quantity))
-        {
-            if (taken.Definition == sourceEntry.Definition)
-            {
-                previewItem.CompleteTransfer(worldPosition, worldRotation, GetRestoreParent());
-                ClearTransferState();
-                return;
-            }
+        activePlacementItem.UpdatePlacementDrag(screenPosition);
+        bool committed = !cancelled
+            && activePlacementItem.CanPlaceInRoom()
+            && activePlacementItem.TryGetCurrentValidPose(out _, out _)
+            && SceneInventory
+            && SceneInventory.TryTakeAt(sourceIndex, out Inventory.Entry takenEntry, sourceEntry.Quantity)
+            && takenEntry.Definition == sourceEntry.Definition;
 
-            SceneInventory.TryInsert(sourceIndex, taken.Definition, taken.Quantity);
+        if (committed)
+        {
+            activePlacementItem.FinishPlacementDrag(commit: true);
+            ClearTransferState();
+            return;
         }
 
-        previewItem.DestroyTransferRoot();
+        activePlacementItem.FinishPlacementDrag(commit: false);
+        if (activePlacementRoot)
+        {
+            Destroy(activePlacementRoot);
+        }
+
         ClearTransferState();
     }
 
-    private Transform GetRestoreParent()
+    public bool TryBeginWorldTransfer(PickupItem item)
     {
-        return restoreRoom && restoreRoom.ContentRoot ? restoreRoom.ContentRoot : null;
+        return TryBeginStoreTransfer(item);
+    }
+
+    public void EndWorldTransfer(bool cancelled = false)
+    {
+        EndStoreTransfer(cancelled);
+    }
+
+    public bool TryBeginPlacementFromInventory(int inventoryIndex, Vector2 screenPosition)
+    {
+        return TryBeginPlacementTransfer(inventoryIndex, screenPosition);
+    }
+
+    public void EndPlacementDrag(Vector2 screenPosition, bool cancelled = false)
+    {
+        EndPlacementTransfer(screenPosition, cancelled);
     }
 
     private void ClearTransferState()
     {
+        Hotbar?.HideTransferPreview();
         mode = TransferMode.None;
-        activeWorldItem = null;
-        previewItem = null;
+        storePhase = StorePhase.None;
+        activeStoreItem = null;
+        activePlacementItem = null;
+        activePlacementRoot = null;
         sourceEntry = default;
         sourceIndex = -1;
-        restoreRoom = null;
-        restorePosition = default;
-        restoreRotation = default;
+    }
+
+    private void SeedPlacementPose(PickupItem item, Room room, Vector2 screenPosition)
+    {
+        if (!item)
+        {
+            return;
+        }
+
+        Vector3 seedPosition = room && room.DefaultAnchor ? room.DefaultAnchor.transform.position : item.transform.position;
+        if (Pointer && Pointer.TryGetWorldPointAtDepth(screenPosition, seedPosition.z, out Vector3 pointerPoint))
+        {
+            seedPosition = room ? room.ClampPosition(pointerPoint) : pointerPoint;
+        }
+        else if (room)
+        {
+            seedPosition = room.ClampPosition(seedPosition);
+        }
+
+        item.SeedPlacementPose(seedPosition, item.transform.rotation);
     }
 }

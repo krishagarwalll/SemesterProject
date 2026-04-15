@@ -1,24 +1,16 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(NavMeshAgent))]
 public class PointClickController : MonoBehaviour
 {
     private const float DirectionDeadzone = 0.0001f;
 
-    [Header("NavMesh Agent")]
-    [SerializeField] private bool updateRotation;
-
-    [Header("Navigation")]
-    [SerializeField, Min(0f)] private float navMeshSampleDistance = 1.5f;
-    [SerializeField, Min(0f)] private float navMeshSnapDistance = 2f;
-    [SerializeField, Min(0f)] private float destinationReachedThreshold = 0.05f;
-    [SerializeField] private bool snapToNavMeshOnEnable = true;
+    [Header("Movement")]
+    [SerializeField, Min(0.1f)] private float moveSpeed = 4f;
+    [SerializeField] private LayerMask walkableLayers = 1 << 6;
     [SerializeField] private bool ignorePointerOverUi = true;
-    [SerializeField, Min(0.1f)] private float sidestepDistance = 1f;
-    [SerializeField, Min(0.1f)] private float sidestepSampleRadius = 1.5f;
-    [SerializeField, Min(0.01f)] private float sidestepRepathInterval = 0.15f;
+    [SerializeField, Min(0f)] private float destinationReachedThreshold = 0.05f;
+    [SerializeField, Min(0f)] private float groundedPositionOffset = 0.5f;
 
     [Header("Animation")]
     [SerializeField] private string movingParameter = "isMoving";
@@ -31,47 +23,52 @@ public class PointClickController : MonoBehaviour
     private PointerContext pointer;
     private Inventory inventory;
     private RoomTransitionService roomTransitionService;
-    private NavMeshAgent navMeshAgent;
     private SpriteFlipper spriteFlipper;
     private Animator animator;
+    private Rigidbody2D body2D;
+    private Collider2D[] colliders2D;
+    private SpriteRenderer[] spriteRenderers;
     private PendingAction pendingAction;
     private IWorldDraggable activeDrag;
+    private Vector3 movementDestination;
     private float smoothedSpeed;
     private Vector2 smoothedDirection;
     private Vector3 lastPosition;
-    private float nextSidestepRequestTime;
-    private bool sidestepActive;
+    private float fixedDepth;
+    private float cachedGroundedOffset;
+    private bool hasDestination;
+    private bool groundedOffsetResolved;
 
     private PointerContext Pointer => this.ResolveSceneComponent(ref pointer);
     private Inventory SceneInventory => this.ResolveSceneComponent(ref inventory);
     private RoomTransitionService Rooms => this.ResolveSceneComponent(ref roomTransitionService);
-    private NavMeshAgent Agent => this.ResolveComponent(ref navMeshAgent);
     private SpriteFlipper Flipper => this.ResolveComponent(ref spriteFlipper, true);
     private Animator Anim => this.ResolveComponent(ref animator, true);
-    private Camera ViewCamera => Pointer && Pointer.WorldCamera ? Pointer.WorldCamera : Camera.main;
-    private Vector3 Position => Agent ? Agent.transform.position : transform.position;
+    private Rigidbody2D Body2D => this.ResolveComponent(ref body2D, true);
+    private Collider2D[] Colliders2D => colliders2D ??= GetComponentsInChildren<Collider2D>(true);
+    private SpriteRenderer[] SpriteRenderers => spriteRenderers ??= GetComponentsInChildren<SpriteRenderer>(true);
+    private Vector3 Position => transform.position;
     private bool HasPendingAction => pendingAction.IsValid;
-    private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi;
-    private bool HasReachedDestination => Agent
-        && Agent.isOnNavMesh
-        && !Agent.pathPending
-        && (!Agent.hasPath || Agent.remainingDistance <= Mathf.Max(Agent.stoppingDistance, destinationReachedThreshold));
+    private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi && activeDrag == null;
+    public bool HasActiveInteraction => activeDrag != null || HasPendingAction;
 
     private void Awake()
     {
-        SyncAgent();
+        fixedDepth = transform.position.z;
+        ApplyRuntimeSetup();
         ResetPresentationState();
+        ResolveGroundedOffset();
+        SnapToGroundAtCurrentPosition();
     }
 
     private void OnEnable()
     {
-        SyncAgent();
-        ResetPresentationState();
+        fixedDepth = transform.position.z;
+        ApplyRuntimeSetup();
         SubscribePointerEvents();
-        if (snapToNavMeshOnEnable)
-        {
-            Agent.TrySnapToNavMesh(transform, navMeshSnapDistance);
-        }
+        ResetPresentationState();
+        ResolveGroundedOffset();
+        SnapToGroundAtCurrentPosition();
     }
 
     private void OnDisable()
@@ -83,31 +80,18 @@ public class PointClickController : MonoBehaviour
 
     private void OnValidate()
     {
-        navMeshSampleDistance = Mathf.Max(0f, navMeshSampleDistance);
-        navMeshSnapDistance = Mathf.Max(0f, navMeshSnapDistance);
+        moveSpeed = Mathf.Max(0.1f, moveSpeed);
         destinationReachedThreshold = Mathf.Max(0f, destinationReachedThreshold);
-        sidestepDistance = Mathf.Max(0.1f, sidestepDistance);
-        sidestepSampleRadius = Mathf.Max(0.1f, sidestepSampleRadius);
-        sidestepRepathInterval = Mathf.Max(0.01f, sidestepRepathInterval);
+        groundedPositionOffset = Mathf.Max(0f, groundedPositionOffset);
         movingThreshold = Mathf.Max(0f, movingThreshold);
         animationSmoothing = Mathf.Max(0f, animationSmoothing);
         flipThreshold = Mathf.Max(0f, flipThreshold);
-        SyncAgent();
+        groundedOffsetResolved = false;
     }
 
     private void Update()
     {
         RefreshPresentation();
-        if (!Agent)
-        {
-            return;
-        }
-
-        if (HasReachedDestination)
-        {
-            Agent.StopPath();
-            sidestepActive = false;
-        }
 
         if (activeDrag != null)
         {
@@ -126,16 +110,23 @@ public class PointClickController : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        UpdateMovement();
+    }
+
     public bool TryWarp(Vector3 worldPosition)
     {
-        if (!Agent || !Agent.TryWarpTo(transform, worldPosition, navMeshSampleDistance, navMeshSnapDistance, out Vector3 sampledPosition))
+        if (TryResolveDestination(worldPosition, out Vector3 resolvedPosition))
         {
-            return false;
+            SetWorldPosition(resolvedPosition);
+            StopPath();
+            return true;
         }
 
-        lastPosition = sampledPosition;
-        Agent.StopPath();
-        return true;
+        SetWorldPosition(ClampToActiveRoom(worldPosition));
+        StopPath();
+        return false;
     }
 
     public void GetAvailableActions(InteractionTarget target, System.Collections.Generic.List<InteractionAction> actions)
@@ -151,12 +142,7 @@ public class PointClickController : MonoBehaviour
 
     public bool ExecuteAction(InteractionTarget target, InteractionMode mode)
     {
-        if (!target || !target.TryGetAction(CreateContext(target), mode, out InteractionAction action))
-        {
-            return false;
-        }
-
-        return ExecuteAction(target, action);
+        return target && target.TryGetAction(CreateContext(target), mode, out InteractionAction action) && ExecuteAction(target, action);
     }
 
     public bool ExecuteAction(InteractionTarget target, InteractionAction action)
@@ -168,7 +154,19 @@ public class PointClickController : MonoBehaviour
 
         if (action.Mode == InteractionMode.Drag && target.TryGetDraggable(out IWorldDraggable draggable))
         {
-            BeginDrag(draggable);
+            if (!Pointer)
+            {
+                return false;
+            }
+
+            StopAndClear();
+            draggable.BeginDrag(Pointer);
+            if (!draggable.IsDragging)
+            {
+                return false;
+            }
+
+            activeDrag = draggable;
             return true;
         }
 
@@ -189,102 +187,39 @@ public class PointClickController : MonoBehaviour
 
     public bool RequestSmoothClearance(Bounds blockerBounds, float clearance)
     {
-        if (!Agent || !Agent.isOnNavMesh)
-        {
-            return false;
-        }
-
-        Bounds currentBounds = GetWorldBounds(clearance);
-        if (!currentBounds.Intersects(blockerBounds))
-        {
-            sidestepActive = false;
-            return true;
-        }
-
-        if (sidestepActive && Time.time < nextSidestepRequestTime)
-        {
-            return true;
-        }
-
-        Vector3 playerCenter = currentBounds.center;
-        Vector3 away = playerCenter - blockerBounds.ClosestPoint(playerCenter);
-        away.y = 0f;
-        if (away.sqrMagnitude <= DirectionDeadzone)
-        {
-            away = Vector3.right;
-        }
-
-        away.Normalize();
-        Vector3[] directions =
-        {
-            away,
-            Quaternion.Euler(0f, 20f, 0f) * away,
-            Quaternion.Euler(0f, -20f, 0f) * away,
-            Quaternion.Euler(0f, 40f, 0f) * away,
-            Quaternion.Euler(0f, -40f, 0f) * away
-        };
-        float baseDistance = Mathf.Max(clearance * 0.75f, sidestepDistance * 0.75f);
-        float[] distances = { baseDistance, baseDistance * 1.1f, baseDistance * 1.25f };
-
-        for (int distanceIndex = 0; distanceIndex < distances.Length; distanceIndex++)
-        {
-            for (int i = 0; i < directions.Length; i++)
-            {
-                Vector3 candidate = transform.position + directions[i] * distances[distanceIndex];
-                candidate = ClampToActiveRoom(candidate);
-                if (!NavMesh.SamplePosition(candidate, out NavMeshHit hit, sidestepSampleRadius, Agent.areaMask))
-                {
-                    continue;
-                }
-
-                Bounds shiftedBounds = currentBounds;
-                shiftedBounds.center += hit.position - transform.position;
-                if (shiftedBounds.Intersects(blockerBounds))
-                {
-                    continue;
-                }
-
-                if (!Agent.SetDestination(hit.position))
-                {
-                    continue;
-                }
-
-                Agent.isStopped = false;
-                sidestepActive = true;
-                nextSidestepRequestTime = Time.time + sidestepRepathInterval;
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 
     public Bounds GetWorldBounds(float padding)
     {
-        Collider[] colliders = GetComponentsInChildren<Collider>(true);
-        Bounds bounds = new(transform.position, Vector3.zero);
-        bool initialized = false;
-        for (int i = 0; i < colliders.Length; i++)
+        if (Colliders2D.Length > 0)
         {
-            if (!colliders[i] || !colliders[i].enabled)
+            Bounds bounds = new(transform.position, Vector3.zero);
+            bool initialized = false;
+            for (int i = 0; i < Colliders2D.Length; i++)
             {
-                continue;
+                if (!Colliders2D[i].IsUsable())
+                {
+                    continue;
+                }
+
+                if (!initialized)
+                {
+                    bounds = Colliders2D[i].bounds;
+                    initialized = true;
+                }
+                else
+                {
+                    bounds.Encapsulate(Colliders2D[i].bounds.min);
+                    bounds.Encapsulate(Colliders2D[i].bounds.max);
+                }
             }
 
-            if (!initialized)
-            {
-                bounds = colliders[i].bounds;
-                initialized = true;
-            }
-            else
-            {
-                bounds.Encapsulate(colliders[i].bounds.min);
-                bounds.Encapsulate(colliders[i].bounds.max);
-            }
+            bounds.Expand(padding * 2f);
+            return bounds;
         }
 
-        bounds.Expand(padding * 2f);
-        return bounds;
+        return new Bounds(transform.position, Vector3.one + Vector3.one * padding * 2f);
     }
 
     private void SubscribePointerEvents()
@@ -296,6 +231,7 @@ public class PointClickController : MonoBehaviour
 
         Pointer.PrimaryClicked += HandlePrimaryClick;
         Pointer.DragStarted += HandleDragStarted;
+        Pointer.DragUpdated += HandleDragUpdated;
     }
 
     private void UnsubscribePointerEvents()
@@ -307,6 +243,7 @@ public class PointClickController : MonoBehaviour
 
         pointer.PrimaryClicked -= HandlePrimaryClick;
         pointer.DragStarted -= HandleDragStarted;
+        pointer.DragUpdated -= HandleDragUpdated;
     }
 
     private void HandlePrimaryClick(PointerContext context)
@@ -320,15 +257,20 @@ public class PointClickController : MonoBehaviour
         {
             if (context.TryGetWalkPoint(out Vector3 point))
             {
-                TrySetDestination(ClampToActiveRoom(point));
+                TrySetDestination(point);
             }
 
             return;
         }
 
         InteractionTarget target = context.ClickedTarget;
-        if (!target.TryGetPreferredAction(CreateContext(target), out InteractionAction action))
+        if (!target.TryGetPrimaryAction(CreateContext(target), out InteractionAction action))
         {
+            if (target.SupportsDrag)
+            {
+                TryApproach(target);
+            }
+
             return;
         }
 
@@ -337,30 +279,28 @@ public class PointClickController : MonoBehaviour
 
     private void HandleDragStarted(PointerContext context)
     {
-        if (IsPointerBlocked)
-        {
-            return;
-        }
-
         InteractionTarget target = context.DragTarget;
-        if (!target || !target.TryGetDraggable(out IWorldDraggable draggable))
+        if (!target && context)
         {
-            return;
+            context.TryGetWorldDragTarget(out target);
         }
 
-        BeginDrag(draggable);
-    }
-
-    private void BeginDrag(IWorldDraggable draggable)
-    {
-        if (draggable == null || !draggable.CanStartDrag(Pointer))
+        if (!target || !target.TryGetDraggable(out IWorldDraggable draggable) || !Pointer)
         {
             return;
         }
 
         StopAndClear();
         draggable.BeginDrag(Pointer);
-        activeDrag = draggable.IsDragging ? draggable : null;
+        if (draggable.IsDragging)
+        {
+            activeDrag = draggable;
+        }
+    }
+
+    private void HandleDragUpdated(PointerContext context)
+    {
+        activeDrag?.UpdateDrag(context);
     }
 
     private InteractionContext CreateContext(InteractionTarget target)
@@ -383,7 +323,7 @@ public class PointClickController : MonoBehaviour
 
         if (!pendingAction.Target.IsInRange(Position))
         {
-            if (!Agent.pathPending && (!Agent.hasPath || Agent.pathStatus == NavMeshPathStatus.PathInvalid) && !TryApproach(pendingAction.Target))
+            if (!hasDestination && !TryApproach(pendingAction.Target))
             {
                 pendingAction = default;
             }
@@ -393,9 +333,8 @@ public class PointClickController : MonoBehaviour
 
         InteractionTarget target = pendingAction.Target;
         InteractionAction action = pendingAction.Action;
-        StopAndClear();
-        target.Execute(CreateContext(target), action);
         pendingAction = default;
+        ExecuteAction(target, action);
     }
 
     private bool TryApproach(InteractionTarget target)
@@ -405,36 +344,62 @@ public class PointClickController : MonoBehaviour
 
     private bool TrySetDestination(Vector3 worldPosition)
     {
-        worldPosition = ClampToActiveRoom(worldPosition);
-        if (!Agent.TrySetDestination(transform, worldPosition, navMeshSampleDistance, navMeshSnapDistance, out _))
+        if (!TryResolveDestination(worldPosition, out movementDestination))
         {
             return false;
         }
 
-        sidestepActive = false;
-        Agent.isStopped = false;
+        hasDestination = true;
         return true;
     }
 
-    private void SyncAgent()
+    private bool TryResolveDestination(Vector3 worldPosition, out Vector3 resolvedDestination)
     {
-        if (!Agent)
+        resolvedDestination = ClampToActiveRoom(worldPosition);
+        return TryResolveGroundDestination(resolvedDestination.x, out resolvedDestination);
+    }
+
+    private bool TryResolveGroundDestination(float targetX, out Vector3 resolvedDestination)
+    {
+        resolvedDestination = transform.position;
+        Room currentRoom = GetCurrentRoom();
+        if (!currentRoom)
+        {
+            return false;
+        }
+
+        Vector3 requested = new(targetX, currentRoom.GroundY, fixedDepth);
+        resolvedDestination = currentRoom.ClampPoint(requested, fixedDepth);
+        return true;
+    }
+
+    private void UpdateMovement()
+    {
+        if (!hasDestination || activeDrag != null)
         {
             return;
         }
 
-        Agent.updateRotation = updateRotation;
+        Vector3 current = transform.position;
+        Vector3 next = Vector3.MoveTowards(current, movementDestination, moveSpeed * Time.deltaTime);
+        SetWorldPosition(next);
+        if ((movementDestination - transform.position).sqrMagnitude <= destinationReachedThreshold * destinationReachedThreshold)
+        {
+            SetWorldPosition(movementDestination);
+            StopPath();
+        }
     }
 
     private void StopAndClear()
     {
-        if (Agent)
-        {
-            Agent.StopPath();
-        }
-
-        sidestepActive = false;
+        StopPath();
         pendingAction = default;
+    }
+
+    private void StopPath()
+    {
+        hasDestination = false;
+        movementDestination = transform.position;
     }
 
     private void Cancel()
@@ -457,19 +422,11 @@ public class PointClickController : MonoBehaviour
 
     private void RefreshPresentation()
     {
-        Vector3 velocity = Agent ? Agent.velocity : Vector3.zero;
-        velocity.y = 0f;
-        if (velocity.sqrMagnitude <= DirectionDeadzone && Time.deltaTime > 0f)
-        {
-            velocity = (transform.position - lastPosition) / Time.deltaTime;
-            velocity.y = 0f;
-        }
-
-        Vector2 direction = GetLocalMoveDirection(velocity);
+        Vector3 velocity = Time.deltaTime > 0f ? (transform.position - lastPosition) / Time.deltaTime : Vector3.zero;
+        Vector2 direction = velocity.sqrMagnitude <= DirectionDeadzone ? Vector2.zero : ((Vector2)velocity).normalized;
         float speed = velocity.magnitude;
         smoothedSpeed = animationSmoothing <= 0f ? speed : Mathf.MoveTowards(smoothedSpeed, speed, animationSmoothing * Time.deltaTime);
         smoothedDirection = animationSmoothing <= 0f ? direction : Vector2.MoveTowards(smoothedDirection, direction, animationSmoothing * Time.deltaTime);
-
         ApplyPresentation(smoothedDirection, smoothedSpeed > movingThreshold);
         lastPosition = transform.position;
     }
@@ -489,36 +446,6 @@ public class PointClickController : MonoBehaviour
         SetBool(movingParameter, moving);
         SetFloat(horizontalSpeedParameter, direction.x);
         SetFloat(verticalSpeedParameter, direction.y);
-    }
-
-    private Vector2 GetLocalMoveDirection(Vector3 worldDirection)
-    {
-        if (worldDirection.sqrMagnitude <= DirectionDeadzone)
-        {
-            return Vector2.zero;
-        }
-
-        Vector3 forward = ViewCamera ? ViewCamera.transform.forward : Vector3.forward;
-        Vector3 right = ViewCamera ? ViewCamera.transform.right : Vector3.right;
-        forward.y = 0f;
-        right.y = 0f;
-        if (forward.sqrMagnitude <= DirectionDeadzone || right.sqrMagnitude <= DirectionDeadzone)
-        {
-            forward = Vector3.forward;
-            right = Vector3.right;
-        }
-
-        forward.Normalize();
-        right.Normalize();
-        float speed = Agent && Agent.speed > DirectionDeadzone ? Agent.speed : worldDirection.magnitude;
-        if (speed <= DirectionDeadzone)
-        {
-            return Vector2.zero;
-        }
-
-        return new Vector2(
-            Mathf.Clamp(Vector3.Dot(worldDirection, right) / speed, -1f, 1f),
-            Mathf.Clamp(Vector3.Dot(worldDirection, forward) / speed, -1f, 1f));
     }
 
     private void SetBool(string parameterName, bool value)
@@ -541,10 +468,142 @@ public class PointClickController : MonoBehaviour
         Anim.SetFloat(Animator.StringToHash(parameterName), value);
     }
 
+    private void SetWorldPosition(Vector3 worldPosition)
+    {
+        worldPosition.z = fixedDepth;
+        if (Body2D)
+        {
+            Body2D.position = new Vector2(worldPosition.x, worldPosition.y);
+            Body2D.linearVelocity = Vector2.zero;
+            transform.position = worldPosition;
+            return;
+        }
+
+        transform.position = worldPosition;
+    }
+
+    private void ApplyRuntimeSetup()
+    {
+        int layer = LayerMask.NameToLayer("Character");
+        if (layer >= 0)
+        {
+            gameObject.layer = layer;
+        }
+
+        Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].sortingLayerName = "Character";
+        }
+    }
+
     private Vector3 ClampToActiveRoom(Vector3 point)
     {
-        Room activeRoom = Rooms ? Rooms.ActiveRoom : null;
+        Room activeRoom = GetCurrentRoom();
+        point.z = fixedDepth;
         return activeRoom ? activeRoom.ClampPosition(point) : point;
+    }
+
+    private float GetGroundedOffset()
+    {
+        if (!groundedOffsetResolved)
+        {
+            ResolveGroundedOffset();
+        }
+
+        return cachedGroundedOffset;
+    }
+
+    private void ResolveGroundedOffset()
+    {
+        groundedOffsetResolved = true;
+        cachedGroundedOffset = groundedPositionOffset;
+        if (groundedPositionOffset > 0f)
+        {
+            return;
+        }
+
+        bool hasVisualBounds = false;
+        float visualOffset = 0f;
+        for (int i = 0; i < SpriteRenderers.Length; i++)
+        {
+            SpriteRenderer renderer = SpriteRenderers[i];
+            if (!renderer || !renderer.enabled || !renderer.gameObject.activeInHierarchy)
+            {
+                continue;
+            }
+
+            float offset = transform.position.y - renderer.bounds.min.y;
+            if (!hasVisualBounds || offset < visualOffset)
+            {
+                visualOffset = offset;
+                hasVisualBounds = true;
+            }
+        }
+
+        if (hasVisualBounds)
+        {
+            cachedGroundedOffset = Mathf.Max(0f, visualOffset);
+            return;
+        }
+
+        bool initialized = false;
+        float bestOffset = 0f;
+        for (int i = 0; i < Colliders2D.Length; i++)
+        {
+            Collider2D collider = Colliders2D[i];
+            if (!collider || !collider.enabled)
+            {
+                continue;
+            }
+
+            float offset = transform.position.y - collider.bounds.min.y;
+            if (!initialized || offset > bestOffset)
+            {
+                bestOffset = offset;
+                initialized = true;
+            }
+        }
+
+        cachedGroundedOffset = initialized ? bestOffset : 0.5f;
+    }
+
+    private void SnapToGroundAtCurrentPosition()
+    {
+        Room currentRoom = GetCurrentRoom();
+        if (!currentRoom)
+        {
+            return;
+        }
+
+        Vector3 groundedPosition = currentRoom.ClampPoint(new Vector3(transform.position.x, currentRoom.GroundY, fixedDepth), fixedDepth);
+        Vector3 current = transform.position;
+        groundedPosition.z = fixedDepth;
+        if ((current - groundedPosition).sqrMagnitude <= DirectionDeadzone)
+        {
+            return;
+        }
+
+        SetWorldPosition(groundedPosition);
+    }
+
+    private Room GetCurrentRoom()
+    {
+        if (Rooms && Rooms.ActiveRoom)
+        {
+            return Rooms.ActiveRoom;
+        }
+
+        Room[] rooms = FindObjectsByType<Room>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        for (int i = 0; i < rooms.Length; i++)
+        {
+            if (rooms[i] && rooms[i].ContainsPoint(transform.position))
+            {
+                return rooms[i];
+            }
+        }
+
+        return GetComponentInParent<Room>(true);
     }
 
     private readonly struct PendingAction

@@ -4,15 +4,17 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class InteractableOutline : MonoBehaviour
 {
-#if UNITY_6000_0_OR_NEWER
-    [SerializeField] private RenderingLayerMask outlineLayer = 1;
-#else
-    [SerializeField] private int outlineLayer = 1;
-#endif
+    [SerializeField] private OutlineMode outlineMode = OutlineMode.SpriteProxyWithTint;
     [SerializeField] private bool includeInactiveChildren = true;
+    [SerializeField] private bool autoCreateSpriteOutlines = true;
+    [SerializeField] private Color outlineColor = new(0.05f, 0.03f, 0.01f, 0.95f);
+    [SerializeField, Range(0f, 1f)] private float outlineThickness = 0.06f;
+    [SerializeField] private Color spriteHighlightColor = new(1f, 0.95f, 0.65f, 1f);
+    [SerializeField, Range(0f, 1f)] private float spriteHighlightStrength = 0.2f;
 
-    private readonly List<Renderer> outlinedRenderers = new();
-    private readonly List<uint> originalMasks = new();
+    private readonly List<SpriteRenderer> spriteRenderers = new();
+    private readonly List<Color> spriteColors = new();
+    private readonly List<SpriteOutlineProxy> spriteOutlineProxies = new();
 
     private void OnEnable()
     {
@@ -21,68 +23,80 @@ public class InteractableOutline : MonoBehaviour
 
     private void OnValidate()
     {
+        outlineThickness = Mathf.Clamp01(outlineThickness);
+        spriteHighlightStrength = Mathf.Clamp01(spriteHighlightStrength);
         Rebuild();
     }
 
     public void SetHighlighted(bool highlighted)
     {
-        if (outlinedRenderers.Count == 0)
+        if (spriteRenderers.Count == 0)
         {
             Rebuild();
         }
 
-        uint layerMask = GetLayerMask();
-        for (int i = 0; i < outlinedRenderers.Count; i++)
+        bool useProxyOutline = outlineMode is OutlineMode.SpriteProxyOnly or OutlineMode.SpriteProxyWithTint;
+        bool useTint = outlineMode is OutlineMode.TintOnly or OutlineMode.SpriteProxyWithTint;
+        for (int i = 0; i < spriteOutlineProxies.Count; i++)
         {
-            Renderer renderer = outlinedRenderers[i];
-            if (!renderer)
+            SpriteOutlineProxy proxy = spriteOutlineProxies[i];
+            if (proxy)
+            {
+                proxy.SetOutline(highlighted && useProxyOutline, outlineColor, outlineThickness);
+            }
+        }
+
+        for (int i = 0; i < spriteRenderers.Count; i++)
+        {
+            SpriteRenderer spriteRenderer = spriteRenderers[i];
+            if (!spriteRenderer)
             {
                 continue;
             }
 
-            renderer.renderingLayerMask = highlighted
-                ? originalMasks[i] | layerMask
-                : originalMasks[i];
+            Color baseColor = spriteColors[i];
+            spriteRenderer.color = highlighted && useTint
+                ? Color.Lerp(baseColor, spriteHighlightColor, spriteHighlightStrength)
+                : baseColor;
         }
     }
 
     private void Rebuild()
     {
-        outlinedRenderers.Clear();
-        originalMasks.Clear();
+        spriteRenderers.Clear();
+        spriteColors.Clear();
+        spriteOutlineProxies.Clear();
 
-        Renderer[] renderers = GetComponentsInChildren<Renderer>(includeInactiveChildren);
+        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>(includeInactiveChildren);
         for (int i = 0; i < renderers.Length; i++)
         {
-            if (renderers[i].gameObject.name == "_SpriteOutlineProxy")
+            SpriteRenderer spriteRenderer = renderers[i];
+            if (!spriteRenderer || spriteRenderer.gameObject.name == "_SpriteOutlineProxy")
             {
                 continue;
             }
 
-            if (renderers[i] is SpriteRenderer spriteRenderer)
-            {
-                SpriteOutlineProxy proxy = spriteRenderer.GetOrAddComponent<SpriteOutlineProxy>();
-                Renderer proxyRenderer = proxy.ProxyRenderer;
-                if (proxyRenderer)
-                {
-                    outlinedRenderers.Add(proxyRenderer);
-                    originalMasks.Add(proxyRenderer.renderingLayerMask);
-                }
+            spriteRenderers.Add(spriteRenderer);
+            spriteColors.Add(spriteRenderer.color);
 
-                continue;
+            SpriteOutlineProxy proxy = spriteRenderer.GetComponent<SpriteOutlineProxy>();
+            if (!proxy && autoCreateSpriteOutlines)
+            {
+                proxy = spriteRenderer.gameObject.GetOrAddComponent<SpriteOutlineProxy>();
             }
 
-            outlinedRenderers.Add(renderers[i]);
-            originalMasks.Add(renderers[i].renderingLayerMask);
+            if (proxy)
+            {
+                spriteOutlineProxies.Add(proxy);
+                proxy.SetOutline(false, outlineColor, outlineThickness);
+            }
         }
     }
+}
 
-    private uint GetLayerMask()
-    {
-#if UNITY_6000_0_OR_NEWER
-        return outlineLayer;
-#else
-        return 1u << (int)Mathf.Log(outlineLayer, 2);
-#endif
-    }
+public enum OutlineMode
+{
+    TintOnly = 0,
+    SpriteProxyOnly = 1,
+    SpriteProxyWithTint = 2
 }

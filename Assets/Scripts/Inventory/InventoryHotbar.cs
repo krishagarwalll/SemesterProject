@@ -156,10 +156,24 @@ public class InventoryHotbar : MonoBehaviour
         }
 
         lastDragScreenPosition = screenPosition;
-        if (!worldPlacementActive
-            && TransferController
-            && !TryGetInventoryDropTarget(screenPosition, out _, out _)
-            && TransferController.TryBeginPlacementFromInventory(dragSourceIndex))
+        bool overInventory = IsInventoryZone(screenPosition);
+        bool canWorldPreview = TransferController && !overInventory && TransferController.CanPreviewPlacementAt(screenPosition);
+
+        if (worldPlacementActive)
+        {
+            if (!canWorldPreview)
+            {
+                TransferController?.EndPlacementTransfer(screenPosition, cancelled: true);
+                worldPlacementActive = false;
+                RestoreSlotDragPreview(screenPosition);
+                return;
+            }
+
+            TransferController?.UpdatePlacementTransfer(screenPosition);
+            return;
+        }
+
+        if (canWorldPreview && TransferController.TryBeginPlacementTransfer(dragSourceIndex, screenPosition))
         {
             worldPlacementActive = true;
             HideDragPreview();
@@ -185,18 +199,30 @@ public class InventoryHotbar : MonoBehaviour
             screenPosition = lastDragScreenPosition;
         }
 
-        if (!cancelled
-            && !worldPlacementActive
-            && TransferController
-            && !TryGetInventoryDropTarget(screenPosition, out _, out _)
-            && TransferController.TryBeginPlacementFromInventory(dragSourceIndex))
-        {
-            worldPlacementActive = true;
-        }
+        bool overInventory = IsInventoryZone(screenPosition);
+        bool canWorldPreview = TransferController && !overInventory && TransferController.CanPreviewPlacementAt(screenPosition);
 
         if (worldPlacementActive)
         {
-            TransferController?.EndPlacementDrag(screenPosition, cancelled);
+            bool commitPlacement = !cancelled && canWorldPreview;
+            TransferController?.EndPlacementTransfer(screenPosition, cancelled: !commitPlacement);
+            dragSourceIndex = -1;
+            lastDragScreenPosition = Vector2.zero;
+            worldPlacementActive = false;
+            HideDragPreview();
+            if (commitPlacement)
+            {
+                return;
+            }
+        }
+
+        if (!cancelled
+            && !worldPlacementActive
+            && canWorldPreview
+            && TransferController
+            && TransferController.TryBeginPlacementTransfer(dragSourceIndex, screenPosition))
+        {
+            TransferController.EndPlacementTransfer(screenPosition, cancelled: false);
             dragSourceIndex = -1;
             lastDragScreenPosition = Vector2.zero;
             worldPlacementActive = false;
@@ -229,6 +255,18 @@ public class InventoryHotbar : MonoBehaviour
         HideDragPreview();
     }
 
+    private void RestoreSlotDragPreview(Vector2 screenPosition)
+    {
+        if (!SceneInventory || !SceneInventory.TryGetEntry(dragSourceIndex, out Inventory.Entry entry))
+        {
+            HideDragPreview();
+            return;
+        }
+
+        EnsureDragPreview();
+        UpdateDragPreview(entry, screenPosition);
+    }
+
     private void ToggleCollapsed()
     {
         collapsed = !collapsed;
@@ -237,7 +275,52 @@ public class InventoryHotbar : MonoBehaviour
 
     public bool IsInventoryArea(Vector2 screenPosition)
     {
-        return TryGetInventoryDropTarget(screenPosition, out _, out _);
+        return IsInventoryZone(screenPosition);
+    }
+
+    public bool BlocksWorldInteractionAt(Vector2 screenPosition)
+    {
+        Camera eventCamera = GetEventCamera();
+        if (BackpackButton && RectTransformUtility.RectangleContainsScreenPoint(BackpackButton.transform as RectTransform, screenPosition, eventCamera))
+        {
+            return true;
+        }
+
+        return !collapsed && TryGetExactSlotIndex(screenPosition, eventCamera, out _);
+    }
+
+    public void ShowTransferPreview(Inventory.Entry entry, Vector2 screenPosition)
+    {
+        EnsureDragPreview();
+        UpdateDragPreview(entry, screenPosition);
+    }
+
+    public void UpdateTransferPreview(Vector2 screenPosition)
+    {
+        if (dragPreviewRoot)
+        {
+            dragPreviewRoot.anchoredPosition = ScreenToCanvasPosition(screenPosition);
+        }
+    }
+
+    public void HideTransferPreview()
+    {
+        HideDragPreview();
+    }
+
+    public bool TryGetStoreDropTarget(Vector2 screenPosition, out int slotIndex, out bool overBackpack)
+    {
+        slotIndex = -1;
+        overBackpack = false;
+
+        Camera eventCamera = GetEventCamera();
+        if (BackpackButton && RectTransformUtility.RectangleContainsScreenPoint(BackpackButton.transform as RectTransform, screenPosition, eventCamera))
+        {
+            overBackpack = true;
+            return true;
+        }
+
+        return !collapsed && TryGetExactSlotIndex(screenPosition, eventCamera, out slotIndex);
     }
 
     public bool TryGetInventoryDropTarget(Vector2 screenPosition, out int slotIndex, out bool overBackpack)
@@ -245,7 +328,7 @@ public class InventoryHotbar : MonoBehaviour
         slotIndex = -1;
         overBackpack = false;
 
-        Camera eventCamera = RootCanvas && RootCanvas.renderMode != RenderMode.ScreenSpaceOverlay ? RootCanvas.worldCamera : null;
+        Camera eventCamera = GetEventCamera();
         if (BackpackButton && RectTransformUtility.RectangleContainsScreenPoint(BackpackButton.transform as RectTransform, screenPosition, eventCamera))
         {
             overBackpack = true;
@@ -259,11 +342,6 @@ public class InventoryHotbar : MonoBehaviour
 
         if (Panel && RectTransformUtility.RectangleContainsScreenPoint(Panel, screenPosition, eventCamera))
         {
-            if (!collapsed && TryGetClosestSlotIndex(screenPosition, out slotIndex))
-            {
-                return true;
-            }
-
             overBackpack = true;
             return true;
         }
@@ -529,57 +607,36 @@ public class InventoryHotbar : MonoBehaviour
         return false;
     }
 
-    private bool TryGetClosestSlotIndex(Vector2 screenPosition, out int slotIndex)
+    private bool IsInventoryZone(Vector2 screenPosition)
     {
-        slotIndex = -1;
-        if (collapsed)
-        {
-            return false;
-        }
-
-        Camera eventCamera = RootCanvas && RootCanvas.renderMode != RenderMode.ScreenSpaceOverlay ? RootCanvas.worldCamera : null;
-        if (TryGetExactSlotIndex(screenPosition, eventCamera, out slotIndex))
+        Camera eventCamera = GetEventCamera();
+        if (BackpackButton && RectTransformUtility.RectangleContainsScreenPoint(BackpackButton.transform as RectTransform, screenPosition, eventCamera))
         {
             return true;
         }
 
-        float closestDistance = float.PositiveInfinity;
-        for (int i = 0; i < slots.Count; i++)
+        if (!collapsed && TryGetExactSlotIndex(screenPosition, eventCamera, out _))
         {
-            if (!slots[i] || !slots[i].gameObject.activeInHierarchy)
-            {
-                continue;
-            }
-
-            RectTransform slotRect = slots[i].transform as RectTransform;
-            if (!slotRect)
-            {
-                continue;
-            }
-
-            Vector2 slotScreenPoint = RectTransformUtility.WorldToScreenPoint(eventCamera, slotRect.position);
-            float distance = (slotScreenPoint - screenPosition).sqrMagnitude;
-            if (distance >= closestDistance)
-            {
-                continue;
-            }
-
-            closestDistance = distance;
-            slotIndex = i;
+            return true;
         }
 
-        return slotIndex >= 0;
+        return Panel && RectTransformUtility.RectangleContainsScreenPoint(Panel, screenPosition, eventCamera);
     }
 
     private Vector2 ScreenToCanvasPosition(Vector2 screenPosition)
     {
         RectTransform canvasRect = RootCanvas.transform as RectTransform;
-        Camera eventCamera = RootCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : RootCanvas.worldCamera;
+        Camera eventCamera = GetEventCamera();
         if (!canvasRect || !RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPosition, eventCamera, out Vector2 localPosition))
         {
             return screenPosition;
         }
 
         return localPosition;
+    }
+
+    private Camera GetEventCamera()
+    {
+        return RootCanvas && RootCanvas.renderMode != RenderMode.ScreenSpaceOverlay ? RootCanvas.worldCamera : null;
     }
 }

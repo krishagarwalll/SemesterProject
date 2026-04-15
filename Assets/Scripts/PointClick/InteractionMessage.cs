@@ -19,7 +19,7 @@ public class InteractionMessage : MonoBehaviour, IInteractionActionProvider
     {
         if (!string.IsNullOrWhiteSpace(primaryMessage))
         {
-            actions.Add(new InteractionAction(this, InteractionMode.Primary, primaryLabel, primaryGlyphId));
+            actions.Add(new InteractionAction(this, InteractionMode.Primary, primaryLabel, primaryGlyphId, requiresApproach: false));
         }
 
         if (!string.IsNullOrWhiteSpace(inspectMessage))
@@ -30,7 +30,7 @@ public class InteractionMessage : MonoBehaviour, IInteractionActionProvider
         if (!string.IsNullOrWhiteSpace(selectedItemMessage))
         {
             bool enabled = context.SelectedItem;
-            actions.Add(new InteractionAction(this, InteractionMode.UseSelectedItem, useItemLabel, useItemGlyphId, enabled));
+            actions.Add(new InteractionAction(this, InteractionMode.UseSelectedItem, useItemLabel, useItemGlyphId, enabled, requiresApproach: false));
         }
     }
 

@@ -106,6 +106,35 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
+    public bool TryStoreExact(int index, InventoryItemDefinition definition, int quantity = 1)
+    {
+        if (!definition || quantity <= 0 || !IsValidSlotIndex(index))
+        {
+            return false;
+        }
+
+        if (!IsOccupiedIndex(index))
+        {
+            entries[index] = new Entry(definition, quantity);
+            NotifyChanged();
+            return true;
+        }
+
+        if (entries[index].Definition != definition)
+        {
+            return false;
+        }
+
+        entries[index] = entries[index].Add(quantity);
+        NotifyChanged();
+        return true;
+    }
+
+    public bool TryStoreAnywhere(InventoryItemDefinition definition, int quantity = 1)
+    {
+        return TryAdd(definition, quantity);
+    }
+
     public bool TryInsert(int index, InventoryItemDefinition definition, int quantity = 1)
     {
         if (!definition || quantity <= 0 || !IsValidSlotIndex(index))
