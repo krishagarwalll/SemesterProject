@@ -40,6 +40,9 @@
 # JetBrains cache directory
 .idea/
 
+# Claude cache directory
+.claude/
+
 # Gradle cache directory
 .gradle/
 
