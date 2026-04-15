@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Obsolete("Legacy room exit interaction retained for older scenes.", false)]
 [DisallowMultipleComponent]
 public class RoomExit : MonoBehaviour, IInteractionHandler
 {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[System.Obsolete("Legacy 3D-style world drag body. Sprint2 uses DragBody2D.", false)]
 [DisallowMultipleComponent]
 public class WorldDragBody : MonoBehaviour
 {

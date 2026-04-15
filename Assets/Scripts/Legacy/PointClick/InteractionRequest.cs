@@ -1,3 +1,4 @@
+[System.Obsolete("Legacy interaction request retained for older scenes.", false)]
 public readonly struct InteractionRequest
 {
     public InteractionRequest(PointClickController actor, PointerContext pointer, InteractionTarget target, InteractionMode mode, Inventory inventory)

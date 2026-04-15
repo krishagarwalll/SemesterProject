@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[System.Obsolete("Legacy world drag utility retained for older scenes.", false)]
 public static class WorldDragUtility
 {
     private const float MinimumExtent = 0.01f;

@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
+[Obsolete("Legacy Level1 interaction prompt. Sprint2 uses InteractionPromptPresenter.", false)]
 public class PlayerInteractUI : MonoBehaviour{
     
     [SerializeField] private GameObject containerGameObject;

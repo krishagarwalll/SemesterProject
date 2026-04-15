@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[System.Obsolete("Legacy world drag/inventory item implementation. Sprint2 uses DragBody2D with PickupItem/RoomProp.", false)]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(InteractionTarget))]

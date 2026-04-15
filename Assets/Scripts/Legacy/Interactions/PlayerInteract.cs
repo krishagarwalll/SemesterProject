@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[System.Obsolete("Legacy Level1 interaction probe. Sprint2 uses InteractionTarget plus PointerContext.", false)]
 public class PlayerInteract : MonoBehaviour
 {
     private void Update()
