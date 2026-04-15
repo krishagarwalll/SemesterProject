@@ -4,19 +4,26 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class InteractionTarget : MonoBehaviour
 {
+    [FieldHeader("Anchors")]
     [SerializeField] private Transform interactionPoint;
     [SerializeField] private Transform approachPoint;
+
+    [FieldHeader("Range")]
     [SerializeField] private InteractionDistancePreset interactionDistancePreset = InteractionDistancePreset.Standard;
     [SerializeField] private bool useInteractionRadiusOverride;
     [SerializeField, Min(0.01f)] private float interactionRadiusOverride = 1.25f;
+
+    [FieldHeader("Selection")]
     [SerializeField] private int selectionPriority;
     [SerializeField] private Room room;
+
+    [FieldHeader("Pointer")]
     [SerializeField] private PointerCursorKind hoverCursorKind = PointerCursorKind.Interact;
     [SerializeField] private PointerCursorKind dragCursorKind = PointerCursorKind.Dragging;
 
     private readonly List<InteractionAction> actionBuffer = new();
     private MonoBehaviour[] behaviours;
-    private InteractableOutline outline;
+    private Outline2D outline;
     private Collider2D[] colliders2D;
     private Collider[] colliders3D;
     private Renderer[] renderers;
@@ -31,7 +38,7 @@ public class InteractionTarget : MonoBehaviour
     public bool SupportsDrag => TryGetDraggable(out _);
 
     private MonoBehaviour[] Behaviours => behaviours ??= GetComponents<MonoBehaviour>();
-    private InteractableOutline Outline => outline ? outline : outline = GetComponentInChildren<InteractableOutline>(true);
+    private Outline2D Outline => outline ? outline : outline = GetComponentInChildren<Outline2D>(true);
     private Collider2D[] Colliders2D => colliders2D ??= GetComponentsInChildren<Collider2D>(true);
     private Collider[] Colliders3D => colliders3D ??= GetComponentsInChildren<Collider>(true);
     private Renderer[] Renderers => renderers ??= GetComponentsInChildren<Renderer>(true);
@@ -298,30 +305,7 @@ public class InteractionTarget : MonoBehaviour
         return found;
     }
 
-    private int GetSuggestedSelectionPriority()
-    {
-        if (TryGetComponent(out RoomPortal _))
-        {
-            return 80;
-        }
-
-        if (TryGetComponent(out PickupItem _))
-        {
-            return 120;
-        }
-
-        if (TryGetComponent(out DraggableProp _))
-        {
-            return 100;
-        }
-
-        if (TryGetComponent(out InteractionMessage _))
-        {
-            return 20;
-        }
-
-        return 0;
-    }
+    private int GetSuggestedSelectionPriority() => 0;
 
     private InteractionDistancePreset GetEffectiveDistancePreset()
     {
@@ -340,7 +324,7 @@ public class InteractionTarget : MonoBehaviour
             return InteractionDistancePreset.Portal;
         }
 
-        if (TryGetComponent(out PickupItem _) || TryGetComponent(out DraggableProp _))
+        if (TryGetDraggable(out _))
         {
             return InteractionDistancePreset.Reach;
         }
@@ -352,11 +336,11 @@ public class InteractionTarget : MonoBehaviour
     {
         return preset switch
         {
-            InteractionDistancePreset.Touch => 0.9f,
-            InteractionDistancePreset.Standard => 1.35f,
-            InteractionDistancePreset.Reach => 1.85f,
-            InteractionDistancePreset.Portal => 2.25f,
-            _ => 1.35f
+            InteractionDistancePreset.Touch => 0.4f,
+            InteractionDistancePreset.Standard => 0.7f,
+            InteractionDistancePreset.Reach => 0.85f,
+            InteractionDistancePreset.Portal => 1.2f,
+            _ => 0.7f
         };
     }
 }

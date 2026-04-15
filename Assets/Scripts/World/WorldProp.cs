@@ -5,13 +5,18 @@ using UnityEngine;
 [RequireComponent(typeof(InteractionTarget))]
 [RequireComponent(typeof(DragBody2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class DraggableProp : MonoBehaviour, IInteractionActionProvider, IWorldDraggable
+public class WorldProp : MonoBehaviour, IInteractionActionProvider, IWorldDraggable
 {
+    [FieldHeader("References")]
     [SerializeField] private DragBody2D dragBody;
+
+    [FieldHeader("Actions")]
     [SerializeField] private string dragLabel = "Drag";
     [SerializeField] private string inspectLabel = "Inspect";
     [SerializeField] private string dragGlyphId = "Primary";
     [SerializeField] private string inspectGlyphId = "Context";
+
+    [FieldHeader("Content")]
     [SerializeField, TextArea] private string inspectText;
 
     public bool SupportsDrag => DragBody && enabled && gameObject.activeInHierarchy;
@@ -91,36 +96,6 @@ public class DraggableProp : MonoBehaviour, IInteractionActionProvider, IWorldDr
 
     private void ApplyRuntimeSetup()
     {
-        ApplyLayer("RoomProp");
-        ApplySortingLayer("RoomProp");
-    }
-
-    private void ApplyLayer(string layerName)
-    {
-        int layer = LayerMask.NameToLayer(layerName);
-        if (layer < 0)
-        {
-            return;
-        }
-
-        SetLayerRecursively(transform, layer);
-    }
-
-    private void ApplySortingLayer(string sortingLayerName)
-    {
-        Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
-        for (int i = 0; i < renderers.Length; i++)
-        {
-            renderers[i].sortingLayerName = sortingLayerName;
-        }
-    }
-
-    private static void SetLayerRecursively(Transform root, int layer)
-    {
-        root.gameObject.layer = layer;
-        for (int i = 0; i < root.childCount; i++)
-        {
-            SetLayerRecursively(root.GetChild(i), layer);
-        }
+        this.ApplyWorldPresentation("RoomProp", "RoomProp");
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 
-[System.Obsolete("Legacy Level1 movement. Sprint2 uses PointClickCharacter/PointClickController.", false)]
+[System.Obsolete("Legacy Level1 movement. Sprint2 uses PointClickController.", false)]
 public class PointToMove : MonoBehaviour
 {
 

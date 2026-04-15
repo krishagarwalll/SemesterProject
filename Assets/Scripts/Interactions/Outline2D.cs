@@ -2,13 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class InteractableOutline : MonoBehaviour
+public class Outline2D : MonoBehaviour
 {
+    [FieldHeader("Mode")]
     [SerializeField] private OutlineMode outlineMode = OutlineMode.SpriteProxyWithTint;
     [SerializeField] private bool includeInactiveChildren = true;
     [SerializeField] private bool autoCreateSpriteOutlines = true;
+
+    [FieldHeader("Outline")]
     [SerializeField] private Color outlineColor = new(0.05f, 0.03f, 0.01f, 0.95f);
     [SerializeField, Range(0f, 1f)] private float outlineThickness = 0.06f;
+
+    [FieldHeader("Tint")]
     [SerializeField] private Color spriteHighlightColor = new(1f, 0.95f, 0.65f, 1f);
     [SerializeField, Range(0f, 1f)] private float spriteHighlightStrength = 0.2f;
 
