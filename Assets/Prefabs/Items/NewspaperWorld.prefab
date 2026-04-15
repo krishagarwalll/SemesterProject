@@ -131,13 +131,16 @@ MonoBehaviour:
   body: {fileID: 700100007}
   rootTransform: {fileID: 700100001}
   room: {fileID: 0}
-  blockerLayers:
-    serializedVersion: 2
-    m_Bits: 256
   useGrabOffset: 1
-  blockedInset: 0.02
+  centerOnPointer: 1
   idleGravityScale: 1
+  dragGravityScale: 0
+  idleLinearDamping: 0
+  dragLinearDamping: 6
+  dragResponsiveness: 12
+  maxDragSpeed: 14
   enforceRoomBoundsWhileIdle: 1
+  freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
 --- !u!114 &700100006
 MonoBehaviour:

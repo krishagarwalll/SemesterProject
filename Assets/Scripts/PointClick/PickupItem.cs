@@ -153,6 +153,12 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
         SetRootActive(false);
     }
 
+    public bool ResumeStoreTransfer(PointerContext pointer, Vector2 screenPosition)
+    {
+        SetRootActive(true);
+        return DragBody.BeginDrag(pointer, screenPosition);
+    }
+
     public void CancelStoreTransfer()
     {
         DragBody.RestoreLastValidPose();

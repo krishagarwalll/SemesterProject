@@ -45,7 +45,10 @@ public class InventoryTransferController : MonoBehaviour
             return;
         }
 
-        if (storePhase == StorePhase.WorldDrag && Hotbar.IsInventoryArea(Pointer.ScreenPosition))
+        bool overInventory = Hotbar.IsInventoryArea(Pointer.ScreenPosition);
+        bool canWorldPreview = !overInventory && CanPreviewPlacementAt(Pointer.ScreenPosition);
+
+        if (storePhase == StorePhase.WorldDrag && overInventory)
         {
             activeStoreItem.SuspendStoreTransfer();
             storePhase = StorePhase.UiGhost;
@@ -54,6 +57,13 @@ public class InventoryTransferController : MonoBehaviour
 
         if (storePhase == StorePhase.UiGhost)
         {
+            if (canWorldPreview && activeStoreItem.ResumeStoreTransfer(Pointer, Pointer.ScreenPosition))
+            {
+                storePhase = StorePhase.WorldDrag;
+                Hotbar.HideTransferPreview();
+                return;
+            }
+
             Hotbar.UpdateTransferPreview(Pointer.ScreenPosition);
         }
     }
