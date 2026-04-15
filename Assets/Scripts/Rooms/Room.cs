@@ -11,6 +11,7 @@ public class Room : MonoBehaviour
     [SerializeField] private Vector3 cameraOffset = new(0f, 0f, -10f);
     [SerializeField, Min(0f)] private float orthographicPadding = 0.25f;
     [SerializeField] private Vector2 orthographicSizeBuffer = new(0.5f, 0.35f);
+    [SerializeField, Min(0f)] private float containmentPadding = 0.08f;
 
     private RoomAnchor[] anchors;
     private RoomCameraController cameraController;
@@ -81,6 +82,29 @@ public class Room : MonoBehaviour
         return new Vector3(closest.x, closest.y, point.z);
     }
 
+    public Vector3 ClampBoundsCenter(Bounds itemBounds, float zPosition)
+    {
+        if (!BoundsVolume)
+        {
+            Vector3 fallbackCenter = itemBounds.center;
+            fallbackCenter.z = zPosition;
+            return fallbackCenter;
+        }
+
+        Bounds containmentBounds = GetContainmentBounds();
+        Vector3 extents = itemBounds.extents;
+        float minX = containmentBounds.min.x + extents.x;
+        float maxX = containmentBounds.max.x - extents.x;
+        float minY = containmentBounds.min.y + extents.y;
+        float maxY = containmentBounds.max.y - extents.y;
+
+        Vector3 boundsCenter = itemBounds.center;
+        boundsCenter.x = ClampAxis(boundsCenter.x, minX, maxX, containmentBounds.center.x);
+        boundsCenter.y = ClampAxis(boundsCenter.y, minY, maxY, containmentBounds.center.y);
+        boundsCenter.z = zPosition;
+        return boundsCenter;
+    }
+
     public bool ContainsPoint(Vector3 point, float tolerance = 0.02f)
     {
         if (!BoundsVolume)
@@ -88,8 +112,11 @@ public class Room : MonoBehaviour
             return true;
         }
 
-        Vector2 closest = BoundsVolume.ClosestPoint((Vector2)point);
-        return ((Vector2)point - closest).sqrMagnitude <= tolerance * tolerance;
+        Bounds containmentBounds = GetContainmentBounds();
+        return point.x >= containmentBounds.min.x - tolerance
+            && point.x <= containmentBounds.max.x + tolerance
+            && point.y >= containmentBounds.min.y - tolerance
+            && point.y <= containmentBounds.max.y + tolerance;
     }
 
     public bool ContainsBounds(Bounds bounds, float tolerance = 0.02f)
@@ -99,27 +126,11 @@ public class Room : MonoBehaviour
             return true;
         }
 
-        Vector3 min = bounds.min;
-        Vector3 max = bounds.max;
-        Vector3[] corners =
-        {
-            new(min.x, min.y, transform.position.z),
-            new(max.x, min.y, transform.position.z),
-            new(min.x, max.y, transform.position.z),
-            new(max.x, max.y, transform.position.z)
-        };
-
-        float toleranceSqr = tolerance * tolerance;
-        for (int i = 0; i < corners.Length; i++)
-        {
-            Vector2 closest = BoundsVolume.ClosestPoint((Vector2)corners[i]);
-            if (((Vector2)corners[i] - closest).sqrMagnitude > toleranceSqr)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        Bounds containmentBounds = GetContainmentBounds();
+        return bounds.min.x >= containmentBounds.min.x - tolerance
+            && bounds.max.x <= containmentBounds.max.x + tolerance
+            && bounds.min.y >= containmentBounds.min.y - tolerance
+            && bounds.max.y <= containmentBounds.max.y + tolerance;
     }
 
     public bool TryGetAnchor(string anchorId, out RoomAnchor anchor)
@@ -171,5 +182,26 @@ public class Room : MonoBehaviour
         }
 
         return new Bounds(transform.position, Vector3.one * 2f);
+    }
+
+    private Bounds GetContainmentBounds()
+    {
+        Bounds bounds = BoundsVolume ? BoundsVolume.bounds : new Bounds(transform.position, Vector3.one * 2f);
+        float safePadding = Mathf.Max(0f, containmentPadding);
+        Vector3 size = bounds.size;
+        size.x = Mathf.Max(0.01f, size.x - safePadding * 2f);
+        size.y = Mathf.Max(0.01f, size.y - safePadding * 2f);
+        bounds.size = size;
+        return bounds;
+    }
+
+    private static float ClampAxis(float value, float min, float max, float fallback)
+    {
+        if (max < min)
+        {
+            return fallback;
+        }
+
+        return Mathf.Clamp(value, min, max);
     }
 }

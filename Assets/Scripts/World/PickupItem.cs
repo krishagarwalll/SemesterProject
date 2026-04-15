@@ -7,17 +7,24 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDraggable
 {
+    [FieldHeader("Item")]
     [SerializeField] private InventoryItemDefinition itemDefinition;
     [SerializeField, Min(1)] private int quantity = 1;
+
+    [FieldHeader("References")]
     [SerializeField] private DragBody2D dragBody;
     [SerializeField] private Transform placementAnchor;
     [SerializeField] private InventoryTransferController transferController;
+
+    [FieldHeader("Actions")]
     [SerializeField] private string dragLabel = "Drag";
     [SerializeField] private string storeLabel = "Store";
     [SerializeField] private string inspectLabel = "Inspect";
     [SerializeField] private string dragGlyphId = "Primary";
     [SerializeField] private string storeGlyphId = "Primary";
     [SerializeField] private string inspectGlyphId = "Context";
+
+    [FieldHeader("Content")]
     [SerializeField, TextArea] private string inspectText;
 
     public InventoryItemDefinition ItemDefinition => itemDefinition;
@@ -156,7 +163,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     public bool ResumeStoreTransfer(PointerContext pointer, Vector2 screenPosition)
     {
         SetRootActive(true);
-        return DragBody.BeginDrag(pointer, screenPosition);
+        return DragBody.BeginDrag(pointer, screenPosition, constrainLiftHeight: false);
     }
 
     public void CancelStoreTransfer()
@@ -193,7 +200,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
             DragBody.SeedPose(GetPlacementRootPosition(anchorPoint), RootRotation);
         }
 
-        return DragBody.BeginDrag(pointer, screenPosition);
+        return DragBody.BeginDrag(pointer, screenPosition, constrainLiftHeight: false);
     }
 
     public void UpdatePlacementDrag(Vector2 screenPosition)
@@ -239,37 +246,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
 
     private void ApplyRuntimeSetup()
     {
-        ApplyLayer("WorldItem");
-        ApplySortingLayer("WorldItem");
-    }
-
-    private void ApplyLayer(string layerName)
-    {
-        int layer = LayerMask.NameToLayer(layerName);
-        if (layer < 0)
-        {
-            return;
-        }
-
-        SetLayerRecursively(transform, layer);
-    }
-
-    private void ApplySortingLayer(string sortingLayerName)
-    {
-        Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
-        for (int i = 0; i < renderers.Length; i++)
-        {
-            renderers[i].sortingLayerName = sortingLayerName;
-        }
-    }
-
-    private static void SetLayerRecursively(Transform root, int layer)
-    {
-        root.gameObject.layer = layer;
-        for (int i = 0; i < root.childCount; i++)
-        {
-            SetLayerRecursively(root.GetChild(i), layer);
-        }
+        this.ApplyWorldPresentation("WorldItem", "WorldItem");
     }
 
     private Vector3 GetPlacementRootPosition(Vector3 anchorPoint)

@@ -5,20 +5,35 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody2D))]
 public class DragBody2D : MonoBehaviour
 {
+    [FieldHeader("References")]
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private Transform rootTransform;
     [SerializeField] private Room room;
+
+    [FieldHeader("Pointer")]
     [SerializeField] private bool useGrabOffset;
     [SerializeField] private bool centerOnPointer = true;
+
+    [FieldHeader("Idle Physics")]
     [SerializeField, Min(0f)] private float idleGravityScale = 1f;
-    [SerializeField, Min(0f)] private float dragGravityScale = 0f;
     [SerializeField, Min(0f)] private float idleLinearDamping;
+
+    [FieldHeader("Drag Physics")]
+    [SerializeField, Min(0f)] private float dragGravityScale = 0f;
     [SerializeField, Min(0f)] private float dragLinearDamping = 6f;
     [SerializeField, Min(0f)] private float dragResponsiveness = 12f;
+    [SerializeField, Min(0f)] private float maxDragAcceleration = 72f;
+    [SerializeField, Min(0f)] private float dragVerticalDamping = 10f;
     [SerializeField, Min(0f)] private float maxDragSpeed = 14f;
+    [SerializeField] private bool limitVerticalLift = true;
+    [SerializeField, Min(0f), ConditionalField(nameof(limitVerticalLift))] private float maxLiftHeight = 1.35f;
+    [SerializeField, Range(0f, 1f)] private float releaseVelocityRetention = 0.92f;
+
+    [FieldHeader("Constraints")]
     [SerializeField] private bool enforceRoomBoundsWhileIdle = true;
     [SerializeField] private bool freezeRotationWhileIdle = true;
     [SerializeField] private bool freezeRotationWhileDragging = true;
+    [SerializeField] private bool ignorePlayerCollisions = true;
 
     private Collider2D[] colliders2D;
     private PointerContext activePointer;
@@ -28,6 +43,8 @@ public class DragBody2D : MonoBehaviour
     private Vector2 screenOverride;
     private bool hasLastValidPose;
     private bool isDragging;
+    private float dragBaseHeight;
+    private bool activeLiftLimit;
     private bool useScreenOverride;
 
     public Transform RootTransform => rootTransform ? rootTransform : rootTransform = transform;
@@ -53,9 +70,15 @@ public class DragBody2D : MonoBehaviour
         EnsureCollider2D();
         DisableLegacy3DPhysics();
         EnsureBodyDefaults();
+        ApplyCollisionIgnores();
         Body.interpolation = RigidbodyInterpolation2D.Interpolate;
         Body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         RecordValidPose();
+    }
+
+    private void OnEnable()
+    {
+        ApplyCollisionIgnores();
     }
 
     private void OnValidate()
@@ -64,7 +87,11 @@ public class DragBody2D : MonoBehaviour
         idleLinearDamping = Mathf.Max(0f, idleLinearDamping);
         dragLinearDamping = Mathf.Max(0f, dragLinearDamping);
         dragResponsiveness = Mathf.Max(0f, dragResponsiveness);
+        maxDragAcceleration = Mathf.Max(0f, maxDragAcceleration);
+        dragVerticalDamping = Mathf.Max(0f, dragVerticalDamping);
         maxDragSpeed = Mathf.Max(0f, maxDragSpeed);
+        maxLiftHeight = Mathf.Max(0f, maxLiftHeight);
+        releaseVelocityRetention = Mathf.Clamp01(releaseVelocityRetention);
         if (!rootTransform)
         {
             rootTransform = transform;
@@ -114,10 +141,15 @@ public class DragBody2D : MonoBehaviour
 
     public bool BeginDrag(PointerContext pointer)
     {
-        return BeginDrag(pointer, pointer ? pointer.ScreenPosition : Vector2.zero);
+        return BeginDrag(pointer, pointer ? pointer.ScreenPosition : Vector2.zero, limitVerticalLift);
     }
 
     public bool BeginDrag(PointerContext pointer, Vector2 screenPosition)
+    {
+        return BeginDrag(pointer, screenPosition, limitVerticalLift);
+    }
+
+    public bool BeginDrag(PointerContext pointer, Vector2 screenPosition, bool constrainLiftHeight)
     {
         if (!CanStartDrag(pointer))
         {
@@ -130,6 +162,8 @@ public class DragBody2D : MonoBehaviour
         useScreenOverride = true;
         RecordValidPose();
         dragOffset = Vector3.zero;
+        dragBaseHeight = GetDragBaseHeight();
+        activeLiftLimit = constrainLiftHeight;
         if (!centerOnPointer && useGrabOffset && TryGetPointerPoint(screenPosition, out Vector3 point))
         {
             dragOffset = RootPosition - point;
@@ -137,15 +171,10 @@ public class DragBody2D : MonoBehaviour
         }
 
         ApplyDragBodyState(true);
-        if (TryResolveDragPosition(screenPosition, out Vector2 dragStartPosition))
-        {
-            ApplyMove(dragStartPosition, RootRotation.eulerAngles.z);
-        }
-
-        Body.linearVelocity = Vector2.zero;
+        Body.linearVelocity *= 0.2f;
+        Body.angularVelocity = 0f;
         Body.WakeUp();
         isDragging = true;
-        MoveToPointer(screenPosition);
         return true;
     }
 
@@ -164,6 +193,10 @@ public class DragBody2D : MonoBehaviour
         if (shouldRestore)
         {
             RestoreLastValidPose();
+        }
+        else if (Body)
+        {
+            Body.linearVelocity *= releaseVelocityRetention;
         }
 
         ApplyDragBodyState(false);
@@ -253,7 +286,18 @@ public class DragBody2D : MonoBehaviour
             return false;
         }
 
-        return activePointer.TryGetWorldPointAtDepth(pointerScreenPosition, RootPosition.z, out point);
+        if (!activePointer.TryGetWorldPointAtDepth(pointerScreenPosition, RootPosition.z, out point))
+        {
+            return false;
+        }
+
+        float liftLimit = GetEffectiveLiftHeight();
+        if (activeLiftLimit && (liftLimit > 0f || dragBaseHeight > point.y))
+        {
+            point.y = Mathf.Clamp(point.y, dragBaseHeight, dragBaseHeight + liftLimit);
+        }
+
+        return true;
     }
 
     private bool IsPoseValid(Vector2 position)
@@ -323,7 +367,13 @@ public class DragBody2D : MonoBehaviour
 
     private Vector3 ClampToRoom(Vector3 worldPosition)
     {
-        return OwnerRoom ? OwnerRoom.ClampPosition(worldPosition) : worldPosition;
+        if (!OwnerRoom)
+        {
+            return worldPosition;
+        }
+
+        Bounds candidateBounds = GetWorldBounds(new Vector2(worldPosition.x, worldPosition.y));
+        return OwnerRoom.ClampBoundsCenter(candidateBounds, worldPosition.z);
     }
 
     private void ApplyDragBodyState(bool dragging)
@@ -354,18 +404,34 @@ public class DragBody2D : MonoBehaviour
         Vector2 centerTarget = resolvedTarget + centerOffset;
         Vector2 displacement = centerTarget - Body.worldCenterOfMass;
         float fixedDeltaTime = Time.fixedDeltaTime > 0f ? Time.fixedDeltaTime : 0.02f;
-        Vector2 desiredVelocity = displacement / fixedDeltaTime;
-        if (dragResponsiveness > 0f)
+        float mass = Mathf.Max(0.1f, Body.mass);
+        float verticalMassScale = Mathf.Sqrt(mass);
+        float horizontalResponsiveness = dragResponsiveness;
+        float verticalResponsiveness = dragResponsiveness <= 0f ? 0f : dragResponsiveness / verticalMassScale;
+        float horizontalMaxSpeed = maxDragSpeed;
+        float verticalMaxSpeed = maxDragSpeed <= 0f ? 0f : maxDragSpeed / Mathf.Sqrt(Mathf.Max(1f, mass * 0.5f));
+        float horizontalVelocityDelta = maxDragAcceleration <= 0f ? float.PositiveInfinity : maxDragAcceleration * fixedDeltaTime;
+        float verticalVelocityDelta = maxDragAcceleration <= 0f ? float.PositiveInfinity : (maxDragAcceleration / mass) * fixedDeltaTime;
+
+        Vector2 desiredVelocity = new(
+            displacement.x * horizontalResponsiveness,
+            displacement.y * verticalResponsiveness);
+
+        if (horizontalMaxSpeed > 0f)
         {
-            desiredVelocity = Vector2.Lerp(Body.linearVelocity, desiredVelocity, 1f - Mathf.Exp(-dragResponsiveness * fixedDeltaTime));
+            desiredVelocity.x = Mathf.Clamp(desiredVelocity.x, -horizontalMaxSpeed, horizontalMaxSpeed);
         }
 
-        if (maxDragSpeed > 0f)
+        if (verticalMaxSpeed > 0f)
         {
-            desiredVelocity = Vector2.ClampMagnitude(desiredVelocity, maxDragSpeed);
+            desiredVelocity.y = Mathf.Clamp(desiredVelocity.y, -verticalMaxSpeed, verticalMaxSpeed);
         }
 
-        Body.linearVelocity = desiredVelocity;
+        Vector2 velocity = Body.linearVelocity;
+        velocity.x = MoveTowardsAxis(velocity.x, desiredVelocity.x, horizontalVelocityDelta);
+        velocity.y = MoveTowardsAxis(velocity.y, desiredVelocity.y, verticalVelocityDelta);
+        velocity.y *= 1f / (1f + dragVerticalDamping * fixedDeltaTime * verticalMassScale);
+        Body.linearVelocity = velocity;
     }
 
     private Collider2D[] ResolveColliders2D()
@@ -426,6 +492,15 @@ public class DragBody2D : MonoBehaviour
             return;
         }
 
+        Vector3 clamped = ClampToRoom(new Vector3(Body.position.x, Body.position.y, RootPosition.z));
+        ApplyMove(new Vector2(clamped.x, clamped.y), RootRotation.eulerAngles.z);
+        Body.linearVelocity = Vector2.zero;
+        Body.angularVelocity = 0f;
+        if (IsPoseValid(Body.position))
+        {
+            return;
+        }
+
         if (hasLastValidPose)
         {
             RestoreLastValidPose();
@@ -433,11 +508,41 @@ public class DragBody2D : MonoBehaviour
             Body.angularVelocity = 0f;
             return;
         }
+    }
 
-        Vector3 clamped = ClampToRoom(new Vector3(Body.position.x, Body.position.y, RootPosition.z));
-        ApplyMove(new Vector2(clamped.x, clamped.y), RootRotation.eulerAngles.z);
-        Body.linearVelocity = Vector2.zero;
-        Body.angularVelocity = 0f;
+    private void ApplyCollisionIgnores()
+    {
+        if (!ignorePlayerCollisions)
+        {
+            return;
+        }
+
+        PointClickController actor = FindFirstObjectByType<PointClickController>(FindObjectsInactive.Include);
+        if (!actor)
+        {
+            return;
+        }
+
+        Collider2D[] actorColliders = actor.GetComponentsInChildren<Collider2D>(true);
+        for (int i = 0; i < Colliders2D.Length; i++)
+        {
+            Collider2D itemCollider = Colliders2D[i];
+            if (!itemCollider || !itemCollider.enabled)
+            {
+                continue;
+            }
+
+            for (int j = 0; j < actorColliders.Length; j++)
+            {
+                Collider2D actorCollider = actorColliders[j];
+                if (!actorCollider || !actorCollider.enabled)
+                {
+                    continue;
+                }
+
+                Physics2D.IgnoreCollision(itemCollider, actorCollider, true);
+            }
+        }
     }
 
     private void DisableLegacy3DPhysics()
@@ -487,5 +592,26 @@ public class DragBody2D : MonoBehaviour
         }
 
         return initialized ? bounds : new Bounds(transform.position, Vector3.one);
+    }
+
+    private float GetDragBaseHeight()
+    {
+        if (OwnerRoom)
+        {
+            return OwnerRoom.GroundY;
+        }
+
+        return RootPosition.y;
+    }
+
+    private float GetEffectiveLiftHeight()
+    {
+        float mass = Mathf.Max(0.1f, Body ? Body.mass : 1f);
+        return maxLiftHeight <= 0f ? 0f : maxLiftHeight / Mathf.Sqrt(mass);
+    }
+
+    private static float MoveTowardsAxis(float current, float target, float maxDelta)
+    {
+        return float.IsFinite(maxDelta) ? Mathf.MoveTowards(current, target, maxDelta) : target;
     }
 }

@@ -3,6 +3,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public readonly struct InventoryHotbarSecondaryClickRequest
+{
+    public InventoryHotbarSecondaryClickRequest(int slotIndex, Vector2 screenPosition)
+    {
+        SlotIndex = slotIndex;
+        ScreenPosition = screenPosition;
+    }
+
+    public int SlotIndex { get; }
+    public Vector2 ScreenPosition { get; }
+}
+
 public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] private Image background;
@@ -113,6 +125,15 @@ public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDr
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             owner?.HandleSlotClick(slotIndex);
+            return;
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            owner?.SendMessage(
+                nameof(InventoryHotbar.HandleSlotSecondaryClick),
+                new InventoryHotbarSecondaryClickRequest(slotIndex, eventData.position),
+                SendMessageOptions.DontRequireReceiver);
         }
     }
 

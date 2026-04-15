@@ -1,18 +1,29 @@
 using UnityEngine;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 [DisallowMultipleComponent]
+[RequireComponent(typeof(NavMeshAgent))]
 public class PointClickController : MonoBehaviour
 {
     private const float DirectionDeadzone = 0.0001f;
 
-    [Header("Movement")]
+    [FieldHeader("Movement")]
     [SerializeField, Min(0.1f)] private float moveSpeed = 4f;
+    [SerializeField, Min(0f)] private float moveAcceleration = 18f;
+    [SerializeField, Min(0f)] private float moveDeceleration = 24f;
+    [SerializeField] private bool useNavMeshAgent = true;
+    [SerializeField, Min(0.01f), ConditionalField(nameof(useNavMeshAgent))] private float navMeshSampleDistance = 2f;
+    [SerializeField, Min(0.01f), ConditionalField(nameof(useNavMeshAgent))] private float navMeshSnapDistance = 3f;
+    [SerializeField, Min(0.05f), ConditionalField(nameof(useNavMeshAgent))] private float navArrivalSlowdownDistance = 0.9f;
+    [SerializeField, Range(0.1f, 1f), ConditionalField(nameof(useNavMeshAgent))] private float navAccelerationScale = 0.65f;
+    [SerializeField, Range(0.1f, 1f), ConditionalField(nameof(useNavMeshAgent))] private float navDecelerationScale = 0.85f;
     [SerializeField] private LayerMask walkableLayers = 1 << 6;
     [SerializeField] private bool ignorePointerOverUi = true;
     [SerializeField, Min(0f)] private float destinationReachedThreshold = 0.05f;
     [SerializeField, Min(0f)] private float groundedPositionOffset = 0.5f;
 
-    [Header("Animation")]
+    [FieldHeader("Animation")]
     [SerializeField] private string movingParameter = "isMoving";
     [SerializeField] private string horizontalSpeedParameter = "moveX";
     [SerializeField] private string verticalSpeedParameter = "moveY";
@@ -26,6 +37,7 @@ public class PointClickController : MonoBehaviour
     private SpriteFlipper spriteFlipper;
     private Animator animator;
     private Rigidbody2D body2D;
+    private NavMeshAgent navMeshAgent;
     private Collider2D[] colliders2D;
     private SpriteRenderer[] spriteRenderers;
     private PendingAction pendingAction;
@@ -33,10 +45,12 @@ public class PointClickController : MonoBehaviour
     private Vector3 movementDestination;
     private float smoothedSpeed;
     private Vector2 smoothedDirection;
+    private Vector2 movementVelocity;
     private Vector3 lastPosition;
     private float fixedDepth;
     private float cachedGroundedOffset;
     private bool hasDestination;
+    private bool hasNavMeshDestination;
     private bool groundedOffsetResolved;
 
     private PointerContext Pointer => this.ResolveSceneComponent(ref pointer);
@@ -45,6 +59,7 @@ public class PointClickController : MonoBehaviour
     private SpriteFlipper Flipper => this.ResolveComponent(ref spriteFlipper, true);
     private Animator Anim => this.ResolveComponent(ref animator, true);
     private Rigidbody2D Body2D => this.ResolveComponent(ref body2D, true);
+    private NavMeshAgent NavAgent => navMeshAgent ? navMeshAgent : navMeshAgent = GetComponent<NavMeshAgent>();
     private Collider2D[] Colliders2D => colliders2D ??= GetComponentsInChildren<Collider2D>(true);
     private SpriteRenderer[] SpriteRenderers => spriteRenderers ??= GetComponentsInChildren<SpriteRenderer>(true);
     private Vector3 Position => transform.position;
@@ -56,6 +71,8 @@ public class PointClickController : MonoBehaviour
     {
         fixedDepth = transform.position.z;
         ApplyRuntimeSetup();
+        ConfigureNavMeshAgent();
+        EnsureNavigationSurface();
         ResetPresentationState();
         ResolveGroundedOffset();
         SnapToGroundAtCurrentPosition();
@@ -65,6 +82,8 @@ public class PointClickController : MonoBehaviour
     {
         fixedDepth = transform.position.z;
         ApplyRuntimeSetup();
+        ConfigureNavMeshAgent();
+        EnsureNavigationSurface();
         SubscribePointerEvents();
         ResetPresentationState();
         ResolveGroundedOffset();
@@ -81,6 +100,11 @@ public class PointClickController : MonoBehaviour
     private void OnValidate()
     {
         moveSpeed = Mathf.Max(0.1f, moveSpeed);
+        moveAcceleration = Mathf.Max(0f, moveAcceleration);
+        moveDeceleration = Mathf.Max(0f, moveDeceleration);
+        navMeshSampleDistance = Mathf.Max(0.01f, navMeshSampleDistance);
+        navMeshSnapDistance = Mathf.Max(0.01f, navMeshSnapDistance);
+        navArrivalSlowdownDistance = Mathf.Max(0.05f, navArrivalSlowdownDistance);
         destinationReachedThreshold = Mathf.Max(0f, destinationReachedThreshold);
         groundedPositionOffset = Mathf.Max(0f, groundedPositionOffset);
         movingThreshold = Mathf.Max(0f, movingThreshold);
@@ -266,9 +290,9 @@ public class PointClickController : MonoBehaviour
         InteractionTarget target = context.ClickedTarget;
         if (!target.TryGetPrimaryAction(CreateContext(target), out InteractionAction action))
         {
-            if (target.SupportsDrag)
+            if (context.TryGetWalkPoint(out Vector3 fallbackPoint))
             {
-                TryApproach(target);
+                TrySetDestination(fallbackPoint);
             }
 
             return;
@@ -349,12 +373,33 @@ public class PointClickController : MonoBehaviour
             return false;
         }
 
+        if (TrySetNavMeshDestination(movementDestination))
+        {
+            hasDestination = true;
+            hasNavMeshDestination = true;
+            return true;
+        }
+
         hasDestination = true;
+        hasNavMeshDestination = false;
         return true;
     }
 
     private bool TryResolveDestination(Vector3 worldPosition, out Vector3 resolvedDestination)
     {
+        Room currentRoom = GetCurrentRoom();
+        if (useNavMeshAgent && NavMesh.SamplePosition(worldPosition, out NavMeshHit hit, navMeshSampleDistance, NavMesh.AllAreas))
+        {
+            resolvedDestination = hit.position;
+            resolvedDestination.z = fixedDepth;
+            if (currentRoom)
+            {
+                resolvedDestination = currentRoom.ClampPoint(resolvedDestination, fixedDepth);
+            }
+
+            return true;
+        }
+
         resolvedDestination = ClampToActiveRoom(worldPosition);
         return TryResolveGroundDestination(resolvedDestination.x, out resolvedDestination);
     }
@@ -377,11 +422,30 @@ public class PointClickController : MonoBehaviour
     {
         if (!hasDestination || activeDrag != null)
         {
+            SyncNavAgentPosition();
+            movementVelocity = Vector2.MoveTowards(movementVelocity, Vector2.zero, moveDeceleration * Time.fixedDeltaTime);
+            return;
+        }
+
+        if (hasNavMeshDestination && UpdateNavMeshMovement())
+        {
             return;
         }
 
         Vector3 current = transform.position;
-        Vector3 next = Vector3.MoveTowards(current, movementDestination, moveSpeed * Time.deltaTime);
+        Vector2 toDestination = movementDestination - current;
+        bool reached = toDestination.sqrMagnitude <= destinationReachedThreshold * destinationReachedThreshold;
+        Vector2 desiredVelocity = reached || toDestination.sqrMagnitude <= DirectionDeadzone
+            ? Vector2.zero
+            : toDestination.normalized * moveSpeed;
+        float acceleration = desiredVelocity.sqrMagnitude > 0f ? moveAcceleration : moveDeceleration;
+        movementVelocity = Vector2.MoveTowards(movementVelocity, desiredVelocity, acceleration * Time.fixedDeltaTime);
+        Vector3 next = current + (Vector3)(movementVelocity * Time.fixedDeltaTime);
+        if (Vector2.Dot((Vector2)(movementDestination - current), (Vector2)(movementDestination - next)) <= 0f)
+        {
+            next = movementDestination;
+        }
+
         SetWorldPosition(next);
         if ((movementDestination - transform.position).sqrMagnitude <= destinationReachedThreshold * destinationReachedThreshold)
         {
@@ -399,6 +463,9 @@ public class PointClickController : MonoBehaviour
     private void StopPath()
     {
         hasDestination = false;
+        hasNavMeshDestination = false;
+        movementVelocity = Vector2.zero;
+        NavAgent?.StopPath();
         movementDestination = transform.position;
     }
 
@@ -416,6 +483,7 @@ public class PointClickController : MonoBehaviour
     {
         smoothedSpeed = 0f;
         smoothedDirection = Vector2.zero;
+        movementVelocity = Vector2.zero;
         lastPosition = transform.position;
         ApplyPresentation(Vector2.zero, false);
     }
@@ -495,6 +563,137 @@ public class PointClickController : MonoBehaviour
         {
             renderers[i].sortingLayerName = "Character";
         }
+    }
+
+    private void ConfigureNavMeshAgent()
+    {
+        if (!useNavMeshAgent)
+        {
+            return;
+        }
+
+        NavMeshAgent agent = NavAgent ? NavAgent : gameObject.GetOrAddComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        agent.updatePosition = false;
+        agent.autoTraverseOffMeshLink = true;
+        agent.autoBraking = false;
+        agent.speed = moveSpeed;
+        agent.acceleration = Mathf.Max(1f, moveAcceleration * navAccelerationScale);
+        agent.stoppingDistance = destinationReachedThreshold;
+        agent.angularSpeed = 0f;
+        if (agent.isOnNavMesh)
+        {
+            agent.Warp(transform.position);
+        }
+    }
+
+    private void EnsureNavigationSurface()
+    {
+        if (!useNavMeshAgent)
+        {
+            return;
+        }
+
+        Room currentRoom = GetCurrentRoom();
+        if (!currentRoom)
+        {
+            return;
+        }
+
+        Transform roomsRoot = currentRoom.transform.parent ? currentRoom.transform.parent : currentRoom.transform;
+        NavMeshSurface surface = roomsRoot.GetComponent<NavMeshSurface>();
+        Transform surfaceTransform = surface ? surface.transform : roomsRoot.Find("NavMesh2DSurface");
+        if (!surfaceTransform)
+        {
+            GameObject surfaceObject = new("NavMesh2DSurface");
+            surfaceTransform = surfaceObject.transform;
+            surfaceTransform.SetParent(roomsRoot, false);
+            surfaceTransform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+        }
+
+        surface ??= surfaceTransform.GetComponent<NavMeshSurface>() ?? surfaceTransform.gameObject.AddComponent<NavMeshSurface>();
+        surface.collectObjects = CollectObjects.Children;
+        surface.useGeometry = NavMeshCollectGeometry.RenderMeshes;
+        surface.layerMask = walkableLayers;
+        surface.ignoreNavMeshAgent = true;
+        surface.ignoreNavMeshObstacle = true;
+        surface.BuildNavMesh();
+    }
+
+    private bool TrySetNavMeshDestination(Vector3 worldPosition)
+    {
+        if (!useNavMeshAgent || !NavAgent)
+        {
+            return false;
+        }
+
+        SyncNavAgentPosition();
+        if (!NavAgent.TrySetDestination(transform, worldPosition, navMeshSampleDistance, navMeshSnapDistance, out Vector3 sampled))
+        {
+            hasNavMeshDestination = false;
+            return false;
+        }
+
+        movementDestination = sampled;
+        return true;
+    }
+
+    private bool UpdateNavMeshMovement()
+    {
+        if (!NavAgent)
+        {
+            hasNavMeshDestination = false;
+            return false;
+        }
+
+        SyncNavAgentPosition();
+        if (NavAgent.pathPending)
+        {
+            return true;
+        }
+
+        float remainingDistance = NavAgent.remainingDistance;
+        if (!NavAgent.hasPath && remainingDistance > Mathf.Max(destinationReachedThreshold, 0.01f))
+        {
+            StopPath();
+            return true;
+        }
+
+        Vector2 desiredVelocity = Vector2.ClampMagnitude((Vector2)NavAgent.desiredVelocity, moveSpeed);
+        float arrivalFactor = navArrivalSlowdownDistance <= 0f
+            ? 1f
+            : Mathf.Clamp01(remainingDistance / navArrivalSlowdownDistance);
+        desiredVelocity *= arrivalFactor;
+        float acceleration = desiredVelocity.sqrMagnitude > 0f
+            ? moveAcceleration * navAccelerationScale
+            : moveDeceleration * navDecelerationScale;
+        movementVelocity = Vector2.MoveTowards(movementVelocity, desiredVelocity, acceleration * Time.fixedDeltaTime);
+        Vector3 current = transform.position;
+        Vector3 next = current + (Vector3)(movementVelocity * Time.fixedDeltaTime);
+        next.z = fixedDepth;
+        SetWorldPosition(next);
+        SyncNavAgentPosition();
+
+        if (!NavAgent.pathPending
+            && remainingDistance <= Mathf.Max(destinationReachedThreshold, NavAgent.stoppingDistance + 0.01f)
+            && movementVelocity.sqrMagnitude <= 0.0025f)
+        {
+            SetWorldPosition(movementDestination);
+            StopPath();
+        }
+
+        return true;
+    }
+
+    private void SyncNavAgentPosition()
+    {
+        if (!NavAgent || !NavAgent.isOnNavMesh)
+        {
+            return;
+        }
+
+        NavAgent.nextPosition = transform.position;
     }
 
     private Vector3 ClampToActiveRoom(Vector3 point)

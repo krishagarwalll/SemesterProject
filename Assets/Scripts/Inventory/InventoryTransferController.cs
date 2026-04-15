@@ -17,6 +17,7 @@ public class InventoryTransferController : MonoBehaviour
         UiGhost = 2
     }
 
+    [FieldHeader("References")]
     [SerializeField] private Inventory inventory;
     [SerializeField] private PointerContext pointer;
     [SerializeField] private InventoryHotbar hotbar;
@@ -48,7 +49,7 @@ public class InventoryTransferController : MonoBehaviour
         bool overInventory = Hotbar.IsInventoryArea(Pointer.ScreenPosition);
         bool canWorldPreview = !overInventory && CanPreviewPlacementAt(Pointer.ScreenPosition);
 
-        if (storePhase == StorePhase.WorldDrag && overInventory)
+        if (storePhase == StorePhase.WorldDrag && (overInventory || !canWorldPreview))
         {
             activeStoreItem.SuspendStoreTransfer();
             storePhase = StorePhase.UiGhost;
@@ -237,6 +238,50 @@ public class InventoryTransferController : MonoBehaviour
         return TryBeginPlacementTransfer(inventoryIndex, screenPosition);
     }
 
+    public bool TryDropEntryToWorld(int inventoryIndex)
+    {
+        if (IsActive
+            || !SceneInventory
+            || !SceneInventory.TryGetEntry(inventoryIndex, out Inventory.Entry entry)
+            || !entry.Definition
+            || !entry.Definition.CanPlaceBackIntoWorld
+            || !entry.Definition.WorldPrefab)
+        {
+            return false;
+        }
+
+        Room activeRoom = Rooms ? Rooms.ActiveRoom : null;
+        if (!activeRoom)
+        {
+            return false;
+        }
+
+        GameObject root = Instantiate(entry.Definition.WorldPrefab);
+        PickupItem droppedItem = root.GetComponentInChildren<PickupItem>(true);
+        if (!droppedItem)
+        {
+            Destroy(root);
+            return false;
+        }
+
+        if (!SceneInventory.TryTakeAt(inventoryIndex, out Inventory.Entry takenEntry, entry.Quantity)
+            || takenEntry.Definition != entry.Definition)
+        {
+            Destroy(root);
+            return false;
+        }
+
+        if (activeRoom.ContentRoot)
+        {
+            root.transform.SetParent(activeRoom.ContentRoot, true);
+        }
+
+        droppedItem.ConfigureWorldItem(takenEntry.Definition, takenEntry.Quantity, activeRoom);
+        Vector3 dropPosition = ResolveDirectDropPosition(activeRoom);
+        droppedItem.SeedPlacementPose(dropPosition, root.transform.rotation);
+        return true;
+    }
+
     public void EndPlacementDrag(Vector2 screenPosition, bool cancelled = false)
     {
         EndPlacementTransfer(screenPosition, cancelled);
@@ -272,5 +317,25 @@ public class InventoryTransferController : MonoBehaviour
         }
 
         item.SeedPlacementPose(seedPosition, item.transform.rotation);
+    }
+
+    private Vector3 ResolveDirectDropPosition(Room room)
+    {
+        if (!room)
+        {
+            return Vector3.zero;
+        }
+
+        if (Pointer && Pointer.Actor)
+        {
+            return room.ClampPosition(Pointer.Actor.transform.position);
+        }
+
+        if (room.DefaultAnchor)
+        {
+            return room.ClampPosition(room.DefaultAnchor.transform.position);
+        }
+
+        return room.ClampPosition(room.transform.position);
     }
 }

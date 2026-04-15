@@ -4,6 +4,6 @@ public enum PointerState
     HoveringWorld = 1,
     HoveringUi = 2,
     ContextMenu = 3,
-    DraggingWorldProp = 4,
+    DraggingWorldObject = 4,
     DraggingInventoryItem = 5
 }

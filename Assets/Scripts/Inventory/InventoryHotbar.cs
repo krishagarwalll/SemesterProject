@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InventoryHotbar : MonoBehaviour
 {
     private const string DragPreviewName = "InventoryDragPreview";
+    private const string InventoryContextMenuName = "InventoryContextMenu";
     private static readonly Vector2 ExpandedSlotPosition = new(-12f, -72f);
 
     [SerializeField] private Inventory inventory;
@@ -32,6 +33,10 @@ public class InventoryHotbar : MonoBehaviour
     private Image dragPreviewIcon;
     private TextMeshProUGUI dragPreviewLabel;
     private TextMeshProUGUI dragPreviewQuantity;
+    private RectTransform contextMenuRoot;
+    private Button contextInspectButton;
+    private Button contextDropButton;
+    private int contextSlotIndex = -1;
     private int dragSourceIndex = -1;
     private Vector2 lastDragScreenPosition;
     private bool worldPlacementActive;
@@ -111,6 +116,7 @@ public class InventoryHotbar : MonoBehaviour
 
     public void HandleSlotClick(int slotIndex)
     {
+        HideContextMenu();
         if (!SceneInventory)
         {
             return;
@@ -123,6 +129,25 @@ public class InventoryHotbar : MonoBehaviour
         }
 
         SceneInventory.Select(slotIndex);
+    }
+
+    public void HandleSlotSecondaryClick(int slotIndex, Vector2 screenPosition)
+    {
+        if (!SceneInventory || !SceneInventory.TryGetEntry(slotIndex, out Inventory.Entry entry))
+        {
+            HideContextMenu();
+            return;
+        }
+
+        contextSlotIndex = slotIndex;
+        EnsureContextMenu();
+        ConfigureContextMenu(entry);
+        ShowContextMenu(screenPosition);
+    }
+
+    public void HandleSlotSecondaryClick(InventoryHotbarSecondaryClickRequest request)
+    {
+        HandleSlotSecondaryClick(request.SlotIndex, request.ScreenPosition);
     }
 
     public bool CanBeginSlotDrag(int slotIndex)
@@ -495,6 +520,141 @@ public class InventoryHotbar : MonoBehaviour
         if (dragPreviewRoot)
         {
             dragPreviewRoot.gameObject.SetActive(false);
+        }
+    }
+
+    private void EnsureContextMenu()
+    {
+        if (contextMenuRoot || !RootCanvas)
+        {
+            return;
+        }
+
+        Transform existing = RootCanvas.transform.Find(InventoryContextMenuName);
+        if (existing)
+        {
+            contextMenuRoot = existing as RectTransform;
+            contextInspectButton = contextMenuRoot && contextMenuRoot.Find("Inspect") ? contextMenuRoot.Find("Inspect").GetComponent<Button>() : null;
+            contextDropButton = contextMenuRoot && contextMenuRoot.Find("Drop") ? contextMenuRoot.Find("Drop").GetComponent<Button>() : null;
+            return;
+        }
+
+        GameObject menuObject = new(InventoryContextMenuName, typeof(RectTransform), typeof(Image), typeof(VerticalLayoutGroup), typeof(ContentSizeFitter));
+        contextMenuRoot = menuObject.GetComponent<RectTransform>();
+        contextMenuRoot.SetParent(RootCanvas.transform, false);
+        contextMenuRoot.anchorMin = new Vector2(0.5f, 0.5f);
+        contextMenuRoot.anchorMax = new Vector2(0.5f, 0.5f);
+        contextMenuRoot.pivot = new Vector2(0.5f, 0.5f);
+        contextMenuRoot.sizeDelta = new Vector2(220f, 0f);
+
+        Image background = menuObject.GetComponent<Image>();
+        background.color = new Color(0.08f, 0.08f, 0.1f, 0.96f);
+
+        VerticalLayoutGroup layout = menuObject.GetComponent<VerticalLayoutGroup>();
+        layout.spacing = 4f;
+        layout.padding = new RectOffset(8, 8, 8, 8);
+        layout.childAlignment = TextAnchor.UpperLeft;
+        layout.childControlWidth = true;
+        layout.childControlHeight = true;
+        layout.childForceExpandWidth = true;
+        layout.childForceExpandHeight = false;
+
+        ContentSizeFitter fitter = menuObject.GetComponent<ContentSizeFitter>();
+        fitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+        fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+        contextInspectButton = CreateContextButton("Inspect", "Inspect");
+        contextDropButton = CreateContextButton("Drop", "Drop");
+        contextMenuRoot.gameObject.SetActive(false);
+    }
+
+    private Button CreateContextButton(string objectName, string labelText)
+    {
+        GameObject buttonObject = new(objectName, typeof(RectTransform), typeof(Image), typeof(Button), typeof(LayoutElement));
+        RectTransform rect = buttonObject.GetComponent<RectTransform>();
+        rect.SetParent(contextMenuRoot, false);
+        rect.sizeDelta = new Vector2(0f, 34f);
+
+        Image image = buttonObject.GetComponent<Image>();
+        image.color = new Color(0.15f, 0.15f, 0.18f, 1f);
+
+        LayoutElement layout = buttonObject.GetComponent<LayoutElement>();
+        layout.preferredWidth = 204f;
+        layout.preferredHeight = 34f;
+
+        GameObject labelObject = new("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
+        RectTransform labelRect = labelObject.GetComponent<RectTransform>();
+        labelRect.SetParent(rect, false);
+        labelRect.anchorMin = Vector2.zero;
+        labelRect.anchorMax = Vector2.one;
+        labelRect.offsetMin = new Vector2(12f, 0f);
+        labelRect.offsetMax = new Vector2(-12f, 0f);
+
+        TextMeshProUGUI label = labelObject.GetComponent<TextMeshProUGUI>();
+        label.alignment = TextAlignmentOptions.MidlineLeft;
+        label.fontSize = 18f;
+        label.font = TMP_Settings.defaultFontAsset;
+        label.text = labelText;
+
+        return buttonObject.GetComponent<Button>();
+    }
+
+    private void ConfigureContextMenu(Inventory.Entry entry)
+    {
+        if (!contextInspectButton || !contextDropButton)
+        {
+            return;
+        }
+
+        InventoryItemDefinition definition = entry.Definition;
+        bool canInspect = definition && !string.IsNullOrWhiteSpace(definition.Description);
+        bool canDrop = definition && definition.CanPlaceBackIntoWorld && TransferController;
+
+        contextInspectButton.gameObject.SetActive(canInspect);
+        contextInspectButton.onClick.RemoveAllListeners();
+        if (canInspect)
+        {
+            contextInspectButton.onClick.AddListener(() =>
+            {
+                InteractionFeedback.Show(definition.Description, definition);
+                HideContextMenu();
+            });
+        }
+
+        contextDropButton.gameObject.SetActive(canDrop);
+        contextDropButton.onClick.RemoveAllListeners();
+        if (canDrop)
+        {
+            contextDropButton.onClick.AddListener(() =>
+            {
+                if (contextSlotIndex >= 0)
+                {
+                    TransferController.TryDropEntryToWorld(contextSlotIndex);
+                }
+
+                HideContextMenu();
+                Refresh();
+            });
+        }
+    }
+
+    private void ShowContextMenu(Vector2 screenPosition)
+    {
+        if (!contextMenuRoot)
+        {
+            return;
+        }
+
+        contextMenuRoot.gameObject.SetActive(true);
+        contextMenuRoot.anchoredPosition = ScreenToCanvasPosition(screenPosition);
+    }
+
+    private void HideContextMenu()
+    {
+        contextSlotIndex = -1;
+        if (contextMenuRoot)
+        {
+            contextMenuRoot.gameObject.SetActive(false);
         }
     }
 

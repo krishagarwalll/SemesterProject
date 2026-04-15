@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -9,24 +10,26 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class PointerContext : MonoBehaviour
 {
+    [FieldHeader("References")]
     [SerializeField] private Camera worldCamera;
     [SerializeField] private PointClickController actor;
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryHotbar hotbar;
     [SerializeField] private RoomTransitionService roomTransitionService;
 
+    [FieldHeader("Input")]
     [SerializeField] private InputActionReference pointerPositionAction;
     [SerializeField] private InputActionReference primaryPressAction;
     [SerializeField] private InputActionReference secondaryPressAction;
 
+    [FieldHeader("World")]
     [SerializeField] private LayerMask interactionLayers = ~0;
     [SerializeField] private LayerMask walkableLayers = ~0;
     [SerializeField] private LayerMask blockingLayers;
     [SerializeField] private bool ignoreWorldWhenOverUi = true;
-    [SerializeField, Min(0f)] private float interactionProbeRadius = 1.1f;
+    [SerializeField, Min(0f)] private float interactionProbeRadius = 0.85f;
     [SerializeField, Min(0f)] private float dragThresholdPixels = 8f;
-    [SerializeField, Min(0f)] private float interactionSortBias;
-    [SerializeField] private PointerCursorEntry[] cursorEntries = Array.Empty<PointerCursorEntry>();
+    [SerializeField, Min(0.01f)] private float navMeshSampleDistance = 12f;
 
     private bool primaryPressedThisFrame;
     private bool primaryReleasedThisFrame;
@@ -116,7 +119,7 @@ public class PointerContext : MonoBehaviour
     {
         interactionProbeRadius = Mathf.Max(0f, interactionProbeRadius);
         dragThresholdPixels = Mathf.Max(0f, dragThresholdPixels);
-        interactionSortBias = Mathf.Max(0f, interactionSortBias);
+        navMeshSampleDistance = Mathf.Max(0.01f, navMeshSampleDistance);
         if (!worldCamera)
         {
             worldCamera = Camera.main;
@@ -249,36 +252,6 @@ public class PointerContext : MonoBehaviour
 
         point = ray.GetPoint(distance);
         return IsFinite(point);
-    }
-
-    public bool TryGetCursorEntry(PointerCursorKind kind, out PointerCursorEntry entry)
-    {
-        if (cursorEntries == null || cursorEntries.Length == 0)
-        {
-            entry = default;
-            return false;
-        }
-
-        for (int i = 0; i < cursorEntries.Length; i++)
-        {
-            if (cursorEntries[i].CursorKind == kind)
-            {
-                entry = cursorEntries[i];
-                return true;
-            }
-        }
-
-        for (int i = 0; i < cursorEntries.Length; i++)
-        {
-            if (cursorEntries[i].CursorKind == PointerCursorKind.Default)
-            {
-                entry = cursorEntries[i];
-                return true;
-            }
-        }
-
-        entry = default;
-        return false;
     }
 
     public int GetHoveredTargets(List<InteractionTarget> results)
@@ -459,12 +432,7 @@ public class PointerContext : MonoBehaviour
         bool hasInteraction = TryResolveBestTarget(point2D, dragOnly: false, hoverCandidates, out InteractionTarget target, out _);
         bool hasWalkable = TryGetBestOverlap(point2D, walkableLayers, out _, out _);
         bool hasBlocking = TryGetBestOverlap(point2D, blockingLayers, out _, out _);
-
-        hasWalkPoint = true;
-        if (hasWalkPoint)
-        {
-            walkPoint = worldPoint;
-        }
+        hasWalkPoint = TryResolveWalkPoint(worldPoint, out walkPoint);
 
         isWorldBlocked = hasBlocking && !hasWalkable && !hasInteraction;
         SetHoveredTarget(hasInteraction ? target : null);
@@ -663,7 +631,7 @@ public class PointerContext : MonoBehaviour
 
         if (isDragging)
         {
-            return dragTarget ? PointerState.DraggingWorldProp : PointerState.DraggingInventoryItem;
+            return dragTarget ? PointerState.DraggingWorldObject : PointerState.DraggingInventoryItem;
         }
 
         if (isPointerOverUi)
@@ -686,27 +654,47 @@ public class PointerContext : MonoBehaviour
             return dragTarget ? dragTarget.DragCursorKind : PointerCursorKind.Dragging;
         }
 
-        if (isPrimaryPressed)
-        {
-            return PointerCursorKind.Pressed;
-        }
-
-        if (TryGetWorldDragTarget(out InteractionTarget _))
-        {
-            return PointerCursorKind.DragReady;
-        }
-
         if (hoveredTarget)
         {
-            return hoveredTarget.SupportsDrag ? PointerCursorKind.DragReady : hoveredTarget.HoverCursorKind;
+            return ResolveHoveredCursorKind(hoveredTarget);
         }
 
-        if (hasWalkPoint)
+        if (TryGetWorldDragTarget(out InteractionTarget dragTargetCandidate))
         {
-            return PointerCursorKind.Move;
+            return ResolveHoveredCursorKind(dragTargetCandidate);
         }
 
         return isWorldBlocked ? PointerCursorKind.Blocked : PointerCursorKind.Default;
+    }
+
+    private bool TryResolveWalkPoint(Vector3 requestedPoint, out Vector3 resolvedPoint)
+    {
+        resolvedPoint = default;
+        Room activeRoom = GetActiveRoom();
+        float depth = activeRoom ? activeRoom.DefaultItemDepth : requestedPoint.z;
+        Vector3 samplePoint = requestedPoint;
+        samplePoint.z = depth;
+
+        if (NavMesh.SamplePosition(samplePoint, out NavMeshHit hit, navMeshSampleDistance, NavMesh.AllAreas))
+        {
+            resolvedPoint = hit.position;
+            resolvedPoint.z = depth;
+            if (activeRoom)
+            {
+                resolvedPoint = activeRoom.ClampPoint(resolvedPoint, depth);
+            }
+
+            return true;
+        }
+
+        if (activeRoom)
+        {
+            resolvedPoint = activeRoom.ClampPoint(new Vector3(requestedPoint.x, activeRoom.GroundY, depth), depth);
+            return true;
+        }
+
+        resolvedPoint = requestedPoint;
+        return true;
     }
 
     private void UpdateCursorKind()
@@ -720,6 +708,27 @@ public class PointerContext : MonoBehaviour
         PointerCursorKind previous = currentCursorKind;
         currentCursorKind = next;
         CursorChanged?.Invoke(previous, currentCursorKind);
+    }
+
+    private PointerCursorKind ResolveHoveredCursorKind(InteractionTarget target)
+    {
+        if (!target)
+        {
+            return PointerCursorKind.Default;
+        }
+
+        if (target.SupportsDrag)
+        {
+            return PointerCursorKind.DragReady;
+        }
+
+        InteractionContext context = CreateInteractionContext(target);
+        if (target.TryGetAction(context, InteractionMode.Inspect, out InteractionAction inspectAction) && inspectAction.Enabled)
+        {
+            return PointerCursorKind.Inspect;
+        }
+
+        return target.HoverCursorKind;
     }
 
     private static int GetSortingScore(Component component)
@@ -855,28 +864,10 @@ public class PointerContext : MonoBehaviour
             return inRangeComparison;
         }
 
-        int primaryActionComparison = left.HasEnabledPrimaryAction.CompareTo(right.HasEnabledPrimaryAction);
-        if (primaryActionComparison != 0)
-        {
-            return primaryActionComparison;
-        }
-
         int anyActionComparison = left.HasAnyEnabledAction.CompareTo(right.HasAnyEnabledAction);
         if (anyActionComparison != 0)
         {
             return anyActionComparison;
-        }
-
-        int priorityComparison = left.SelectionPriority.CompareTo(right.SelectionPriority);
-        if (priorityComparison != 0)
-        {
-            return priorityComparison;
-        }
-
-        int sortingComparison = left.SortingScore.CompareTo(right.SortingScore);
-        if (sortingComparison != 0)
-        {
-            return sortingComparison;
         }
 
         int normalizedDistanceComparison = right.NormalizedDistanceSqr.CompareTo(left.NormalizedDistanceSqr);
@@ -885,7 +876,31 @@ public class PointerContext : MonoBehaviour
             return normalizedDistanceComparison;
         }
 
-        return right.DistanceSqr.CompareTo(left.DistanceSqr);
+        int distanceComparison = right.DistanceSqr.CompareTo(left.DistanceSqr);
+        if (distanceComparison != 0)
+        {
+            return distanceComparison;
+        }
+
+        int primaryActionComparison = left.HasEnabledPrimaryAction.CompareTo(right.HasEnabledPrimaryAction);
+        if (primaryActionComparison != 0)
+        {
+            return primaryActionComparison;
+        }
+
+        int sortingComparison = left.SortingScore.CompareTo(right.SortingScore);
+        if (sortingComparison != 0)
+        {
+            return sortingComparison;
+        }
+
+        int priorityComparison = left.SelectionPriority.CompareTo(right.SelectionPriority);
+        if (priorityComparison != 0)
+        {
+            return priorityComparison;
+        }
+
+        return 0;
     }
 
     private float GetActorDistanceSqr(InteractionTarget target)
@@ -949,16 +964,4 @@ public class PointerContext : MonoBehaviour
         public float DistanceSqr { get; }
         public float NormalizedDistanceSqr { get; }
     }
-}
-
-[Serializable]
-public struct PointerCursorEntry
-{
-    [SerializeField] private PointerCursorKind cursorKind;
-    [SerializeField] private Texture2D texture;
-    [SerializeField] private Vector2 hotspot;
-
-    public PointerCursorKind CursorKind => cursorKind;
-    public Texture2D Texture => texture;
-    public Vector2 Hotspot => hotspot;
 }

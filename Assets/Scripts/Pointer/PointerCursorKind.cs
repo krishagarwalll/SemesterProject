@@ -1,10 +1,9 @@
 public enum PointerCursorKind
 {
     Default = 0,
-    Move = 1,
-    Interact = 2,
+    Interact = 1,
+    Inspect = 2,
     DragReady = 3,
-    Pressed = 4,
-    Dragging = 5,
-    Blocked = 6
+    Dragging = 4,
+    Blocked = 5
 }
