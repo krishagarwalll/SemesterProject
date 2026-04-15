@@ -21,18 +21,16 @@ public class RoomBoundsConstraint : MonoBehaviour
             return point;
         }
 
-        Vector3 clampedPoint = OwnerRoom.ClampPosition(point);
-        clampedPoint.y = point.y;
-        if (lockZPosition)
-        {
-            clampedPoint.z = transform.position.z;
-        }
-
-        return clampedPoint;
+        return OwnerRoom.ClampPoint(point, lockZPosition ? transform.position.z : point.z);
     }
 
     public bool Contains(Vector3 point)
     {
         return !OwnerRoom || OwnerRoom.ContainsPoint(point);
+    }
+
+    public bool Contains(Bounds bounds)
+    {
+        return !OwnerRoom || OwnerRoom.ContainsBounds(bounds);
     }
 }

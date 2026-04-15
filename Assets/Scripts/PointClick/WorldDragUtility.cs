@@ -9,10 +9,10 @@ public static class WorldDragUtility
     {
         Bounds bounds = new(candidatePosition, Vector3.one * 0.1f);
         Vector3 offset = candidatePosition - currentPosition;
-        bool initialized = EncapsulateBounds(renderers, offset, ref bounds);
+        bool initialized = EncapsulateBounds(colliders, offset, ref bounds);
         if (!initialized)
         {
-            EncapsulateBounds(colliders, offset, ref bounds);
+            EncapsulateBounds(renderers, offset, ref bounds);
         }
 
         return bounds;
