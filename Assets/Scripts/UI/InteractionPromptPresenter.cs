@@ -55,6 +55,12 @@ public class InteractionPromptPresenter : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (Controller && (Controller.HasActiveInteraction || Pointer && Pointer.IsDragging))
+        {
+            SetVisible(false);
+            return;
+        }
+
         if (!Root || !currentTarget || !Pointer || !Pointer.WorldCamera)
         {
             return;

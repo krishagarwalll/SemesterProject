@@ -150,6 +150,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     public void SuspendStoreTransfer()
     {
         DragBody.EndDrag(restoreInvalidPose: true);
+        SetRootActive(false);
     }
 
     public void CancelStoreTransfer()

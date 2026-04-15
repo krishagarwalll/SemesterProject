@@ -12,8 +12,10 @@ public class DragBody2D : MonoBehaviour
     [SerializeField] private bool centerOnPointer = true;
     [SerializeField, Min(0f)] private float idleGravityScale = 1f;
     [SerializeField, Min(0f)] private float dragGravityScale = 0f;
-    [SerializeField, Min(0f)] private float dragResponsiveness = 18f;
-    [SerializeField, Min(0f)] private float maxDragSpeed = 18f;
+    [SerializeField, Min(0f)] private float idleLinearDamping;
+    [SerializeField, Min(0f)] private float dragLinearDamping = 6f;
+    [SerializeField, Min(0f)] private float dragResponsiveness = 12f;
+    [SerializeField, Min(0f)] private float maxDragSpeed = 14f;
     [SerializeField] private bool enforceRoomBoundsWhileIdle = true;
     [SerializeField] private bool freezeRotationWhileIdle = true;
     [SerializeField] private bool freezeRotationWhileDragging = true;
@@ -59,6 +61,8 @@ public class DragBody2D : MonoBehaviour
     private void OnValidate()
     {
         idleGravityScale = Mathf.Max(0f, idleGravityScale);
+        idleLinearDamping = Mathf.Max(0f, idleLinearDamping);
+        dragLinearDamping = Mathf.Max(0f, dragLinearDamping);
         dragResponsiveness = Mathf.Max(0f, dragResponsiveness);
         maxDragSpeed = Mathf.Max(0f, maxDragSpeed);
         if (!rootTransform)
@@ -335,11 +339,13 @@ public class DragBody2D : MonoBehaviour
         if (dragging)
         {
             Body.gravityScale = dragGravityScale;
+            Body.linearDamping = dragLinearDamping;
             Body.angularVelocity = 0f;
             return;
         }
 
         Body.gravityScale = idleGravityScale;
+        Body.linearDamping = idleLinearDamping;
     }
 
     private void ApplyDragForce(Vector2 resolvedTarget)
@@ -394,6 +400,7 @@ public class DragBody2D : MonoBehaviour
         Rigidbody2D rigidbody2D = Body;
         rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
         rigidbody2D.gravityScale = idleGravityScale;
+        rigidbody2D.linearDamping = idleLinearDamping;
         rigidbody2D.constraints = GetManagedConstraints(dragging: false);
     }
 
