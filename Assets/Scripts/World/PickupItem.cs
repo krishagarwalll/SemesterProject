@@ -163,7 +163,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     public bool ResumeStoreTransfer(PointerContext pointer, Vector2 screenPosition)
     {
         SetRootActive(true);
-        return DragBody.BeginDrag(pointer, screenPosition, constrainLiftHeight: false);
+        return DragBody.BeginUnrestrictedDrag(pointer, screenPosition);
     }
 
     public void CancelStoreTransfer()
@@ -200,7 +200,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
             DragBody.SeedPose(GetPlacementRootPosition(anchorPoint), RootRotation);
         }
 
-        return DragBody.BeginDrag(pointer, screenPosition, constrainLiftHeight: false);
+        return DragBody.BeginUnrestrictedDrag(pointer, screenPosition);
     }
 
     public void UpdatePlacementDrag(Vector2 screenPosition)

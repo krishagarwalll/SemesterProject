@@ -149,6 +149,11 @@ public class DragBody2D : MonoBehaviour
         return BeginDrag(pointer, screenPosition, limitVerticalLift);
     }
 
+    public bool BeginUnrestrictedDrag(PointerContext pointer, Vector2 screenPosition)
+    {
+        return BeginDrag(pointer, screenPosition, constrainLiftHeight: false);
+    }
+
     public bool BeginDrag(PointerContext pointer, Vector2 screenPosition, bool constrainLiftHeight)
     {
         if (!CanStartDrag(pointer))

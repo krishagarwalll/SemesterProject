@@ -288,17 +288,17 @@ public class PointClickController : MonoBehaviour
         }
 
         InteractionTarget target = context.ClickedTarget;
-        if (!target.TryGetPrimaryAction(CreateContext(target), out InteractionAction action))
+        InteractionContext interactionContext = CreateContext(target);
+        if (!target.TryGetPrimaryAction(interactionContext, out InteractionAction action) || !action.Enabled)
         {
-            if (context.TryGetWalkPoint(out Vector3 fallbackPoint))
-            {
-                TrySetDestination(fallbackPoint);
-            }
-
+            HandleNonActionClick(context, target);
             return;
         }
 
-        ExecuteAction(target, action);
+        if (!ExecuteAction(target, action))
+        {
+            HandleNonActionClick(context, target);
+        }
     }
 
     private void HandleDragStarted(PointerContext context)
@@ -364,6 +364,19 @@ public class PointClickController : MonoBehaviour
     private bool TryApproach(InteractionTarget target)
     {
         return target && TrySetDestination(target.GetApproachPoint(Position));
+    }
+
+    private void HandleNonActionClick(PointerContext context, InteractionTarget target)
+    {
+        if (target && target.SupportsDrag && TryApproach(target))
+        {
+            return;
+        }
+
+        if (context.TryGetWalkPoint(out Vector3 point))
+        {
+            TrySetDestination(point);
+        }
     }
 
     private bool TrySetDestination(Vector3 worldPosition)
