@@ -9,10 +9,10 @@ public class RoomTransitionService : MonoBehaviour
     [SerializeField] private ScreenFade screenFade;
     [SerializeField] private Room activeRoom;
     [SerializeField] private InputActionReference zoomAction;
-    [SerializeField, Min(1f)] private float userVerticalFov = 50f;
-    [SerializeField, Min(1f)] private float minVerticalFov = 30f;
-    [SerializeField, Min(1f)] private float maxVerticalFov = 80f;
-    [SerializeField, Min(0.1f)] private float zoomStep = 2f;
+    [SerializeField, Min(0.5f)] private float userOrthographicSize = 1.45f;
+    [SerializeField, Min(0.5f)] private float minOrthographicSize = 1.25f;
+    [SerializeField, Min(0.5f)] private float maxOrthographicSize = 5f;
+    [SerializeField, Min(0.1f)] private float zoomStep = 0.25f;
     [SerializeField] private bool invertZoom;
 
     private Coroutine transitionRoutine;
@@ -20,9 +20,9 @@ public class RoomTransitionService : MonoBehaviour
     private PointClickController Player => player ? player : player = FindFirstObjectByType<PointClickController>(FindObjectsInactive.Include);
     private ScreenFade Fade => screenFade ? screenFade : screenFade = FindFirstObjectByType<ScreenFade>(FindObjectsInactive.Include);
     public Room ActiveRoom => activeRoom;
-    public float UserVerticalFov => userVerticalFov;
-    public float MinVerticalFov => minVerticalFov;
-    public float MaxVerticalFov => maxVerticalFov;
+    public float UserOrthographicSize => userOrthographicSize;
+    public float MinOrthographicSize => minOrthographicSize;
+    public float MaxOrthographicSize => maxOrthographicSize;
 
     private void Reset()
     {
@@ -54,9 +54,9 @@ public class RoomTransitionService : MonoBehaviour
 
     private void OnValidate()
     {
-        userVerticalFov = Mathf.Max(1f, userVerticalFov);
-        minVerticalFov = Mathf.Max(1f, minVerticalFov);
-        maxVerticalFov = Mathf.Max(minVerticalFov, maxVerticalFov);
+        userOrthographicSize = Mathf.Max(0.5f, userOrthographicSize);
+        minOrthographicSize = Mathf.Max(0.5f, minOrthographicSize);
+        maxOrthographicSize = Mathf.Max(minOrthographicSize, maxOrthographicSize);
         zoomStep = Mathf.Max(0.1f, zoomStep);
     }
 
@@ -84,12 +84,12 @@ public class RoomTransitionService : MonoBehaviour
             return;
         }
 
-        SetUserZoom(userVerticalFov - Mathf.Sign(scrollY) * zoomStep);
+        SetUserZoom(userOrthographicSize - Mathf.Sign(scrollY) * zoomStep);
     }
 
-    public void SetUserZoom(float verticalFov)
+    public void SetUserZoom(float orthographicSize)
     {
-        userVerticalFov = Mathf.Clamp(verticalFov, minVerticalFov, maxVerticalFov);
+        userOrthographicSize = Mathf.Clamp(orthographicSize, minOrthographicSize, maxOrthographicSize);
         ApplyActiveRoom(activeRoom);
     }
 
@@ -126,8 +126,8 @@ public class RoomTransitionService : MonoBehaviour
             yield return Fade.FadeOut(fadeDuration);
         }
 
-        Player.TryWarp(destinationPosition);
         ApplyActiveRoom(room);
+        Player.TryWarp(destinationPosition);
 
         if (Fade)
         {
@@ -141,12 +141,12 @@ public class RoomTransitionService : MonoBehaviour
     {
         if (activeRoom == room)
         {
-            room?.SetCameraLive(true, desiredVerticalFov: userVerticalFov, minVerticalFov: minVerticalFov, maxVerticalFov: maxVerticalFov);
+            room?.SetCameraLive(true, desiredOrthographicSize: userOrthographicSize, minOrthographicSize: minOrthographicSize, maxOrthographicSize: maxOrthographicSize);
             return;
         }
 
-        activeRoom?.SetCameraLive(false, desiredVerticalFov: userVerticalFov, minVerticalFov: minVerticalFov, maxVerticalFov: maxVerticalFov);
+        activeRoom?.SetCameraLive(false, desiredOrthographicSize: userOrthographicSize, minOrthographicSize: minOrthographicSize, maxOrthographicSize: maxOrthographicSize);
         activeRoom = room;
-        activeRoom?.SetCameraLive(true, desiredVerticalFov: userVerticalFov, minVerticalFov: minVerticalFov, maxVerticalFov: maxVerticalFov);
+        activeRoom?.SetCameraLive(true, desiredOrthographicSize: userOrthographicSize, minOrthographicSize: minOrthographicSize, maxOrthographicSize: maxOrthographicSize);
     }
 }

@@ -4,41 +4,43 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     [SerializeField] private string roomId;
-    [SerializeField] private Collider boundsVolume;
+    [SerializeField] private Collider2D boundsVolume;
     [SerializeField] private RoomAnchor defaultAnchor;
     [SerializeField] private Transform contentRoot;
-    [SerializeField] private Vector3 cameraOffset = new(0f, 0.4f, -10f);
-    [SerializeField, Min(0f)] private float cameraFitPadding = 0.1f;
-    [SerializeField] private Vector2 cameraFitSizeBuffer = new(2.25f, 1.5f);
-    [SerializeField] private float cameraFitDepthBuffer = -1f;
-    [SerializeField, Min(0f)] private float cameraFitMaxForwardDolly = 1.75f;
+    [SerializeField] private Transform backdropRoot;
+    [SerializeField] private Vector3 cameraOffset = new(0f, 0f, -10f);
+    [SerializeField, Min(0f)] private float orthographicPadding = 0.25f;
+    [SerializeField] private Vector2 orthographicSizeBuffer = new(0.5f, 0.35f);
 
     private RoomAnchor[] anchors;
     private RoomCameraController cameraController;
 
     public string RoomId => string.IsNullOrWhiteSpace(roomId) ? name : roomId;
-    public Collider BoundsVolume => boundsVolume ? boundsVolume : boundsVolume = GetComponentInChildren<Collider>(true);
+    public Collider2D BoundsVolume => boundsVolume ? boundsVolume : boundsVolume = GetComponentInChildren<Collider2D>(true);
     public RoomAnchor DefaultAnchor => defaultAnchor ? defaultAnchor : defaultAnchor = GetComponentInChildren<RoomAnchor>(true);
     public Transform ContentRoot => contentRoot ? contentRoot : contentRoot = transform;
+    public Transform BackdropRoot => backdropRoot ? backdropRoot : backdropRoot = transform.Find("Backdrop");
     public Vector3 CameraOffset => cameraOffset;
-    public float CameraFitPadding => cameraFitPadding;
-    public float CameraFitMaxForwardDolly => cameraFitMaxForwardDolly;
-    public float DefaultItemDepth => BoundsVolume ? BoundsVolume.bounds.center.z : transform.position.z;
+    public float DefaultItemDepth => transform.position.z;
+    public float GroundY => DefaultAnchor ? DefaultAnchor.transform.position.y : BoundsVolume ? BoundsVolume.bounds.min.y : transform.position.y;
     public RoomCameraController CameraController => cameraController ? cameraController : cameraController = GetComponentInChildren<RoomCameraController>(true);
+
     private RoomAnchor[] Anchors => anchors ??= GetComponentsInChildren<RoomAnchor>(true);
 
     private void Reset()
     {
-        boundsVolume = GetComponentInChildren<Collider>(true);
+        boundsVolume = GetComponentInChildren<Collider2D>(true);
         defaultAnchor = GetComponentInChildren<RoomAnchor>(true);
         contentRoot = transform;
+        backdropRoot = transform.Find("Backdrop");
     }
 
     private void OnValidate()
     {
+        orthographicPadding = Mathf.Max(0f, orthographicPadding);
         if (!boundsVolume)
         {
-            boundsVolume = GetComponentInChildren<Collider>(true);
+            boundsVolume = GetComponentInChildren<Collider2D>(true);
         }
 
         if (!defaultAnchor)
@@ -51,9 +53,11 @@ public class Room : MonoBehaviour
             contentRoot = transform;
         }
 
-        cameraFitPadding = Mathf.Max(0f, cameraFitPadding);
-        cameraFitDepthBuffer = Mathf.Max(-10f, cameraFitDepthBuffer);
-        cameraFitMaxForwardDolly = Mathf.Max(0f, cameraFitMaxForwardDolly);
+        if (!backdropRoot)
+        {
+            backdropRoot = transform.Find("Backdrop");
+        }
+
         anchors = null;
         cameraController = null;
     }
@@ -69,10 +73,12 @@ public class Room : MonoBehaviour
     {
         if (!BoundsVolume)
         {
+            point.z = transform.position.z;
             return point;
         }
 
-        return BoundsVolume.ClosestPoint(point);
+        Vector2 closest = BoundsVolume.ClosestPoint((Vector2)point);
+        return new Vector3(closest.x, closest.y, point.z);
     }
 
     public bool ContainsPoint(Vector3 point, float tolerance = 0.02f)
@@ -82,8 +88,38 @@ public class Room : MonoBehaviour
             return true;
         }
 
-        Vector3 closestPoint = BoundsVolume.ClosestPoint(point);
-        return (closestPoint - point).sqrMagnitude <= tolerance * tolerance;
+        Vector2 closest = BoundsVolume.ClosestPoint((Vector2)point);
+        return ((Vector2)point - closest).sqrMagnitude <= tolerance * tolerance;
+    }
+
+    public bool ContainsBounds(Bounds bounds, float tolerance = 0.02f)
+    {
+        if (!BoundsVolume)
+        {
+            return true;
+        }
+
+        Vector3 min = bounds.min;
+        Vector3 max = bounds.max;
+        Vector3[] corners =
+        {
+            new(min.x, min.y, transform.position.z),
+            new(max.x, min.y, transform.position.z),
+            new(min.x, max.y, transform.position.z),
+            new(max.x, max.y, transform.position.z)
+        };
+
+        float toleranceSqr = tolerance * tolerance;
+        for (int i = 0; i < corners.Length; i++)
+        {
+            Vector2 closest = BoundsVolume.ClosestPoint((Vector2)corners[i]);
+            if (((Vector2)corners[i] - closest).sqrMagnitude > toleranceSqr)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public bool TryGetAnchor(string anchorId, out RoomAnchor anchor)
@@ -109,55 +145,31 @@ public class Room : MonoBehaviour
 
     public Vector3 GetCameraPosition()
     {
-        Bounds bounds = BoundsVolume ? BoundsVolume.bounds : new Bounds(transform.position, Vector3.zero);
-        return new Vector3(bounds.center.x + cameraOffset.x, bounds.center.y + cameraOffset.y, cameraOffset.z);
+        Bounds bounds = GetCameraBounds();
+        return new Vector3(bounds.center.x + cameraOffset.x, bounds.center.y + cameraOffset.y, transform.position.z + cameraOffset.z);
     }
 
-    public bool TryGetCameraFit(Vector3 cameraPosition, float aspect, out RoomCameraFit fit)
+    public bool TryGetOrthographicSize(float aspect, out float size)
     {
-        Bounds bounds = GetAdjustedCameraBounds();
-        Vector3 cameraLocalPosition = transform.InverseTransformPoint(cameraPosition);
-        float nearestFaceZ = cameraLocalPosition.z <= bounds.center.z ? bounds.min.z : bounds.max.z;
-        float nearestDepth = Mathf.Abs(nearestFaceZ - cameraLocalPosition.z) + cameraFitDepthBuffer;
-        if (nearestDepth <= 0.01f)
-        {
-            fit = default;
-            return false;
-        }
-
-        float availableHalfHeight = Mathf.Max(0.01f, bounds.extents.y - cameraFitPadding);
-        float availableHalfWidth = Mathf.Max(0.01f, bounds.extents.x - cameraFitPadding);
-        float limitedHalfHeight = Mathf.Min(availableHalfHeight, availableHalfWidth / Mathf.Max(0.01f, aspect));
-        fit = new RoomCameraFit(nearestDepth, limitedHalfHeight);
+        Bounds bounds = GetCameraBounds();
+        float halfHeight = bounds.extents.y + orthographicPadding + orthographicSizeBuffer.y;
+        float halfWidth = bounds.extents.x + orthographicPadding + orthographicSizeBuffer.x;
+        size = Mathf.Max(0.1f, Mathf.Max(halfHeight, halfWidth / Mathf.Max(0.01f, aspect)));
         return true;
     }
 
-    private Bounds GetAdjustedCameraBounds()
+    public void SetCameraLive(bool isLive, Camera outputCamera = null, float desiredOrthographicSize = 5f, float minOrthographicSize = 2f, float maxOrthographicSize = 10f)
     {
-        Bounds bounds = BoundsVolume ? BoundsVolume.bounds : new Bounds(transform.position, Vector3.one * 2f);
-        Vector3 adjustedExtents = bounds.extents + new Vector3(cameraFitSizeBuffer.x, cameraFitSizeBuffer.y, 0f);
-        adjustedExtents.x = Mathf.Max(0.01f, adjustedExtents.x);
-        adjustedExtents.y = Mathf.Max(0.01f, adjustedExtents.y);
-        adjustedExtents.z = Mathf.Max(0.01f, bounds.extents.z);
-        bounds.extents = adjustedExtents;
-        return bounds;
+        CameraController?.SetLive(isLive, outputCamera, desiredOrthographicSize, minOrthographicSize, maxOrthographicSize);
     }
 
-    public void SetCameraLive(bool isLive, Camera outputCamera = null, float desiredVerticalFov = 34f, float minVerticalFov = 20f, float maxVerticalFov = 60f)
+    private Bounds GetCameraBounds()
     {
-        CameraController?.SetLive(isLive, outputCamera, desiredVerticalFov, minVerticalFov, maxVerticalFov);
+        if (BoundsVolume)
+        {
+            return BoundsVolume.bounds;
+        }
+
+        return new Bounds(transform.position, Vector3.one * 2f);
     }
-
-}
-
-public readonly struct RoomCameraFit
-{
-    public RoomCameraFit(float nearestDepth, float limitedHalfHeight)
-    {
-        NearestDepth = nearestDepth;
-        LimitedHalfHeight = limitedHalfHeight;
-    }
-
-    public float NearestDepth { get; }
-    public float LimitedHalfHeight { get; }
 }

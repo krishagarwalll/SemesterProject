@@ -16,3 +16,7 @@ MonoBehaviour:
   displayName: Rusty Key
   icon: {fileID: 0}
   description: A bent, rusted key. It looks like it still fits something important.
+  worldPrefab: {fileID: 710100000, guid: ab80c4f458a04ae3ad8078c82d704d75, type: 3}
+  primaryLabel: Use
+  inspectLabel: Inspect
+  canPlaceBackIntoWorld: 1

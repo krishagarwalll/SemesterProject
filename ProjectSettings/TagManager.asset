@@ -16,9 +16,13 @@ TagManager:
   - Water
   - UI
   - Walkable
-  - Interactable
-  - Blocking
-  - Player
+  - Interaction
+  - Environment
+  - Character
+  - RoomProp
+  - WorldItem
+  - Portal
+  - UIIgnore
   - 
   - 
   - 
@@ -50,6 +54,24 @@ TagManager:
     locked: 0
   - name: collision
     uniqueID: 3556105781
+    locked: 0
+  - name: Backdrop
+    uniqueID: 401001001
+    locked: 0
+  - name: RoomProp
+    uniqueID: 401001002
+    locked: 0
+  - name: Character
+    uniqueID: 401001003
+    locked: 0
+  - name: WorldItem
+    uniqueID: 401001004
+    locked: 0
+  - name: Foreground
+    uniqueID: 401001005
+    locked: 0
+  - name: UI
+    uniqueID: 401001006
     locked: 0
   m_RenderingLayers:
   - Default

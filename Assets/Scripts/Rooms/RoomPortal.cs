@@ -52,7 +52,7 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
 
         if (!unlocked && lockMode == PortalLockMode.RequiredItem && context.SelectedItem && requiredItem == context.SelectedItem)
         {
-            actions.Add(new InteractionAction(this, InteractionMode.UseSelectedItem, enterLabel, primaryGlyphId, canTraverse, priority: 10));
+            actions.Add(new InteractionAction(this, InteractionMode.UseSelectedItem, enterLabel, primaryGlyphId, canTraverse, requiresApproach: false, priority: 10));
         }
 
         string inspect = GetInspectText(unlocked);

@@ -16,3 +16,7 @@ MonoBehaviour:
   displayName: Newspaper
   icon: {fileID: 0}
   description: The date is wrong. The ink is damp, but nothing around you is wet.
+  worldPrefab: {fileID: 700100000, guid: 7bb62878e2324998b5091a86af4bed3d, type: 3}
+  primaryLabel: Use
+  inspectLabel: Inspect
+  canPlaceBackIntoWorld: 1
