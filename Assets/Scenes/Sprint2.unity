@@ -553,6 +553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 228908239}
   - component: {fileID: 228908240}
+  - component: {fileID: 228908242}
   - component: {fileID: 228908245}
   - component: {fileID: 910000101}
   - component: {fileID: 910000102}
@@ -588,10 +589,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 228908238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d472340dcb7076e48ac4c43dee921a0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 26b6cf1600a3be3448c72401eac399ca, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PointClickCharacter
+  m_EditorClassIdentifier: Assembly-CSharp::PointClickController
   moveSpeed: 4
+  moveAcceleration: 18
+  moveDeceleration: 24
+  useNavMeshAgent: 1
+  navMeshSampleDistance: 2
+  navMeshSnapDistance: 3
   walkableLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -604,6 +610,28 @@ MonoBehaviour:
   movingThreshold: 0.05
   animationSmoothing: 10
   flipThreshold: 0.05
+--- !u!195 &228908242
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228908238}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 4
+  m_Acceleration: 18
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 0.05
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.3
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &228908245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,10 +1449,75 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 300000261}
   - {fileID: 300000301}
   - {fileID: 300000401}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &300000260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300000261}
+  - component: {fileID: 300000262}
+  m_Layer: 0
+  m_Name: NavMesh2DSurface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &300000261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000260}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300000251}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &300000262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: d86061a0e087146498117c89c4094e77, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &300000300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,8 +1889,8 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 300000302}
-  hoverCursorKind: 2
-  dragCursorKind: 5
+  hoverCursorKind: 1
+  dragCursorKind: 4
 --- !u!114 &300000344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2152,8 +2245,8 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 300000402}
-  hoverCursorKind: 2
-  dragCursorKind: 5
+  hoverCursorKind: 1
+  dragCursorKind: 4
 --- !u!114 &300000444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2215,7 +2308,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.6999998, y: -1.85, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.05, z: 0.45}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 300000301}
@@ -2228,8 +2321,9 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300000500}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &300000503
-MeshRenderer:
+--- !u!212 &300000503
+SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2253,7 +2347,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3b5cc91c3bf8cf74391252247f52fb59, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2276,7 +2370,16 @@ MeshRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
+  m_Sprite: {fileID: -6962918065892611476, guid: 1d32dfddf1dad46b0890e19119557305, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.78, y: 1.1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!114 &300000506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2296,8 +2399,8 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 300000302}
-  hoverCursorKind: 2
-  dragCursorKind: 5
+  hoverCursorKind: 1
+  dragCursorKind: 4
 --- !u!114 &300000507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2307,9 +2410,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 300000500}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d833e1fa509dc469f4d1388503b1de, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c1981c85f72bfd448458a68ca758dec, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WorldItem
+  m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: b9f7fc0987d54612a7b6e5f93701086c, type: 2}
   quantity: 1
   dragBody: {fileID: 910001201}
@@ -2358,7 +2461,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.25, y: -1.86, z: 0}
-  m_LocalScale: {x: 0.18, y: 0.05, z: 0.18}
+  m_LocalScale: {x: 0.18, y: 0.18, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 300000401}
@@ -2371,8 +2474,9 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300000520}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &300000523
-MeshRenderer:
+--- !u!212 &300000523
+SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2396,7 +2500,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3b5cc91c3bf8cf74391252247f52fb59, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2419,7 +2523,16 @@ MeshRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
+  m_Sprite: {fileID: -8272045637266883246, guid: 3d9c653a4082e4830bbda17bb87a3440, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.49, y: 0.95}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!114 &300000526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2439,8 +2552,8 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 300000402}
-  hoverCursorKind: 2
-  dragCursorKind: 5
+  hoverCursorKind: 1
+  dragCursorKind: 4
 --- !u!114 &300000527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2450,9 +2563,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 300000520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d833e1fa509dc469f4d1388503b1de, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c1981c85f72bfd448458a68ca758dec, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WorldItem
+  m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
   quantity: 1
   dragBody: {fileID: 910001301}
@@ -4365,8 +4478,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &910000102
-BoxCollider2D:
+--- !u!70 &910000102
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4395,22 +4508,13 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.1}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.72, y: 1.24}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0.6}
+  m_Size: {x: 1, y: 1.2}
+  m_Direction: 0
 --- !u!1 &910001050
 GameObject:
   m_ObjectHideFlags: 0
@@ -4835,11 +4939,16 @@ MonoBehaviour:
   useGrabOffset: 1
   centerOnPointer: 1
   idleGravityScale: 1
-  dragGravityScale: 0.15
   idleLinearDamping: 0
+  dragGravityScale: 0.15
   dragLinearDamping: 6
   dragResponsiveness: 18
+  maxDragAcceleration: 72
+  dragVerticalDamping: 10
   maxDragSpeed: 12
+  limitVerticalLift: 0
+  maxLiftHeight: 0
+  releaseVelocityRetention: 0.92
   enforceRoomBoundsWhileIdle: 1
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
@@ -4934,11 +5043,16 @@ MonoBehaviour:
   useGrabOffset: 1
   centerOnPointer: 1
   idleGravityScale: 1
-  dragGravityScale: 0.15
   idleLinearDamping: 0
+  dragGravityScale: 0.15
   dragLinearDamping: 6
   dragResponsiveness: 18
+  maxDragAcceleration: 72
+  dragVerticalDamping: 10
   maxDragSpeed: 12
+  limitVerticalLift: 0
+  maxLiftHeight: 0
+  releaseVelocityRetention: 0.92
   enforceRoomBoundsWhileIdle: 1
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
@@ -5033,11 +5147,16 @@ MonoBehaviour:
   useGrabOffset: 1
   centerOnPointer: 1
   idleGravityScale: 1
-  dragGravityScale: 0.15
   idleLinearDamping: 0
+  dragGravityScale: 0.15
   dragLinearDamping: 6
-  dragResponsiveness: 18
-  maxDragSpeed: 12
+  dragResponsiveness: 14
+  maxDragAcceleration: 72
+  dragVerticalDamping: 10
+  maxDragSpeed: 9
+  limitVerticalLift: 1
+  maxLiftHeight: 1.35
+  releaseVelocityRetention: 0.92
   enforceRoomBoundsWhileIdle: 1
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
@@ -5053,7 +5172,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 4
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -5962,6 +6081,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158331748}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1249125094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249125095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c566f6aa44d4b8e9628579616c3b6de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointerCursorPresenter
+  pointer: {fileID: 1249125096}
+  cursorMode: 0
+  cursorEntries:
+  - cursorKind: 1
+    texture: {fileID: 2800000, guid: 83dd8b714b755354fafe4de601e42d67, type: 3}
+    hotspot: {x: 0, y: 0}
+  - cursorKind: 2
+    texture: {fileID: 2800000, guid: 17a256d86e7c6aa4db4de5d0494e0630, type: 3}
+    hotspot: {x: 0, y: 0}
+  - cursorKind: 3
+    texture: {fileID: 2800000, guid: cb8292a3084259344ae792a341acfbf1, type: 3}
+    hotspot: {x: 0, y: 0}
+  - cursorKind: 4
+    texture: {fileID: 2800000, guid: e54e3f4c7ca3d774e835a962190e8237, type: 3}
+    hotspot: {x: 0, y: 0}
+  - cursorKind: 5
+    texture: {fileID: 2800000, guid: cb8292a3084259344ae792a341acfbf1, type: 3}
+    hotspot: {x: 0, y: 0}
 --- !u!1 &1249125095
 GameObject:
   m_ObjectHideFlags: 0
@@ -5971,6 +6120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1249125097}
+  - component: {fileID: 1249125094}
   - component: {fileID: 1249125096}
   m_Layer: 0
   m_Name: Pointer
@@ -6009,31 +6159,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   ignoreWorldWhenOverUi: 1
-  interactionProbeRadius: 1.1
+  interactionProbeRadius: 0.85
   dragThresholdPixels: 8
-  interactionSortBias: 0
-  cursorEntries:
-  - cursorKind: 1
-    texture: {fileID: 2800000, guid: cb8292a3084259344ae792a341acfbf1, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 2
-    texture: {fileID: 2800000, guid: 83dd8b714b755354fafe4de601e42d67, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 3
-    texture: {fileID: 2800000, guid: cb8292a3084259344ae792a341acfbf1, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 4
-    texture: {fileID: 2800000, guid: faddd8394b5171d44874dbc05176ed2f, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 5
-    texture: {fileID: 2800000, guid: e54e3f4c7ca3d774e835a962190e8237, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 0
-    texture: {fileID: 2800000, guid: efcb0396a4274b04e9440dba49c4d25c, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 6
-    texture: {fileID: 2800000, guid: cb8292a3084259344ae792a341acfbf1, type: 3}
-    hotspot: {x: 0, y: 0}
 --- !u!4 &1249125097
 Transform:
   m_ObjectHideFlags: 0
@@ -7497,8 +7624,9 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!23 &1947883485
-MeshRenderer:
+--- !u!212 &1947883485
+SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7522,7 +7650,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3b5cc91c3bf8cf74391252247f52fb59, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7545,7 +7673,16 @@ MeshRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 09b35d203eb88a44eb9578b0439137c6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!33 &1947883486
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7578,9 +7715,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1947883482}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba3396525d67d846a6e37145b006755, type: 3}
+  m_Script: {fileID: 11500000, guid: 00627eb8f346bb64bbf565985f9679fd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoomProp
+  m_EditorClassIdentifier: Assembly-CSharp::WorldProp
   dragBody: {fileID: 910001401}
   dragLabel: Drag
   inspectLabel: Inspect
@@ -7607,8 +7744,8 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 300000402}
-  hoverCursorKind: 2
-  dragCursorKind: 5
+  hoverCursorKind: 1
+  dragCursorKind: 4
 --- !u!1 &2014710069
 GameObject:
   m_ObjectHideFlags: 0

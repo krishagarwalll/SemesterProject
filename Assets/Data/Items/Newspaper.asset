@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDefinition
   itemId: newspaper
   displayName: Newspaper
-  icon: {fileID: 0}
+  icon: {fileID: -6962918065892611476, guid: 1d32dfddf1dad46b0890e19119557305, type: 3}
   description: The date is wrong. The ink is damp, but nothing around you is wet.
   worldPrefab: {fileID: 700100000, guid: 7bb62878e2324998b5091a86af4bed3d, type: 3}
   primaryLabel: Use

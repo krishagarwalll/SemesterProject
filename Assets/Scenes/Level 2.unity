@@ -7013,7 +7013,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00627eb8f346bb64bbf565985f9679fd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DraggableProp
+  m_EditorClassIdentifier: Assembly-CSharp::WorldProp
   body: {fileID: 1947883488}
   dragHandle: {fileID: 1947883487}
   navMeshObstacle: {fileID: 1947883483}
