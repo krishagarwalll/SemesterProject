@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad450c27536d93840a83253529f9ac2b, type: 3}
   m_Name: Quest
   m_EditorClassIdentifier: Assembly-CSharp::Quest
-  questID: 07299415-8aba-4628-8400-598fcaee6a9d
+  questID: 71b872a9-3492-4bf9-81f8-fba86e550d42
   questName: TalkToGreySquare
-  questDescription: 
-  questObjectives: []
+  questDescription: Talk to grey square to delete white squares search history
+  questObjectives:
+  - description: Interact with grey square
+    type: 1
+    requiredAmount: 1
+    currentAmount: 0
