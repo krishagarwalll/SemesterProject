@@ -4949,6 +4949,7 @@ GameObject:
   - component: {fileID: 962391577}
   - component: {fileID: 962391576}
   - component: {fileID: 962391579}
+  - component: {fileID: 962391580}
   m_Layer: 0
   m_Name: GreySquare
   m_TagString: Untagged
@@ -5067,6 +5068,33 @@ MonoBehaviour:
   dialogueBox: {fileID: 919705652}
   dialogueText: {fileID: 2114816887}
   nameText: {fileID: 1435971695}
+--- !u!54 &962391580
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962391575}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &968322671
 GameObject:
   m_ObjectHideFlags: 0

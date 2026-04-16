@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,9 +6,14 @@ public class InteractionDetector : MonoBehaviour
     private INPCInteractable interactableInRange = null;
     public GameObject interactableIcon;
 
+    private void Awake()
+    {
+        Debug.Log("InteractionDetector is on player");
+    }
     void Start()
     {
         interactableIcon.SetActive(false);
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,16 +33,20 @@ public class InteractionDetector : MonoBehaviour
 
         if (interactable != null && interactable == interactableInRange)
         {
+            if (interactable is NPC npc)
+            {
+                npc.StopDialogue();
+            }
             interactableInRange = null;
             interactableIcon.SetActive(false);
         }
     }
 
-    private void Update()
+    public void OnInteract(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(KeyCode.E) && interactableInRange != null)
+        if (context.performed)
         {
-            interactableInRange.Interact();
+            interactableInRange?.Interact();
         }
     }
 }

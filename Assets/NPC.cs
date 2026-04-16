@@ -71,7 +71,9 @@ public class NPC : MonoBehaviour, INPCInteractable
         }
         isTyping = false;
 
-        if (dialogueData.dialogueLines.Length > dialogueIndex && dialogueData.autoProgressLines[dialogueIndex])
+        if (dialogueData.autoProgressLines != null &&
+            dialogueIndex < dialogueData.autoProgressLines.Length &&
+            dialogueData.autoProgressLines[dialogueIndex])
         {
             yield return new WaitForSeconds(dialogueData.autoProgressDelay);
             NextLine();
