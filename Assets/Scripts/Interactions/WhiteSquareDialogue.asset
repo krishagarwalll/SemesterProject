@@ -14,6 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: WhiteSquare
   dialogueLines:
-  - Hello there my name is white square. Please ask Grey square for me to delete
-    my search history pls.
+  - ' Hello I''m white square. I need you to do me a favor and sicen you''re a complete
+    stranger i''ll never meet again you are the perfect person to do this'
+  - Can you ask grey square to delete my search history please. He's currently on
+    the computer
+  - Thank you kind sir
+  - Fair enough. Let me know when you change your mind. Trust me you will
   typingSpeed: 0.05
+  autoProgressLines: 
+  endDialogueLines: 00000101
+  autoProgressDelay: 1.5
+  choices:
+  - dialogueIndex: 1
+    choices:
+    - Ok...
+    - Do it yourself
+    nextDialogueIndexes: 0200000003000000

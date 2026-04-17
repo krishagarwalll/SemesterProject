@@ -19,6 +19,8 @@ public class QuestUI : MonoBehaviour
         {
             testQuests.Add(new QuestProgress(testQuest));
         }
+        
+        UpdateQuestUI();
     }
 
     public void UpdateQuestUI()
@@ -31,6 +33,17 @@ public class QuestUI : MonoBehaviour
         foreach (var quest in testQuests)
         {
             GameObject entry = Instantiate(questEntryPrefab, questListContent);
+            TMP_Text questNameText = entry.transform.Find("QuestNameText").GetComponent<TMP_Text>();
+            Transform objectiveList = entry.transform.Find("ObjectiveList");
+
+            questNameText.text = quest.quest.name;
+
+            foreach (var objective in quest.objectives)
+            {
+                GameObject objTextGO = Instantiate(objectiveTextPrefab, objectiveList);
+                TMP_Text objText = objTextGO.GetComponent<TMP_Text>();
+                objText.text = $"{objective.description} ({objective.currentAmount}/{objective.requiredAmount})";
+            }
         }
     }
     // Update is called once per frame
