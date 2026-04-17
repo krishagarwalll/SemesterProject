@@ -14,15 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: WhiteSquare
   dialogueLines:
-  - ' Hello I''m white square. I need you to do me a favor and sicen you''re a complete
-    stranger i''ll never meet again you are the perfect person to do this'
+  - Hello I'm white square I need you to do me a favor
   - Can you ask grey square to delete my search history please. He's currently on
     the computer
   - Thank you kind sir
   - Fair enough. Let me know when you change your mind. Trust me you will
-  typingSpeed: 0.05
+  - Yo can you hurry up on the deleting of my search history pls
+  - Thank you so much honestly I'd be hunted by the FBI if they saw the nefarious
+    things in my search history
+  typingSpeed: 0.001
   autoProgressLines: 
-  endDialogueLines: 00000101
+  endDialogueLines: 000001010101
   autoProgressDelay: 1.5
   choices:
   - dialogueIndex: 1
@@ -30,3 +32,7 @@ MonoBehaviour:
     - Ok...
     - Do it yourself
     nextDialogueIndexes: 0200000003000000
+    givesQuest: 0100
+  questInProgressIndex: 4
+  questCompletedIndex: 5
+  quest: {fileID: 11400000, guid: d8518466f61e37546afa53c2879b3aa3, type: 2}

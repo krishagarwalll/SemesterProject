@@ -8,6 +8,8 @@ public class QuestController : MonoBehaviour
     public List<QuestProgress> activateQuests = new();
     private QuestUI questUI;
 
+    public List<string> handInQuestIDs = new();
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -26,6 +28,28 @@ public class QuestController : MonoBehaviour
     }
 
     public bool isQuestActive(string questID) => activateQuests.Exists(q => q.QuestID == questID);
+
+    public bool IsQuestCompleted(string questID)
+    {
+        QuestProgress quest = activateQuests.Find(q => q.QuestID == questID);
+        return quest != null && quest.objectives.TrueForAll(o => o.isCompleted);
+    }
+
+    public void CompleteQuest(string questID)
+    {
+        QuestProgress quest = activateQuests.Find(q => q.QuestID == questID);
+        if (quest != null)
+        {
+            handInQuestIDs.Add(questID);
+            activateQuests.Remove(quest);
+            questUI.UpdateQuestUI();
+        }
+    }
+
+    public bool isQuestHandedIn(string questID)
+    {
+        return handInQuestIDs.Contains(questID);
+    }
 
 
 }
