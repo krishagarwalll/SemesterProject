@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
+  m_Name: WhiteSquareDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  npcName: WhiteSquare
+  dialogueLines:
+  - Hello I'm white square I need you to do me a favor
+  - Can you ask grey square to delete my search history please. He's currently on
+    the computer
+  - Thank you kind sir
+  - Fair enough. Let me know when you change your mind. Trust me you will
+  - Yo can you hurry up on the deleting of my search history pls
+  - Thank you so much honestly I'd be hunted by the FBI if they saw the nefarious
+    things in my search history
+  typingSpeed: 0.001
+  autoProgressLines: 
+  endDialogueLines: 000001010101
+  autoProgressDelay: 1.5
+  choices:
+  - dialogueIndex: 1
+    choices:
+    - Ok...
+    - Do it yourself
+    nextDialogueIndexes: 0200000003000000
+    givesQuest: 0100
+  questInProgressIndex: 4
+  questCompletedIndex: 5
+  quest: {fileID: 11400000, guid: d8518466f61e37546afa53c2879b3aa3, type: 2}
+  isQuestHandInNPC: 1
