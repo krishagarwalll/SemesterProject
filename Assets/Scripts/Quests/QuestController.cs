@@ -13,32 +13,53 @@ public class QuestController : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        else Destroy(this);
+        else Destroy(gameObject);
 
         questUI = FindObjectOfType<QuestUI>();
     }
 
     public void AcceptQuest(Quest quest)
     {
-        if (isQuestActive(quest.questID)) return;
-        
+        if (quest == null) return;
+        if (isQuestActive(quest.questID) || isQuestHandedIn(quest.questID)) return;
+
         activateQuests.Add(new QuestProgress(quest));
-        
         questUI.UpdateQuestUI();
     }
 
-    public bool isQuestActive(string questID) => activateQuests.Exists(q => q.QuestID == questID);
+    public bool isQuestActive(string questID)
+    {
+        return activateQuests.Exists(q => q.QuestID == questID);
+    }
 
     public bool IsQuestCompleted(string questID)
     {
         QuestProgress quest = activateQuests.Find(q => q.QuestID == questID);
-        return quest != null && quest.objectives.TrueForAll(o => o.isCompleted);
+        return quest != null && quest.isCompleted;
+    }
+
+    public bool IsQuestReadyToHandIn(string questID)
+    {
+        QuestProgress quest = activateQuests.Find(q => q.QuestID == questID);
+        return quest != null && quest.readyToHandIn;
+    }
+
+    public void MarkQuestReadyToHandIn(string questID)
+    {
+        QuestProgress quest = activateQuests.Find(q => q.QuestID == questID);
+
+        if (quest != null)
+        {
+            quest.readyToHandIn = true;
+            questUI.UpdateQuestUI();
+        }
     }
 
     public void CompleteQuest(string questID)
     {
         QuestProgress quest = activateQuests.Find(q => q.QuestID == questID);
-        if (quest != null)
+
+        if (quest != null && quest.readyToHandIn)
         {
             handInQuestIDs.Add(questID);
             activateQuests.Remove(quest);
@@ -50,6 +71,4 @@ public class QuestController : MonoBehaviour
     {
         return handInQuestIDs.Contains(questID);
     }
-
-
 }

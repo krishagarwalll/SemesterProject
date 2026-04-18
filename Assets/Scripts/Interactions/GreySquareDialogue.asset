@@ -17,6 +17,14 @@ MonoBehaviour:
   - Hello I'm grey square. Hows life with you?
   - Let me guess. White square wants me to delete his search history right? Consider
     it done
-  typingSpeed: 0.05
+  - Honestly I have no clue where white square finds some of those images. They are
+    beyond illegal
+  typingSpeed: 0.01
   autoProgressLines: 
+  endDialogueLines: 010101
   autoProgressDelay: 1.5
+  choices: []
+  questInProgressIndex: 1
+  questCompletedIndex: 2
+  quest: {fileID: 11400000, guid: d8518466f61e37546afa53c2879b3aa3, type: 2}
+  isQuestHandInNPC: 0

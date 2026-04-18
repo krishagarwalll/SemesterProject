@@ -43,11 +43,13 @@ public class QuestProgress
 {
     public Quest quest;
     public List<QuestObjective> objectives;
+    public bool readyToHandIn;
 
     public QuestProgress(Quest quest)
     {
         this.quest = quest;
         objectives = new List<QuestObjective>();
+        readyToHandIn = false;
 
         foreach (var obj in quest.questObjectives)
         {

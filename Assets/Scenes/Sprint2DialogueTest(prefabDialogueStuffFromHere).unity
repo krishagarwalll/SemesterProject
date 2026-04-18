@@ -2007,7 +2007,7 @@ Transform:
   m_GameObject: {fileID: 300000320}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.25, y: -0.8000001, z: -9.164458}
+  m_LocalPosition: {x: -2.25, y: -0.8000001, z: -8.080637}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2400,7 +2400,7 @@ Transform:
   m_GameObject: {fileID: 300000420}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.25, y: -0.8000001, z: -9.164458}
+  m_LocalPosition: {x: 2.25, y: -0.8000001, z: -8.080637}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4377,7 +4377,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.25, y: -0.8000001, z: -9.164458}
+  m_LocalPosition: {x: 2.25, y: -0.8000001, z: -8.080637}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5420,6 +5420,7 @@ GameObject:
   - component: {fileID: 962391577}
   - component: {fileID: 962391576}
   - component: {fileID: 962391579}
+  - component: {fileID: 962391580}
   m_Layer: 0
   m_Name: GreySquare
   m_TagString: Untagged
@@ -5535,6 +5536,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   dialogueData: {fileID: 11400000, guid: e1ea234136112304a8644ad323b3222f, type: 2}
+--- !u!114 &962391580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962391575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c44a7848947ac0a43af90f931ce783d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestCompletionNPC
+  linkedQuest: {fileID: 11400000, guid: d8518466f61e37546afa53c2879b3aa3, type: 2}
+  triggerOnce: 1
 --- !u!1 &968322671
 GameObject:
   m_ObjectHideFlags: 0
@@ -6712,8 +6727,6 @@ MonoBehaviour:
   questListContent: {fileID: 544451194}
   questEntryPrefab: {fileID: 8988761565251150617, guid: d9692d7561953914c9bed0abf5884eec, type: 3}
   objectiveTextPrefab: {fileID: 5175469656225344272, guid: 0521ad7183807e34f8eb6d5eea727362, type: 3}
-  testQuest: {fileID: 11400000, guid: d8518466f61e37546afa53c2879b3aa3, type: 2}
-  testQuestAmount: 1
 --- !u!1 &1411538789
 GameObject:
   m_ObjectHideFlags: 0
@@ -8320,6 +8333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuestController
   activateQuests: []
+  handInQuestIDs: []
 --- !u!1 &1886370833
 GameObject:
   m_ObjectHideFlags: 0

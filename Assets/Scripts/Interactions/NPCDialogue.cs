@@ -15,6 +15,7 @@ public class NPCDialogue : ScriptableObject
     public int questInProgressIndex;
     public int questCompletedIndex;
     public Quest quest;
+    public bool isQuestHandInNPC;
 }
 
 [System.Serializable]
