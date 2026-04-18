@@ -8,8 +8,16 @@ public class PauseInputHandler : MonoBehaviour
     {
         if (Keyboard.current == null) return;
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
             PauseService.Toggle();
-        }
+    }
+
+    public void OnResumePressed()
+    {
+        PauseService.Resume();
+    }
+
+    public void OnQuitPressed()
+    {
+        Application.Quit();
     }
 }
