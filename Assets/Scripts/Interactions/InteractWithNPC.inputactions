@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "InteractWithNPC",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "420c2468-b8f8-464f-9717-58cd6f5bcd6d",
+            "actions": [
+                {
+                    "name": "TalkTo",
+                    "type": "Button",
+                    "id": "9f9cabc7-a259-4ca8-8d1a-1d98ea163940",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "eb7a2af9-283b-4f08-9360-b977d848b6d4",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TalkTo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
