@@ -1,0 +1,6 @@
+﻿<Solution>
+  <Project Path="Linework.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Linework.Editor.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+</Solution>
