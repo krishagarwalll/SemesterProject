@@ -11906,6 +11906,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 800850640407614969, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 800850640407614969, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 800850640407614969, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1361826212229959246, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -11989,6 +12001,46 @@ PrefabInstance:
     - target: {fileID: 1841476873058914311, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
       propertyPath: m_Name
       value: Pause Menu Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7390953563037105642, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 7390953563037105642, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 7390953563037105642, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
