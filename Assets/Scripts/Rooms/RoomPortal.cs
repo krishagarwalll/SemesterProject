@@ -43,19 +43,34 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
         unlockedByItem = startUnlocked;
     }
 
+    private bool HasRequiredItemInInventory(in InteractionContext context)
+    {
+        return lockMode == PortalLockMode.RequiredItem
+            && requiredItem
+            && context.Inventory
+            && context.Inventory.Contains(requiredItem);
+    }
+
+    private bool IsEffectivelyUnlocked(in InteractionContext context)
+    {
+        return IsUnlocked() || HasRequiredItemInInventory(context);
+    }
+
     public void GetActions(in InteractionContext context, List<InteractionAction> actions)
     {
         bool unlocked = IsUnlocked();
+        bool canUnlockFromInventory = !unlocked && HasRequiredItemInInventory(context);
+        bool effectivelyUnlocked = unlocked || canUnlockFromInventory;
         bool canTraverse = CanTraverseFromThisSide && linkedPortal && linkedPortal.OwnerRoom && linkedPortal.CanReceiveTraversal;
-        string label = unlocked ? enterLabel : lockedLabel;
-        actions.Add(new InteractionAction(this, InteractionMode.Primary, label, primaryGlyphId, unlocked && canTraverse));
+        string label = effectivelyUnlocked ? enterLabel : lockedLabel;
+        actions.Add(new InteractionAction(this, InteractionMode.Primary, label, primaryGlyphId, effectivelyUnlocked && canTraverse));
 
         if (!unlocked && lockMode == PortalLockMode.RequiredItem && context.SelectedItem && requiredItem == context.SelectedItem)
         {
             actions.Add(new InteractionAction(this, InteractionMode.UseSelectedItem, enterLabel, primaryGlyphId, canTraverse, requiresApproach: false, priority: 10));
         }
 
-        string inspect = GetInspectText(unlocked);
+        string inspect = GetInspectText(effectivelyUnlocked);
         if (!string.IsNullOrWhiteSpace(inspect))
         {
             actions.Add(new InteractionAction(this, InteractionMode.Inspect, inspectLabel, inspectGlyphId, requiresApproach: false, priority: -10));
@@ -67,7 +82,24 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
         switch (action.Mode)
         {
             case InteractionMode.Primary:
-                if (!IsUnlocked() || !CanTraverseFromThisSide || !linkedPortal || !linkedPortal.CanReceiveTraversal)
+                if (!IsUnlocked())
+                {
+                    if (lockMode == PortalLockMode.RequiredItem && requiredItem && context.Inventory && context.Inventory.Contains(requiredItem))
+                    {
+                        if (consumeRequiredItem)
+                        {
+                            context.Inventory.TryRemove(requiredItem);
+                        }
+                        unlockedByItem = true;
+                    }
+                    else
+                    {
+                        InteractionFeedback.Show(GetInspectText(unlocked: false), this);
+                        return false;
+                    }
+                }
+
+                if (!CanTraverseFromThisSide || !linkedPortal || !linkedPortal.CanReceiveTraversal)
                 {
                     InteractionFeedback.Show(GetInspectText(unlocked: false), this);
                     return false;
@@ -90,7 +122,7 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
                 return TransitionService && TransitionService.TryTraverse(this, fadeDuration);
 
             case InteractionMode.Inspect:
-                string inspect = GetInspectText(IsUnlocked());
+                string inspect = GetInspectText(IsEffectivelyUnlocked(context));
                 if (string.IsNullOrWhiteSpace(inspect))
                 {
                     return false;
