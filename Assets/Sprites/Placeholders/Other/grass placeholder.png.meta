@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 125ece96188968d4ca492daaa4355bb6
+guid: 66eb4dc849f98294d8b6b77723acbf97
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8181638761646037039
-    second: key placeholder_0
+      213: -624121625774614320
+    second: grass placeholder_0
+  - first:
+      213: -5275193089092939508
+    second: grass placeholder_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -75,7 +78,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: key placeholder_0
+      name: grass placeholder_0
       rect:
         serializedVersion: 2
-        x: 119
-        y: 101
-        width: 473
-        height: 588
+        x: 60
+        y: 22
+        width: 623
+        height: 712
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d7658bf4eaf47e80800000000000000
-      internalID: -8181638761646037039
+      spriteID: 0d8901720bca657f0800000000000000
+      internalID: -624121625774614320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grass placeholder_1
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 21
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c01150ba5dfbac6b0800000000000000
+      internalID: -5275193089092939508
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      key placeholder_0: -8181638761646037039
+      grass placeholder_0: -624121625774614320
+      grass placeholder_1: -5275193089092939508
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
