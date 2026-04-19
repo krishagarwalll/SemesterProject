@@ -16,7 +16,7 @@ public class InteractionDetector : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         INPCInteractable interactable = other.GetComponentInParent<INPCInteractable>();
 
@@ -27,7 +27,7 @@ public class InteractionDetector : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         INPCInteractable interactable = other.GetComponentInParent<INPCInteractable>();
 

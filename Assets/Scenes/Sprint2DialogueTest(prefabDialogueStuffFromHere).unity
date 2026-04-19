@@ -721,7 +721,7 @@ Transform:
   m_GameObject: {fileID: 157205404}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.151, y: 0.873, z: -0.093}
+  m_LocalPosition: {x: 0.41, y: 0.94, z: -0.093}
   m_LocalScale: {x: 0.33, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -934,15 +934,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b6cf1600a3be3448c72401eac399ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointClickController
-  updateRotation: 0
+  moveSpeed: 4
+  moveAcceleration: 18
+  moveDeceleration: 24
+  useNavMeshAgent: 1
   navMeshSampleDistance: 1.5
   navMeshSnapDistance: 2
-  destinationReachedThreshold: 0.05
-  snapToNavMeshOnEnable: 1
+  navArrivalSlowdownDistance: 0.9
+  navAccelerationScale: 0.65
+  navDecelerationScale: 0.85
+  walkableLayers:
+    serializedVersion: 2
+    m_Bits: 64
   ignorePointerOverUi: 1
-  sidestepDistance: 1
-  sidestepSampleRadius: 1.5
-  sidestepRepathInterval: 0.15
+  destinationReachedThreshold: 0.05
+  groundedPositionOffset: 0.5
   movingParameter: isMoving
   horizontalSpeedParameter: moveX
   verticalSpeedParameter: moveY
@@ -1268,9 +1274,9 @@ MonoBehaviour:
   screenFade: {fileID: 0}
   activeRoom: {fileID: 300000302}
   zoomAction: {fileID: 6240969308177333660, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  userVerticalFov: 50
-  minVerticalFov: 30
-  maxVerticalFov: 80
+  userOrthographicSize: 1.45
+  minOrthographicSize: 1.25
+  maxOrthographicSize: 5
   zoomStep: 2
   invertZoom: 0
 --- !u!114 &300000053
@@ -1922,11 +1928,11 @@ MonoBehaviour:
   boundsVolume: {fileID: 300000312}
   defaultAnchor: {fileID: 300000332}
   contentRoot: {fileID: 300000301}
+  backdropRoot: {fileID: 0}
   cameraOffset: {x: 0, y: 5.5, z: -10}
-  cameraFitPadding: 0.05
-  cameraFitSizeBuffer: {x: 2.5, y: 1.6}
-  cameraFitDepthBuffer: -1.25
-  cameraFitMaxForwardDolly: 1.5
+  orthographicPadding: 0.25
+  orthographicSizeBuffer: {x: 0.5, y: 0.35}
+  containmentPadding: 0.08
 --- !u!1 &300000310
 GameObject:
   m_ObjectHideFlags: 0
@@ -2069,8 +2075,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 300000302}
-  livePriority: 100
-  idlePriority: 0
+  targetCamera: {fileID: 0}
+  disableCinemachineBrainWhenLive: 1
+  snapImmediately: 1
 --- !u!1 &300000330
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,7 +2236,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
   interactionPoint: {fileID: 300000341}
-  interactionRadius: 1.25
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
   room: {fileID: 300000302}
   hoverCursorKind: 2
   dragCursorKind: 5
@@ -2315,11 +2326,11 @@ MonoBehaviour:
   boundsVolume: {fileID: 300000412}
   defaultAnchor: {fileID: 300000432}
   contentRoot: {fileID: 300000401}
+  backdropRoot: {fileID: 0}
   cameraOffset: {x: 0, y: 5.5, z: -10}
-  cameraFitPadding: 0.05
-  cameraFitSizeBuffer: {x: 2.5, y: 1.6}
-  cameraFitDepthBuffer: -1.25
-  cameraFitMaxForwardDolly: 1.5
+  orthographicPadding: 0.25
+  orthographicSizeBuffer: {x: 0.5, y: 0.35}
+  containmentPadding: 0.08
 --- !u!1 &300000410
 GameObject:
   m_ObjectHideFlags: 0
@@ -2462,8 +2473,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 300000402}
-  livePriority: 100
-  idlePriority: 0
+  targetCamera: {fileID: 0}
+  disableCinemachineBrainWhenLive: 1
+  snapImmediately: 1
 --- !u!1 &300000430
 GameObject:
   m_ObjectHideFlags: 0
@@ -2577,7 +2589,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
   interactionPoint: {fileID: 300000441}
-  interactionRadius: 1.15
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
   room: {fileID: 300000402}
   hoverCursorKind: 2
   dragCursorKind: 5
@@ -2625,7 +2641,7 @@ GameObject:
   - component: {fileID: 300000503}
   - component: {fileID: 300000504}
   - component: {fileID: 300000505}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: NewspaperPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2699,8 +2715,8 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 401001004
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
@@ -2765,7 +2781,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
   interactionPoint: {fileID: 300000501}
-  interactionRadius: 1.15
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
   room: {fileID: 300000302}
   hoverCursorKind: 2
   dragCursorKind: 5
@@ -2783,24 +2803,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: b9f7fc0987d54612a7b6e5f93701086c, type: 2}
   quantity: 1
-  dragHandle: {fileID: 300000501}
-  boundsConstraint: {fileID: 0}
+  dragBody: {fileID: 0}
+  placementAnchor: {fileID: 0}
+  transferController: {fileID: 0}
   dragLabel: Store
+  storeLabel: Store
   inspectLabel: Inspect
   dragGlyphId: Primary
+  storeGlyphId: Primary
   inspectGlyphId: Context
   inspectText: 
-  blockingLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  lockZPosition: 1
-  lockRotationX: 1
-  lockRotationY: 1
-  dragSmoothTime: 0.05
-  liftHeight: 0.35
-  maxDropDistance: 2
-  playerClearance: 0.75
-  keepGrabOffset: 1
 --- !u!114 &300000508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2841,7 +2853,7 @@ GameObject:
   - component: {fileID: 300000524}
   - component: {fileID: 300000525}
   - component: {fileID: 300000527}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: RustyKeyPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2915,8 +2927,8 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 401001004
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
@@ -2981,7 +2993,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
   interactionPoint: {fileID: 300000521}
-  interactionRadius: 1.15
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
   room: {fileID: 300000402}
   hoverCursorKind: 2
   dragCursorKind: 5
@@ -2999,24 +3015,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
   quantity: 1
-  dragHandle: {fileID: 300000521}
-  boundsConstraint: {fileID: 0}
+  dragBody: {fileID: 0}
+  placementAnchor: {fileID: 0}
+  transferController: {fileID: 0}
   dragLabel: Store
+  storeLabel: Store
   inspectLabel: Inspect
   dragGlyphId: Primary
+  storeGlyphId: Primary
   inspectGlyphId: Context
   inspectText: A rusty key. It feels cold in your hand.
-  blockingLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  lockZPosition: 1
-  lockRotationX: 1
-  lockRotationY: 1
-  dragSmoothTime: 0.05
-  liftHeight: 0.35
-  maxDropDistance: 2
-  playerClearance: 0.75
-  keepGrabOffset: 1
 --- !u!1 &324150265
 GameObject:
   m_ObjectHideFlags: 0
@@ -6073,7 +6081,7 @@ Transform:
   m_GameObject: {fileID: 1087793019}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.72, y: 0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6499,6 +6507,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointerContext
   worldCamera: {fileID: 519420031}
+  actor: {fileID: 0}
+  inventory: {fileID: 0}
+  hotbar: {fileID: 0}
+  roomTransitionService: {fileID: 0}
   pointerPositionAction: {fileID: -1654692200621890270, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   primaryPressAction: {fileID: 3001919216989983466, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   secondaryPressAction: {fileID: -4090225696740746782, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
@@ -6511,35 +6523,10 @@ MonoBehaviour:
   blockingLayers:
     serializedVersion: 2
     m_Bits: 256
-  rayDistance: 500
-  triggerInteraction: 1
   ignoreWorldWhenOverUi: 1
+  interactionProbeRadius: 0.85
   dragThresholdPixels: 8
-  cursorMode: 0
-  cursorEntries:
-  - cursorKind: 0
-    texture: {fileID: 2800000, guid: efcb0396a4274b04e9440dba49c4d25c, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 1
-    texture: {fileID: 2800000, guid: e54e3f4c7ca3d774e835a962190e8237, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 2
-    texture: {fileID: 2800000, guid: 83dd8b714b755354fafe4de601e42d67, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 3
-    texture: {fileID: 2800000, guid: cb8292a3084259344ae792a341acfbf1, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 4
-    texture: {fileID: 2800000, guid: faddd8394b5171d44874dbc05176ed2f, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 5
-    texture: {fileID: 2800000, guid: e54e3f4c7ca3d774e835a962190e8237, type: 3}
-    hotspot: {x: 0, y: 0}
-  - cursorKind: 6
-    texture: {fileID: 2800000, guid: efcb0396a4274b04e9440dba49c4d25c, type: 3}
-    hotspot: {x: 0, y: 0}
-  resetCursorOnDisable: 1
-  fallbackToSoftwareCursor: 1
+  navMeshSampleDistance: 12
 --- !u!4 &1249125097
 Transform:
   m_ObjectHideFlags: 0
@@ -8654,7 +8641,7 @@ GameObject:
   - component: {fileID: 1947883484}
   - component: {fileID: 1947883483}
   - component: {fileID: 1947883488}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Crate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8742,8 +8729,8 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 401001002
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
@@ -8809,28 +8796,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00627eb8f346bb64bbf565985f9679fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DraggableProp
-  body: {fileID: 1947883488}
-  dragHandle: {fileID: 1947883487}
-  navMeshObstacle: {fileID: 1947883483}
-  boundsConstraint: {fileID: 1947883491}
+  dragBody: {fileID: 0}
   dragLabel: Drag
   inspectLabel: Inspect
   dragGlyphId: Primary
   inspectGlyphId: Context
   inspectText: A heavy crate. You cannot carry it, but you can force it across the
     floor.
-  blocksNavigation: 1
-  blockingLayers:
-    serializedVersion: 2
-    m_Bits: 384
-  lockZPosition: 1
-  lockRotationX: 1
-  lockRotationY: 1
-  dragSmoothTime: 0.05
-  maxLiftHeight: 0.35
-  maxDropDistance: 2
-  playerClearance: 0.75
-  keepGrabOffset: 1
 --- !u!114 &1947883490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8844,7 +8816,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
   interactionPoint: {fileID: 1947883487}
-  interactionRadius: 1.25
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
   room: {fileID: 300000402}
   hoverCursorKind: 2
   dragCursorKind: 5
