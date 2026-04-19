@@ -36,4 +36,4 @@ MonoBehaviour:
   questInProgressIndex: 4
   questCompletedIndex: 5
   quest: {fileID: 11400000, guid: d8518466f61e37546afa53c2879b3aa3, type: 2}
-  isQuestHandInNPC: 1
+  isQuestHandInNPC: 0
