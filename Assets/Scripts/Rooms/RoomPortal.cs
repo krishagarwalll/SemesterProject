@@ -21,6 +21,10 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     [SerializeField, TextArea] private string inspectText;
     [SerializeField, Min(0f)] private float fadeDuration = 0.2f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip enterRoom;
+
     private RoomTransitionService transitionService;
     private RoomStateFlags stateFlags;
     [SerializeField] private bool startUnlocked;
@@ -105,7 +109,19 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
                     return false;
                 }
 
-                return TransitionService && TransitionService.TryTraverse(this, fadeDuration);
+                //return TransitionService && TransitionService.TryTraverse(this, fadeDuration);
+                {
+                    bool success = TransitionService && TransitionService.TryTraverse(this, fadeDuration);
+
+                    if (success)
+                    {
+                        PlayEnterSound();
+                    }
+
+                    return success;
+                }
+
+
 
             case InteractionMode.UseSelectedItem:
                 if (lockMode != PortalLockMode.RequiredItem || context.SelectedItem != requiredItem || !CanTraverseFromThisSide || !linkedPortal || !linkedPortal.CanReceiveTraversal)
@@ -119,7 +135,18 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
                 }
 
                 unlockedByItem = true;
-                return TransitionService && TransitionService.TryTraverse(this, fadeDuration);
+                //return TransitionService && TransitionService.TryTraverse(this, fadeDuration);
+                {
+                    bool success = TransitionService && TransitionService.TryTraverse(this, fadeDuration);
+
+                    if (success)
+                    {
+                        PlayEnterSound();
+                    }
+
+                    return success;
+                }
+
 
             case InteractionMode.Inspect:
                 string inspect = GetInspectText(IsEffectivelyUnlocked(context));
@@ -134,6 +161,14 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
 
         return false;
     }
+
+    private void PlayEnterSound()
+{
+    if (audioSource != null && enterRoom != null)
+    {
+        audioSource.PlayOneShot(enterRoom);
+    }
+}
 
     public bool CanTraverseFromThisSide => traversalMode != PortalTraversalMode.ExitOnly;
     public bool CanReceiveTraversal => traversalMode != PortalTraversalMode.EntryOnly;

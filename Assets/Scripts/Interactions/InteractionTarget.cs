@@ -43,6 +43,12 @@ public class InteractionTarget : MonoBehaviour
     private Collider[] Colliders3D => colliders3D ??= GetComponentsInChildren<Collider>(true);
     private Renderer[] Renderers => renderers ??= GetComponentsInChildren<Renderer>(true);
 
+    //audio
+    public AudioSource audioSource;
+    public AudioClip hover;
+
+    private bool wasHovered;
+
     private void OnValidate()
     {
         if (!interactionPoint)
@@ -59,9 +65,22 @@ public class InteractionTarget : MonoBehaviour
         renderers = null;
     }
 
-    public void SetHovered(bool hovered)
+    // public void SetHovered(bool hovered)
+    // {
+    //     Outline?.SetHighlighted(hovered);
+    //     audioSource.PlayOneShot(hover);
+    // }
+
+        public void SetHovered(bool hovered)
     {
         Outline?.SetHighlighted(hovered);
+
+        if (hovered && !wasHovered && hover != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(hover);
+        }
+
+        wasHovered = hovered;
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)
