@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
-  m_Name: TutorialPictureFrame
+  m_Name: TutorialBoard
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: You
   dialogueLines:
-  - Nice photo I guess. They seem happy.
+  - This looks complicated.
+  - Not sure how anyone is able to understand whats going on here.
   typingSpeed: 0.01
   autoProgressLines: 
   endDialogueLines: 

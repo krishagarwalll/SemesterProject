@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
-  m_Name: TutorialPictureFrame
+  m_Name: TutorialStove
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: You
   dialogueLines:
-  - Nice photo I guess. They seem happy.
+  - I never really understood why people have these
+  - Microwaves are a thing
+  - Imagine being able to cook
+  - Couldn't be me
   typingSpeed: 0.01
   autoProgressLines: 
   endDialogueLines: 

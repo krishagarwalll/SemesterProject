@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
-  m_Name: TutorialPictureFrame
+  m_Name: TutorialBookCase
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: You
   dialogueLines:
-  - Nice photo I guess. They seem happy.
+  - 'Something about this feels familiar. '
+  - Like I remember looking through these from time to time but not as of recently
   typingSpeed: 0.01
   autoProgressLines: 
   endDialogueLines: 
