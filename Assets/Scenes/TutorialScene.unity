@@ -1018,6 +1018,7 @@ MonoBehaviour:
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!114 &90665985
 MonoBehaviour:
@@ -1577,6 +1578,7 @@ MonoBehaviour:
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!114 &145528347
 MonoBehaviour:
@@ -4907,6 +4909,7 @@ MonoBehaviour:
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!1 &300000400
 GameObject:
@@ -5274,6 +5277,7 @@ MonoBehaviour:
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!1 &300000500
 GameObject:
@@ -5737,7 +5741,8 @@ MonoBehaviour:
   inspectText: Step outside.
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
-  enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!114 &305237733
 MonoBehaviour:
@@ -6854,6 +6859,7 @@ MonoBehaviour:
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!114 &390773836
 MonoBehaviour:
@@ -14983,7 +14989,8 @@ MonoBehaviour:
   inspectText: Step outside.
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
-  enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!114 &947537500
 MonoBehaviour:
@@ -15139,6 +15146,7 @@ MonoBehaviour:
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!114 &952565768
 MonoBehaviour:
@@ -15525,6 +15533,7 @@ MonoBehaviour:
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 0
 --- !u!114 &957101169
 MonoBehaviour:
@@ -24105,7 +24114,8 @@ MonoBehaviour:
   inspectText: Step back into the bedroom.
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
-  enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!114 &1663853237
 MonoBehaviour:
@@ -25437,7 +25447,8 @@ MonoBehaviour:
   inspectText: Step back into the bedroom.
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
-  enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!114 &1768309859
 MonoBehaviour:
@@ -28653,6 +28664,7 @@ MonoBehaviour:
   fadeDuration: 0.2
   audioSource: {fileID: 1559172736}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
+  lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
   startUnlocked: 1
 --- !u!114 &2032927538
 MonoBehaviour:

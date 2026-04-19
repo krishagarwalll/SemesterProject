@@ -24,6 +24,9 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip enterRoom;
+    [SerializeField] private AudioClip lockedDoor;
+
+
 
     private RoomTransitionService transitionService;
     private RoomStateFlags stateFlags;
@@ -98,6 +101,7 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
                     }
                     else
                     {
+                        PlayLockedSound();
                         InteractionFeedback.Show(GetInspectText(unlocked: false), this);
                         return false;
                     }
@@ -163,12 +167,20 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     }
 
     private void PlayEnterSound()
-{
-    if (audioSource != null && enterRoom != null)
     {
-        audioSource.PlayOneShot(enterRoom);
+        if (audioSource != null && enterRoom != null)
+        {
+            audioSource.PlayOneShot(enterRoom);
+        }
     }
-}
+
+    private void PlayLockedSound()
+    {
+        if (audioSource != null && lockedDoor != null)
+        {
+            audioSource.PlayOneShot(lockedDoor);
+        }
+    }
 
     public bool CanTraverseFromThisSide => traversalMode != PortalTraversalMode.ExitOnly;
     public bool CanReceiveTraversal => traversalMode != PortalTraversalMode.EntryOnly;
