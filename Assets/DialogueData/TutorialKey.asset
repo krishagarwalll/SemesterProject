@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
-  m_Name: TutorialGarageDoor
+  m_Name: TutorialKey
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: You
   dialogueLines:
-  - Doors locked. Who designs a house that has doors that can lock people in the
-    house?
-  - What are you waiting for? Go in.
+  - I wonder what are the odds that this key will unlock the garage door?
   typingSpeed: 0.01
   autoProgressLines: 
-  endDialogueLines: 0101
+  endDialogueLines: 
   autoProgressDelay: 1.5
   choices: []
   questInProgressIndex: 0
-  questCompletedIndex: 1
+  questCompletedIndex: 0
   quest: {fileID: 11400000, guid: 96b6e146039af96418f1aae9f04dad84, type: 2}
-  isQuestHandInNPC: 0
+  isQuestHandInNPC: 1

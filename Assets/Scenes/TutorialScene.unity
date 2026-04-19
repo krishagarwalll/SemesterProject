@@ -150,8 +150,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1416224688}
   - {fileID: 711708944}
-  m_Father: {fileID: 2040160748}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1016,6 +1017,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step back into the bedroom.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &90665985
 MonoBehaviour:
@@ -1038,6 +1041,8 @@ MonoBehaviour:
   room: {fileID: 300000402}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!61 &90665986
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1571,6 +1576,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step outside.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &145528347
 MonoBehaviour:
@@ -1593,6 +1600,8 @@ MonoBehaviour:
   room: {fileID: 300000402}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!61 &145528348
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4868,6 +4877,8 @@ MonoBehaviour:
   room: {fileID: 300000302}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!114 &300000344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4895,6 +4906,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step through to the hallway.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!1 &300000400
 GameObject:
@@ -5231,6 +5244,8 @@ MonoBehaviour:
   room: {fileID: 300000402}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!114 &300000444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5258,6 +5273,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step back into the bedroom.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!1 &300000500
 GameObject:
@@ -5385,6 +5402,8 @@ MonoBehaviour:
   room: {fileID: 300000402}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!114 &300000507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5428,6 +5447,7 @@ GameObject:
   - component: {fileID: 910001301}
   - component: {fileID: 910001302}
   - component: {fileID: 910001303}
+  - component: {fileID: 910001304}
   m_Layer: 11
   m_Name: RustyKeyPickup
   m_TagString: Untagged
@@ -5538,6 +5558,8 @@ MonoBehaviour:
   room: {fileID: 1061360783}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!114 &300000527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5716,6 +5738,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step outside.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &305237733
 MonoBehaviour:
@@ -5738,6 +5762,8 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!61 &305237734
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6828,6 +6854,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step back into the hallway.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &390773836
 MonoBehaviour:
@@ -6850,6 +6878,8 @@ MonoBehaviour:
   room: {fileID: 1061360783}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!61 &390773837
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10523,6 +10553,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &608785021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608785015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPC
+  dialogueData: {fileID: 11400000, guid: e9b736d1cf26ca348a30b93540b4a739, type: 2}
 --- !u!1 &639156819
 GameObject:
   m_ObjectHideFlags: 0
@@ -14223,6 +14266,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &910001304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPC
+  dialogueData: {fileID: 11400000, guid: 1269a1373b935ea41b7fe6663a392a6a, type: 2}
 --- !u!50 &910001402
 Rigidbody2D:
   serializedVersion: 5
@@ -14955,6 +15011,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step outside.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &947537500
 MonoBehaviour:
@@ -14977,6 +15035,8 @@ MonoBehaviour:
   room: {fileID: 1042786930}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!61 &947537501
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15106,6 +15166,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step back into the bedroom.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &952565768
 MonoBehaviour:
@@ -15128,6 +15190,8 @@ MonoBehaviour:
   room: {fileID: 1042786930}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!61 &952565769
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15488,6 +15552,8 @@ MonoBehaviour:
   lockedInspectText: You must find a key to the garage.
   inspectText: Step into the garage.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 0
 --- !u!114 &957101169
 MonoBehaviour:
@@ -15510,6 +15576,8 @@ MonoBehaviour:
   room: {fileID: 300000402}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!61 &957101170
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21063,6 +21131,56 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.5625105, y: 0.1}
   m_EdgeRadius: 0
+--- !u!1 &1416224687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1416224688}
+  - component: {fileID: 1416224689}
+  m_Layer: 5
+  m_Name: QuestController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1416224688
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416224687}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5531793}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 41, y: 51.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1416224689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416224687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06548b20b965ee14f976ce913652b401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuestController
+  activateQuests: []
+  handInQuestIDs: []
 --- !u!1 &1419137834
 GameObject:
   m_ObjectHideFlags: 0
@@ -22873,6 +22991,8 @@ MonoBehaviour:
   room: {fileID: 1061360783}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!1 &1624881590
 GameObject:
   m_ObjectHideFlags: 0
@@ -23934,6 +24054,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step back into the bedroom.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &1663853237
 MonoBehaviour:
@@ -23956,6 +24078,8 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!61 &1663853238
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24278,6 +24402,8 @@ MonoBehaviour:
   room: {fileID: 2132483816}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!1 &1711465749
 GameObject:
   m_ObjectHideFlags: 0
@@ -25260,6 +25386,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step back into the bedroom.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &1768309859
 MonoBehaviour:
@@ -25282,6 +25410,8 @@ MonoBehaviour:
   room: {fileID: 158121683}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!61 &1768309860
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -28471,6 +28601,8 @@ MonoBehaviour:
   lockedInspectText: 
   inspectText: Step back into the bedroom.
   fadeDuration: 0.2
+  audioSource: {fileID: 0}
+  enterRoom: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &2032927538
 MonoBehaviour:
@@ -28493,6 +28625,8 @@ MonoBehaviour:
   room: {fileID: 2132483816}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!61 &2032927539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29807,5 +29941,5 @@ SceneRoots:
   - {fileID: 300000251}
   - {fileID: 734680334}
   - {fileID: 1987614810}
-  - {fileID: 2040160748}
   - {fileID: 944667962}
+  - {fileID: 5531793}

@@ -126,6 +126,8 @@ MonoBehaviour:
   room: {fileID: 0}
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!114 &710100005
 MonoBehaviour:
   m_ObjectHideFlags: 0

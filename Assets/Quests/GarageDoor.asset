@@ -15,4 +15,8 @@ MonoBehaviour:
   questID: e3c05fe1-1ae6-417a-8a5a-28a320192499
   questName: Open Garage Door
   questDescription: find the key for the garage door
-  questObjectives: []
+  questObjectives:
+  - description: 
+    type: 0
+    requiredAmount: 0
+    currentAmount: 0
