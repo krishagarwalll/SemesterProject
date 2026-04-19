@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDefinition
   itemId: rusty_key
   displayName: Rusty Key
-  icon: {fileID: -8272045637266883246, guid: 3d9c653a4082e4830bbda17bb87a3440, type: 3}
+  icon: {fileID: 21300000, guid: 125ece96188968d4ca492daaa4355bb6, type: 3}
   description: A bent, rusted key. It looks like it still fits something important.
   worldPrefab: {fileID: 710100000, guid: ab80c4f458a04ae3ad8078c82d704d75, type: 3}
   primaryLabel: Use
