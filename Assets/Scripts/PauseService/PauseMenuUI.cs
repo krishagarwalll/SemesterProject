@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
@@ -19,9 +21,12 @@ public class PauseMenuUI : MonoBehaviour
     private void OnEnable()
     {
         PauseService.PauseChanged += HandlePauseChanged;
+        AllowPausedUiInput();
         WireSettingsPanel();
         WireSettingsButton();
         WireResumeButton();
+        WireMainMenuButton();
+        WireQuitButton();
     }
 
     private void OnDisable()
@@ -63,7 +68,7 @@ public class PauseMenuUI : MonoBehaviour
         Button[] buttons = pauseMenu.GetComponentsInChildren<Button>(true);
         foreach (Button btn in buttons)
         {
-            if (btn.name == "Settings" || btn.name == "SettingsButton")
+            if (IsNamed(btn, "Settings", "SettingsButton", "Options", "OptionsButton"))
             {
                 btn.onClick.RemoveListener(ShowSettings);
                 btn.onClick.AddListener(ShowSettings);
@@ -85,7 +90,7 @@ public class PauseMenuUI : MonoBehaviour
         Button[] buttons = pauseMenu.GetComponentsInChildren<Button>(true);
         foreach (Button btn in buttons)
         {
-            if (btn.name == "Resume" || btn.name == "ResumeButton")
+            if (IsNamed(btn, "Resume", "ResumeButton", "Continue", "ContinueButton"))
             {
                 btn.onClick.RemoveListener(OnResumeClicked);
                 btn.onClick.AddListener(OnResumeClicked);
@@ -95,6 +100,74 @@ public class PauseMenuUI : MonoBehaviour
     }
 
     private void OnResumeClicked() => PauseService.Toggle();
+
+    private void WireMainMenuButton()
+    {
+        if (!pauseMenu) return;
+        Button[] buttons = pauseMenu.GetComponentsInChildren<Button>(true);
+        foreach (Button btn in buttons)
+        {
+            if (IsNamed(btn, "MainMenu", "MainMenuButton", "Menu", "MenuButton"))
+            {
+                btn.onClick.RemoveListener(OnMainMenuClicked);
+                btn.onClick.AddListener(OnMainMenuClicked);
+                break;
+            }
+        }
+    }
+
+    private void WireQuitButton()
+    {
+        if (!pauseMenu) return;
+        Button[] buttons = pauseMenu.GetComponentsInChildren<Button>(true);
+        foreach (Button btn in buttons)
+        {
+            if (IsNamed(btn, "Quit", "QuitButton", "Exit", "ExitButton"))
+            {
+                btn.onClick.RemoveListener(OnQuitClicked);
+                btn.onClick.AddListener(OnQuitClicked);
+                break;
+            }
+        }
+    }
+
+    private void OnMainMenuClicked()
+    {
+        PauseService.ClearAll();
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    private void OnQuitClicked()
+    {
+        Application.Quit();
+    }
+
+    private void AllowPausedUiInput()
+    {
+        EventSystem eventSystem = EventSystem.current;
+        if (eventSystem)
+        {
+            PauseService.SetPauseBypass(eventSystem, PauseType.UI, true);
+        }
+    }
+
+    private static bool IsNamed(Component component, params string[] names)
+    {
+        if (!component)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < names.Length; i++)
+        {
+            if (component.name == names[i])
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     private void HandlePauseChanged(PauseType pauseTypes)
     {

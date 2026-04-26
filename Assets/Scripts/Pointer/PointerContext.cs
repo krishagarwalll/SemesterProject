@@ -38,6 +38,7 @@ public class PointerContext : MonoBehaviour
     private bool isPrimaryPressed;
     private bool isDragging;
     private bool isPointerOverUi;
+    private bool isPointerOverClickableUi;
     private bool hasWorldPoint;
     private bool isWorldBlocked;
     private bool contextMenuOpen;
@@ -72,6 +73,7 @@ public class PointerContext : MonoBehaviour
     public bool DragEndedThisFrame => dragEndedThisFrame;
     public bool IsPrimaryPressed => isPrimaryPressed;
     public bool IsPointerOverUi => isPointerOverUi;
+    public bool IsPointerOverClickableUi => isPointerOverClickableUi;
     public bool HasWorldPoint => hasWorldPoint;
     public bool IsWorldBlocked => isWorldBlocked;
     public bool IsDragging => isDragging;
@@ -399,7 +401,7 @@ public class PointerContext : MonoBehaviour
     {
         hasWorldPoint = TryGetWorldPointAtDepth(0f, out worldPoint);
         isWorldBlocked = false;
-        isPointerOverUi = IsBlockingUi(screenPosition);
+        isPointerOverUi = ProbeBlockingUi(screenPosition, out isPointerOverClickableUi);
 
         if (!hasWorldPoint)
         {
@@ -622,7 +624,7 @@ public class PointerContext : MonoBehaviour
 
         if (isPointerOverUi)
         {
-            return PointerState.HoveringUi;
+            return isPointerOverClickableUi ? PointerState.HoveringClickableUi : PointerState.HoveringUi;
         }
 
         return hoveredTarget ? PointerState.HoveringWorld : PointerState.None;
@@ -643,6 +645,11 @@ public class PointerContext : MonoBehaviour
         if (hoveredTarget)
         {
             return ResolveHoveredCursorKind(hoveredTarget);
+        }
+
+        if (isPointerOverUi)
+        {
+            return isPointerOverClickableUi ? PointerCursorKind.Interact : PointerCursorKind.Default;
         }
 
         if (TryGetWorldDragTarget(out InteractionTarget dragTargetCandidate))
@@ -716,8 +723,15 @@ public class PointerContext : MonoBehaviour
 
     private bool IsBlockingUi(Vector2 pointerScreenPosition)
     {
+        return ProbeBlockingUi(pointerScreenPosition, out _);
+    }
+
+    private bool ProbeBlockingUi(Vector2 pointerScreenPosition, out bool clickable)
+    {
+        clickable = false;
         if (Hotbar && Hotbar.BlocksWorldInteractionAt(pointerScreenPosition))
         {
+            clickable = true;
             return true;
         }
 
@@ -748,16 +762,20 @@ public class PointerContext : MonoBehaviour
 
             if (hitObject.GetComponentInParent<InteractionContextMenuPresenter>())
             {
+                clickable = true;
                 return true;
             }
 
             if (hitObject.GetComponentInParent<InventoryHotbarSlot>())
             {
+                clickable = true;
                 return true;
             }
 
-            if (hitObject.GetComponentInParent<Selectable>())
+            Selectable selectable = hitObject.GetComponentInParent<Selectable>();
+            if (selectable)
             {
+                clickable = selectable.IsActive() && selectable.IsInteractable();
                 return true;
             }
         }

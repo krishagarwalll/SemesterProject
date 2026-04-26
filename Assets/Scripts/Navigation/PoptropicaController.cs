@@ -8,19 +8,22 @@ public class PoptropicaController : MonoBehaviour
 {
     private const float DirectionDeadzone = 0.0001f;
 
-    [FieldHeader("Movement")]
+    [Header("Movement")]
     [SerializeField, Min(0.1f)] private float moveSpeed = 5f;
+    [SerializeField, Min(0f)] private float moveAcceleration = 45f;
+    [SerializeField, Min(0f)] private float moveDeceleration = 55f;
     [SerializeField, Min(1f)] private float jumpForce = 14f;
     [SerializeField, Min(0.1f)] private float jumpThreshold = 1.2f;
     [SerializeField, Min(0f)] private float movementDeadzone = 0.25f;
+    [SerializeField, Min(0.01f)] private float clickMoveStopDistance = 0.12f;
     [SerializeField] private bool ignorePointerOverUi = true;
 
-    [FieldHeader("Ground Detection")]
+    [Header("Ground Detection")]
     [SerializeField, Min(0.01f)] private float groundCheckDistance = 0.15f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Vector2 groundCheckOffset = new(0f, -0.4f);
 
-    [FieldHeader("Animation")]
+    [Header("Animation")]
     [SerializeField] private string movingParameter = "isMoving";
     [SerializeField] private string horizontalSpeedParameter = "moveX";
     [SerializeField] private string verticalSpeedParameter = "moveY";
@@ -39,8 +42,10 @@ public class PoptropicaController : MonoBehaviour
     private Vector2 smoothedDirection;
     private Vector3 lastPosition;
     private float fixedDepth;
+    private float moveTargetX;
     private bool isGrounded;
     private bool movementLocked;
+    private bool hasMoveTarget;
 
     private PointerContext Pointer => this.ResolveSceneComponent(ref pointer);
     private Inventory SceneInventory => this.ResolveSceneComponent(ref inventory);
@@ -59,6 +64,7 @@ public class PoptropicaController : MonoBehaviour
         fixedDepth = transform.position.z;
         ApplyRuntimeSetup();
         ConfigureRigidbody();
+        ResolveGroundMask();
     }
 
     private void OnEnable()
@@ -66,6 +72,7 @@ public class PoptropicaController : MonoBehaviour
         fixedDepth = transform.position.z;
         ApplyRuntimeSetup();
         ConfigureRigidbody();
+        ResolveGroundMask();
         SubscribePointerEvents();
         ResetPresentationState();
     }
@@ -90,13 +97,14 @@ public class PoptropicaController : MonoBehaviour
     {
         if (movementLocked || activeDrag != null)
         {
-            if (Body2D) Body2D.linearVelocity = new Vector2(0f, Body2D.linearVelocity.y);
+            hasMoveTarget = false;
+            StopHorizontalMovement();
             return;
         }
 
         if (pendingAction.IsValid)
         {
-            // Approach-then-interact always runs regardless of button state
+            hasMoveTarget = false;
             ApplyHorizontalMovement(pendingAction.Target.GetApproachPoint(Position).x);
             if (pendingAction.Target && pendingAction.Target.IsInRange(Position))
                 ExecutePendingAction();
@@ -107,12 +115,24 @@ public class PoptropicaController : MonoBehaviour
         bool blockedByUi = ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi && activeDrag == null;
         if (buttonHeld && !blockedByUi)
         {
+            hasMoveTarget = false;
             ApplyHorizontalMovement(cursorWorldPos.x);
             TryJump();
+            return;
+        }
+
+        if (hasMoveTarget)
+        {
+            ApplyHorizontalMovement(moveTargetX);
+            if (Mathf.Abs(moveTargetX - transform.position.x) <= clickMoveStopDistance)
+            {
+                StopHorizontalMovement();
+                hasMoveTarget = false;
+            }
         }
         else
         {
-            if (Body2D) Body2D.linearVelocity = new Vector2(0f, Body2D.linearVelocity.y);
+            StopHorizontalMovement();
         }
     }
 
@@ -133,6 +153,7 @@ public class PoptropicaController : MonoBehaviour
             Body2D.position = new Vector2(worldPosition.x, worldPosition.y);
             Body2D.linearVelocity = Vector2.zero;
         }
+        hasMoveTarget = false;
         Cancel();
         return true;
     }
@@ -140,6 +161,7 @@ public class PoptropicaController : MonoBehaviour
     public void LockMovement()
     {
         movementLocked = true;
+        hasMoveTarget = false;
         if (Body2D)
             Body2D.linearVelocity = new Vector2(0f, Body2D.linearVelocity.y);
     }
@@ -176,10 +198,12 @@ public class PoptropicaController : MonoBehaviour
 
         if (!action.RequiresApproach || target.IsInRange(Position))
         {
+            hasMoveTarget = false;
             Cancel();
             return target.Execute(CreateContext(target), action);
         }
 
+        hasMoveTarget = false;
         pendingAction = new PendingAction(target, action);
         return true;
     }
@@ -223,16 +247,122 @@ public class PoptropicaController : MonoBehaviour
 
     private void RefreshGroundCheck()
     {
-        Vector2 origin = (Vector2)transform.position + groundCheckOffset;
-        isGrounded = Physics2D.Raycast(origin, Vector2.down, groundCheckDistance, groundLayer);
+        int mask = ResolveGroundMask();
+        isGrounded = HasGroundBelow(GetGroundProbeBounds(), mask);
+    }
+
+    private int ResolveGroundMask()
+    {
+        int mask = groundLayer.value;
+        AddLayerToMask("Walkable", ref mask);
+        AddLayerToMask("Environment", ref mask);
+        return mask == 0 ? Physics2D.AllLayers : mask;
+    }
+
+    private Bounds GetGroundProbeBounds()
+    {
+        Bounds bounds = new(transform.position, Vector3.zero);
+        bool initialized = false;
+        for (int i = 0; i < Colliders2D.Length; i++)
+        {
+            Collider2D collider = Colliders2D[i];
+            if (!collider.IsUsable() || collider.isTrigger)
+            {
+                continue;
+            }
+
+            if (!initialized)
+            {
+                bounds = collider.bounds;
+                initialized = true;
+            }
+            else
+            {
+                bounds.Encapsulate(collider.bounds.min);
+                bounds.Encapsulate(collider.bounds.max);
+            }
+        }
+
+        if (initialized)
+        {
+            return bounds;
+        }
+
+        Vector2 fallbackCenter = (Vector2)transform.position + groundCheckOffset;
+        return new Bounds(fallbackCenter, new Vector3(0.5f, 0.1f, 0f));
+    }
+
+    private bool HasGroundBelow(Bounds bounds, int mask)
+    {
+        const float SkinWidth = 0.03f;
+        float halfWidth = Mathf.Max(0.05f, bounds.extents.x - SkinWidth);
+        float originY = bounds.min.y + SkinWidth;
+        float distance = Mathf.Max(groundCheckDistance, SkinWidth * 2f);
+
+        return IsGroundHit(new Vector2(bounds.center.x - halfWidth, originY), distance, mask)
+            || IsGroundHit(new Vector2(bounds.center.x, originY), distance, mask)
+            || IsGroundHit(new Vector2(bounds.center.x + halfWidth, originY), distance, mask);
+    }
+
+    private bool IsGroundHit(Vector2 origin, float distance, int mask)
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector2.down, distance, mask);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D hit = hits[i].collider;
+            if (!hit || hit.isTrigger || IsOwnCollider(hit))
+            {
+                continue;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool IsOwnCollider(Collider2D hit)
+    {
+        for (int i = 0; i < Colliders2D.Length; i++)
+        {
+            if (Colliders2D[i] == hit)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void ApplyHorizontalMovement(float targetX)
     {
         float dx = targetX - transform.position.x;
-        float vel = Mathf.Abs(dx) > movementDeadzone ? Mathf.Sign(dx) * moveSpeed : 0f;
+        float targetVelocity = Mathf.Abs(dx) > movementDeadzone ? Mathf.Sign(dx) * moveSpeed : 0f;
         if (Body2D)
-            Body2D.linearVelocity = new Vector2(vel, Body2D.linearVelocity.y);
+        {
+            float acceleration = Mathf.Abs(targetVelocity) > 0.001f ? moveAcceleration : moveDeceleration;
+            float velocity = Mathf.MoveTowards(Body2D.linearVelocity.x, targetVelocity, acceleration * Time.fixedDeltaTime);
+            Body2D.linearVelocity = new Vector2(velocity, Body2D.linearVelocity.y);
+        }
+    }
+
+    private void SetMoveTarget(Vector2 targetWorldPosition)
+    {
+        moveTargetX = targetWorldPosition.x;
+        hasMoveTarget = Mathf.Abs(moveTargetX - transform.position.x) > clickMoveStopDistance;
+        if (targetWorldPosition.y - transform.position.y > jumpThreshold)
+        {
+            TryJump();
+        }
+    }
+
+    private void StopHorizontalMovement()
+    {
+        if (Body2D)
+        {
+            float velocity = Mathf.MoveTowards(Body2D.linearVelocity.x, 0f, moveDeceleration * Time.fixedDeltaTime);
+            Body2D.linearVelocity = new Vector2(velocity, Body2D.linearVelocity.y);
+        }
     }
 
     private void TryJump()
@@ -272,6 +402,7 @@ public class PoptropicaController : MonoBehaviour
 
     private void Cancel()
     {
+        hasMoveTarget = false;
         pendingAction = default;
         if (activeDrag == null) return;
         activeDrag.EndDrag();
@@ -300,11 +431,26 @@ public class PoptropicaController : MonoBehaviour
     private void HandlePrimaryClick(PointerContext context)
     {
         if (IsPointerBlocked || activeDrag != null) return;
-        if (!context.ClickedTarget) return;
+        if (!context.ClickedTarget)
+        {
+            if (context.TryGetWorldPoint(out Vector3 point))
+            {
+                SetMoveTarget(point);
+            }
+
+            return;
+        }
 
         InteractionTarget target = context.ClickedTarget;
         if (!target.TryGetPrimaryAction(CreateContext(target), out InteractionAction action) || !action.Enabled)
+        {
+            if (context.TryGetWorldPoint(out Vector3 point))
+            {
+                SetMoveTarget(point);
+            }
+
             return;
+        }
 
         ExecuteAction(target, action);
     }
@@ -314,6 +460,7 @@ public class PoptropicaController : MonoBehaviour
         InteractionTarget target = context.DragTarget;
         if (!target && context) context.TryGetWorldDragTarget(out target);
         if (!target || !target.TryGetDraggable(out IWorldDraggable draggable) || !Pointer) return;
+        hasMoveTarget = false;
         Cancel();
         draggable.BeginDrag(Pointer);
         if (draggable.IsDragging) activeDrag = draggable;
@@ -377,6 +524,15 @@ public class PoptropicaController : MonoBehaviour
         Body2D.gravityScale = 1f;
         Body2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         Body2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+    }
+
+    private static void AddLayerToMask(string layerName, ref int mask)
+    {
+        int layer = LayerMask.NameToLayer(layerName);
+        if (layer >= 0)
+        {
+            mask |= 1 << layer;
+        }
     }
 
     private readonly struct PendingAction

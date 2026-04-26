@@ -125,6 +125,17 @@ public class Inventory : MonoBehaviour
         return TryAdd(definition, quantity);
     }
 
+    public void Clear()
+    {
+        EnsureSlotCount();
+        for (int i = 0; i < entries.Count; i++)
+        {
+            entries[i] = default;
+        }
+
+        NotifyChanged();
+    }
+
     public bool TryInsert(int index, InventoryItemDefinition definition, int quantity = 1)
     {
         if (!definition || quantity <= 0 || !IsValidSlotIndex(index))

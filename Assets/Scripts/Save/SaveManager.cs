@@ -13,6 +13,7 @@ public class SaveManager : MonoBehaviour
     public static SaveManager Instance { get; private set; }
 
     private ISaveStorage storage;
+    private SaveData pendingSceneLoadData;
 
     private void Awake()
     {
@@ -22,6 +23,18 @@ public class SaveManager : MonoBehaviour
         storage = Application.platform == RuntimePlatform.WebGLPlayer
             ? (ISaveStorage)new PlayerPrefsSaveStorage()
             : new FileSaveStorage();
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance != this)
+        {
+            return;
+        }
+
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+        Instance = null;
     }
 
     // ── Public API ───────────────────────────────────────────────
@@ -55,6 +68,7 @@ public class SaveManager : MonoBehaviour
         string currentScene = SceneManager.GetActiveScene().name;
         if (data.sceneName != currentScene)
         {
+            pendingSceneLoadData = data;
             SceneManager.LoadScene(data.sceneName);
             // Apply the rest after the scene loads — wire this up via OnSceneLoaded if needed
             return;
@@ -74,6 +88,18 @@ public class SaveManager : MonoBehaviour
     }
 
     // ── Gathering ────────────────────────────────────────────────
+
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (pendingSceneLoadData == null || pendingSceneLoadData.sceneName != scene.name)
+        {
+            return;
+        }
+
+        SaveData data = pendingSceneLoadData;
+        pendingSceneLoadData = null;
+        ApplySaveData(data);
+    }
 
     private SaveData GatherCurrentState()
     {
@@ -142,9 +168,10 @@ public class SaveManager : MonoBehaviour
     private void RestoreInventory(SaveData data)
     {
         var inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Exclude);
-        if (!inventory || allItemDefinitions == null) return;
+        if (!inventory) return;
 
         var defLookup = BuildItemLookup();
+        inventory.Clear();
         foreach (var saved in data.inventoryItems)
         {
             if (defLookup.TryGetValue(saved.itemId, out InventoryItemDefinition def))
@@ -189,13 +216,67 @@ public class SaveManager : MonoBehaviour
     private Dictionary<string, InventoryItemDefinition> BuildItemLookup()
     {
         var lookup = new Dictionary<string, InventoryItemDefinition>();
-        if (allItemDefinitions == null) return lookup;
-        foreach (var def in allItemDefinitions)
-        {
-            if (def && !lookup.ContainsKey(def.ItemId))
-                lookup[def.ItemId] = def;
-        }
+        AddSceneItemDefinitions(lookup);
+        AddInventoryItemDefinitions(lookup);
+        AddResourceItemDefinitions(lookup);
+        AddConfiguredItemDefinitions(lookup);
         return lookup;
+    }
+
+    private void AddSceneItemDefinitions(Dictionary<string, InventoryItemDefinition> lookup)
+    {
+        PickupItem[] pickupItems = FindObjectsByType<PickupItem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < pickupItems.Length; i++)
+        {
+            AddItemDefinition(lookup, pickupItems[i] ? pickupItems[i].ItemDefinition : null);
+        }
+    }
+
+    private void AddInventoryItemDefinitions(Dictionary<string, InventoryItemDefinition> lookup)
+    {
+        Inventory inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
+        if (!inventory)
+        {
+            return;
+        }
+
+        foreach (Inventory.Entry entry in inventory.Entries)
+        {
+            if (entry.IsOccupied)
+            {
+                AddItemDefinition(lookup, entry.Definition);
+            }
+        }
+    }
+
+    private void AddResourceItemDefinitions(Dictionary<string, InventoryItemDefinition> lookup)
+    {
+        InventoryItemDefinition[] definitions = Resources.LoadAll<InventoryItemDefinition>(string.Empty);
+        for (int i = 0; i < definitions.Length; i++)
+        {
+            AddItemDefinition(lookup, definitions[i]);
+        }
+    }
+
+    private void AddConfiguredItemDefinitions(Dictionary<string, InventoryItemDefinition> lookup)
+    {
+        if (allItemDefinitions == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < allItemDefinitions.Length; i++)
+        {
+            AddItemDefinition(lookup, allItemDefinitions[i]);
+        }
+    }
+
+    private static void AddItemDefinition(Dictionary<string, InventoryItemDefinition> lookup, InventoryItemDefinition definition)
+    {
+        if (definition && !lookup.ContainsKey(definition.ItemId))
+        {
+            lookup[definition.ItemId] = definition;
+        }
     }
 
     private Dictionary<string, Quest> BuildQuestLookup()

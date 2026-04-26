@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6855726772711474361
+--- !u!1 &6113267167604714274
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7007957633189858391}
-  - component: {fileID: 1433723122615106268}
-  - component: {fileID: 2212432664615154236}
-  - component: {fileID: 7520292715740225516}
-  - component: {fileID: 5166351539546378498}
-  - component: {fileID: 5240479637446034099}
-  - component: {fileID: 6469696827923713158}
-  - component: {fileID: 3999430382169652967}
+  - component: {fileID: 4814254080162851987}
+  - component: {fileID: 5990848123964399581}
+  - component: {fileID: 257296462998113616}
+  - component: {fileID: 6574215227028334887}
+  - component: {fileID: 4662244502617200359}
+  - component: {fileID: 6047865084706765771}
+  - component: {fileID: 4284488350788523475}
+  - component: {fileID: 5794315121652552258}
   m_Layer: 11
-  m_Name: RustyKeyWorld
+  m_Name: FlashlightWorld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7007957633189858391
+--- !u!4 &4814254080162851987
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6855726772711474361}
+  m_GameObject: {fileID: 6113267167604714274}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.197, y: -1.852, z: 0}
-  m_LocalScale: {x: 0.33, y: 0.33, z: 1.8333334}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.95, y: -2.14, z: 0}
+  m_LocalScale: {x: 0.18, y: 0.18, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1433723122615106268
+--- !u!114 &5990848123964399581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6855726772711474361}
+  m_GameObject: {fileID: 6113267167604714274}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
-  interactionPoint: {fileID: 7007957633189858391}
+  interactionPoint: {fileID: 4814254080162851987}
   approachPoint: {fileID: 0}
   interactionDistancePreset: 1
   useInteractionRadiusOverride: 0
@@ -61,22 +61,22 @@ MonoBehaviour:
   dragCursorKind: 4
   audioSource: {fileID: 0}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
---- !u!33 &2212432664615154236
+--- !u!33 &257296462998113616
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6855726772711474361}
+  m_GameObject: {fileID: 6113267167604714274}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!212 &7520292715740225516
+--- !u!212 &6574215227028334887
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6855726772711474361}
+  m_GameObject: {fileID: 6113267167604714274}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -118,7 +118,7 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 125ece96188968d4ca492daaa4355bb6, type: 3}
+  m_Sprite: {fileID: -8272045637266883246, guid: 3d9c653a4082e4830bbda17bb87a3440, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,22 +128,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &5166351539546378498
+--- !u!114 &4662244502617200359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6855726772711474361}
+  m_GameObject: {fileID: 6113267167604714274}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c1981c85f72bfd448458a68ca758dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
-  itemDefinition: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
+  itemDefinition: {fileID: 11400000, guid: 975d3ddb1f7ffde4e80e86aac5f869dc, type: 2}
   quantity: 1
   saveId: 
-  dragBody: {fileID: 5240479637446034099}
+  dragBody: {fileID: 6047865084706765771}
   placementAnchor: {fileID: 0}
   transferController: {fileID: 0}
   dragLabel: Drag
@@ -153,20 +153,20 @@ MonoBehaviour:
   storeGlyphId: Primary
   inspectGlyphId: Context
   inspectText: A rusty key. It feels cold in your hand.
---- !u!114 &5240479637446034099
+--- !u!114 &6047865084706765771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6855726772711474361}
+  m_GameObject: {fileID: 6113267167604714274}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 468839caa1157b64582ec9f859d19766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragBody2D
-  body: {fileID: 6469696827923713158}
-  rootTransform: {fileID: 7007957633189858391}
+  body: {fileID: 4284488350788523475}
+  rootTransform: {fileID: 4814254080162851987}
   room: {fileID: 0}
   useGrabOffset: 1
   centerOnPointer: 1
@@ -185,14 +185,14 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
---- !u!50 &6469696827923713158
+--- !u!50 &4284488350788523475
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6855726772711474361}
+  m_GameObject: {fileID: 6113267167604714274}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -212,13 +212,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &3999430382169652967
+--- !u!61 &5794315121652552258
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6855726772711474361}
+  m_GameObject: {fileID: 6113267167604714274}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -250,11 +250,11 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.73, y: 0.794}
+    oldSize: {x: 1.49, y: 0.95}
     newSize: {x: 1.49, y: 0.95}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.6, y: 1.1}
   m_EdgeRadius: 0
