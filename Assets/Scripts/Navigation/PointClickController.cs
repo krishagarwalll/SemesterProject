@@ -281,10 +281,10 @@ public class PointClickController : MonoBehaviour
 
         if (!context.ClickedTarget)
         {
-            if (context.TryGetWalkPoint(out Vector3 point))
+            /*if (context.TryGetWalkPoint(out Vector3 point))
             {
                 TrySetDestination(point);
-            }
+            }*/
 
             return;
         }
@@ -376,10 +376,10 @@ public class PointClickController : MonoBehaviour
             return;
         }
 
-        if (context.TryGetWalkPoint(out Vector3 point))
+        /*if (context.TryGetWalkPoint(out Vector3 point))
         {
             TrySetDestination(point);
-        }
+        }*/
     }
 
     private bool TrySetDestination(Vector3 worldPosition)
