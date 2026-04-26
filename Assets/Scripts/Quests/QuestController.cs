@@ -15,7 +15,7 @@ public class QuestController : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        questUI = FindObjectOfType<QuestUI>();
+        questUI = FindFirstObjectByType<QuestUI>(FindObjectsInactive.Include);
     }
 
     public void AcceptQuest(Quest quest)
@@ -70,5 +70,21 @@ public class QuestController : MonoBehaviour
     public bool isQuestHandedIn(string questID)
     {
         return handInQuestIDs.Contains(questID);
+    }
+
+    // ── Developer query API (PascalCase, consistent naming) ──────
+
+    public bool IsQuestActive(string questID) => isQuestActive(questID);
+    public bool IsQuestHandedIn(string questID) => isQuestHandedIn(questID);
+
+    public bool TryAdvanceObjective(string questID, string objectiveDescription, int amount = 1)
+    {
+        QuestProgress quest = activateQuests.Find(q => q.QuestID == questID);
+        if (quest == null) return false;
+        QuestObjective objective = quest.objectives.Find(o => o.description == objectiveDescription);
+        if (objective == null) return false;
+        objective.currentAmount = Mathf.Min(objective.currentAmount + amount, objective.requiredAmount);
+        questUI?.UpdateQuestUI();
+        return true;
     }
 }

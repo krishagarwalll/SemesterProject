@@ -97,9 +97,7 @@ public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDr
         int index,
         Inventory.Entry entry,
         bool entryPresent,
-        bool selected,
         Color slotColor,
-        Color selectedSlotColor,
         Color emptySlotColor)
     {
         owner = hotbar;
@@ -108,7 +106,7 @@ public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDr
 
         Sprite displaySprite = entryPresent ? InventoryItemVisualResolver.GetSprite(entry.Definition) : null;
         bool showIcon = displaySprite;
-        Background.color = selected ? selectedSlotColor : entryPresent ? slotColor : emptySlotColor;
+        Background.color = entryPresent ? slotColor : emptySlotColor;
         Icon.enabled = showIcon;
         Icon.sprite = displaySprite;
         if (LabelText)

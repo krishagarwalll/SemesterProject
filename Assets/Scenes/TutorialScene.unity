@@ -3214,12 +3214,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 228908239}
-  - component: {fileID: 228908240}
-  - component: {fileID: 228908242}
   - component: {fileID: 228908245}
   - component: {fileID: 910000101}
   - component: {fileID: 910000102}
   - component: {fileID: 910000103}
+  - component: {fileID: 910000104}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -3244,61 +3243,6 @@ Transform:
   - {fileID: 1087793020}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &228908240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 228908238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b6cf1600a3be3448c72401eac399ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PointClickController
-  moveSpeed: 4
-  moveAcceleration: 18
-  moveDeceleration: 24
-  useNavMeshAgent: 1
-  navMeshSampleDistance: 2
-  navMeshSnapDistance: 3
-  navArrivalSlowdownDistance: 0.9
-  navAccelerationScale: 0.65
-  navDecelerationScale: 0.85
-  walkableLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  ignorePointerOverUi: 1
-  destinationReachedThreshold: 0.05
-  groundedPositionOffset: 0
-  movingParameter: isMoving
-  horizontalSpeedParameter: moveX
-  verticalSpeedParameter: moveY
-  movingThreshold: 0.05
-  animationSmoothing: 10
-  flipThreshold: 0.05
---- !u!195 &228908242
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 228908238}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 4
-  m_Acceleration: 18
-  avoidancePriority: 50
-  m_AngularSpeed: 0
-  m_StoppingDistance: 0.05
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.3
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &228908245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3906,7 +3850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505293af901d3e749bfac81d2b7c2aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTransitionService
-  player: {fileID: 228908240}
+  player: {fileID: 0}
   screenFade: {fileID: 300000124}
   activeRoom: {fileID: 300000302}
   zoomAction: {fileID: 6240969308177333660, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
@@ -4505,7 +4449,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 300000261}
   - {fileID: 300000301}
   - {fileID: 300000401}
   - {fileID: 1042786929}
@@ -4515,70 +4458,6 @@ Transform:
   - {fileID: 2132483815}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &300000260
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 300000261}
-  - component: {fileID: 300000262}
-  m_Layer: 0
-  m_Name: NavMesh2DSurface
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &300000261
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300000260}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 300000251}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &300000262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300000260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 2
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: d9a504abfa6f0904e8ad4f8bab48ac0d, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1 &300000300
 GameObject:
   m_ObjectHideFlags: 0
@@ -5524,6 +5403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: b9f7fc0987d54612a7b6e5f93701086c, type: 2}
   quantity: 1
+  saveId: 
   dragBody: {fileID: 910001201}
   placementAnchor: {fileID: 0}
   transferController: {fileID: 300000003}
@@ -5679,6 +5559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
   quantity: 1
+  saveId: 
   dragBody: {fileID: 910001301}
   placementAnchor: {fileID: 0}
   transferController: {fileID: 300000003}
@@ -11906,16 +11787,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 800850640407614969, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-    - target: {fileID: 800850640407614969, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-    - target: {fileID: 800850640407614969, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_hasFontAssetChanged
+    - target: {fileID: 415207992745428616, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415207992745428616, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415207992745428616, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415207992745428616, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1361826212229959246, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
@@ -12000,46 +11885,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1841476873058914311, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
       propertyPath: m_Name
-      value: Pause Menu Canvas
+      value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 7390953563037105642, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-    - target: {fileID: 7390953563037105642, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-    - target: {fileID: 7390953563037105642, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_hasFontAssetChanged
+    - target: {fileID: 4935692809186005003, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_fontColor.b
+    - target: {fileID: 4935692809186005003, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_fontColor.g
+    - target: {fileID: 4935692809186005003, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_fontColor.r
+    - target: {fileID: 4935692809186005003, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
+    - target: {fileID: 7668405909129012108, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
-      propertyPath: m_hasFontAssetChanged
+    - target: {fileID: 7668405909129012108, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7668405909129012108, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7668405909129012108, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860944381162871718, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860944381162871718, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860944381162871718, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860944381162871718, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -13692,14 +13585,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228908238}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -13794,6 +13687,33 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &910000104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 228908238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 432110c542b4f7e4a885d32ffdee5dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PoptropicaController
+  moveSpeed: 5
+  jumpForce: 14
+  jumpThreshold: 1.2
+  movementDeadzone: 0.25
+  ignorePointerOverUi: 1
+  groundCheckDistance: 0.15
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  groundCheckOffset: {x: 0, y: -0.4}
+  movingParameter: isMoving
+  horizontalSpeedParameter: moveX
+  verticalSpeedParameter: moveY
+  animationSmoothing: 10
+  flipThreshold: 0.05
 --- !u!1 &910001050
 GameObject:
   m_ObjectHideFlags: 0
@@ -19356,7 +19276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointerContext
   worldCamera: {fileID: 519420031}
-  actor: {fileID: 228908240}
+  actor: {fileID: 0}
   inventory: {fileID: 300000002}
   hotbar: {fileID: 0}
   roomTransitionService: {fileID: 0}
@@ -23244,6 +23164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
   quantity: 1
+  saveId: 
   dragBody: {fileID: 1609484448}
   placementAnchor: {fileID: 0}
   transferController: {fileID: 300000003}
@@ -24656,6 +24577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
   quantity: 1
+  saveId: 
   dragBody: {fileID: 1676561944}
   placementAnchor: {fileID: 0}
   transferController: {fileID: 300000003}
@@ -28120,6 +28042,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1987614810}
   - component: {fileID: 1987614809}
+  - component: {fileID: 1987614811}
+  - component: {fileID: 1987614812}
   m_Layer: 0
   m_Name: Services
   m_TagString: Untagged
@@ -28154,6 +28078,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1987614811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987614808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefc3fe0b1a1ec142848c9d0fa44ab80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+  allQuests:
+  - {fileID: 11400000, guid: 96b6e146039af96418f1aae9f04dad84, type: 2}
+  allItemDefinitions:
+  - {fileID: 11400000, guid: dc6714b308914f4585d6383e02823550, type: 2}
+  - {fileID: 11400000, guid: b9f7fc0987d54612a7b6e5f93701086c, type: 2}
+  - {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
+--- !u!114 &1987614812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987614808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 985aa3edb99af8348b473b5585c6e17a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  defaultMusicVolume: 0.6
+  defaultSfxVolume: 1
 --- !u!1 &1995408544
 GameObject:
   m_ObjectHideFlags: 0

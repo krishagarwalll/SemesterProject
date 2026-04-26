@@ -204,12 +204,6 @@ public class InteractionTarget : MonoBehaviour
     public bool TryGetPreferredAction(in InteractionContext context, out InteractionAction action)
     {
         GetActions(context, actionBuffer);
-        action = default;
-        if (context.SelectedItem && TryGetBestAction(InteractionMode.UseSelectedItem, out action))
-        {
-            return true;
-        }
-
         return TryGetBestAction(InteractionMode.Primary, out action);
     }
 

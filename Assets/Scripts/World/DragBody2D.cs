@@ -522,7 +522,7 @@ public class DragBody2D : MonoBehaviour
             return;
         }
 
-        PointClickController actor = FindFirstObjectByType<PointClickController>(FindObjectsInactive.Include);
+        PoptropicaController actor = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
         if (!actor)
         {
             return;

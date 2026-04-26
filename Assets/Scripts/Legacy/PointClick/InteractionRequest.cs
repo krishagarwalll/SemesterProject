@@ -15,5 +15,4 @@ public readonly struct InteractionRequest
     public InteractionTarget Target { get; }
     public InteractionMode Mode { get; }
     public Inventory Inventory { get; }
-    public InventoryItemDefinition SelectedItem => Inventory ? Inventory.SelectedItem : null;
 }

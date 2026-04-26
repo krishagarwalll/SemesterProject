@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using Unity.AI.Navigation;
 
+[System.Obsolete("Replaced by PoptropicaController. Do not use in new scenes.")]
+[AddComponentMenu("")]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(NavMeshAgent))]
 public class PointClickController : MonoBehaviour
@@ -329,7 +331,8 @@ public class PointClickController : MonoBehaviour
 
     private InteractionContext CreateContext(InteractionTarget target)
     {
-        return new InteractionContext(this, Pointer, target, SceneInventory);
+        PoptropicaController actor = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
+        return new InteractionContext(actor, Pointer, target, SceneInventory);
     }
 
     private void UpdatePendingAction()

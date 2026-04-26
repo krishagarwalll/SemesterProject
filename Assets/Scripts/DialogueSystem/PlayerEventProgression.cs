@@ -4,9 +4,11 @@ public class PlayerEventProgression : MonoBehaviour
 {
     public int progressionIndex = 0;
 
-    public void IncrementProgression()
-    {
-        progressionIndex++;
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public int CurrentStage => progressionIndex;
+
+    public void IncrementProgression() => progressionIndex++;
+
+    public bool HasReachedStage(int stage) => progressionIndex >= stage;
+
+    public void AdvanceToStage(int stage) => progressionIndex = Mathf.Max(progressionIndex, stage);
 }

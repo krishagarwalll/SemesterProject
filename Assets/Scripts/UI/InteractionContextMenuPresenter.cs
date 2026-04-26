@@ -10,7 +10,7 @@ public class InteractionContextMenuPresenter : MonoBehaviour
     private const float DefaultRowHeight = 36f;
 
     [SerializeField] private PointerContext pointer;
-    [SerializeField] private PointClickController controller;
+    [SerializeField] private PoptropicaController controller;
     [SerializeField] private Inventory inventory;
     [SerializeField] private InputGlyphLibrary glyphLibrary;
     [SerializeField] private RectTransform panel;
@@ -29,7 +29,7 @@ public class InteractionContextMenuPresenter : MonoBehaviour
     private Canvas rootCanvas;
 
     private PointerContext Pointer => pointer ? pointer : pointer = FindFirstObjectByType<PointerContext>(FindObjectsInactive.Include);
-    private PointClickController Controller => controller ? controller : controller = FindFirstObjectByType<PointClickController>(FindObjectsInactive.Include);
+    private PoptropicaController Controller => controller ? controller : controller = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
     private Inventory SceneInventory => inventory ? inventory : inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
     private RectTransform Panel => panel ? panel : panel = transform as RectTransform;
     private CanvasGroup Group => canvasGroup ? canvasGroup : canvasGroup = gameObject.GetOrAddComponent<CanvasGroup>();

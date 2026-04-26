@@ -34,17 +34,13 @@ public class Inventory : MonoBehaviour
 
     [SerializeField, Min(1)] private int capacity = 6;
     [SerializeField] private List<Entry> entries = new();
-    [SerializeField] private int selectedIndex = -1;
 
     public event Action Changed;
 
     public int Capacity => capacity;
     public int Count => CountOccupiedEntries();
     public bool IsFull => Count >= capacity;
-    public bool HasSelection => SelectedIndex >= 0;
-    public int SelectedIndex => IsOccupiedIndex(selectedIndex) ? selectedIndex : -1;
     public IReadOnlyList<Entry> Entries => entries;
-    public InventoryItemDefinition SelectedItem => TryGetSelectedEntry(out Entry entry) ? entry.Definition : null;
 
     private void Awake()
     {
@@ -55,7 +51,6 @@ public class Inventory : MonoBehaviour
     {
         capacity = Mathf.Max(1, capacity);
         EnsureSlotCount();
-        selectedIndex = IsOccupiedIndex(selectedIndex) ? selectedIndex : -1;
     }
 
     public bool Contains(InventoryItemDefinition definition)
@@ -73,11 +68,6 @@ public class Inventory : MonoBehaviour
 
         entry = entries[index];
         return true;
-    }
-
-    public bool TryGetSelectedEntry(out Entry entry)
-    {
-        return TryGetEntry(SelectedIndex, out entry);
     }
 
     public bool TryAdd(InventoryItemDefinition definition, int quantity = 1)
@@ -177,11 +167,6 @@ public class Inventory : MonoBehaviour
         entry = new Entry(current.Definition, quantity);
         Entry remaining = current.Remove(quantity);
         entries[index] = remaining.IsOccupied ? remaining : default;
-        if (!remaining.IsOccupied && selectedIndex == index)
-        {
-            selectedIndex = -1;
-        }
-
         NotifyChanged();
         return true;
     }
@@ -192,45 +177,6 @@ public class Inventory : MonoBehaviour
         return index >= 0 && TryTakeAt(index, out _, quantity);
     }
 
-    public bool Select(int index, bool toggle = true)
-    {
-        if (index < 0)
-        {
-            return ClearSelection();
-        }
-
-        if (!IsOccupiedIndex(index))
-        {
-            return false;
-        }
-
-        if (toggle && selectedIndex == index)
-        {
-            return ClearSelection();
-        }
-
-        if (selectedIndex == index)
-        {
-            return false;
-        }
-
-        selectedIndex = index;
-        NotifyChanged();
-        return true;
-    }
-
-    public bool ClearSelection()
-    {
-        if (selectedIndex < 0)
-        {
-            return false;
-        }
-
-        selectedIndex = -1;
-        NotifyChanged();
-        return true;
-    }
-
     public bool Swap(int fromIndex, int toIndex)
     {
         if (!IsValidSlotIndex(fromIndex) || !IsValidSlotIndex(toIndex) || !IsOccupiedIndex(fromIndex) || fromIndex == toIndex)
@@ -239,7 +185,6 @@ public class Inventory : MonoBehaviour
         }
 
         (entries[fromIndex], entries[toIndex]) = (entries[toIndex], entries[fromIndex]);
-        SyncSelectionAfterSwap(fromIndex, toIndex);
         NotifyChanged();
         return true;
     }
@@ -258,11 +203,6 @@ public class Inventory : MonoBehaviour
 
         entries[toIndex] = entries[fromIndex];
         entries[fromIndex] = default;
-        if (selectedIndex == fromIndex)
-        {
-            selectedIndex = toIndex;
-        }
-
         NotifyChanged();
         return true;
     }
@@ -359,22 +299,48 @@ public class Inventory : MonoBehaviour
         return count;
     }
 
-    private void SyncSelectionAfterSwap(int fromIndex, int toIndex)
-    {
-        if (selectedIndex == fromIndex)
-        {
-            selectedIndex = toIndex;
-            return;
-        }
-
-        if (selectedIndex == toIndex)
-        {
-            selectedIndex = fromIndex;
-        }
-    }
-
     private void NotifyChanged()
     {
         Changed?.Invoke();
+    }
+
+    // ── Developer query API ──────────────────────────────────────
+
+    public bool HasItem(string itemId)
+    {
+        for (int i = 0; i < entries.Count; i++)
+        {
+            if (entries[i].IsOccupied && entries[i].Definition.ItemId == itemId) return true;
+        }
+        return false;
+    }
+
+    public bool TryGetItem(string itemId, out Entry entry)
+    {
+        for (int i = 0; i < entries.Count; i++)
+        {
+            if (entries[i].IsOccupied && entries[i].Definition.ItemId == itemId) { entry = entries[i]; return true; }
+        }
+        entry = default;
+        return false;
+    }
+
+    public int CountItem(string itemId)
+    {
+        for (int i = 0; i < entries.Count; i++)
+        {
+            if (entries[i].IsOccupied && entries[i].Definition.ItemId == itemId) return entries[i].Quantity;
+        }
+        return 0;
+    }
+
+    public bool TryRemoveItem(string itemId, int count = 1)
+    {
+        for (int i = 0; i < entries.Count; i++)
+        {
+            if (!entries[i].IsOccupied || entries[i].Definition.ItemId != itemId) continue;
+            return TryTakeAt(i, out _, count);
+        }
+        return false;
     }
 }

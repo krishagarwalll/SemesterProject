@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -12,7 +11,7 @@ public class PointerContext : MonoBehaviour
 {
     [FieldHeader("References")]
     [SerializeField] private Camera worldCamera;
-    [SerializeField] private PointClickController actor;
+    [SerializeField] private PoptropicaController actor;
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryHotbar hotbar;
     [SerializeField] private RoomTransitionService roomTransitionService;
@@ -29,7 +28,6 @@ public class PointerContext : MonoBehaviour
     [SerializeField] private bool ignoreWorldWhenOverUi = true;
     [SerializeField, Min(0f)] private float interactionProbeRadius = 0.85f;
     [SerializeField, Min(0f)] private float dragThresholdPixels = 8f;
-    [SerializeField, Min(0.01f)] private float navMeshSampleDistance = 12f;
 
     private bool primaryPressedThisFrame;
     private bool primaryReleasedThisFrame;
@@ -41,13 +39,11 @@ public class PointerContext : MonoBehaviour
     private bool isDragging;
     private bool isPointerOverUi;
     private bool hasWorldPoint;
-    private bool hasWalkPoint;
     private bool isWorldBlocked;
     private bool contextMenuOpen;
     private Vector2 screenPosition;
     private Vector2 pressScreenPosition;
     private Vector3 worldPoint;
-    private Vector3 walkPoint;
     private PointerCursorKind currentCursorKind;
     private readonly List<InteractionCandidate> hoverCandidates = new();
     private readonly List<InteractionCandidate> dragCandidates = new();
@@ -76,7 +72,6 @@ public class PointerContext : MonoBehaviour
     public bool DragEndedThisFrame => dragEndedThisFrame;
     public bool IsPrimaryPressed => isPrimaryPressed;
     public bool IsPointerOverUi => isPointerOverUi;
-    public bool HasWalkPoint => hasWalkPoint;
     public bool HasWorldPoint => hasWorldPoint;
     public bool IsWorldBlocked => isWorldBlocked;
     public bool IsDragging => isDragging;
@@ -87,7 +82,7 @@ public class PointerContext : MonoBehaviour
     public InteractionTarget SecondaryClickedTarget => secondaryClickedTarget;
     public InteractionTarget DragTarget => dragTarget;
     public Camera WorldCamera => worldCamera ? worldCamera : worldCamera = Camera.main;
-    public PointClickController Actor => actor ? actor : actor = FindFirstObjectByType<PointClickController>(FindObjectsInactive.Include);
+    public PoptropicaController Actor => actor ? actor : actor = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
     public Inventory SceneInventory => inventory ? inventory : inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
     public InventoryHotbar Hotbar => hotbar ? hotbar : hotbar = FindFirstObjectByType<InventoryHotbar>(FindObjectsInactive.Include);
     public RoomTransitionService Rooms => roomTransitionService ? roomTransitionService : roomTransitionService = FindFirstObjectByType<RoomTransitionService>(FindObjectsInactive.Include);
@@ -119,7 +114,6 @@ public class PointerContext : MonoBehaviour
     {
         interactionProbeRadius = Mathf.Max(0f, interactionProbeRadius);
         dragThresholdPixels = Mathf.Max(0f, dragThresholdPixels);
-        navMeshSampleDistance = Mathf.Max(0.01f, navMeshSampleDistance);
         if (!worldCamera)
         {
             worldCamera = Camera.main;
@@ -158,12 +152,6 @@ public class PointerContext : MonoBehaviour
     {
         contextMenuOpen = isOpen;
         UpdateCursorKind();
-    }
-
-    public bool TryGetWalkPoint(out Vector3 point)
-    {
-        point = walkPoint;
-        return hasWalkPoint;
     }
 
     public bool TryGetWorldPoint(out Vector3 point)
@@ -410,7 +398,6 @@ public class PointerContext : MonoBehaviour
     private void ResolveWorldState()
     {
         hasWorldPoint = TryGetWorldPointAtDepth(0f, out worldPoint);
-        hasWalkPoint = false;
         isWorldBlocked = false;
         isPointerOverUi = IsBlockingUi(screenPosition);
 
@@ -432,7 +419,6 @@ public class PointerContext : MonoBehaviour
         bool hasInteraction = TryResolveBestTarget(point2D, dragOnly: false, hoverCandidates, out InteractionTarget target, out _);
         bool hasWalkable = TryGetBestOverlap(point2D, walkableLayers, out _, out _);
         bool hasBlocking = TryGetBestOverlap(point2D, blockingLayers, out _, out _);
-        hasWalkPoint = TryResolveWalkPoint(worldPoint, out walkPoint);
 
         isWorldBlocked = hasBlocking && !hasWalkable && !hasInteraction;
         SetHoveredTarget(hasInteraction ? target : null);
@@ -665,36 +651,6 @@ public class PointerContext : MonoBehaviour
         }
 
         return isWorldBlocked ? PointerCursorKind.Blocked : PointerCursorKind.Default;
-    }
-
-    private bool TryResolveWalkPoint(Vector3 requestedPoint, out Vector3 resolvedPoint)
-    {
-        resolvedPoint = default;
-        Room activeRoom = GetActiveRoom();
-        float depth = activeRoom ? activeRoom.DefaultItemDepth : requestedPoint.z;
-        Vector3 samplePoint = requestedPoint;
-        samplePoint.z = depth;
-
-        if (NavMesh.SamplePosition(samplePoint, out NavMeshHit hit, navMeshSampleDistance, NavMesh.AllAreas))
-        {
-            resolvedPoint = hit.position;
-            resolvedPoint.z = depth;
-            if (activeRoom)
-            {
-                resolvedPoint = activeRoom.ClampPoint(resolvedPoint, depth);
-            }
-
-            return true;
-        }
-
-        if (activeRoom)
-        {
-            resolvedPoint = activeRoom.ClampPoint(new Vector3(requestedPoint.x, activeRoom.GroundY, depth), depth);
-            return true;
-        }
-
-        resolvedPoint = requestedPoint;
-        return true;
     }
 
     private void UpdateCursorKind()

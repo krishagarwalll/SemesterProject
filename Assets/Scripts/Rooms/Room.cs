@@ -4,6 +4,7 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     [SerializeField] private string roomId;
+    [SerializeField] private AudioClip musicClip;
     [SerializeField] private Collider2D boundsVolume;
     [SerializeField] private RoomAnchor defaultAnchor;
     [SerializeField] private Transform contentRoot;
@@ -17,6 +18,7 @@ public class Room : MonoBehaviour
     private RoomCameraController cameraController;
 
     public string RoomId => string.IsNullOrWhiteSpace(roomId) ? name : roomId;
+    public AudioClip MusicClip => musicClip;
     public Collider2D BoundsVolume => boundsVolume ? boundsVolume : boundsVolume = GetComponentInChildren<Collider2D>(true);
     public RoomAnchor DefaultAnchor => defaultAnchor ? defaultAnchor : defaultAnchor = GetComponentInChildren<RoomAnchor>(true);
     public Transform ContentRoot => contentRoot ? contentRoot : contentRoot = transform;

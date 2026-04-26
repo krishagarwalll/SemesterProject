@@ -10,6 +10,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     [FieldHeader("Item")]
     [SerializeField] private InventoryItemDefinition itemDefinition;
     [SerializeField, Min(1)] private int quantity = 1;
+    [SerializeField] private string saveId;
 
     [FieldHeader("References")]
     [SerializeField] private DragBody2D dragBody;
@@ -28,6 +29,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     [SerializeField, TextArea] private string inspectText;
 
     public InventoryItemDefinition ItemDefinition => itemDefinition;
+    public string SaveId => string.IsNullOrWhiteSpace(saveId) ? null : saveId;
     public int Quantity => quantity;
     public Room OwnerRoom => DragBody ? DragBody.OwnerRoom : GetComponentInParent<Room>(true);
     public bool SupportsDrag => itemDefinition && DragBody && enabled && gameObject.activeInHierarchy;

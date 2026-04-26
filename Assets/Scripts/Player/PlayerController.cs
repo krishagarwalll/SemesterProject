@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(PointToMove))]
 [RequireComponent(typeof(PlayerCollisionHandler))]
 public class PlayerController : MonoBehaviour
 {
@@ -16,7 +15,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerState startingState = PlayerState.Ghost;
 
     [Header("References")]
-    [SerializeField] private PointToMove pointToMove;
     [SerializeField] private PlayerVisualController playerVisualController;
     [SerializeField] private PlayerCollisionHandler playerCollisionHandler;
 
@@ -24,7 +22,6 @@ public class PlayerController : MonoBehaviour
 
     public PlayerState CurrentState => currentState;
     public bool IsGhost => currentState == PlayerState.Ghost;
-    public PointToMove Movement => pointToMove;
 
     public event Action<PlayerState, PlayerState> StateChanged;
 
@@ -112,19 +109,7 @@ public class PlayerController : MonoBehaviour
 
     private void CacheReferences()
     {
-        if (pointToMove == null)
-        {
-            pointToMove = GetComponent<PointToMove>();
-        }
-
-        if (playerVisualController == null)
-        {
-            playerVisualController = GetComponent<PlayerVisualController>();
-        }
-
-        if (playerCollisionHandler == null)
-        {
-            playerCollisionHandler = GetComponent<PlayerCollisionHandler>();
-        }
+        if (playerVisualController == null) playerVisualController = GetComponent<PlayerVisualController>();
+        if (playerCollisionHandler == null) playerCollisionHandler = GetComponent<PlayerCollisionHandler>();
     }
 }
