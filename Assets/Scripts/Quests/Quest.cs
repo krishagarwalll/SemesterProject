@@ -51,8 +51,18 @@ public class QuestProgress
         objectives = new List<QuestObjective>();
         readyToHandIn = false;
 
+        if (quest.questObjectives == null)
+        {
+            return;
+        }
+
         foreach (var obj in quest.questObjectives)
         {
+            if (obj == null)
+            {
+                continue;
+            }
+
             objectives.Add(new QuestObjective
             {
                 description = obj.description,

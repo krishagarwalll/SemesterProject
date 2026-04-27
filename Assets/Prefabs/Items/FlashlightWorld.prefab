@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: 975d3ddb1f7ffde4e80e86aac5f869dc, type: 2}
   quantity: 1
-  saveId: 
+  saveId: 5ad176bfc8af4188889c552898e1f898
   dragBody: {fileID: 6047865084706765771}
   placementAnchor: {fileID: 0}
   transferController: {fileID: 0}

@@ -52,6 +52,14 @@ public class AudioManager : MonoBehaviour
         LoadVolumeSettings();
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
+
     // ── Public API ───────────────────────────────────────────────
 
     public void PlaySfx(AudioClip clip, float volume = 1f)
@@ -66,20 +74,30 @@ public class AudioManager : MonoBehaviour
         MusicPlayer.PlayClip(clip, musicVolume, loop);
     }
 
-    public void StopMusic() => MusicPlayer.Stop();
+    public void StopMusic()
+    {
+        if (musicPlayer)
+        {
+            musicPlayer.Stop();
+        }
+    }
 
     public void SetMusicVolume(float volume)
     {
         musicVolume = Mathf.Clamp01(volume);
         PlayerPrefs.SetFloat(PrefMusicVolume, musicVolume);
-        if (MusicPlayer.Source.isPlaying)
-            MusicPlayer.Source.volume = musicVolume;
+        PlayerPrefs.Save();
+        if (musicPlayer && musicPlayer.Source.isPlaying)
+        {
+            musicPlayer.Source.volume = musicVolume;
+        }
     }
 
     public void SetSfxVolume(float volume)
     {
         sfxVolume = Mathf.Clamp01(volume);
         PlayerPrefs.SetFloat(PrefSfxVolume, sfxVolume);
+        PlayerPrefs.Save();
     }
 
     public void LoadVolumeSettings()

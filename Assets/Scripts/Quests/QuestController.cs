@@ -12,10 +12,23 @@ public class QuestController : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
 
         questUI = FindFirstObjectByType<QuestUI>(FindObjectsInactive.Include);
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
     }
 
     public void AcceptQuest(Quest quest)
@@ -24,7 +37,7 @@ public class QuestController : MonoBehaviour
         if (isQuestActive(quest.questID) || isQuestHandedIn(quest.questID)) return;
 
         activateQuests.Add(new QuestProgress(quest));
-        questUI.UpdateQuestUI();
+        questUI?.UpdateQuestUI();
     }
 
     public bool isQuestActive(string questID)
@@ -51,7 +64,7 @@ public class QuestController : MonoBehaviour
         if (quest != null)
         {
             quest.readyToHandIn = true;
-            questUI.UpdateQuestUI();
+            questUI?.UpdateQuestUI();
         }
     }
 
@@ -61,9 +74,13 @@ public class QuestController : MonoBehaviour
 
         if (quest != null && quest.readyToHandIn)
         {
-            handInQuestIDs.Add(questID);
+            if (!handInQuestIDs.Contains(questID))
+            {
+                handInQuestIDs.Add(questID);
+            }
+
             activateQuests.Remove(quest);
-            questUI.UpdateQuestUI();
+            questUI?.UpdateQuestUI();
         }
     }
 
@@ -86,5 +103,53 @@ public class QuestController : MonoBehaviour
         objective.currentAmount = Mathf.Min(objective.currentAmount + amount, objective.requiredAmount);
         questUI?.UpdateQuestUI();
         return true;
+    }
+
+    public void ClearRuntimeState()
+    {
+        activateQuests.Clear();
+        handInQuestIDs.Clear();
+        questUI?.UpdateQuestUI();
+    }
+
+    public bool RestoreQuestProgress(Quest quest, IReadOnlyList<int> objectiveAmounts, bool readyToHandIn)
+    {
+        if (quest == null || string.IsNullOrWhiteSpace(quest.questID) || isQuestHandedIn(quest.questID))
+        {
+            return false;
+        }
+
+        QuestProgress progress = activateQuests.Find(q => q.QuestID == quest.questID);
+        if (progress == null)
+        {
+            progress = new QuestProgress(quest);
+            activateQuests.Add(progress);
+        }
+
+        if (objectiveAmounts != null)
+        {
+            int count = Mathf.Min(progress.objectives.Count, objectiveAmounts.Count);
+            for (int i = 0; i < count; i++)
+            {
+                QuestObjective objective = progress.objectives[i];
+                objective.currentAmount = Mathf.Clamp(objectiveAmounts[i], 0, objective.requiredAmount);
+            }
+        }
+
+        progress.readyToHandIn = readyToHandIn;
+        questUI?.UpdateQuestUI();
+        return true;
+    }
+
+    public void MarkQuestHandedIn(string questID)
+    {
+        if (string.IsNullOrWhiteSpace(questID) || handInQuestIDs.Contains(questID))
+        {
+            return;
+        }
+
+        activateQuests.RemoveAll(q => q.QuestID == questID);
+        handInQuestIDs.Add(questID);
+        questUI?.UpdateQuestUI();
     }
 }

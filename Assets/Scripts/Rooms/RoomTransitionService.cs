@@ -16,6 +16,7 @@ public class RoomTransitionService : MonoBehaviour
     [SerializeField] private bool invertZoom;
 
     private Coroutine transitionRoutine;
+    private bool transitionInputPaused;
 
     private PoptropicaController Player => player ? player : player = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
     private ScreenFade Fade => screenFade ? screenFade : screenFade = FindFirstObjectByType<ScreenFade>(FindObjectsInactive.Include);
@@ -38,8 +39,8 @@ public class RoomTransitionService : MonoBehaviour
     {
         if (!activeRoom && Player)
         {
-            Room[] rooms = FindObjectsByType<Room>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-            for (int i = 0; i < rooms.Length; i++)
+            System.Collections.Generic.IReadOnlyList<Room> rooms = Room.ActiveRooms;
+            for (int i = 0; i < rooms.Count; i++)
             {
                 if (rooms[i] && rooms[i].ContainsPoint(Player.transform.position))
                 {
@@ -68,10 +69,16 @@ public class RoomTransitionService : MonoBehaviour
     private void OnDisable()
     {
         zoomAction.SetEnabled(false);
+        ReleaseTransitionInputPause();
     }
 
     private void Update()
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            return;
+        }
+
         if (!zoomAction.IsAssigned())
         {
             return;
@@ -121,6 +128,9 @@ public class RoomTransitionService : MonoBehaviour
 
     private IEnumerator EnterRoutine(Room room, Vector3 destinationPosition, float fadeDuration)
     {
+        PauseService.Pause(PauseType.Input);
+        transitionInputPaused = true;
+
         if (Fade)
         {
             yield return Fade.FadeOut(fadeDuration);
@@ -135,6 +145,18 @@ public class RoomTransitionService : MonoBehaviour
         }
 
         transitionRoutine = null;
+        ReleaseTransitionInputPause();
+    }
+
+    private void ReleaseTransitionInputPause()
+    {
+        if (!transitionInputPaused)
+        {
+            return;
+        }
+
+        transitionInputPaused = false;
+        PauseService.Resume(PauseType.Input);
     }
 
     private void ApplyActiveRoom(Room room)

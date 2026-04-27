@@ -63,14 +63,20 @@ public class SaveManager : MonoBehaviour
         }
 
         SaveData data = JsonUtility.FromJson<SaveData>(json);
-        if (data == null) return;
+        if (data == null || string.IsNullOrWhiteSpace(data.sceneName))
+        {
+            Debug.LogWarning("[SaveManager] Save data is invalid.");
+            return;
+        }
 
         string currentScene = SceneManager.GetActiveScene().name;
         if (data.sceneName != currentScene)
         {
             pendingSceneLoadData = data;
+            PauseService.ClearAll();
+            Time.timeScale = 1f;
+            AudioListener.pause = false;
             SceneManager.LoadScene(data.sceneName);
-            // Apply the rest after the scene loads — wire this up via OnSceneLoaded if needed
             return;
         }
 
@@ -172,6 +178,11 @@ public class SaveManager : MonoBehaviour
 
         var defLookup = BuildItemLookup();
         inventory.Clear();
+        if (data.inventoryItems == null)
+        {
+            return;
+        }
+
         foreach (var saved in data.inventoryItems)
         {
             if (defLookup.TryGetValue(saved.itemId, out InventoryItemDefinition def))
@@ -184,29 +195,36 @@ public class SaveManager : MonoBehaviour
         if (QuestController.Instance == null || allQuests == null) return;
 
         var questLookup = BuildQuestLookup();
-        foreach (var saved in data.activeQuests)
-        {
-            if (!questLookup.TryGetValue(saved.questId, out Quest quest)) continue;
-            QuestController.Instance.AcceptQuest(quest);
+        QuestController.Instance.ClearRuntimeState();
 
-            if (saved.readyToHandIn)
-                QuestController.Instance.MarkQuestReadyToHandIn(saved.questId);
+        if (data.activeQuests != null)
+        {
+            foreach (var saved in data.activeQuests)
+            {
+                if (!questLookup.TryGetValue(saved.questId, out Quest quest)) continue;
+                QuestController.Instance.RestoreQuestProgress(quest, saved.objectiveAmounts, saved.readyToHandIn);
+            }
+        }
+
+        if (data.handedInQuestIds == null)
+        {
+            return;
         }
 
         foreach (var handedInId in data.handedInQuestIds)
         {
-            if (!QuestController.Instance.handInQuestIDs.Contains(handedInId))
-                QuestController.Instance.handInQuestIDs.Add(handedInId);
+            QuestController.Instance.MarkQuestHandedIn(handedInId);
         }
     }
 
     private void RestorePickedUpWorldItems(SaveData data)
     {
         if (data.pickedUpWorldItemIds == null || data.pickedUpWorldItemIds.Count == 0) return;
+        var pickedUpIds = new HashSet<string>(data.pickedUpWorldItemIds);
         var worldItems = FindObjectsByType<PickupItem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (var item in worldItems)
         {
-            if (!string.IsNullOrEmpty(item.SaveId) && data.pickedUpWorldItemIds.Contains(item.SaveId))
+            if (!string.IsNullOrEmpty(item.SaveId) && pickedUpIds.Contains(item.SaveId))
                 item.gameObject.SetActive(false);
         }
     }

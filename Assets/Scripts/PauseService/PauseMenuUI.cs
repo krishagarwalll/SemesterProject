@@ -99,7 +99,7 @@ public class PauseMenuUI : MonoBehaviour
         }
     }
 
-    private void OnResumeClicked() => PauseService.Toggle();
+    private void OnResumeClicked() => PauseService.Resume();
 
     private void WireMainMenuButton()
     {
@@ -134,6 +134,10 @@ public class PauseMenuUI : MonoBehaviour
     private void OnMainMenuClicked()
     {
         PauseService.ClearAll();
+        Time.timeScale = 1f;
+        AudioListener.pause = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -147,7 +151,7 @@ public class PauseMenuUI : MonoBehaviour
         EventSystem eventSystem = EventSystem.current;
         if (eventSystem)
         {
-            PauseService.SetPauseBypass(eventSystem, PauseType.UI, true);
+            PauseService.SetPauseBypass(eventSystem, PauseType.Input | PauseType.UI, true);
         }
     }
 

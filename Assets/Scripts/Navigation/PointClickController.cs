@@ -138,6 +138,13 @@ public class PointClickController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            movementVelocity = Vector2.zero;
+            SyncNavAgentPosition();
+            return;
+        }
+
         UpdateMovement();
     }
 
@@ -274,6 +281,11 @@ public class PointClickController : MonoBehaviour
 
     private void HandlePrimaryClick(PointerContext context)
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            return;
+        }
+
         if (IsPointerBlocked)
         {
             return;
@@ -305,6 +317,11 @@ public class PointClickController : MonoBehaviour
 
     private void HandleDragStarted(PointerContext context)
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            return;
+        }
+
         InteractionTarget target = context.DragTarget;
         if (!target && context)
         {
@@ -809,8 +826,8 @@ public class PointClickController : MonoBehaviour
             return Rooms.ActiveRoom;
         }
 
-        Room[] rooms = FindObjectsByType<Room>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        for (int i = 0; i < rooms.Length; i++)
+        System.Collections.Generic.IReadOnlyList<Room> rooms = Room.ActiveRooms;
+        for (int i = 0; i < rooms.Count; i++)
         {
             if (rooms[i] && rooms[i].ContainsPoint(transform.position))
             {

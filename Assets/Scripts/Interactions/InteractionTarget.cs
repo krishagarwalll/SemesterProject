@@ -4,6 +4,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class InteractionTarget : MonoBehaviour
 {
+    private static readonly List<InteractionTarget> activeTargets = new();
+
     [FieldHeader("Anchors")]
     [SerializeField] private Transform interactionPoint;
     [SerializeField] private Transform approachPoint;
@@ -48,6 +50,22 @@ public class InteractionTarget : MonoBehaviour
     public AudioClip hover;
 
     private bool wasHovered;
+
+    public static IReadOnlyList<InteractionTarget> ActiveTargets => activeTargets;
+
+    private void OnEnable()
+    {
+        if (!activeTargets.Contains(this))
+        {
+            activeTargets.Add(this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        activeTargets.Remove(this);
+        SetHovered(false);
+    }
 
     private void OnValidate()
     {

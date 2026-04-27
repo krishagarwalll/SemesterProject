@@ -17,8 +17,8 @@ public enum PauseType
 
 public static class PauseService
 {
-    // Convenience constant used by the no-argument overloads
-    private const PauseType FullGamePause = PauseType.Physics | PauseType.Animation | PauseType.Particles | PauseType.Audio;
+    // Gameplay pause keeps UI alive so pause menus and main menus remain clickable.
+    private const PauseType FullGamePause = PauseType.Physics | PauseType.Input | PauseType.Animation | PauseType.Particles | PauseType.Audio;
 
     private static int physicsLocks;
     private static int inputLocks;
@@ -70,6 +70,8 @@ public static class PauseService
     }
 
     public static bool IsPaused(PauseType pauseType) => (activePauseTypes & pauseType) != 0;
+
+    public static bool IsGameplayInputPaused(UnityEngine.Object context = null) => IsPaused(PauseType.Input, context);
 
     public static bool IsPaused(PauseType pauseType, UnityEngine.Object context)
     {

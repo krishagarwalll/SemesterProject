@@ -95,7 +95,7 @@ public class PoptropicaController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (movementLocked || activeDrag != null)
+        if (PauseService.IsGameplayInputPaused(this) || movementLocked || activeDrag != null)
         {
             hasMoveTarget = false;
             StopHorizontalMovement();
@@ -430,6 +430,7 @@ public class PoptropicaController : MonoBehaviour
 
     private void HandlePrimaryClick(PointerContext context)
     {
+        if (PauseService.IsGameplayInputPaused(this)) return;
         if (IsPointerBlocked || activeDrag != null) return;
         if (!context.ClickedTarget)
         {
@@ -457,6 +458,7 @@ public class PoptropicaController : MonoBehaviour
 
     private void HandleDragStarted(PointerContext context)
     {
+        if (PauseService.IsGameplayInputPaused(this)) return;
         InteractionTarget target = context.DragTarget;
         if (!target && context) context.TryGetWorldDragTarget(out target);
         if (!target || !target.TryGetDraggable(out IWorldDraggable draggable) || !Pointer) return;

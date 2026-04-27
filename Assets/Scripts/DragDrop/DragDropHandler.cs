@@ -19,6 +19,11 @@ public class DragDropHandler : MonoBehaviour
 
     public bool BlocksMovementClick(Vector2 screenPosition)
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            return true;
+        }
+
         if (ignorePointerOverUI && EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
         {
             return true;
@@ -39,6 +44,12 @@ public class DragDropHandler : MonoBehaviour
 
     private void Update()
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            CancelCurrentDrag();
+            return;
+        }
+
         if (Mouse.current == null || worldCamera == null)
         {
             return;

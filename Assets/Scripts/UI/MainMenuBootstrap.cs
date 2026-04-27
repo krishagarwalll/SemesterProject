@@ -26,14 +26,30 @@ public static class MainMenuBootstrap
 
     private static void TryBuild(Scene scene)
     {
-        if (scene.name != MainMenuSceneName || GameObject.Find(RuntimeRootName))
+        if (scene.name != MainMenuSceneName)
         {
             return;
         }
 
+        ResetRuntimeStateForMenu();
         EnsureSystems();
         EnsureEventSystem();
+
+        if (GameObject.Find(RuntimeRootName))
+        {
+            return;
+        }
+
         BuildMenu();
+    }
+
+    private static void ResetRuntimeStateForMenu()
+    {
+        PauseService.ClearAll();
+        Time.timeScale = 1f;
+        AudioListener.pause = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private static void EnsureSystems()
@@ -51,10 +67,38 @@ public static class MainMenuBootstrap
 
     private static void EnsureEventSystem()
     {
-        EventSystem eventSystem = Object.FindFirstObjectByType<EventSystem>(FindObjectsInactive.Include);
+        EventSystem[] eventSystems = Object.FindObjectsByType<EventSystem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        EventSystem eventSystem = eventSystems.Length > 0 ? eventSystems[0] : null;
         GameObject eventSystemObject = eventSystem ? eventSystem.gameObject : new GameObject("EventSystem");
-        eventSystemObject.GetOrAddComponent<EventSystem>();
-        eventSystemObject.GetOrAddComponent<InputSystemUIInputModule>();
+        eventSystemObject.SetActive(true);
+
+        eventSystem = eventSystemObject.GetOrAddComponent<EventSystem>();
+        eventSystem.enabled = true;
+        eventSystem.sendNavigationEvents = true;
+
+        InputSystemUIInputModule inputModule = eventSystemObject.GetOrAddComponent<InputSystemUIInputModule>();
+        inputModule.enabled = true;
+        if (!inputModule.actionsAsset)
+        {
+            inputModule.AssignDefaultActions();
+        }
+
+        BaseInputModule[] inputModules = eventSystemObject.GetComponents<BaseInputModule>();
+        for (int i = 0; i < inputModules.Length; i++)
+        {
+            if (inputModules[i] && inputModules[i] != inputModule)
+            {
+                inputModules[i].enabled = false;
+            }
+        }
+
+        for (int i = 0; i < eventSystems.Length; i++)
+        {
+            if (eventSystems[i] && eventSystems[i] != eventSystem)
+            {
+                eventSystems[i].enabled = false;
+            }
+        }
     }
 
     private static void BuildMenu()
@@ -76,6 +120,7 @@ public static class MainMenuBootstrap
         rootRect.offsetMax = Vector2.zero;
 
         Image background = CreatePanel(rootRect, "Background", new Color(0.07f, 0.08f, 0.09f, 1f));
+        background.raycastTarget = false;
         RectTransform backgroundRect = background.rectTransform;
         backgroundRect.anchorMin = Vector2.zero;
         backgroundRect.anchorMax = Vector2.one;

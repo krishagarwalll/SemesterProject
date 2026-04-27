@@ -3,6 +3,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Room : MonoBehaviour
 {
+    private static readonly System.Collections.Generic.List<Room> activeRooms = new();
+
     [SerializeField] private string roomId;
     [SerializeField] private AudioClip musicClip;
     [SerializeField] private Collider2D boundsVolume;
@@ -27,8 +29,22 @@ public class Room : MonoBehaviour
     public float DefaultItemDepth => transform.position.z;
     public float GroundY => DefaultAnchor ? DefaultAnchor.transform.position.y : BoundsVolume ? BoundsVolume.bounds.min.y : transform.position.y;
     public RoomCameraController CameraController => cameraController ? cameraController : cameraController = GetComponentInChildren<RoomCameraController>(true);
+    public static System.Collections.Generic.IReadOnlyList<Room> ActiveRooms => activeRooms;
 
     private RoomAnchor[] Anchors => anchors ??= GetComponentsInChildren<RoomAnchor>(true);
+
+    private void OnEnable()
+    {
+        if (!activeRooms.Contains(this))
+        {
+            activeRooms.Add(this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        activeRooms.Remove(this);
+    }
 
     private void Reset()
     {

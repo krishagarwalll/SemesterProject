@@ -21,8 +21,12 @@ public class CameraFlash : MonoBehaviour
 
     private void Update()
     {
-        cooldownTimer -= Time.deltaTime;
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            return;
+        }
 
+        cooldownTimer -= Time.deltaTime;
         RotateTowardMouse();
 
         if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame && cooldownTimer <= 0f)

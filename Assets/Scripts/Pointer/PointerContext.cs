@@ -126,6 +126,14 @@ public class PointerContext : MonoBehaviour
     {
         ResetFrameState();
         screenPosition = ReadScreenPosition();
+
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            CancelPointerStateForPause();
+            UpdateCursorKind();
+            return;
+        }
+
         ResolveWorldState();
         UpdatePrimaryState();
         UpdateSecondaryState();
@@ -136,6 +144,31 @@ public class PointerContext : MonoBehaviour
         }
 
         UpdateCursorKind();
+    }
+
+    private void CancelPointerStateForPause()
+    {
+        hoverCandidates.Clear();
+        dragCandidates.Clear();
+        SetHoveredTarget(null);
+        clickedTarget = null;
+        secondaryClickedTarget = null;
+        pressedTarget = null;
+        pressedWorldDragTarget = null;
+
+        if (isDragging)
+        {
+            dragEndedThisFrame = true;
+            DragEnded?.Invoke(this);
+        }
+
+        isPrimaryPressed = false;
+        isDragging = false;
+        dragTarget = null;
+        hasWorldPoint = false;
+        isWorldBlocked = false;
+        isPointerOverUi = false;
+        isPointerOverClickableUi = false;
     }
 
     private void ResetFrameState()
@@ -441,8 +474,8 @@ public class PointerContext : MonoBehaviour
             return false;
         }
 
-        InteractionTarget[] targets = FindObjectsByType<InteractionTarget>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        for (int i = 0; i < targets.Length; i++)
+        IReadOnlyList<InteractionTarget> targets = InteractionTarget.ActiveTargets;
+        for (int i = 0; i < targets.Count; i++)
         {
             AddInteractionCandidate(candidates, targets[i], point, dragOnly);
         }
@@ -548,8 +581,8 @@ public class PointerContext : MonoBehaviour
             return null;
         }
 
-        Room[] rooms = FindObjectsByType<Room>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        for (int i = 0; i < rooms.Length; i++)
+        IReadOnlyList<Room> rooms = Room.ActiveRooms;
+        for (int i = 0; i < rooms.Count; i++)
         {
             if (rooms[i] && rooms[i].ContainsPoint(Actor.transform.position))
             {

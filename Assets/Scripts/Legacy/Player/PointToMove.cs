@@ -32,6 +32,17 @@ public class PointToMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            StopAllCoroutines();
+            return;
+        }
+
+        if (Mouse.current == null)
+        {
+            return;
+        }
+
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             var mouse = Mouse.current.position.ReadValue();
