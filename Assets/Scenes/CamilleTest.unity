@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 5531795}
   - component: {fileID: 5531794}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: DialogCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 711708944}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1616261023}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1041,6 +1041,7 @@ MonoBehaviour:
   room: {fileID: 300000402}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &90665986
@@ -1831,6 +1832,7 @@ MonoBehaviour:
   room: {fileID: 300000402}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &145528348
@@ -3703,6 +3705,7 @@ GameObject:
   - component: {fileID: 238138073}
   - component: {fileID: 238138072}
   - component: {fileID: 238138071}
+  - component: {fileID: 238138074}
   m_Layer: 10
   m_Name: Dresser
   m_TagString: Untagged
@@ -3814,6 +3817,7 @@ MonoBehaviour:
   room: {fileID: 300000302}
   hoverCursorKind: 1
   dragCursorKind: 0
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &238138072
@@ -3853,6 +3857,52 @@ MonoBehaviour:
   outlineThickness: 0.37
   spriteHighlightColor: {r: 1, g: 1, b: 1, a: 1}
   spriteHighlightStrength: 0.2
+--- !u!61 &238138074
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238138067}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 9.572749, y: 10.719999}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 9.572749, y: 10.719999}
+  m_EdgeRadius: 0
 --- !u!1 &242117053
 GameObject:
   m_ObjectHideFlags: 0
@@ -4146,7 +4196,7 @@ RectTransform:
   - {fileID: 300000131}
   - {fileID: 300000141}
   - {fileID: 300000151}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1616261023}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5087,11 +5137,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 300000341}
-  - component: {fileID: 300000342}
   - component: {fileID: 910001121}
   - component: {fileID: 300000343}
   - component: {fileID: 300000344}
   - component: {fileID: 910001122}
+  - component: {fileID: 910001123}
+  - component: {fileID: 910001124}
   m_Layer: 12
   m_Name: BedroomDoorPortal
   m_TagString: Untagged
@@ -5108,33 +5159,13 @@ Transform:
   m_GameObject: {fileID: 300000340}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.105, y: -1.45, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.0507, y: -1.4514, z: 0}
+  m_LocalScale: {x: 0.3512493, y: 1.0709715, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1207673780}
   m_Father: {fileID: 300000301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &300000342
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300000340}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 0.5, y: 1.1, z: 0.6}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &300000343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5156,6 +5187,7 @@ MonoBehaviour:
   room: {fileID: 300000302}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &300000344
@@ -5524,6 +5556,7 @@ MonoBehaviour:
   room: {fileID: 300000402}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &300000444
@@ -5683,6 +5716,7 @@ MonoBehaviour:
   room: {fileID: 300000402}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!114 &300000507
@@ -5838,6 +5872,7 @@ MonoBehaviour:
   room: {fileID: 1061360783}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!114 &300000527
@@ -6043,6 +6078,7 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &305237734
@@ -6741,7 +6777,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 324a456fb040d51418145c6c9832d15a, type: 2}
+  - {fileID: 2100000, guid: 8c8b1c65ccaa34742bba4f3d89a8e851, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7160,6 +7196,7 @@ MonoBehaviour:
   room: {fileID: 1061360783}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &390773837
@@ -8244,7 +8281,7 @@ GameObject:
   - component: {fileID: 430214704}
   - component: {fileID: 430214706}
   - component: {fileID: 430214705}
-  m_Layer: 10
+  m_Layer: 3
   m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8311,8 +8348,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 401001002
-  m_SortingLayer: 3
+  m_SortingLayerID: 401001001
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -9051692800306759852, guid: dd020f10fd33e4e998cb6d5812c1b930, type: 3}
@@ -8486,6 +8523,7 @@ GameObject:
   - component: {fileID: 442498863}
   - component: {fileID: 442498862}
   - component: {fileID: 442498861}
+  - component: {fileID: 442498864}
   m_Layer: 10
   m_Name: Box
   m_TagString: Untagged
@@ -8502,8 +8540,8 @@ Transform:
   m_GameObject: {fileID: 442498855}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5137801, y: 0.47652006, z: 0}
-  m_LocalScale: {x: 0.051837154, y: 0.05321636, z: 0.01206711}
+  m_LocalPosition: {x: -0.5138, y: 0.4765, z: 0}
+  m_LocalScale: {x: 0.051832136, y: 0.05321858, z: 0.01206711}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 937545393}
@@ -8664,8 +8702,8 @@ MonoBehaviour:
   outlineMode: 2
   includeInactiveChildren: 1
   autoCreateSpriteOutlines: 1
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
-  outlineThickness: 0.12
+  outlineColor: {r: 0.5137255, g: 0.77724713, b: 1, a: 1}
+  outlineThickness: 0.31
   spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
   spriteHighlightStrength: 0.2
 --- !u!114 &442498862
@@ -8689,6 +8727,7 @@ MonoBehaviour:
   room: {fileID: 0}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &442498863
@@ -8705,10 +8744,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
   spriteRenderer: {fileID: 442498857}
   alphaCutoff: 0.1
-  outlineThickness: 0.12
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
+  outlineThickness: 0.31
+  outlineColor: {r: 0.5137255, g: 0.77724713, b: 1, a: 1}
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
+--- !u!58 &442498864
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442498855}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 4.56131
 --- !u!1 &450514444
 GameObject:
   m_ObjectHideFlags: 0
@@ -12143,7 +12218,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1616261023}
     m_Modifications:
     - target: {fileID: 800850640407614969, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
       propertyPath: m_fontAsset
@@ -12570,6 +12645,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1042786929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &791524109 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1361826212229959246, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+  m_PrefabInstance: {fileID: 734680334}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &795743683
 GameObject:
   m_ObjectHideFlags: 0
@@ -13894,7 +13974,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.01}
-  m_LocalScale: {x: 1.0081521, y: 1.0068572, z: 1}
+  m_LocalScale: {x: 1.0529891, y: 1.0445714, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1638899728}
@@ -13953,7 +14033,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 401001002
   m_SortingLayer: 3
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &888713860
@@ -14296,17 +14376,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.004275456, y: 0.000000059604645}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.116, y: 0.94045216}
+    newSize: {x: 0.116, y: 0.94045216}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 1.1}
+  m_Size: {x: 0.18361798, y: 1.031593}
   m_EdgeRadius: 0
 --- !u!114 &910001122
 MonoBehaviour:
@@ -14320,13 +14400,90 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Outline2D
-  outlineMode: 2
+  outlineMode: 1
   includeInactiveChildren: 1
   autoCreateSpriteOutlines: 1
-  outlineColor: {r: 1, g: 0.5424528, b: 0.82507783, a: 0.95}
-  outlineThickness: 0.33
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineThickness: 0.34
   spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
   spriteHighlightStrength: 0.2
+--- !u!212 &910001123
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000340}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 6741794486925613083, guid: 1b59018bcbb8d724a84691ac68016f33, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.116, y: 0.94045216}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+--- !u!114 &910001124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e742cfc6827db64da95d8abcebd6105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
+  spriteRenderer: {fileID: 910001123}
+  alphaCutoff: 0.1
+  outlineThickness: 0.34
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  localOffset: {x: 0, y: 0, z: 0.01}
+  outlineEnabled: 0
 --- !u!61 &910001131
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14800,7 +14957,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.19463694, y: 0.34063196}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -14810,7 +14967,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.9897976, y: 2.4760733}
   m_EdgeRadius: 0
 --- !u!1 &912998971
 GameObject:
@@ -15405,7 +15562,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.01}
-  m_LocalScale: {x: 1.0131541, y: 1.018405, z: 1}
+  m_LocalScale: {x: 1.0339814, y: 1.047546, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 442498856}
@@ -15586,6 +15743,7 @@ MonoBehaviour:
   room: {fileID: 1042786930}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &947537501
@@ -15742,6 +15900,7 @@ MonoBehaviour:
   room: {fileID: 1042786930}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &952565769
@@ -16129,6 +16288,7 @@ MonoBehaviour:
   room: {fileID: 300000402}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &957101170
@@ -16614,6 +16774,82 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!1 &996187342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 996187343}
+  - component: {fileID: 996187345}
+  - component: {fileID: 996187344}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &996187343
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996187342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1064236794}
+  m_Father: {fileID: 1889188099}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -76.0793, y: -47.5496}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &996187344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996187342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.24056602, g: 0.31023914, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &996187345
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996187342}
+  m_CullTransparentMesh: 1
 --- !u!1 &997049365
 GameObject:
   m_ObjectHideFlags: 0
@@ -17216,6 +17452,81 @@ MonoBehaviour:
   orthographicPadding: 0.25
   orthographicSizeBuffer: {x: 0.5, y: 0.35}
   containmentPadding: 0.08
+--- !u!1 &1064236793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1064236794}
+  - component: {fileID: 1064236796}
+  - component: {fileID: 1064236795}
+  m_Layer: 5
+  m_Name: itemImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1064236794
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064236793}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 996187343}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 21}
+  m_SizeDelta: {x: 274.662, y: 243.611}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1064236795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064236793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -2056237514340031752, guid: 16a112e86aeec4a858bd9bd7362eed10, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1064236796
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064236793}
+  m_CullTransparentMesh: 1
 --- !u!1 &1075319999
 GameObject:
   m_ObjectHideFlags: 0
@@ -19414,6 +19725,96 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196838210}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1207673779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1207673780}
+  - component: {fileID: 1207673782}
+  - component: {fileID: 1207673781}
+  m_Layer: 12
+  m_Name: _SpriteOutlineProxy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1207673780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207673779}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.01}
+  m_LocalScale: {x: 3.9310346, y: 1.3615283, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300000341}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1207673781
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207673779}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1207673782
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207673779}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ef05891516a584629873c7b20ef823f7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1244487285
 GameObject:
   m_ObjectHideFlags: 0
@@ -20489,8 +20890,8 @@ Transform:
   m_GameObject: {fileID: 1308946645}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.52121997, y: 0.27752006, z: 0}
-  m_LocalScale: {x: 0.045422822, y: 0.046631366, z: 0.010573925}
+  m_LocalPosition: {x: 0.5173, y: 0.2813, z: 0}
+  m_LocalScale: {x: 0.053103726, y: 0.054305546, z: 0.010573925}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1510797286}
@@ -20670,6 +21071,7 @@ MonoBehaviour:
   room: {fileID: 0}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &1308946653
@@ -20686,7 +21088,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
   spriteRenderer: {fileID: 1308946647}
   alphaCutoff: 0.1
-  outlineThickness: 0.11
+  outlineThickness: 0.55
   outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
@@ -20706,7 +21108,7 @@ MonoBehaviour:
   includeInactiveChildren: 1
   autoCreateSpriteOutlines: 1
   outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
-  outlineThickness: 0.11
+  outlineThickness: 0.55
   spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
   spriteHighlightStrength: 0.2
 --- !u!1 &1318759006
@@ -22971,7 +23373,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.01}
-  m_LocalScale: {x: 1.0183333, y: 1.0213592, z: 1}
+  m_LocalScale: {x: 1.0916667, y: 1.1067961, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1308946646}
@@ -23349,6 +23751,7 @@ GameObject:
   - component: {fileID: 1559172737}
   - component: {fileID: 1559172736}
   - component: {fileID: 1559172738}
+  - component: {fileID: 1559172739}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -23480,6 +23883,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63e91f8584461449c9428d5df2bf7644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionHoverSystem
+--- !u!114 &1559172739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559172735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209783bc9cfe748269ff95efcc322473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClickInput
+  worldCamera: {fileID: 519420031}
 --- !u!1 &1609484444
 GameObject:
   m_ObjectHideFlags: 0
@@ -23735,8 +24151,44 @@ MonoBehaviour:
   room: {fileID: 1061360783}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+--- !u!1 &1616261022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1616261023}
+  m_Layer: 0
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1616261023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616261022}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.30152, y: -0.42385, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 791524109}
+  - {fileID: 300000101}
+  - {fileID: 5531793}
+  - {fileID: 1889188099}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1624881590
 GameObject:
   m_ObjectHideFlags: 0
@@ -24278,7 +24730,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 401001002
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1295955565587498720, guid: 792af3b3b0bc64444b48e0e10a72d255, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -24332,7 +24784,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.06781411, y: 0.00000047683716}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -24342,7 +24794,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.43, y: 1.09}
+  m_Size: {x: 7.3471446, y: 8.52057}
   m_EdgeRadius: 0
 --- !u!114 &1638899732
 MonoBehaviour:
@@ -24373,7 +24825,7 @@ MonoBehaviour:
   includeInactiveChildren: 1
   autoCreateSpriteOutlines: 1
   outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
-  outlineThickness: 0.06
+  outlineThickness: 0.39
   spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
   spriteHighlightStrength: 0.2
 --- !u!114 &1638899734
@@ -24397,6 +24849,7 @@ MonoBehaviour:
   room: {fileID: 0}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &1638899735
@@ -24412,8 +24865,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
   spriteRenderer: {fileID: 1638899729}
-  alphaCutoff: 0.1
-  outlineThickness: 0.06
+  alphaCutoff: 0.77
+  outlineThickness: 0.39
   outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
@@ -24887,6 +25340,7 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &1663853238
@@ -25211,6 +25665,7 @@ MonoBehaviour:
   room: {fileID: 2132483816}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!1 &1711465749
@@ -26220,6 +26675,7 @@ MonoBehaviour:
   room: {fileID: 158121683}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &1768309860
@@ -27005,6 +27461,7 @@ MonoBehaviour:
   room: {fileID: 0}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!60 &1828462826
@@ -27572,6 +28029,7 @@ GameObject:
   - component: {fileID: 1884244657}
   - component: {fileID: 1884244656}
   - component: {fileID: 1884244655}
+  - component: {fileID: 1884244658}
   m_Layer: 10
   m_Name: Poster
   m_TagString: Untagged
@@ -27702,6 +28160,7 @@ MonoBehaviour:
   room: {fileID: 0}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &1884244657
@@ -27722,6 +28181,52 @@ MonoBehaviour:
   outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
+--- !u!61 &1884244658
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884244651}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.82, y: 3.07}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 3.82, y: 3.07}
+  m_EdgeRadius: 0
 --- !u!1 &1886370833
 GameObject:
   m_ObjectHideFlags: 0
@@ -27852,6 +28357,123 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886370833}
   m_CullTransparentMesh: 1
+--- !u!1 &1889188098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1889188099}
+  - component: {fileID: 1889188102}
+  - component: {fileID: 1889188101}
+  - component: {fileID: 1889188100}
+  - component: {fileID: 1889188103}
+  m_Layer: 5
+  m_Name: InteractPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1889188099
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889188098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 996187343}
+  m_Father: {fileID: 1616261023}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1889188100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889188098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1889188101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889188098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &1889188102
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889188098}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &1889188103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889188098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6021dc9ddc045410098c52b8ce20413d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionPanelUI
+  panelRoot: {fileID: 996187342}
+  itemImage: {fileID: 0}
 --- !u!1 &1915327280
 GameObject:
   m_ObjectHideFlags: 0
@@ -28604,6 +29226,7 @@ MonoBehaviour:
   room: {fileID: 0}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &1947883490
@@ -29630,6 +30253,7 @@ MonoBehaviour:
   room: {fileID: 2132483816}
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &2032927539
@@ -31005,13 +31629,11 @@ SceneRoots:
   - {fileID: 1411538792}
   - {fileID: 1249125097}
   - {fileID: 300000001}
-  - {fileID: 300000101}
   - {fileID: 300000201}
   - {fileID: 300000051}
   - {fileID: 300000251}
-  - {fileID: 734680334}
   - {fileID: 1987614810}
   - {fileID: 944667962}
-  - {fileID: 5531793}
   - {fileID: 1559172737}
   - {fileID: 129612614}
+  - {fileID: 1616261023}

@@ -291,11 +291,16 @@ public class PointClickController : MonoBehaviour
         InteractionContext interactionContext = CreateContext(target);
         if (!target.TryGetPrimaryAction(interactionContext, out InteractionAction action) || !action.Enabled)
         {
+            target.OnClicked(); //  Pops up panel
             HandleNonActionClick(context, target);
             return;
         }
 
         if (!ExecuteAction(target, action))
+        {
+            target.OnClicked();
+        }
+        else
         {
             HandleNonActionClick(context, target);
         }

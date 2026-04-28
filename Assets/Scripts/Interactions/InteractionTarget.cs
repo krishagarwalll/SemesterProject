@@ -21,6 +21,9 @@ public class InteractionTarget : MonoBehaviour
     [SerializeField] private PointerCursorKind hoverCursorKind = PointerCursorKind.Interact;
     [SerializeField] private PointerCursorKind dragCursorKind = PointerCursorKind.Dragging;
 
+    [Header("UI")]
+    [SerializeField] private Sprite itemSprite; //new
+
     private readonly List<InteractionAction> actionBuffer = new();
     private MonoBehaviour[] behaviours;
     private Outline2D outline;
@@ -81,6 +84,13 @@ public class InteractionTarget : MonoBehaviour
         }
 
         wasHovered = hovered;
+    }
+
+    public void OnClicked()
+    {
+        if (itemSprite == null) return;
+
+        InteractionPanelUI.Instance.Toggle(itemSprite);
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)

@@ -322,6 +322,7 @@ public class PointerContext : MonoBehaviour
 
         if (!primaryReleased)
         {
+            //Debug.Log("Clicked target: " + clickedTarget);
             return;
         }
 
