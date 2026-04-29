@@ -970,6 +970,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &90665986
@@ -1677,7 +1680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
   linkedPortal: {fileID: 952565767}
-  spawnPoint: {fileID: 779117931}
+  spawnPoint: {fileID: 1123634828}
   traversalMode: 2
   lockMode: 0
   requiredFlag: 
@@ -1717,6 +1720,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &145528348
@@ -4539,6 +4545,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &300000344
@@ -4869,6 +4878,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &300000444
@@ -5030,6 +5042,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!114 &300000507
@@ -5204,7 +5219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
   linkedPortal: {fileID: 1768309858}
-  spawnPoint: {fileID: 1473660955}
+  spawnPoint: {fileID: 1817088668}
   traversalMode: 2
   lockMode: 0
   requiredFlag: 
@@ -5244,6 +5259,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &305237734
@@ -6240,6 +6258,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &390773837
@@ -7687,6 +7708,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 0}
   hover: {fileID: 0}
 --- !u!1 &456847387
@@ -13609,6 +13633,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &947537501
@@ -13704,7 +13731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
   linkedPortal: {fileID: 145528346}
-  spawnPoint: {fileID: 145528345}
+  spawnPoint: {fileID: 779117931}
   traversalMode: 2
   lockMode: 0
   requiredFlag: 
@@ -13744,6 +13771,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &952565769
@@ -14048,7 +14078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
   linkedPortal: {fileID: 2032927537}
-  spawnPoint: {fileID: 1451249984}
+  spawnPoint: {fileID: 300000431}
   traversalMode: 2
   lockMode: 2
   requiredFlag: 
@@ -14088,6 +14118,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &957101170
@@ -14702,8 +14735,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
-  linkedPortal: {fileID: 0}
-  spawnPoint: {fileID: 987968267}
+  linkedPortal: {fileID: 90665984}
+  spawnPoint: {fileID: 1166723303}
   traversalMode: 2
   lockMode: 0
   requiredFlag: 
@@ -14743,6 +14776,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 0}
   hover: {fileID: 0}
 --- !u!114 &987968274
@@ -15725,6 +15761,7 @@ Transform:
   - {fileID: 300000521}
   - {fileID: 1609484445}
   - {fileID: 1086020715}
+  - {fileID: 1256376548}
   m_Father: {fileID: 300000251}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1061360783
@@ -17557,7 +17594,7 @@ Transform:
   m_GameObject: {fileID: 1166723301}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2, y: -2.116, z: 0}
+  m_LocalPosition: {x: 0.79, y: -2.116, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18226,6 +18263,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1256376547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1256376548}
+  - component: {fileID: 1256376549}
+  m_Layer: 0
+  m_Name: Entry (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1256376548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256376547}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.82, y: -2.02, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1061360782}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1256376549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256376547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0078d07070b43c4cbbf1c763e0b279a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomAnchor
+  anchorId: Entry
 --- !u!1 &1257715875
 GameObject:
   m_ObjectHideFlags: 0
@@ -19013,6 +19095,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 0}
   hover: {fileID: 0}
 --- !u!1 &1313953453
@@ -20290,7 +20375,7 @@ Transform:
   m_GameObject: {fileID: 1451249982}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2, y: -2, z: 0}
+  m_LocalPosition: {x: 1.02, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22146,6 +22231,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 0}
   hover: {fileID: 0}
 --- !u!1 &1653146124
@@ -22486,7 +22574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
   linkedPortal: {fileID: 947537499}
-  spawnPoint: {fileID: 27273965}
+  spawnPoint: {fileID: 997049367}
   traversalMode: 2
   lockMode: 0
   requiredFlag: 
@@ -22526,6 +22614,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &1663853238
@@ -22924,6 +23015,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!114 &1676561950
@@ -23941,7 +24035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
   linkedPortal: {fileID: 947537499}
-  spawnPoint: {fileID: 27273965}
+  spawnPoint: {fileID: 1473660955}
   traversalMode: 2
   lockMode: 0
   requiredFlag: 
@@ -23981,6 +24075,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &1768309860
@@ -26155,6 +26252,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 0}
   hover: {fileID: 0}
 --- !u!1 &1934237179
@@ -26366,6 +26466,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 0}
   hover: {fileID: 0}
 --- !u!1 &1944632967
@@ -27676,6 +27779,9 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &2032927539
