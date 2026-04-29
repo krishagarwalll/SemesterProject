@@ -23,7 +23,10 @@ public class SpriteOutlineProxy : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField, Min(0f)] private float alphaCutoff = 0.1f;
     [SerializeField, Min(0f)] private float outlineThickness = 0.06f;
-    [SerializeField] private Color outlineColor = Color.black;
+
+    //[SerializeField] private Color outlineColor = Color.black; //original 
+    [SerializeField] private Color outlineColor = new(1f, 1f, 1f, 1f); //new
+
     [SerializeField] private Vector3 localOffset = new(0f, 0f, 0.01f);
     [SerializeField] private bool outlineEnabled;
 
@@ -226,9 +229,19 @@ public class SpriteOutlineProxy : MonoBehaviour
         }
 
         PropertyBlock.Clear();
-        PropertyBlock.SetTexture(BaseMapId, Renderer.sprite.texture);
+
+        //PropertyBlock.SetTexture(BaseMapId, Renderer.sprite.texture);
+        //PropertyBlock.SetColor(BaseColorId, outlineColor);
+
+        // REMOVE texture influence so color is pure
+        PropertyBlock.SetTexture(BaseMapId, Texture2D.whiteTexture);
+
+        // Force solid color
         PropertyBlock.SetColor(BaseColorId, outlineColor);
-        PropertyBlock.SetFloat(CutoffId, alphaCutoff);
+
+        //PropertyBlock.SetFloat(CutoffId, alphaCutoff); original
+        PropertyBlock.SetFloat(CutoffId, 0.01f); //new
+
         PropertyBlock.SetFloat(AlphaClipId, 1f);
         MeshRenderer.SetPropertyBlock(PropertyBlock);
     }

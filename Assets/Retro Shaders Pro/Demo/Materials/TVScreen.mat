@@ -36,6 +36,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ColorRampTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -97,6 +101,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints:
+    - _ColorRampMode: 0
     - _PixelSize: 8
     - _RGBPixelSize: 1
     m_Floats:
@@ -105,7 +110,7 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _Brightness: 2
+    - _Brightness: 1.59
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -128,7 +133,7 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _RGBStrength: 0.3
-    - _RandomWear: 0.5
+    - _RandomWear: 0.3
     - _ReceiveShadows: 1
     - _ScanlineStrength: 0.2
     - _ScrollSpeed: 1
@@ -142,7 +147,7 @@ Material:
     - _TrackingJitter: 0.01
     - _TrackingLinesThreshold: 0.9
     - _TrackingSize: 1
-    - _TrackingSpeed: 0.1
+    - _TrackingSpeed: -0.05
     - _TrackingStrength: 2
     - _USE_POINT_FILTER: 1
     - _UsePointFiltering: 0
@@ -156,6 +161,7 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TrackingLinesColor: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &3299530448492878403
 MonoBehaviour:
   m_ObjectHideFlags: 11

@@ -65,6 +65,7 @@ public class PointClickController : MonoBehaviour
     private Vector3 Position => transform.position;
     private bool HasPendingAction => pendingAction.IsValid;
     private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi && activeDrag == null;
+    
     public bool HasActiveInteraction => activeDrag != null || HasPendingAction;
 
     private void Awake()
@@ -272,8 +273,17 @@ public class PointClickController : MonoBehaviour
 
     private void HandlePrimaryClick(PointerContext context)
     {
+        Debug.Log("CLICK RECEIVED");
+
+        Debug.Log("Target: " + context.ClickedTarget);
+        
+        InteractionTarget target = context.ClickedTarget;
+
+        //target.OnClicked();
+
         if (IsPointerBlocked)
         {
+            Debug.Log("Pointer over UI: " + Pointer.IsPointerOverUi);
             return;
         }
 
@@ -287,15 +297,21 @@ public class PointClickController : MonoBehaviour
             return;
         }
 
-        InteractionTarget target = context.ClickedTarget;
+        //InteractionTarget target = context.ClickedTarget;
+
         InteractionContext interactionContext = CreateContext(target);
         if (!target.TryGetPrimaryAction(interactionContext, out InteractionAction action) || !action.Enabled)
         {
+            target.OnClicked(); //  Pops up panel
             HandleNonActionClick(context, target);
             return;
         }
 
         if (!ExecuteAction(target, action))
+        {
+            target.OnClicked();
+        }
+        else
         {
             HandleNonActionClick(context, target);
         }
