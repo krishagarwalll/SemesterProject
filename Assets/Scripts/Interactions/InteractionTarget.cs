@@ -88,23 +88,24 @@ public class InteractionTarget : MonoBehaviour
 
     public void OnClicked()
     {
-        Debug.Log("ON CLICKED CALLED: " + name);
+        Debug.Log("STEP 1 clicked: " + name);
 
         if (itemSprite == null)
         {
-            Debug.LogWarning("No sprite on " + name);
+            Debug.LogError("STEP 2 itemSprite is NULL");
             return;
         }
+
+        Debug.Log("STEP 3 sprite exists");
 
         if (InteractionPanelUI.Instance == null)
         {
-            Debug.LogError("UI Instance is NULL");
+            Debug.LogError("STEP 4 UI Instance is NULL");
             return;
         }
 
-        Debug.Log("CALLING SHOW NOW");
-
-        InteractionPanelUI.Instance.Show(itemSprite); //change to toggle?
+        Debug.Log("STEP 5 calling Show()");
+        InteractionPanelUI.Instance.Show(itemSprite);
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)

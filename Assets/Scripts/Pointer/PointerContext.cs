@@ -135,8 +135,8 @@ public class PointerContext : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Mouse: " + Mouse.current);
-        Debug.Log("PointerContext UPDATE RUNNING");
+        //Debug.Log("Mouse: " + Mouse.current);
+        //Debug.Log("PointerContext UPDATE RUNNING");
 
         ResetFrameState();
         screenPosition = ReadScreenPosition();

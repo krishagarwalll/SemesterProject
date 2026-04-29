@@ -65,6 +65,7 @@ public class PointClickController : MonoBehaviour
     private Vector3 Position => transform.position;
     private bool HasPendingAction => pendingAction.IsValid;
     private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi && activeDrag == null;
+    
     public bool HasActiveInteraction => activeDrag != null || HasPendingAction;
 
     private void Awake()
@@ -282,6 +283,7 @@ public class PointClickController : MonoBehaviour
 
         if (IsPointerBlocked)
         {
+            Debug.Log("Pointer over UI: " + Pointer.IsPointerOverUi);
             return;
         }
 
