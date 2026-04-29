@@ -20,9 +20,7 @@ public class SaveManager : MonoBehaviour
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        storage = Application.platform == RuntimePlatform.WebGLPlayer
-            ? (ISaveStorage)new PlayerPrefsSaveStorage()
-            : new FileSaveStorage();
+        storage = new PlayerPrefsSaveStorage();
         SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
@@ -44,8 +42,15 @@ public class SaveManager : MonoBehaviour
     public void Save()
     {
         SaveData data = GatherCurrentState();
-        storage.Write(SaveKey, JsonUtility.ToJson(data, prettyPrint: true));
-        Debug.Log("[SaveManager] Game saved.");
+        try
+        {
+            storage.Write(SaveKey, JsonUtility.ToJson(data, prettyPrint: true));
+            Debug.Log("[SaveManager] Game saved.");
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogError($"[SaveManager] Failed to save: {exception.Message}");
+        }
     }
 
     public void DeleteSave()
@@ -62,7 +67,17 @@ public class SaveManager : MonoBehaviour
             return;
         }
 
-        SaveData data = JsonUtility.FromJson<SaveData>(json);
+        SaveData data;
+        try
+        {
+            data = JsonUtility.FromJson<SaveData>(json);
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogWarning($"[SaveManager] Save data could not be read: {exception.Message}");
+            return;
+        }
+
         if (data == null || string.IsNullOrWhiteSpace(data.sceneName))
         {
             Debug.LogWarning("[SaveManager] Save data is invalid.");
@@ -90,7 +105,7 @@ public class SaveManager : MonoBehaviour
         RestoreProgression(data);
         RestoreInventory(data);
         RestoreQuests(data);
-        RestorePickedUpWorldItems(data);
+        RestoreWorldItems(data);
     }
 
     // ── Gathering ────────────────────────────────────────────────
@@ -126,10 +141,18 @@ public class SaveManager : MonoBehaviour
         var inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Exclude);
         if (inventory)
         {
-            foreach (var entry in inventory.Entries)
+            for (int i = 0; i < inventory.Entries.Count; i++)
             {
+                var entry = inventory.Entries[i];
                 if (entry.IsOccupied)
-                    data.inventoryItems.Add(new SavedInventoryItem { itemId = entry.Definition.ItemId, quantity = entry.Quantity });
+                {
+                    data.inventoryItems.Add(new SavedInventoryItem
+                    {
+                        slotIndex = i,
+                        itemId = entry.Definition.ItemId,
+                        quantity = entry.Quantity
+                    });
+                }
             }
         }
 
@@ -148,8 +171,27 @@ public class SaveManager : MonoBehaviour
         var worldItems = FindObjectsByType<PickupItem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (var item in worldItems)
         {
-            if (!string.IsNullOrEmpty(item.SaveId) && !item.gameObject.activeSelf)
+            if (string.IsNullOrEmpty(item.SaveId))
+            {
+                continue;
+            }
+
+            bool active = item.gameObject.activeSelf;
+            if (!active)
+            {
                 data.pickedUpWorldItemIds.Add(item.SaveId);
+            }
+
+            Transform root = item.RootTransform ? item.RootTransform : item.transform;
+            data.worldItems.Add(new SavedWorldItem
+            {
+                saveId = item.SaveId,
+                active = active,
+                x = root.position.x,
+                y = root.position.y,
+                z = root.position.z,
+                rotationZ = root.rotation.eulerAngles.z
+            });
         }
 
         return data;
@@ -185,7 +227,16 @@ public class SaveManager : MonoBehaviour
 
         foreach (var saved in data.inventoryItems)
         {
-            if (defLookup.TryGetValue(saved.itemId, out InventoryItemDefinition def))
+                if (!defLookup.TryGetValue(saved.itemId, out InventoryItemDefinition def))
+                {
+                    continue;
+                }
+
+                if (saved.slotIndex >= 0 && inventory.TryStoreExact(saved.slotIndex, def, saved.quantity))
+                {
+                    continue;
+                }
+
                 inventory.TryAdd(def, saved.quantity);
         }
     }
@@ -217,15 +268,47 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private void RestorePickedUpWorldItems(SaveData data)
+    private void RestoreWorldItems(SaveData data)
     {
-        if (data.pickedUpWorldItemIds == null || data.pickedUpWorldItemIds.Count == 0) return;
-        var pickedUpIds = new HashSet<string>(data.pickedUpWorldItemIds);
         var worldItems = FindObjectsByType<PickupItem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        Dictionary<string, SavedWorldItem> savedWorldItems = new();
+        if (data.worldItems != null)
+        {
+            for (int i = 0; i < data.worldItems.Count; i++)
+            {
+                SavedWorldItem saved = data.worldItems[i];
+                if (saved != null && !string.IsNullOrWhiteSpace(saved.saveId))
+                {
+                    savedWorldItems[saved.saveId] = saved;
+                }
+            }
+        }
+
+        HashSet<string> pickedUpIds = data.pickedUpWorldItemIds == null
+            ? new HashSet<string>()
+            : new HashSet<string>(data.pickedUpWorldItemIds);
+
         foreach (var item in worldItems)
         {
-            if (!string.IsNullOrEmpty(item.SaveId) && pickedUpIds.Contains(item.SaveId))
+            if (string.IsNullOrEmpty(item.SaveId))
+            {
+                continue;
+            }
+
+            if (savedWorldItems.TryGetValue(item.SaveId, out SavedWorldItem saved))
+            {
+                item.gameObject.SetActive(saved.active);
+                if (saved.active)
+                {
+                    item.SeedPlacementPose(new Vector3(saved.x, saved.y, saved.z), Quaternion.Euler(0f, 0f, saved.rotationZ));
+                }
+                continue;
+            }
+
+            if (pickedUpIds.Contains(item.SaveId))
+            {
                 item.gameObject.SetActive(false);
+            }
         }
     }
 

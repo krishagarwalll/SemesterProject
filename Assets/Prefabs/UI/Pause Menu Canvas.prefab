@@ -1414,6 +1414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4427116898841187123}
   - component: {fileID: 4466401263871967645}
+  - component: {fileID: 8778697394639791911}
   m_Layer: 5
   m_Name: SettingsMenu
   m_TagString: Untagged
@@ -1454,7 +1455,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SettingsPanel
   musicSlider: {fileID: 0}
   sfxSlider: {fileID: 0}
+  fullscreenToggle: {fileID: 0}
+  qualityDropdown: {fileID: 0}
+  backButton: {fileID: 0}
   graphicsQualityRow: {fileID: 0}
+--- !u!225 &8778697394639791911
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8778697394639791910}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8986374319711357277
 GameObject:
   m_ObjectHideFlags: 0

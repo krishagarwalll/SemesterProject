@@ -877,22 +877,16 @@ public class PointerContext : MonoBehaviour
             return anyActionComparison;
         }
 
-        int normalizedDistanceComparison = right.NormalizedDistanceSqr.CompareTo(left.NormalizedDistanceSqr);
-        if (normalizedDistanceComparison != 0)
-        {
-            return normalizedDistanceComparison;
-        }
-
-        int distanceComparison = right.DistanceSqr.CompareTo(left.DistanceSqr);
-        if (distanceComparison != 0)
-        {
-            return distanceComparison;
-        }
-
         int primaryActionComparison = left.HasEnabledPrimaryAction.CompareTo(right.HasEnabledPrimaryAction);
         if (primaryActionComparison != 0)
         {
             return primaryActionComparison;
+        }
+
+        int priorityComparison = left.SelectionPriority.CompareTo(right.SelectionPriority);
+        if (priorityComparison != 0)
+        {
+            return priorityComparison;
         }
 
         int sortingComparison = left.SortingScore.CompareTo(right.SortingScore);
@@ -901,10 +895,16 @@ public class PointerContext : MonoBehaviour
             return sortingComparison;
         }
 
-        int priorityComparison = left.SelectionPriority.CompareTo(right.SelectionPriority);
-        if (priorityComparison != 0)
+        int distanceComparison = right.DistanceSqr.CompareTo(left.DistanceSqr);
+        if (distanceComparison != 0)
         {
-            return priorityComparison;
+            return distanceComparison;
+        }
+
+        int normalizedDistanceComparison = right.NormalizedDistanceSqr.CompareTo(left.NormalizedDistanceSqr);
+        if (normalizedDistanceComparison != 0)
+        {
+            return normalizedDistanceComparison;
         }
 
         return 0;

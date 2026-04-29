@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections.Generic;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D))]
-public class DragBody2D : MonoBehaviour
+public class DragBody2D : MonoBehaviour, IWorldDraggable, IInteractionActionProvider
 {
     [FieldHeader("References")]
     [SerializeField] private Rigidbody2D body;
@@ -14,9 +15,13 @@ public class DragBody2D : MonoBehaviour
     [SerializeField] private bool useGrabOffset;
     [SerializeField] private bool centerOnPointer = true;
 
+    [FieldHeader("Fallback Interaction")]
+    [SerializeField] private string dragLabel = "Drag";
+    [SerializeField] private string dragGlyphId = "Primary";
+
     [FieldHeader("Idle Physics")]
     [SerializeField, Min(0f)] private float idleGravityScale = 1f;
-    [SerializeField, Min(0f)] private float idleLinearDamping;
+    [SerializeField, Min(0f)] private float idleLinearDamping = 1.25f;
 
     [FieldHeader("Drag Physics")]
     [SerializeField, Min(0f)] private float dragGravityScale = 0f;
@@ -27,16 +32,18 @@ public class DragBody2D : MonoBehaviour
     [SerializeField, Min(0f)] private float maxDragSpeed = 14f;
     [SerializeField] private bool limitVerticalLift = true;
     [SerializeField, Min(0f), ConditionalField(nameof(limitVerticalLift))] private float maxLiftHeight = 1.35f;
-    [SerializeField, Range(0f, 1f)] private float releaseVelocityRetention = 0.92f;
+    [SerializeField, Range(0f, 1f)] private float releaseVelocityRetention = 0.2f;
 
     [FieldHeader("Constraints")]
-    [SerializeField] private bool enforceRoomBoundsWhileIdle = true;
+    [SerializeField] private bool enforceRoomBoundsWhileIdle;
     [SerializeField] private bool freezeRotationWhileIdle = true;
     [SerializeField] private bool freezeRotationWhileDragging = true;
     [SerializeField] private bool ignorePlayerCollisions = true;
+    [SerializeField] private LayerMask blockingLayers;
 
     private Collider2D[] colliders2D;
     private PointerContext activePointer;
+    private readonly List<InteractionAction> providerActionBuffer = new();
     private Vector3 dragOffset;
     private Vector2 lastValidPosition;
     private float lastValidRotation;
@@ -51,6 +58,7 @@ public class DragBody2D : MonoBehaviour
     public Vector3 RootPosition => RootTransform.position;
     public Quaternion RootRotation => RootTransform.rotation;
     public Room OwnerRoom => room ? room : room = GetComponentInParent<Room>(true);
+    public bool SupportsDrag => enabled && gameObject.activeInHierarchy;
     public bool IsDragging => isDragging;
 
     private Rigidbody2D Body => body ? body : body = GetComponent<Rigidbody2D>() ?? gameObject.GetOrAddComponent<Rigidbody2D>();
@@ -70,6 +78,7 @@ public class DragBody2D : MonoBehaviour
         EnsureCollider2D();
         DisableLegacy3DPhysics();
         EnsureBodyDefaults();
+        ApplyStableCollisionMaterial();
         ApplyCollisionIgnores();
         Body.interpolation = RigidbodyInterpolation2D.Interpolate;
         Body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
@@ -78,6 +87,7 @@ public class DragBody2D : MonoBehaviour
 
     private void OnEnable()
     {
+        ApplyStableCollisionMaterial();
         ApplyCollisionIgnores();
     }
 
@@ -139,9 +149,48 @@ public class DragBody2D : MonoBehaviour
         return pointer && enabled && gameObject.activeInHierarchy;
     }
 
+    public void GetActions(in InteractionContext context, List<InteractionAction> actions)
+    {
+        if (HasDedicatedDragProvider(context))
+        {
+            return;
+        }
+
+        actions.Add(new InteractionAction(this, InteractionMode.Drag, dragLabel, dragGlyphId, SupportsDrag, requiresApproach: false));
+    }
+
+    public bool Execute(in InteractionContext context, in InteractionAction action)
+    {
+        if (action.Mode != InteractionMode.Drag || context.Pointer == null)
+        {
+            return false;
+        }
+
+        BeginDrag(context.Pointer);
+        return IsDragging;
+    }
+
     public bool BeginDrag(PointerContext pointer)
     {
         return BeginDrag(pointer, pointer ? pointer.ScreenPosition : Vector2.zero, limitVerticalLift);
+    }
+
+    void IWorldDraggable.BeginDrag(PointerContext pointer)
+    {
+        BeginDrag(pointer);
+    }
+
+    void IWorldDraggable.UpdateDrag(PointerContext pointer)
+    {
+        if (pointer)
+        {
+            UpdateDragScreen(pointer.ScreenPosition);
+        }
+    }
+
+    void IWorldDraggable.EndDrag()
+    {
+        EndDrag(restoreInvalidPose: true);
     }
 
     public bool BeginDrag(PointerContext pointer, Vector2 screenPosition)
@@ -307,12 +356,13 @@ public class DragBody2D : MonoBehaviour
 
     private bool IsPoseValid(Vector2 position)
     {
-        if (!OwnerRoom)
+        Bounds bounds = GetWorldBounds(position);
+        if (OwnerRoom && !OwnerRoom.ContainsBounds(bounds))
         {
-            return true;
+            return false;
         }
 
-        return OwnerRoom.ContainsBounds(GetWorldBounds(position));
+        return !OverlapsBlockingGeometry(position, bounds);
     }
 
     private Bounds GetWorldBounds(Vector2 position)
@@ -381,6 +431,36 @@ public class DragBody2D : MonoBehaviour
         return OwnerRoom.ClampBoundsCenter(candidateBounds, worldPosition.z);
     }
 
+    private Vector2 ResolveBlockedDragTarget(Vector2 targetPosition)
+    {
+        if (IsPoseValid(targetPosition))
+        {
+            return targetPosition;
+        }
+
+        Vector2 current = Body ? Body.position : (Vector2)RootPosition;
+        Vector2 delta = targetPosition - current;
+        if (delta.sqrMagnitude <= 0.0001f)
+        {
+            return current;
+        }
+
+        const int Steps = 8;
+        Vector2 best = current;
+        for (int i = 1; i <= Steps; i++)
+        {
+            Vector2 candidate = current + delta * (i / (float)Steps);
+            if (!IsPoseValid(candidate))
+            {
+                break;
+            }
+
+            best = candidate;
+        }
+
+        return best;
+    }
+
     private void ApplyDragBodyState(bool dragging)
     {
         if (!Body)
@@ -405,6 +485,7 @@ public class DragBody2D : MonoBehaviour
 
     private void ApplyDragForce(Vector2 resolvedTarget)
     {
+        resolvedTarget = ResolveBlockedDragTarget(resolvedTarget);
         Vector2 centerOffset = Body.worldCenterOfMass - Body.position;
         Vector2 centerTarget = resolvedTarget + centerOffset;
         Vector2 displacement = centerTarget - Body.worldCenterOfMass;
@@ -442,7 +523,7 @@ public class DragBody2D : MonoBehaviour
     private Collider2D[] ResolveColliders2D()
     {
         Collider2D[] resolved = GetComponentsInChildren<Collider2D>(true);
-        if (resolved.Length > 0)
+        if (HasSolidCollider(resolved))
         {
             return resolved;
         }
@@ -453,17 +534,44 @@ public class DragBody2D : MonoBehaviour
 
     private void EnsureCollider2D()
     {
-        if (GetComponentsInChildren<Collider2D>(true).Length > 0)
+        Collider2D[] existingColliders = GetComponentsInChildren<Collider2D>(true);
+        if (HasSolidCollider(existingColliders))
         {
+            colliders2D = existingColliders;
+            ApplyStableCollisionMaterial();
             return;
         }
 
         BoxCollider2D box = gameObject.GetOrAddComponent<BoxCollider2D>();
         Bounds bounds = GetFallbackBounds();
         Vector3 localCenter = transform.InverseTransformPoint(bounds.center);
+        Vector3 localMin = transform.InverseTransformPoint(bounds.min);
+        Vector3 localMax = transform.InverseTransformPoint(bounds.max);
         box.offset = new Vector2(localCenter.x, localCenter.y);
-        box.size = new Vector2(Mathf.Max(0.1f, bounds.size.x), Mathf.Max(0.1f, bounds.size.y));
+        box.size = new Vector2(
+            Mathf.Max(0.1f, Mathf.Abs(localMax.x - localMin.x)),
+            Mathf.Max(0.1f, Mathf.Abs(localMax.y - localMin.y)));
         colliders2D = new Collider2D[] { box };
+        ApplyStableCollisionMaterial();
+    }
+
+    private static bool HasSolidCollider(Collider2D[] colliders)
+    {
+        if (colliders == null)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            Collider2D collider = colliders[i];
+            if (collider && collider.enabled && !collider.isTrigger)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void EnsureBodyDefaults()
@@ -473,6 +581,91 @@ public class DragBody2D : MonoBehaviour
         rigidbody2D.gravityScale = idleGravityScale;
         rigidbody2D.linearDamping = idleLinearDamping;
         rigidbody2D.constraints = GetManagedConstraints(dragging: false);
+    }
+
+    private void ApplyStableCollisionMaterial()
+    {
+        Physics2DDefaults.ApplyStableMaterial(Colliders2D);
+    }
+
+    private bool OverlapsBlockingGeometry(Vector2 position, Bounds bounds)
+    {
+        int mask = ResolveBlockingMask();
+        if (mask == 0)
+        {
+            return false;
+        }
+
+        Vector2 delta = position - (Vector2)RootPosition;
+        for (int i = 0; i < Colliders2D.Length; i++)
+        {
+            Collider2D collider = Colliders2D[i];
+            if (!collider.IsUsable() || collider.isTrigger)
+            {
+                continue;
+            }
+
+            Bounds colliderBounds = collider.bounds;
+            colliderBounds.center += (Vector3)delta;
+            Vector2 size = new(
+                Mathf.Max(0.02f, colliderBounds.size.x * 0.92f),
+                Mathf.Max(0.02f, colliderBounds.size.y * 0.92f));
+            Collider2D[] hits = Physics2D.OverlapBoxAll(colliderBounds.center, size, RootRotation.eulerAngles.z, mask);
+            for (int hitIndex = 0; hitIndex < hits.Length; hitIndex++)
+            {
+                Collider2D hit = hits[hitIndex];
+                if (!hit || hit.isTrigger || IsOwnCollider(hit))
+                {
+                    continue;
+                }
+
+                return true;
+            }
+        }
+
+        Vector2 fallbackSize = new(Mathf.Max(0.02f, bounds.size.x * 0.9f), Mathf.Max(0.02f, bounds.size.y * 0.9f));
+        Collider2D[] fallbackHits = Physics2D.OverlapBoxAll(bounds.center, fallbackSize, 0f, mask);
+        for (int i = 0; i < fallbackHits.Length; i++)
+        {
+            Collider2D hit = fallbackHits[i];
+            if (hit && !hit.isTrigger && !IsOwnCollider(hit))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private int ResolveBlockingMask()
+    {
+        int mask = blockingLayers.value;
+        AddLayerToMask("Environment", ref mask);
+        AddLayerToMask("Blocking", ref mask);
+        AddLayerToMask("Wall", ref mask);
+        return mask;
+    }
+
+    private bool IsOwnCollider(Collider2D hit)
+    {
+        for (int i = 0; i < Colliders2D.Length; i++)
+        {
+            if (Colliders2D[i] == hit)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static void AddLayerToMask(string layerName, ref int mask)
+    {
+        int layer = LayerMask.NameToLayer(layerName);
+        if (layer >= 0)
+        {
+            mask |= 1 << layer;
+        }
     }
 
     private RigidbodyConstraints2D GetManagedConstraints(bool dragging)
@@ -548,6 +741,35 @@ public class DragBody2D : MonoBehaviour
                 Physics2D.IgnoreCollision(itemCollider, actorCollider, true);
             }
         }
+    }
+
+    private bool HasDedicatedDragProvider(in InteractionContext context)
+    {
+        MonoBehaviour[] behaviours = GetComponents<MonoBehaviour>();
+        for (int i = 0; i < behaviours.Length; i++)
+        {
+            MonoBehaviour behaviour = behaviours[i];
+            if (!behaviour || behaviour == this)
+            {
+                continue;
+            }
+
+            if (behaviour is IInteractionActionProvider)
+            {
+                providerActionBuffer.Clear();
+                ((IInteractionActionProvider)behaviour).GetActions(context, providerActionBuffer);
+                for (int j = 0; j < providerActionBuffer.Count; j++)
+                {
+                    InteractionAction action = providerActionBuffer[j];
+                    if (action.IsValid && action.Mode == InteractionMode.Drag && action.Enabled)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     private void DisableLegacy3DPhysics()

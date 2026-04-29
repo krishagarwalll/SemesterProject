@@ -8,20 +8,38 @@ public class DialogueController : MonoBehaviour
     public TMP_Text dialogueText, nameText;
     public Transform choiceContainer;
     public GameObject choiceButtonPrefab;
+    [SerializeField] private CanvasGroup dialogueCanvasGroup;
     
     public static DialogueController Instance { get; private set;  }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        dialogueBox.SetActive(false);
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+
+        if (dialogueBox)
+        {
+            dialogueCanvasGroup = dialogueCanvasGroup ? dialogueCanvasGroup : dialogueBox.GetOrAddComponent<CanvasGroup>();
+            ShowDialogue(false);
+        }
     }
 
     public void ShowDialogue(bool show)
     {
+        if (!dialogueBox)
+        {
+            return;
+        }
+
         dialogueBox.SetActive(show);
+        dialogueCanvasGroup = dialogueCanvasGroup ? dialogueCanvasGroup : dialogueBox.GetOrAddComponent<CanvasGroup>();
+        if (dialogueCanvasGroup)
+        {
+            dialogueCanvasGroup.alpha = show ? 1f : 0f;
+            dialogueCanvasGroup.interactable = show;
+            dialogueCanvasGroup.blocksRaycasts = show;
+        }
     }
 
     public void SetNPCInfo(string npcName)

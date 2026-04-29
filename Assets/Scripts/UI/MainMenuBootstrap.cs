@@ -34,6 +34,7 @@ public static class MainMenuBootstrap
         ResetRuntimeStateForMenu();
         EnsureSystems();
         EnsureEventSystem();
+        EnsureCanvasRaycasters();
 
         if (GameObject.Find(RuntimeRootName))
         {
@@ -98,6 +99,17 @@ public static class MainMenuBootstrap
             {
                 eventSystems[i].enabled = false;
             }
+        }
+    }
+
+    private static void EnsureCanvasRaycasters()
+    {
+        Canvas[] canvases = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < canvases.Length; i++)
+        {
+            if (!canvases[i]) continue;
+            GraphicRaycaster raycaster = canvases[i].GetComponent<GraphicRaycaster>() ?? canvases[i].gameObject.AddComponent<GraphicRaycaster>();
+            raycaster.enabled = true;
         }
     }
 

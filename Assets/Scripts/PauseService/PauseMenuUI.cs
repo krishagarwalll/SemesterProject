@@ -25,6 +25,7 @@ public class PauseMenuUI : MonoBehaviour
         WireSettingsPanel();
         WireSettingsButton();
         WireResumeButton();
+        WireSaveButtons();
         WireMainMenuButton();
         WireQuitButton();
     }
@@ -33,8 +34,6 @@ public class PauseMenuUI : MonoBehaviour
     {
         PauseService.PauseChanged -= HandlePauseChanged;
     }
-
-    // ── Navigation ───────────────────────────────────────────────
 
     public void ShowSettings()
     {
@@ -48,87 +47,95 @@ public class PauseMenuUI : MonoBehaviour
         if (pauseMenu) pauseMenu.SetActive(true);
     }
 
-    // ── Wiring ───────────────────────────────────────────────────
-
     private void WireSettingsPanel()
     {
         if (!settingsPanelRoot) return;
         settingsPanel = settingsPanelRoot.GetComponentInChildren<SettingsPanel>(true);
-        if (settingsPanel)
-        {
-            settingsPanel.BackRequested -= ShowMain;
-            settingsPanel.BackRequested += ShowMain;
-        }
+        if (!settingsPanel) return;
+        settingsPanel.BackRequested -= ShowMain;
+        settingsPanel.BackRequested += ShowMain;
     }
 
     private void WireSettingsButton()
     {
-        if (!pauseMenu) return;
-        // Find a Button in the pause menu hierarchy whose GameObject is named "Settings"
-        Button[] buttons = pauseMenu.GetComponentsInChildren<Button>(true);
-        foreach (Button btn in buttons)
-        {
-            if (IsNamed(btn, "Settings", "SettingsButton", "Options", "OptionsButton"))
-            {
-                btn.onClick.RemoveListener(ShowSettings);
-                btn.onClick.AddListener(ShowSettings);
-                break;
-            }
-        }
+        Button button = FindButton("Settings", "SettingsButton", "Options", "OptionsButton");
+        if (!button) return;
+        button.onClick.RemoveListener(ShowSettings);
+        button.onClick.AddListener(ShowSettings);
     }
 
     private void WireResumeButton()
     {
-        if (resumeButton)
-        {
-            resumeButton.onClick.RemoveListener(OnResumeClicked);
-            resumeButton.onClick.AddListener(OnResumeClicked);
-            return;
-        }
-
-        if (!pauseMenu) return;
-        Button[] buttons = pauseMenu.GetComponentsInChildren<Button>(true);
-        foreach (Button btn in buttons)
-        {
-            if (IsNamed(btn, "Resume", "ResumeButton", "Continue", "ContinueButton"))
-            {
-                btn.onClick.RemoveListener(OnResumeClicked);
-                btn.onClick.AddListener(OnResumeClicked);
-                break;
-            }
-        }
+        Button button = resumeButton ? resumeButton : FindButton("Resume", "ResumeButton", "Continue", "ContinueButton");
+        if (!button) return;
+        button.onClick.RemoveListener(OnResumeClicked);
+        button.onClick.AddListener(OnResumeClicked);
     }
 
-    private void OnResumeClicked() => PauseService.Resume();
+    private void WireSaveButtons()
+    {
+        WireSaveButton("Save", OnSaveClicked);
+        WireSaveButton("SaveButton", OnSaveClicked);
+        WireSaveButton("Load", OnLoadClicked, requiresSave: true);
+        WireSaveButton("LoadButton", OnLoadClicked, requiresSave: true);
+        WireSaveButton("DeleteSave", OnDeleteSaveClicked, requiresSave: true);
+        WireSaveButton("DeleteSaveButton", OnDeleteSaveClicked, requiresSave: true);
+    }
+
+    private void WireSaveButton(string name, UnityEngine.Events.UnityAction action, bool requiresSave = false)
+    {
+        Button button = FindButton(name);
+        if (!button) return;
+        button.interactable = !requiresSave || SaveManager.Instance && SaveManager.Instance.HasSave();
+        button.onClick.RemoveListener(action);
+        button.onClick.AddListener(action);
+    }
 
     private void WireMainMenuButton()
     {
-        if (!pauseMenu) return;
-        Button[] buttons = pauseMenu.GetComponentsInChildren<Button>(true);
-        foreach (Button btn in buttons)
-        {
-            if (IsNamed(btn, "MainMenu", "MainMenuButton", "Menu", "MenuButton"))
-            {
-                btn.onClick.RemoveListener(OnMainMenuClicked);
-                btn.onClick.AddListener(OnMainMenuClicked);
-                break;
-            }
-        }
+        Button button = FindButton("MainMenu", "MainMenuButton", "Menu", "MenuButton");
+        if (!button) return;
+        button.onClick.RemoveListener(OnMainMenuClicked);
+        button.onClick.AddListener(OnMainMenuClicked);
     }
 
     private void WireQuitButton()
     {
-        if (!pauseMenu) return;
+        Button button = FindButton("Quit", "QuitButton", "Exit", "ExitButton");
+        if (!button) return;
+        button.onClick.RemoveListener(OnQuitClicked);
+        button.onClick.AddListener(OnQuitClicked);
+    }
+
+    private Button FindButton(params string[] names)
+    {
+        if (!pauseMenu) return null;
         Button[] buttons = pauseMenu.GetComponentsInChildren<Button>(true);
-        foreach (Button btn in buttons)
+        for (int i = 0; i < buttons.Length; i++)
         {
-            if (IsNamed(btn, "Quit", "QuitButton", "Exit", "ExitButton"))
+            if (IsNamed(buttons[i], names))
             {
-                btn.onClick.RemoveListener(OnQuitClicked);
-                btn.onClick.AddListener(OnQuitClicked);
-                break;
+                return buttons[i];
             }
         }
+
+        return null;
+    }
+
+    private void OnResumeClicked() => PauseService.Resume();
+
+    private void OnSaveClicked()
+    {
+        SaveManager.Instance?.Save();
+        WireSaveButtons();
+    }
+
+    private void OnLoadClicked() => SaveManager.Instance?.LoadAndApply();
+
+    private void OnDeleteSaveClicked()
+    {
+        SaveManager.Instance?.DeleteSave();
+        WireSaveButtons();
     }
 
     private void OnMainMenuClicked()
@@ -141,10 +148,7 @@ public class PauseMenuUI : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void OnQuitClicked()
-    {
-        Application.Quit();
-    }
+    private void OnQuitClicked() => Application.Quit();
 
     private void AllowPausedUiInput()
     {
@@ -152,16 +156,13 @@ public class PauseMenuUI : MonoBehaviour
         if (eventSystem)
         {
             PauseService.SetPauseBypass(eventSystem, PauseType.Input | PauseType.UI, true);
+            PauseService.SetPauseBypass(eventSystem.gameObject, PauseType.Input | PauseType.UI, true);
         }
     }
 
     private static bool IsNamed(Component component, params string[] names)
     {
-        if (!component)
-        {
-            return false;
-        }
-
+        if (!component) return false;
         for (int i = 0; i < names.Length; i++)
         {
             if (component.name == names[i])
@@ -178,15 +179,13 @@ public class PauseMenuUI : MonoBehaviour
         bool paused = (pauseTypes & PauseType.Physics) != 0;
         if (!paused)
         {
-            // Hide all panels when unpausing
             if (pauseMenu) pauseMenu.SetActive(false);
             if (settingsPanelRoot) settingsPanelRoot.SetActive(false);
+            return;
         }
-        else
-        {
-            // Show main pause panel (settings may already be open — leave it)
-            if (settingsPanelRoot && settingsPanelRoot.activeSelf) return;
-            if (pauseMenu) pauseMenu.SetActive(true);
-        }
+
+        WireSaveButtons();
+        if (settingsPanelRoot && settingsPanelRoot.activeSelf) return;
+        if (pauseMenu) pauseMenu.SetActive(true);
     }
 }

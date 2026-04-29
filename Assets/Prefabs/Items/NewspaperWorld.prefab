@@ -124,6 +124,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 0}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   audioSource: {fileID: 0}
@@ -145,8 +146,10 @@ MonoBehaviour:
   room: {fileID: 0}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
-  idleLinearDamping: 0
+  idleLinearDamping: 1.25
   dragGravityScale: 0
   dragLinearDamping: 6
   dragResponsiveness: 12
@@ -156,10 +159,13 @@ MonoBehaviour:
   limitVerticalLift: 0
   maxLiftHeight: 0
   releaseVelocityRetention: 0.92
-  enforceRoomBoundsWhileIdle: 1
+  enforceRoomBoundsWhileIdle: 0
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &700100006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +207,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 1.25
   m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}

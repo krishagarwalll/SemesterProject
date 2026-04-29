@@ -12,9 +12,10 @@ public class PoptropicaController : MonoBehaviour
     [SerializeField, Min(0.1f)] private float moveSpeed = 5f;
     [SerializeField, Min(0f)] private float moveAcceleration = 45f;
     [SerializeField, Min(0f)] private float moveDeceleration = 55f;
+    [SerializeField, Min(0.01f)] private float moveEaseDistance = 1.25f;
+    [SerializeField, Range(0.05f, 1f)] private float minimumEaseSpeedFactor = 0.18f;
     [SerializeField, Min(1f)] private float jumpForce = 14f;
     [SerializeField, Min(0.1f)] private float jumpThreshold = 1.2f;
-    [SerializeField, Min(0f)] private float movementDeadzone = 0.25f;
     [SerializeField, Min(0.01f)] private float clickMoveStopDistance = 0.12f;
     [SerializeField] private bool ignorePointerOverUi = true;
 
@@ -22,6 +23,9 @@ public class PoptropicaController : MonoBehaviour
     [SerializeField, Min(0.01f)] private float groundCheckDistance = 0.15f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Vector2 groundCheckOffset = new(0f, -0.4f);
+    [SerializeField, Min(0f)] private float groundSnapDistance = 0.25f;
+    [SerializeField, Min(0f)] private float groundResolveDistance = 0.18f;
+    [SerializeField, Min(0f)] private float maxFallSpeed = 18f;
 
     [Header("Animation")]
     [SerializeField] private string movingParameter = "isMoving";
@@ -36,6 +40,7 @@ public class PoptropicaController : MonoBehaviour
     private Animator animator;
     private Rigidbody2D body2D;
     private Collider2D[] colliders2D;
+    private Collider[] colliders3D;
     private IWorldDraggable activeDrag;
     private PendingAction pendingAction;
     private Vector2 cursorWorldPos;
@@ -53,6 +58,7 @@ public class PoptropicaController : MonoBehaviour
     private Animator Anim => this.ResolveComponent(ref animator, true);
     private Rigidbody2D Body2D => this.ResolveComponent(ref body2D, true);
     private Collider2D[] Colliders2D => colliders2D ??= GetComponentsInChildren<Collider2D>(true);
+    private Collider[] Colliders3D => colliders3D ??= GetComponentsInChildren<Collider>(true);
     private Vector3 Position => transform.position;
     private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi && activeDrag == null;
 
@@ -64,6 +70,7 @@ public class PoptropicaController : MonoBehaviour
         fixedDepth = transform.position.z;
         ApplyRuntimeSetup();
         ConfigureRigidbody();
+        ApplyStableCollisionMaterial();
         ResolveGroundMask();
     }
 
@@ -72,6 +79,7 @@ public class PoptropicaController : MonoBehaviour
         fixedDepth = transform.position.z;
         ApplyRuntimeSetup();
         ConfigureRigidbody();
+        ApplyStableCollisionMaterial();
         ResolveGroundMask();
         SubscribePointerEvents();
         ResetPresentationState();
@@ -84,10 +92,21 @@ public class PoptropicaController : MonoBehaviour
         ResetPresentationState();
     }
 
+    private void OnValidate()
+    {
+        groundSnapDistance = Mathf.Max(0f, groundSnapDistance);
+        groundResolveDistance = Mathf.Max(0f, groundResolveDistance);
+        maxFallSpeed = Mathf.Max(0f, maxFallSpeed);
+        moveEaseDistance = Mathf.Max(0.01f, moveEaseDistance);
+        minimumEaseSpeedFactor = Mathf.Clamp(minimumEaseSpeedFactor, 0.05f, 1f);
+    }
+
     private void Update()
     {
         UpdateCursorWorldPosition();
         RefreshGroundCheck();
+        ResolveGroundPenetration();
+        SnapToGroundIfNeeded();
         RefreshPresentation();
         HandleDragEnd();
         SnapDepth();
@@ -318,7 +337,155 @@ public class PoptropicaController : MonoBehaviour
             return true;
         }
 
-        return false;
+        return TryGet3DGroundHit(origin, distance, mask, out _);
+    }
+
+    private void SnapToGroundIfNeeded()
+    {
+        if (!Body2D || Body2D.linearVelocity.y > 0f)
+        {
+            return;
+        }
+
+        if (maxFallSpeed > 0f && Body2D.linearVelocity.y < -maxFallSpeed)
+        {
+            Body2D.linearVelocity = new Vector2(Body2D.linearVelocity.x, -maxFallSpeed);
+        }
+
+        Bounds bounds = GetGroundProbeBounds();
+        int mask = ResolveGroundMask();
+        if (!TryGetGroundHit(bounds, Mathf.Max(groundCheckDistance, groundSnapDistance), mask, out GroundHit hit))
+        {
+            return;
+        }
+
+        isGrounded = true;
+        float desiredBottom = hit.PointY + 0.01f;
+        float deltaY = desiredBottom - bounds.min.y;
+        if (deltaY <= 0f || deltaY > groundSnapDistance + 0.01f)
+        {
+            return;
+        }
+
+        Body2D.position += Vector2.up * deltaY;
+        Body2D.linearVelocity = new Vector2(Body2D.linearVelocity.x, Mathf.Max(0f, Body2D.linearVelocity.y));
+    }
+
+    private void ResolveGroundPenetration()
+    {
+        if (!Body2D || groundResolveDistance <= 0f || Body2D.linearVelocity.y > 0f)
+        {
+            return;
+        }
+
+        Bounds bounds = GetGroundProbeBounds();
+        Vector2 probeCenter = new(bounds.center.x, bounds.min.y - 0.02f);
+        Vector2 probeSize = new(Mathf.Max(0.08f, bounds.size.x * 0.85f), Mathf.Max(0.06f, groundResolveDistance));
+        Collider2D[] hits = Physics2D.OverlapBoxAll(probeCenter, probeSize, 0f, ResolveGroundMask());
+        float bestTop = float.NegativeInfinity;
+        bool found = false;
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D hit = hits[i];
+            if (!hit || hit.isTrigger || IsOwnCollider(hit))
+            {
+                continue;
+            }
+
+            float top = hit.bounds.max.y;
+            if (top < bounds.min.y - groundResolveDistance || top > bounds.min.y + groundResolveDistance)
+            {
+                continue;
+            }
+
+            if (!found || top > bestTop)
+            {
+                bestTop = top;
+                found = true;
+            }
+        }
+
+        if (!found)
+        {
+            return;
+        }
+
+        float deltaY = bestTop + 0.01f - bounds.min.y;
+        if (deltaY <= 0f || deltaY > groundResolveDistance + 0.01f)
+        {
+            return;
+        }
+
+        Body2D.position += Vector2.up * deltaY;
+        Body2D.linearVelocity = new Vector2(Body2D.linearVelocity.x, Mathf.Max(0f, Body2D.linearVelocity.y));
+        isGrounded = true;
+    }
+
+    private bool TryGetGroundHit(Bounds bounds, float distance, int mask, out GroundHit bestHit)
+    {
+        const float SkinWidth = 0.03f;
+        bestHit = default;
+        float halfWidth = Mathf.Max(0.05f, bounds.extents.x - SkinWidth);
+        float originY = bounds.min.y + SkinWidth;
+        bool found = false;
+        found |= TryGetGroundHit(new Vector2(bounds.center.x - halfWidth, originY), distance, mask, ref bestHit);
+        found |= TryGetGroundHit(new Vector2(bounds.center.x, originY), distance, mask, ref bestHit);
+        found |= TryGetGroundHit(new Vector2(bounds.center.x + halfWidth, originY), distance, mask, ref bestHit);
+        return found;
+    }
+
+    private bool TryGetGroundHit(Vector2 origin, float distance, int mask, ref GroundHit bestHit)
+    {
+        bool found = false;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, Vector2.down, distance, mask);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D hit = hits[i].collider;
+            if (!hit || hit.isTrigger || IsOwnCollider(hit))
+            {
+                continue;
+            }
+
+            if (!found || hits[i].distance < bestHit.Distance)
+            {
+                bestHit = new GroundHit(hits[i].distance, hits[i].point.y);
+                found = true;
+            }
+        }
+
+        if (TryGet3DGroundHit(origin, distance, mask, out GroundHit hit3D)
+            && (!found || hit3D.Distance < bestHit.Distance))
+        {
+            bestHit = hit3D;
+            found = true;
+        }
+
+        return found;
+    }
+
+    private bool TryGet3DGroundHit(Vector2 origin, float distance, int mask, out GroundHit bestHit)
+    {
+        bestHit = default;
+        Ray ray = new(new Vector3(origin.x, origin.y, fixedDepth), Vector3.down);
+        RaycastHit[] hits = Physics.RaycastAll(ray, distance, mask, QueryTriggerInteraction.Ignore);
+        bool found = false;
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider hit = hits[i].collider;
+            if (!hit || hit.isTrigger || IsOwnCollider(hit))
+            {
+                continue;
+            }
+
+            if (!found || hits[i].distance < bestHit.Distance)
+            {
+                bestHit = new GroundHit(hits[i].distance, hits[i].point.y);
+                found = true;
+            }
+        }
+
+        return found;
     }
 
     private bool IsOwnCollider(Collider2D hit)
@@ -334,10 +501,31 @@ public class PoptropicaController : MonoBehaviour
         return false;
     }
 
+    private bool IsOwnCollider(Collider hit)
+    {
+        for (int i = 0; i < Colliders3D.Length; i++)
+        {
+            if (Colliders3D[i] == hit)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void ApplyHorizontalMovement(float targetX)
     {
         float dx = targetX - transform.position.x;
-        float targetVelocity = Mathf.Abs(dx) > movementDeadzone ? Mathf.Sign(dx) * moveSpeed : 0f;
+        float distance = Mathf.Abs(dx);
+        float targetVelocity = 0f;
+        if (distance > clickMoveStopDistance)
+        {
+            float ease = Mathf.InverseLerp(clickMoveStopDistance, Mathf.Max(clickMoveStopDistance + 0.01f, moveEaseDistance), distance);
+            ease = Mathf.SmoothStep(minimumEaseSpeedFactor, 1f, ease);
+            targetVelocity = Mathf.Sign(dx) * moveSpeed * ease;
+        }
+
         if (Body2D)
         {
             float acceleration = Mathf.Abs(targetVelocity) > 0.001f ? moveAcceleration : moveDeceleration;
@@ -523,9 +711,16 @@ public class PoptropicaController : MonoBehaviour
     private void ConfigureRigidbody()
     {
         if (!Body2D) return;
+        Body2D.bodyType = RigidbodyType2D.Dynamic;
         Body2D.gravityScale = 1f;
         Body2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         Body2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        Body2D.interpolation = RigidbodyInterpolation2D.Interpolate;
+    }
+
+    private void ApplyStableCollisionMaterial()
+    {
+        Physics2DDefaults.ApplyStableMaterial(Colliders2D);
     }
 
     private static void AddLayerToMask(string layerName, ref int mask)
@@ -548,5 +743,17 @@ public class PoptropicaController : MonoBehaviour
         public InteractionTarget Target { get; }
         public InteractionAction Action { get; }
         public bool IsValid => Target && Action.IsValid;
+    }
+
+    private readonly struct GroundHit
+    {
+        public GroundHit(float distance, float pointY)
+        {
+            Distance = distance;
+            PointY = pointY;
+        }
+
+        public float Distance { get; }
+        public float PointY { get; }
     }
 }

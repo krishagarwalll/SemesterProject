@@ -264,6 +264,18 @@ public class InventoryTransferController : MonoBehaviour
             return false;
         }
 
+        if (activeRoom.ContentRoot)
+        {
+            root.transform.SetParent(activeRoom.ContentRoot, true);
+        }
+
+        droppedItem.ConfigureWorldItem(entry.Definition, entry.Quantity, activeRoom);
+        if (!TrySeedDirectDropPose(droppedItem, activeRoom))
+        {
+            Destroy(root);
+            return false;
+        }
+
         if (!SceneInventory.TryTakeAt(inventoryIndex, out Inventory.Entry takenEntry, entry.Quantity)
             || takenEntry.Definition != entry.Definition)
         {
@@ -271,14 +283,6 @@ public class InventoryTransferController : MonoBehaviour
             return false;
         }
 
-        if (activeRoom.ContentRoot)
-        {
-            root.transform.SetParent(activeRoom.ContentRoot, true);
-        }
-
-        droppedItem.ConfigureWorldItem(takenEntry.Definition, takenEntry.Quantity, activeRoom);
-        Vector3 dropPosition = ResolveDirectDropPosition(activeRoom);
-        droppedItem.SeedPlacementPose(dropPosition, root.transform.rotation);
         return true;
     }
 
@@ -337,5 +341,59 @@ public class InventoryTransferController : MonoBehaviour
         }
 
         return room.ClampPosition(room.transform.position);
+    }
+
+    private bool TrySeedDirectDropPose(PickupItem item, Room room)
+    {
+        if (!item || !room)
+        {
+            return false;
+        }
+
+        Vector3 origin = ResolveDirectDropPosition(room);
+        if (TrySeedAndValidate(item, origin))
+        {
+            return true;
+        }
+
+        float[] radii = { 0.45f, 0.9f, 1.35f };
+        Vector2[] directions =
+        {
+            Vector2.right,
+            Vector2.left,
+            Vector2.up,
+            Vector2.down,
+            new(1f, 1f),
+            new(-1f, 1f),
+            new(1f, -1f),
+            new(-1f, -1f)
+        };
+
+        for (int radiusIndex = 0; radiusIndex < radii.Length; radiusIndex++)
+        {
+            for (int directionIndex = 0; directionIndex < directions.Length; directionIndex++)
+            {
+                Vector2 direction = directions[directionIndex].normalized;
+                Vector3 candidate = origin + (Vector3)(direction * radii[radiusIndex]);
+                candidate = room.ClampPosition(candidate);
+                if (TrySeedAndValidate(item, candidate))
+                {
+                    return true;
+                }
+            }
+        }
+
+        if (room.DefaultAnchor && TrySeedAndValidate(item, room.ClampPosition(room.DefaultAnchor.transform.position)))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private static bool TrySeedAndValidate(PickupItem item, Vector3 position)
+    {
+        item.SeedPlacementPose(position, item.RootRotation);
+        return item.CanPlaceInRoom();
     }
 }

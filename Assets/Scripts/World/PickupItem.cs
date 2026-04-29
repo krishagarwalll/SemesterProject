@@ -34,7 +34,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     public string SaveId => ResolveSaveId();
     public int Quantity => quantity;
     public Room OwnerRoom => DragBody ? DragBody.OwnerRoom : GetComponentInParent<Room>(true);
-    public bool SupportsDrag => itemDefinition && DragBody && enabled && gameObject.activeInHierarchy;
+    public bool SupportsDrag => DragBody && enabled && gameObject.activeInHierarchy;
     public bool IsDragging => DragBody && DragBody.IsDragging;
     public Transform RootTransform => DragBody ? DragBody.RootTransform : transform;
     public Transform PlacementAnchor => placementAnchor ? placementAnchor : RootTransform;
@@ -66,14 +66,13 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
 
     public void GetActions(in InteractionContext context, List<InteractionAction> actions)
     {
-        if (!itemDefinition)
+        actions.Add(new InteractionAction(this, InteractionMode.Drag, dragLabel, dragGlyphId, SupportsDrag, requiresApproach: false));
+        if (itemDefinition)
         {
-            return;
+            bool canStore = context.Inventory && (!context.Inventory.IsFull || context.Inventory.Contains(itemDefinition));
+            actions.Add(new InteractionAction(this, InteractionMode.Store, storeLabel, storeGlyphId, canStore, requiresApproach: false, priority: -5));
         }
 
-        actions.Add(new InteractionAction(this, InteractionMode.Drag, dragLabel, dragGlyphId, SupportsDrag, requiresApproach: false));
-        bool canStore = context.Inventory && (!context.Inventory.IsFull || context.Inventory.Contains(itemDefinition));
-        actions.Add(new InteractionAction(this, InteractionMode.Store, storeLabel, storeGlyphId, canStore, requiresApproach: false, priority: -5));
         if (!string.IsNullOrWhiteSpace(GetInspectText()))
         {
             actions.Add(new InteractionAction(this, InteractionMode.Inspect, inspectLabel, inspectGlyphId, requiresApproach: false, priority: -10));
@@ -127,7 +126,10 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
             return;
         }
 
-        TransferController?.TryBeginStoreTransfer(this);
+        if (itemDefinition)
+        {
+            TransferController?.TryBeginStoreTransfer(this);
+        }
     }
 
     public void UpdateDrag(PointerContext pointer)

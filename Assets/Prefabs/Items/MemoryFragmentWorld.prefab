@@ -146,7 +146,7 @@ MonoBehaviour:
   useGrabOffset: 1
   centerOnPointer: 1
   idleGravityScale: 1
-  idleLinearDamping: 0
+  idleLinearDamping: 1.25
   dragGravityScale: 0
   dragLinearDamping: 6
   dragResponsiveness: 12
@@ -156,7 +156,7 @@ MonoBehaviour:
   limitVerticalLift: 0
   maxLiftHeight: 0
   releaseVelocityRetention: 0.92
-  enforceRoomBoundsWhileIdle: 1
+  enforceRoomBoundsWhileIdle: 0
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1

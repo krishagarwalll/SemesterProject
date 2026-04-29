@@ -17,8 +17,8 @@ public enum PauseType
 
 public static class PauseService
 {
-    // Gameplay pause keeps UI alive so pause menus and main menus remain clickable.
-    private const PauseType FullGamePause = PauseType.Physics | PauseType.Input | PauseType.Animation | PauseType.Particles | PauseType.Audio;
+    // Gameplay pause keeps UI alive and leaves 2D physics running so grounded bodies keep settling normally.
+    private const PauseType FullGamePause = PauseType.Input | PauseType.Animation | PauseType.Particles | PauseType.Audio;
 
     private static int physicsLocks;
     private static int inputLocks;
@@ -27,8 +27,6 @@ public static class PauseService
     private static int uiLocks;
     private static int audioLocks;
     private static PauseType activePauseTypes;
-
-    private static SimulationMode2D resumePhysics2DSimulationMode = SimulationMode2D.FixedUpdate;
 
     private static readonly Dictionary<int, PauseType> pauseBypassById = new();
     private static readonly Dictionary<int, Animator> pausedAnimatorsById = new();
@@ -107,7 +105,7 @@ public static class PauseService
     public static void Resume()  => Resume(FullGamePause);
     public static void Toggle()
     {
-        if (IsPaused(PauseType.Physics)) Resume(FullGamePause);
+        if ((activePauseTypes & FullGamePause) != 0) Resume(FullGamePause);
         else Pause(FullGamePause);
     }
 
@@ -123,7 +121,6 @@ public static class PauseService
         pausedAnimatorSpeedsById.Clear();
         pausedParticlesById.Clear();
         pausedEventSystemsById.Clear();
-        resumePhysics2DSimulationMode = Physics2D.simulationMode;
         AudioListener.pause = false;
     }
 
@@ -147,10 +144,6 @@ public static class PauseService
 
     private static void ApplyPauseState(PauseType previousPauseTypes, PauseType nextPauseTypes)
     {
-        ApplyPhysicsPause(
-            (previousPauseTypes & PauseType.Physics) != 0,
-            (nextPauseTypes & PauseType.Physics) != 0);
-
         ApplyAnimationPause(
             (previousPauseTypes & PauseType.Animation) != 0,
             (nextPauseTypes & PauseType.Animation) != 0);
@@ -164,20 +157,6 @@ public static class PauseService
             (nextPauseTypes & PauseType.UI) != 0);
 
         AudioListener.pause = (nextPauseTypes & PauseType.Audio) != 0;
-    }
-
-    private static void ApplyPhysicsPause(bool wasPaused, bool isPaused)
-    {
-        if (wasPaused == isPaused) return;
-        if (isPaused)
-        {
-            resumePhysics2DSimulationMode = Physics2D.simulationMode;
-            Physics2D.simulationMode = SimulationMode2D.Script;
-        }
-        else
-        {
-            Physics2D.simulationMode = resumePhysics2DSimulationMode;
-        }
     }
 
     private static void ApplyAnimationPause(bool wasPaused, bool isPaused)
