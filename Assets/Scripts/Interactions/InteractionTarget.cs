@@ -21,8 +21,10 @@ public class InteractionTarget : MonoBehaviour
     [SerializeField] private PointerCursorKind hoverCursorKind = PointerCursorKind.Interact;
     [SerializeField] private PointerCursorKind dragCursorKind = PointerCursorKind.Dragging;
 
-    [Header("UI")]
-    [SerializeField] private Sprite itemSprite; //new
+    [Header("UI")] //panel pop up
+    [SerializeField] private Sprite itemSprite;
+    [SerializeField] private string itemName;
+    [SerializeField] [TextArea(3,6)] private string description; 
 
     private readonly List<InteractionAction> actionBuffer = new();
     private MonoBehaviour[] behaviours;
@@ -88,24 +90,20 @@ public class InteractionTarget : MonoBehaviour
 
     public void OnClicked()
     {
-        Debug.Log("STEP 1 clicked: " + name);
+        Sprite spriteToUse = itemSprite;
 
-        if (itemSprite == null)
+        if (spriteToUse == null)
         {
-            Debug.LogError("STEP 2 itemSprite is NULL");
-            return;
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            if (sr != null)
+                spriteToUse = sr.sprite;
         }
 
-        Debug.Log("STEP 3 sprite exists");
-
-        if (InteractionPanelUI.Instance == null)
-        {
-            Debug.LogError("STEP 4 UI Instance is NULL");
-            return;
-        }
-
-        Debug.Log("STEP 5 calling Show()");
-        InteractionPanelUI.Instance.Show(itemSprite);
+        InteractionPanelUI.Instance.Show(
+            spriteToUse,
+            itemName,
+            description
+        );
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)

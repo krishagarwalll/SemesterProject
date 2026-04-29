@@ -127,6 +127,8 @@ MonoBehaviour:
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
+  itemName: 
+  description: 
   audioSource: {fileID: 0}
   hover: {fileID: 0}
 --- !u!114 &700100005
