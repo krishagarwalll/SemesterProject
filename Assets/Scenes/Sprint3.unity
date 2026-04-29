@@ -10718,7 +10718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 300000251}
   m_Layer: 0
-  m_Name: Old Rooms
+  m_Name: Room Sprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10822,7 +10822,7 @@ GameObject:
   - component: {fileID: 300000401}
   - component: {fileID: 300000402}
   m_Layer: 0
-  m_Name: HallwayRoom
+  m_Name: OldHallwayRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11001,11 +11001,11 @@ Transform:
   m_GameObject: {fileID: 300000520}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.263, y: -10.358, z: 0}
+  m_LocalPosition: {x: 5.593, y: -1.8609991, z: 0}
   m_LocalScale: {x: 0.33, y: 0.33, z: 1.8333334}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1061360782}
+  m_Father: {fileID: 331021157}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &300000522
 MeshFilter:
@@ -12033,6 +12033,7 @@ Transform:
   - {fileID: 1929507755}
   - {fileID: 570977943}
   - {fileID: 1388607720}
+  - {fileID: 300000521}
   - {fileID: 1787433926}
   - {fileID: 1428877839}
   - {fileID: 1813352869}
@@ -41447,7 +41448,7 @@ GameObject:
   - component: {fileID: 1061360782}
   - component: {fileID: 1061360783}
   m_Layer: 0
-  m_Name: Kitchen
+  m_Name: OldKitchen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41481,7 +41482,6 @@ Transform:
   - {fileID: 76845990}
   - {fileID: 1166723303}
   - {fileID: 390773834}
-  - {fileID: 300000521}
   - {fileID: 844751949}
   m_Father: {fileID: 300000251}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -56342,7 +56342,7 @@ Transform:
   m_GameObject: {fileID: 1676561940}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.44, y: -16.665, z: 0}
+  m_LocalPosition: {x: 17.6, y: 7.54, z: 0}
   m_LocalScale: {x: 0.18, y: 0.18, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56386,7 +56386,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.49, y: 0.95}
+    oldSize: {x: 0.73, y: 0.794}
     newSize: {x: 1.49, y: 0.95}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -56435,7 +56435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragBody2D
   body: {fileID: 1676561943}
   rootTransform: {fileID: 1676561941}
-  room: {fileID: 2132483816}
+  room: {fileID: 2009901047}
   useGrabOffset: 1
   centerOnPointer: 1
   dragLabel: Drag
@@ -56475,7 +56475,7 @@ MonoBehaviour:
   saveId: 5b054f4cfc624316a010f624dab12fb1
   dragBody: {fileID: 1676561944}
   placementAnchor: {fileID: 0}
-  transferController: {fileID: 0}
+  transferController: {fileID: 1633005344}
   dragLabel: Drag
   storeLabel: Store
   inspectLabel: Inspect
@@ -56532,7 +56532,7 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8272045637266883246, guid: 3d9c653a4082e4830bbda17bb87a3440, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 125ece96188968d4ca492daaa4355bb6, type: 3}
   m_Color: {r: 0.4051166, g: 0.40129942, b: 0.509434, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -56568,7 +56568,7 @@ MonoBehaviour:
   useInteractionRadiusOverride: 0
   interactionRadiusOverride: 1.25
   selectionPriority: 0
-  room: {fileID: 2132483816}
+  room: {fileID: 2009901047}
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
@@ -72731,7 +72731,7 @@ GameObject:
   - component: {fileID: 2132483815}
   - component: {fileID: 2132483816}
   m_Layer: 0
-  m_Name: Garage
+  m_Name: OldGarage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
