@@ -10991,7 +10991,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &300000521
 Transform:
   m_ObjectHideFlags: 0
@@ -11001,7 +11001,7 @@ Transform:
   m_GameObject: {fileID: 300000520}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.82, y: -10.358, z: 0}
+  m_LocalPosition: {x: 3.263, y: -10.358, z: 0}
   m_LocalScale: {x: 0.33, y: 0.33, z: 1.8333334}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -11092,14 +11092,14 @@ MonoBehaviour:
   useInteractionRadiusOverride: 0
   interactionRadiusOverride: 1.25
   selectionPriority: 0
-  room: {fileID: 1061360783}
+  room: {fileID: 331021158}
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 21300000, guid: 125ece96188968d4ca492daaa4355bb6, type: 3}
   itemName: 
   description: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!114 &300000527
 MonoBehaviour:
@@ -11118,7 +11118,7 @@ MonoBehaviour:
   saveId: 646dc5d338c94474ab3807f4578a2ff9
   dragBody: {fileID: 910001301}
   placementAnchor: {fileID: 0}
-  transferController: {fileID: 0}
+  transferController: {fileID: 1633005344}
   dragLabel: Drag
   storeLabel: Store
   inspectLabel: Inspect
@@ -34393,7 +34393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DragBody2D
   body: {fileID: 910001302}
   rootTransform: {fileID: 300000521}
-  room: {fileID: 1061360783}
+  room: {fileID: 331021158}
   useGrabOffset: 1
   centerOnPointer: 1
   dragLabel: Drag
@@ -34409,7 +34409,7 @@ MonoBehaviour:
   limitVerticalLift: 0
   maxLiftHeight: 0
   releaseVelocityRetention: 0.92
-  enforceRoomBoundsWhileIdle: 1
+  enforceRoomBoundsWhileIdle: 0
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
