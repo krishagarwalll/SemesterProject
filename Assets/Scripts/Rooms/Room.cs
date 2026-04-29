@@ -3,7 +3,10 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Room : MonoBehaviour
 {
+    private static readonly System.Collections.Generic.List<Room> activeRooms = new();
+
     [SerializeField] private string roomId;
+    [SerializeField] private AudioClip musicClip;
     [SerializeField] private Collider2D boundsVolume;
     [SerializeField] private RoomAnchor defaultAnchor;
     [SerializeField] private Transform contentRoot;
@@ -17,6 +20,7 @@ public class Room : MonoBehaviour
     private RoomCameraController cameraController;
 
     public string RoomId => string.IsNullOrWhiteSpace(roomId) ? name : roomId;
+    public AudioClip MusicClip => musicClip;
     public Collider2D BoundsVolume => boundsVolume ? boundsVolume : boundsVolume = GetComponentInChildren<Collider2D>(true);
     public RoomAnchor DefaultAnchor => defaultAnchor ? defaultAnchor : defaultAnchor = GetComponentInChildren<RoomAnchor>(true);
     public Transform ContentRoot => contentRoot ? contentRoot : contentRoot = transform;
@@ -25,8 +29,22 @@ public class Room : MonoBehaviour
     public float DefaultItemDepth => transform.position.z;
     public float GroundY => DefaultAnchor ? DefaultAnchor.transform.position.y : BoundsVolume ? BoundsVolume.bounds.min.y : transform.position.y;
     public RoomCameraController CameraController => cameraController ? cameraController : cameraController = GetComponentInChildren<RoomCameraController>(true);
+    public static System.Collections.Generic.IReadOnlyList<Room> ActiveRooms => activeRooms;
 
     private RoomAnchor[] Anchors => anchors ??= GetComponentsInChildren<RoomAnchor>(true);
+
+    private void OnEnable()
+    {
+        if (!activeRooms.Contains(this))
+        {
+            activeRooms.Add(this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        activeRooms.Remove(this);
+    }
 
     private void Reset()
     {

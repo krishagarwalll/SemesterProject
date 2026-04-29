@@ -16,6 +16,7 @@ public class PuzzlePiece : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (PauseService.IsGameplayInputPaused(this)) return;
         if (!drag.CanStartDrag()) return;
 
         isDragging = true;
@@ -24,6 +25,12 @@ public class PuzzlePiece : MonoBehaviour
 
     void OnMouseDrag()
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            CancelDrag();
+            return;
+        }
+
         if (!isDragging) return;
 
         drag.UpdateDrag(GetMouseWorld());
@@ -35,6 +42,19 @@ public class PuzzlePiece : MonoBehaviour
 
         isDragging = false;
         drag.CompleteDrag();
+    }
+
+    private void OnDisable()
+    {
+        CancelDrag();
+    }
+
+    private void CancelDrag()
+    {
+        if (!isDragging) return;
+
+        isDragging = false;
+        drag.CancelDrag();
     }
 
     Vector3 GetMouseWorld()

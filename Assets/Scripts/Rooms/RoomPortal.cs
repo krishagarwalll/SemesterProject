@@ -72,11 +72,6 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
         string label = effectivelyUnlocked ? enterLabel : lockedLabel;
         actions.Add(new InteractionAction(this, InteractionMode.Primary, label, primaryGlyphId, effectivelyUnlocked && canTraverse));
 
-        if (!unlocked && lockMode == PortalLockMode.RequiredItem && context.SelectedItem && requiredItem == context.SelectedItem)
-        {
-            actions.Add(new InteractionAction(this, InteractionMode.UseSelectedItem, enterLabel, primaryGlyphId, canTraverse, requiresApproach: false, priority: 10));
-        }
-
         string inspect = GetInspectText(effectivelyUnlocked);
         if (!string.IsNullOrWhiteSpace(inspect))
         {
@@ -113,43 +108,10 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
                     return false;
                 }
 
-                //return TransitionService && TransitionService.TryTraverse(this, fadeDuration);
-                {
-                    bool success = TransitionService && TransitionService.TryTraverse(this, fadeDuration);
+                bool traverseSuccess = TransitionService && TransitionService.TryTraverse(this, fadeDuration);
+                if (traverseSuccess) PlayEnterSound();
+                return traverseSuccess;
 
-                    if (success)
-                    {
-                        PlayEnterSound();
-                    }
-
-                    return success;
-                }
-
-
-
-            case InteractionMode.UseSelectedItem:
-                if (lockMode != PortalLockMode.RequiredItem || context.SelectedItem != requiredItem || !CanTraverseFromThisSide || !linkedPortal || !linkedPortal.CanReceiveTraversal)
-                {
-                    return false;
-                }
-
-                if (consumeRequiredItem && context.Inventory)
-                {
-                    context.Inventory.TryRemove(requiredItem);
-                }
-
-                unlockedByItem = true;
-                //return TransitionService && TransitionService.TryTraverse(this, fadeDuration);
-                {
-                    bool success = TransitionService && TransitionService.TryTraverse(this, fadeDuration);
-
-                    if (success)
-                    {
-                        PlayEnterSound();
-                    }
-
-                    return success;
-                }
 
 
             case InteractionMode.Inspect:

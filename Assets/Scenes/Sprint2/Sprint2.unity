@@ -589,28 +589,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 228908238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b6cf1600a3be3448c72401eac399ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 432110c542b4f7e4a885d32ffdee5dbb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PointClickController
-  moveSpeed: 4
-  moveAcceleration: 18
-  moveDeceleration: 24
-  useNavMeshAgent: 1
-  navMeshSampleDistance: 2
-  navMeshSnapDistance: 3
-  navArrivalSlowdownDistance: 0.9
-  navAccelerationScale: 0.65
-  navDecelerationScale: 0.85
-  walkableLayers:
-    serializedVersion: 2
-    m_Bits: 64
+  m_EditorClassIdentifier: Assembly-CSharp::PoptropicaController
+  moveSpeed: 2
+  moveAcceleration: 30
+  moveDeceleration: 40
+  jumpForce: 5
+  jumpThreshold: 2
+  clickMoveStopDistance: 0.12
   ignorePointerOverUi: 1
-  destinationReachedThreshold: 0.05
-  groundedPositionOffset: 0
+  groundCheckDistance: 0.15
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 320
+  groundCheckOffset: {x: 0, y: -0.4}
+  groundSnapDistance: 0.25
+  groundResolveDistance: 0.18
+  maxFallSpeed: 18
   movingParameter: isMoving
   horizontalSpeedParameter: moveX
   verticalSpeedParameter: moveY
-  movingThreshold: 0.05
   animationSmoothing: 10
   flipThreshold: 0.05
 --- !u!195 &228908242
@@ -620,7 +619,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228908238}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 4
@@ -4561,14 +4560,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228908238}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -4578,7 +4577,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &910000102
 CapsuleCollider2D:
@@ -4877,7 +4876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910001151}
   - component: {fileID: 910001152}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: BedroomPhysicsFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4955,7 +4954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910001161}
   - component: {fileID: 910001162}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: HallwayPhysicsFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5041,7 +5040,7 @@ MonoBehaviour:
   useGrabOffset: 1
   centerOnPointer: 1
   idleGravityScale: 1
-  idleLinearDamping: 0
+  idleLinearDamping: 1.25
   dragGravityScale: 0.15
   dragLinearDamping: 6
   dragResponsiveness: 18
@@ -5051,7 +5050,7 @@ MonoBehaviour:
   limitVerticalLift: 0
   maxLiftHeight: 0
   releaseVelocityRetention: 0.92
-  enforceRoomBoundsWhileIdle: 1
+  enforceRoomBoundsWhileIdle: 0
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
@@ -5146,7 +5145,7 @@ MonoBehaviour:
   useGrabOffset: 1
   centerOnPointer: 1
   idleGravityScale: 1
-  idleLinearDamping: 0
+  idleLinearDamping: 1.25
   dragGravityScale: 0.15
   dragLinearDamping: 6
   dragResponsiveness: 18
@@ -5156,7 +5155,7 @@ MonoBehaviour:
   limitVerticalLift: 0
   maxLiftHeight: 0
   releaseVelocityRetention: 0.92
-  enforceRoomBoundsWhileIdle: 1
+  enforceRoomBoundsWhileIdle: 0
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
@@ -5251,7 +5250,7 @@ MonoBehaviour:
   useGrabOffset: 1
   centerOnPointer: 1
   idleGravityScale: 1
-  idleLinearDamping: 0
+  idleLinearDamping: 1.25
   dragGravityScale: 0.15
   dragLinearDamping: 6
   dragResponsiveness: 14
@@ -5261,7 +5260,7 @@ MonoBehaviour:
   limitVerticalLift: 1
   maxLiftHeight: 1.35
   releaseVelocityRetention: 0.92
-  enforceRoomBoundsWhileIdle: 1
+  enforceRoomBoundsWhileIdle: 0
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
@@ -6085,6 +6084,7 @@ GameObject:
   - component: {fileID: 1158331752}
   - component: {fileID: 1158331751}
   - component: {fileID: 1158331750}
+  - component: {fileID: 930200000}
   m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
@@ -6101,8 +6101,8 @@ Transform:
   m_GameObject: {fileID: 1158331748}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0.5}
-  m_LocalScale: {x: 0.9, y: 1, z: 0.4}
+  m_LocalPosition: {x: 0, y: -2.1, z: 0.5}
+  m_LocalScale: {x: 9, y: 0.2, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 910001051}
@@ -6128,7 +6128,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1158331751
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6185,7 +6185,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158331748}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &1249125094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7014,7 +7014,7 @@ GameObject:
   - component: {fileID: 1761151674}
   - component: {fileID: 1761151673}
   - component: {fileID: 1761151672}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Back Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8242,3 +8242,50 @@ SceneRoots:
   - {fileID: 300000251}
   - {fileID: 734680334}
   - {fileID: 1987614810}
+
+--- !u!61 &930200000
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158331748}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

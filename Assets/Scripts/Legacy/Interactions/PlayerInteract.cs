@@ -7,6 +7,11 @@ public class PlayerInteract : MonoBehaviour
 {
     private void Update()
     {
+        if (PauseService.IsGameplayInputPaused(this) || Keyboard.current == null)
+        {
+            return;
+        }
+
         if (Keyboard.current.eKey.wasPressedThisFrame) 
         {
             IInteractable interactable = GetInteractableObject();

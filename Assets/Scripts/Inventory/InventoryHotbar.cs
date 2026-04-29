@@ -22,7 +22,6 @@ public class InventoryHotbar : MonoBehaviour
 
     [SerializeField] private Vector2 slotSize = new(88f, 88f);
     [SerializeField] private Color slotColor = new(0.14f, 0.14f, 0.16f, 0.92f);
-    [SerializeField] private Color selectedSlotColor = new(0.85f, 0.72f, 0.37f, 0.98f);
     [SerializeField] private Color emptySlotColor = new(0.08f, 0.08f, 0.09f, 0.7f);
 
     private readonly List<InventoryHotbarSlot> slots = new();
@@ -116,19 +115,21 @@ public class InventoryHotbar : MonoBehaviour
 
     public void HandleSlotClick(int slotIndex)
     {
-        HideContextMenu();
-        if (!SceneInventory)
-        {
-            return;
-        }
+        // Left-click opens the context menu at the slot centre (same as right-click)
+        if (!SceneInventory || !SceneInventory.TryGetEntry(slotIndex, out _)) return;
+        HandleSlotSecondaryClick(slotIndex, GetSlotScreenCenter(slotIndex));
+    }
 
-        if (!SceneInventory.TryGetEntry(slotIndex, out _))
-        {
-            SceneInventory.ClearSelection();
-            return;
-        }
-
-        SceneInventory.Select(slotIndex);
+    private Vector2 GetSlotScreenCenter(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Count || !slots[slotIndex]) return Vector2.zero;
+        RectTransform slotRect = slots[slotIndex].transform as RectTransform;
+        if (!slotRect) return Vector2.zero;
+        Vector3[] corners = new Vector3[4];
+        slotRect.GetWorldCorners(corners);
+        Vector3 center = (corners[0] + corners[2]) * 0.5f;
+        Camera cam = GetEventCamera();
+        return cam ? cam.WorldToScreenPoint(center) : RectTransformUtility.WorldToScreenPoint(null, center);
     }
 
     public void HandleSlotSecondaryClick(int slotIndex, Vector2 screenPosition)
@@ -263,15 +264,7 @@ public class InventoryHotbar : MonoBehaviour
                 {
                     SceneInventory.Move(dragSourceIndex, slotIndex);
                 }
-                else if (SceneInventory.TryGetEntry(dragSourceIndex, out _))
-                {
-                    SceneInventory.Select(dragSourceIndex, toggle: false);
                 }
-            }
-            else if (SceneInventory.TryGetEntry(dragSourceIndex, out _))
-            {
-                SceneInventory.Select(dragSourceIndex, toggle: false);
-            }
         }
 
         dragSourceIndex = -1;
@@ -382,8 +375,7 @@ public class InventoryHotbar : MonoBehaviour
         {
             Inventory.Entry entry = default;
             bool hasEntry = currentInventory && currentInventory.TryGetEntry(i, out entry);
-            bool selected = currentInventory && currentInventory.SelectedIndex == i;
-            slots[i].Bind(this, i, entry, hasEntry, selected, slotColor, selectedSlotColor, emptySlotColor);
+            slots[i].Bind(this, i, entry, hasEntry, slotColor, emptySlotColor);
         }
     }
 

@@ -4,6 +4,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class InteractionTarget : MonoBehaviour
 {
+    private static readonly List<InteractionTarget> activeTargets = new();
+
     [FieldHeader("Anchors")]
     [SerializeField] private Transform interactionPoint;
     [SerializeField] private Transform approachPoint;
@@ -16,10 +18,16 @@ public class InteractionTarget : MonoBehaviour
     [FieldHeader("Selection")]
     [SerializeField] private int selectionPriority;
     [SerializeField] private Room room;
+    [SerializeField] private bool autoCreateOutline = true;
 
     [FieldHeader("Pointer")]
     [SerializeField] private PointerCursorKind hoverCursorKind = PointerCursorKind.Interact;
     [SerializeField] private PointerCursorKind dragCursorKind = PointerCursorKind.Dragging;
+
+    [Header("UI")] //panel pop up
+    [SerializeField] private Sprite itemSprite;
+    [SerializeField] private string itemName;
+    [SerializeField] [TextArea(3,6)] private string description; 
 
     private readonly List<InteractionAction> actionBuffer = new();
     private MonoBehaviour[] behaviours;
@@ -49,6 +57,23 @@ public class InteractionTarget : MonoBehaviour
 
     private bool wasHovered;
 
+    public static IReadOnlyList<InteractionTarget> ActiveTargets => activeTargets;
+
+    private void OnEnable()
+    {
+        EnsureOutline();
+        if (!activeTargets.Contains(this))
+        {
+            activeTargets.Add(this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        activeTargets.Remove(this);
+        SetHovered(false);
+    }
+
     private void OnValidate()
     {
         if (!interactionPoint)
@@ -63,6 +88,7 @@ public class InteractionTarget : MonoBehaviour
         colliders2D = null;
         colliders3D = null;
         renderers = null;
+        EnsureOutline();
     }
 
     // public void SetHovered(bool hovered)
@@ -71,8 +97,9 @@ public class InteractionTarget : MonoBehaviour
     //     audioSource.PlayOneShot(hover);
     // }
 
-        public void SetHovered(bool hovered)
+    public void SetHovered(bool hovered)
     {
+        EnsureOutline();
         Outline?.SetHighlighted(hovered);
 
         if (hovered && !wasHovered && hover != null && audioSource != null)
@@ -81,6 +108,24 @@ public class InteractionTarget : MonoBehaviour
         }
 
         wasHovered = hovered;
+    }
+
+    public void OnClicked()
+    {
+        Sprite spriteToUse = itemSprite;
+
+        if (spriteToUse == null)
+        {
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            if (sr != null)
+                spriteToUse = sr.sprite;
+        }
+
+        InteractionPanelUI.Instance.Show(
+            spriteToUse,
+            itemName,
+            description
+        );
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)
@@ -204,13 +249,28 @@ public class InteractionTarget : MonoBehaviour
     public bool TryGetPreferredAction(in InteractionContext context, out InteractionAction action)
     {
         GetActions(context, actionBuffer);
-        action = default;
-        if (context.SelectedItem && TryGetBestAction(InteractionMode.UseSelectedItem, out action))
+        if (TryGetBestAction(InteractionMode.Primary, out action) && action.Enabled)
         {
             return true;
         }
 
-        return TryGetBestAction(InteractionMode.Primary, out action);
+        if (TryGetBestAction(InteractionMode.Drag, out action) && action.Enabled)
+        {
+            return true;
+        }
+
+        if (TryGetBestAction(InteractionMode.Store, out action) && action.Enabled)
+        {
+            return true;
+        }
+
+        if (TryGetBestAction(InteractionMode.Inspect, out action) && action.Enabled)
+        {
+            return true;
+        }
+
+        action = default;
+        return false;
     }
 
     public bool TryGetPrimaryAction(in InteractionContext context, out InteractionAction action)
@@ -220,18 +280,7 @@ public class InteractionTarget : MonoBehaviour
 
     public bool TryGetPromptAction(in InteractionContext context, out InteractionAction action)
     {
-        if (TryGetPrimaryAction(context, out action) && action.Enabled)
-        {
-            return true;
-        }
-
-        if (TryGetAction(context, InteractionMode.Drag, out action) && action.Enabled)
-        {
-            return true;
-        }
-
-        action = default;
-        return false;
+        return TryGetPrimaryAction(context, out action);
     }
 
     public bool TryGetAction(in InteractionContext context, InteractionMode mode, out InteractionAction action)
@@ -325,6 +374,20 @@ public class InteractionTarget : MonoBehaviour
     }
 
     private int GetSuggestedSelectionPriority() => 0;
+
+    private void EnsureOutline()
+    {
+        if (outline || !gameObject || !gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        outline = GetComponentInChildren<Outline2D>(true);
+        if (!outline && autoCreateOutline && GetComponentInChildren<Renderer>(true))
+        {
+            outline = gameObject.AddComponent<Outline2D>();
+        }
+    }
 
     private InteractionDistancePreset GetEffectiveDistancePreset()
     {

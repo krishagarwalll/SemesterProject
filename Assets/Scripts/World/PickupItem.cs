@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(InteractionTarget))]
@@ -10,6 +12,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     [FieldHeader("Item")]
     [SerializeField] private InventoryItemDefinition itemDefinition;
     [SerializeField, Min(1)] private int quantity = 1;
+    [SerializeField] private string saveId;
 
     [FieldHeader("References")]
     [SerializeField] private DragBody2D dragBody;
@@ -28,9 +31,10 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     [SerializeField, TextArea] private string inspectText;
 
     public InventoryItemDefinition ItemDefinition => itemDefinition;
+    public string SaveId => ResolveSaveId();
     public int Quantity => quantity;
     public Room OwnerRoom => DragBody ? DragBody.OwnerRoom : GetComponentInParent<Room>(true);
-    public bool SupportsDrag => itemDefinition && DragBody && enabled && gameObject.activeInHierarchy;
+    public bool SupportsDrag => DragBody && enabled && gameObject.activeInHierarchy;
     public bool IsDragging => DragBody && DragBody.IsDragging;
     public Transform RootTransform => DragBody ? DragBody.RootTransform : transform;
     public Transform PlacementAnchor => placementAnchor ? placementAnchor : RootTransform;
@@ -49,25 +53,26 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     {
         dragBody = GetComponent<DragBody2D>() ?? gameObject.GetOrAddComponent<DragBody2D>();
         placementAnchor = transform;
+        EnsureSerializedSaveId();
         ApplyRuntimeSetup();
     }
 
     private void OnValidate()
     {
         quantity = Mathf.Max(1, quantity);
+        EnsureSerializedSaveId();
         ApplyRuntimeSetup();
     }
 
     public void GetActions(in InteractionContext context, List<InteractionAction> actions)
     {
-        if (!itemDefinition)
+        actions.Add(new InteractionAction(this, InteractionMode.Drag, dragLabel, dragGlyphId, SupportsDrag, requiresApproach: false));
+        if (itemDefinition)
         {
-            return;
+            bool canStore = context.Inventory && (!context.Inventory.IsFull || context.Inventory.Contains(itemDefinition));
+            actions.Add(new InteractionAction(this, InteractionMode.Store, storeLabel, storeGlyphId, canStore, requiresApproach: false, priority: -5));
         }
 
-        actions.Add(new InteractionAction(this, InteractionMode.Drag, dragLabel, dragGlyphId, SupportsDrag, requiresApproach: false));
-        bool canStore = context.Inventory && (!context.Inventory.IsFull || context.Inventory.Contains(itemDefinition));
-        actions.Add(new InteractionAction(this, InteractionMode.Store, storeLabel, storeGlyphId, canStore, requiresApproach: false, priority: -5));
         if (!string.IsNullOrWhiteSpace(GetInspectText()))
         {
             actions.Add(new InteractionAction(this, InteractionMode.Inspect, inspectLabel, inspectGlyphId, requiresApproach: false, priority: -10));
@@ -121,7 +126,10 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
             return;
         }
 
-        TransferController?.TryBeginStoreTransfer(this);
+        if (itemDefinition)
+        {
+            TransferController?.TryBeginStoreTransfer(this);
+        }
     }
 
     public void UpdateDrag(PointerContext pointer)
@@ -247,6 +255,45 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     private void ApplyRuntimeSetup()
     {
         this.ApplyWorldPresentation("WorldItem", "WorldItem");
+    }
+
+    private string ResolveSaveId()
+    {
+        if (!string.IsNullOrWhiteSpace(saveId))
+        {
+            return saveId;
+        }
+
+        string sceneName = gameObject.scene.IsValid() ? gameObject.scene.name : SceneManager.GetActiveScene().name;
+        string itemId = itemDefinition ? itemDefinition.ItemId : "item";
+        return $"{sceneName}:{itemId}:{GetHierarchyPath(transform)}";
+    }
+
+    private void EnsureSerializedSaveId()
+    {
+        if (!string.IsNullOrWhiteSpace(saveId) || Application.isPlaying)
+        {
+            return;
+        }
+
+        saveId = Guid.NewGuid().ToString("N");
+    }
+
+    private static string GetHierarchyPath(Transform current)
+    {
+        if (!current)
+        {
+            return string.Empty;
+        }
+
+        string path = current.name;
+        while (current.parent)
+        {
+            current = current.parent;
+            path = current.name + "/" + path;
+        }
+
+        return path;
     }
 
     private Vector3 GetPlacementRootPosition(Vector3 anchorPoint)

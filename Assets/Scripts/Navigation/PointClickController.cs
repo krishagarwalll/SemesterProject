@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using Unity.AI.Navigation;
 
+[System.Obsolete("Replaced by PoptropicaController. Do not use in new scenes.")]
+[AddComponentMenu("")]
 [DisallowMultipleComponent]
 [RequireComponent(typeof(NavMeshAgent))]
 public class PointClickController : MonoBehaviour
@@ -136,6 +138,13 @@ public class PointClickController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            movementVelocity = Vector2.zero;
+            SyncNavAgentPosition();
+            return;
+        }
+
         UpdateMovement();
     }
 
@@ -272,6 +281,11 @@ public class PointClickController : MonoBehaviour
 
     private void HandlePrimaryClick(PointerContext context)
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            return;
+        }
+
         if (IsPointerBlocked)
         {
             return;
@@ -279,10 +293,10 @@ public class PointClickController : MonoBehaviour
 
         if (!context.ClickedTarget)
         {
-            if (context.TryGetWalkPoint(out Vector3 point))
+            /*if (context.TryGetWalkPoint(out Vector3 point))
             {
                 TrySetDestination(point);
-            }
+            }*/
 
             return;
         }
@@ -303,6 +317,11 @@ public class PointClickController : MonoBehaviour
 
     private void HandleDragStarted(PointerContext context)
     {
+        if (PauseService.IsGameplayInputPaused(this))
+        {
+            return;
+        }
+
         InteractionTarget target = context.DragTarget;
         if (!target && context)
         {
@@ -329,7 +348,8 @@ public class PointClickController : MonoBehaviour
 
     private InteractionContext CreateContext(InteractionTarget target)
     {
-        return new InteractionContext(this, Pointer, target, SceneInventory);
+        PoptropicaController actor = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
+        return new InteractionContext(actor, Pointer, target, SceneInventory);
     }
 
     private void UpdatePendingAction()
@@ -373,10 +393,10 @@ public class PointClickController : MonoBehaviour
             return;
         }
 
-        if (context.TryGetWalkPoint(out Vector3 point))
+        /*if (context.TryGetWalkPoint(out Vector3 point))
         {
             TrySetDestination(point);
-        }
+        }*/
     }
 
     private bool TrySetDestination(Vector3 worldPosition)
@@ -806,8 +826,8 @@ public class PointClickController : MonoBehaviour
             return Rooms.ActiveRoom;
         }
 
-        Room[] rooms = FindObjectsByType<Room>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        for (int i = 0; i < rooms.Length; i++)
+        System.Collections.Generic.IReadOnlyList<Room> rooms = Room.ActiveRooms;
+        for (int i = 0; i < rooms.Count; i++)
         {
             if (rooms[i] && rooms[i].ContainsPoint(transform.position))
             {

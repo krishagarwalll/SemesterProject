@@ -110,7 +110,7 @@ namespace DialogueEditor
         [UnityEditor.Callbacks.OnOpenAsset(1)]
         public static bool OpenDialogue(int assetInstanceID, int line)
         {
-            NPCConversation conversation = EditorUtility.InstanceIDToObject(assetInstanceID) as NPCConversation;
+            NPCConversation conversation = EditorUtility.EntityIdToObject(assetInstanceID) as NPCConversation;
 
             if (conversation != null)
             {

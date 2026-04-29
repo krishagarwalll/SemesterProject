@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InteractionPromptPresenter : MonoBehaviour
 {
     [SerializeField] private PointerContext pointer;
-    [SerializeField] private PointClickController controller;
+    [SerializeField] private PoptropicaController controller;
     [SerializeField] private Inventory inventory;
     [SerializeField] private InputGlyphLibrary glyphLibrary;
     [SerializeField] private RectTransform root;
@@ -19,7 +19,7 @@ public class InteractionPromptPresenter : MonoBehaviour
     private InteractionTarget currentTarget;
 
     private PointerContext Pointer => pointer ? pointer : pointer = FindFirstObjectByType<PointerContext>(FindObjectsInactive.Include);
-    private PointClickController Controller => controller ? controller : controller = FindFirstObjectByType<PointClickController>(FindObjectsInactive.Include);
+    private PoptropicaController Controller => controller ? controller : controller = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
     private Inventory SceneInventory => inventory ? inventory : inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
     private RectTransform Root => root ? root : root = transform as RectTransform;
     private CanvasGroup Group => canvasGroup ? canvasGroup : canvasGroup = gameObject.GetOrAddComponent<CanvasGroup>();
