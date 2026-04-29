@@ -272,6 +272,14 @@ public class PointClickController : MonoBehaviour
 
     private void HandlePrimaryClick(PointerContext context)
     {
+        Debug.Log("CLICK RECEIVED");
+
+        Debug.Log("Target: " + context.ClickedTarget);
+        
+        InteractionTarget target = context.ClickedTarget;
+
+        //target.OnClicked();
+
         if (IsPointerBlocked)
         {
             return;
@@ -287,7 +295,8 @@ public class PointClickController : MonoBehaviour
             return;
         }
 
-        InteractionTarget target = context.ClickedTarget;
+        //InteractionTarget target = context.ClickedTarget;
+
         InteractionContext interactionContext = CreateContext(target);
         if (!target.TryGetPrimaryAction(interactionContext, out InteractionAction action) || !action.Enabled)
         {

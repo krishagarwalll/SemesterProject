@@ -16,8 +16,12 @@ public class InteractionPanelUI : MonoBehaviour
 
     public void Show(Sprite sprite)
     {
+        Debug.Log("SHOW FUNCTION RUNNING");
+
         panelRoot.SetActive(true);
         itemImage.sprite = sprite;
+
+        //itemImage.color = Color.red; // debug
     }
 
     public void Hide()

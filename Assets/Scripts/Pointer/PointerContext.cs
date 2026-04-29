@@ -94,6 +94,11 @@ public class PointerContext : MonoBehaviour
     public PointerState State => ResolveState();
     public PointerCursorKind CurrentCursorKind => currentCursorKind;
 
+    private void Awake()
+    {
+        Debug.Log("PointerContext AWAKE");
+    }
+    
     private void Reset()
     {
         worldCamera = Camera.main;
@@ -101,6 +106,8 @@ public class PointerContext : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("PointerContext ENABLED");
+
         pointerPositionAction.SetEnabled(true);
         primaryPressAction.SetEnabled(true);
         secondaryPressAction.SetEnabled(true);
@@ -128,6 +135,9 @@ public class PointerContext : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Mouse: " + Mouse.current);
+        Debug.Log("PointerContext UPDATE RUNNING");
+
         ResetFrameState();
         screenPosition = ReadScreenPosition();
         ResolveWorldState();
@@ -276,6 +286,8 @@ public class PointerContext : MonoBehaviour
 
     private void UpdatePrimaryState()
     {
+        Debug.Log($"Pressed: {WasPrimaryPressedThisFrame()} Released: {WasPrimaryReleasedThisFrame()}");
+
         bool primaryPressed = WasPrimaryPressedThisFrame();
         bool primaryReleased = WasPrimaryReleasedThisFrame();
 

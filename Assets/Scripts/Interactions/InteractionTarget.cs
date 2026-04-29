@@ -88,9 +88,23 @@ public class InteractionTarget : MonoBehaviour
 
     public void OnClicked()
     {
-        if (itemSprite == null) return;
+        Debug.Log("ON CLICKED CALLED: " + name);
 
-        InteractionPanelUI.Instance.Toggle(itemSprite);
+        if (itemSprite == null)
+        {
+            Debug.LogWarning("No sprite on " + name);
+            return;
+        }
+
+        if (InteractionPanelUI.Instance == null)
+        {
+            Debug.LogError("UI Instance is NULL");
+            return;
+        }
+
+        Debug.Log("CALLING SHOW NOW");
+
+        InteractionPanelUI.Instance.Show(itemSprite); //change to toggle?
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)
