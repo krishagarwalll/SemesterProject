@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: cabb5a3b327811d4ba3af81e4b889134
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1201026566444196635
+    second: fullPuzzle_0
+  - first:
+      213: -3420952205708653943
+    second: fullPuzzle_1
+  - first:
+      213: 6864054699074833872
+    second: fullPuzzle_2
+  - first:
+      213: -7867038824224812242
+    second: fullPuzzle_3
+  - first:
+      213: -2068542816460135013
+    second: fullPuzzle_4
+  - first:
+      213: -1378637476683324348
+    second: fullPuzzle_5
+  - first:
+      213: 6737797365380232695
+    second: fullPuzzle_6
+  - first:
+      213: -1258749335488754628
+    second: fullPuzzle_7
+  - first:
+      213: 3362851550841357404
+    second: fullPuzzle_8
+  - first:
+      213: 7981409530032845892
+    second: fullPuzzle_9
+  - first:
+      213: -4792496813729700587
+    second: fullPuzzle_10
+  - first:
+      213: 3098759618094720483
+    second: fullPuzzle_11
+  - first:
+      213: -3108999368727682885
+    second: fullPuzzle_12
+  - first:
+      213: 6799131569217692362
+    second: fullPuzzle_13
+  - first:
+      213: -4372198840114737775
+    second: fullPuzzle_14
+  - first:
+      213: -8690546869509824031
+    second: fullPuzzle_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fullPuzzle_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 729
+        width: 108
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b13a6b28c47eaa010800000000000000
+      internalID: 1201026566444196635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_1
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 717
+        width: 153
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98a852908165680d0800000000000000
+      internalID: -3420952205708653943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_2
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 709
+        width: 188
+        height: 174
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ddc439a165024f50800000000000000
+      internalID: 6864054699074833872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_3
+      rect:
+        serializedVersion: 2
+        x: 661
+        y: 699
+        width: 159
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e239fd7eed9a2d290800000000000000
+      internalID: -7867038824224812242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_4
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 514
+        width: 118
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b95253e944f0b43e0800000000000000
+      internalID: -2068542816460135013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_5
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 503
+        width: 143
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 444ef30f4881edce0800000000000000
+      internalID: -1378637476683324348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_6
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 486
+        width: 176
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f53d046107718d50800000000000000
+      internalID: 6737797365380232695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_7
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 453
+        width: 146
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3c0fe40626088ee0800000000000000
+      internalID: -1258749335488754628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_8
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 271
+        width: 125
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5445481baf3bae20800000000000000
+      internalID: 3362851550841357404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_9
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 280
+        width: 147
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44476842ea9a3ce60800000000000000
+      internalID: 7981409530032845892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_10
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 254
+        width: 163
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51523762a81ad7db0800000000000000
+      internalID: -4792496813729700587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_11
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 240
+        width: 129
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e56cd86471010b20800000000000000
+      internalID: 3098759618094720483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_12
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 31
+        width: 152
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb0a21cdb8d9ad4d0800000000000000
+      internalID: -3108999368727682885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_13
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 19
+        width: 159
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac26d5c832e5b5e50800000000000000
+      internalID: 6799131569217692362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_14
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 16
+        width: 155
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19d069fd154d253c0800000000000000
+      internalID: -4372198840114737775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fullPuzzle_15
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 12
+        width: 123
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e1ebfaaaa9f46780800000000000000
+      internalID: -8690546869509824031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      fullPuzzle_0: 1201026566444196635
+      fullPuzzle_1: -3420952205708653943
+      fullPuzzle_10: -4792496813729700587
+      fullPuzzle_11: 3098759618094720483
+      fullPuzzle_12: -3108999368727682885
+      fullPuzzle_13: 6799131569217692362
+      fullPuzzle_14: -4372198840114737775
+      fullPuzzle_15: -8690546869509824031
+      fullPuzzle_2: 6864054699074833872
+      fullPuzzle_3: -7867038824224812242
+      fullPuzzle_4: -2068542816460135013
+      fullPuzzle_5: -1378637476683324348
+      fullPuzzle_6: 6737797365380232695
+      fullPuzzle_7: -1258749335488754628
+      fullPuzzle_8: 3362851550841357404
+      fullPuzzle_9: 7981409530032845892
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -130,6 +130,8 @@ GameObject:
   - component: {fileID: 63793633}
   - component: {fileID: 63793632}
   - component: {fileID: 63793631}
+  - component: {fileID: 63793635}
+  - component: {fileID: 63793634}
   m_Layer: 0
   m_Name: fullPuzzle_6
   m_TagString: Untagged
@@ -302,7 +304,7 @@ SpriteRenderer:
   m_Size: {x: 1.76, y: 1.99}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &63793633
 Transform:
@@ -319,6 +321,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &63793634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63793630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &63793635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63793630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &172660454
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +359,8 @@ GameObject:
   - component: {fileID: 172660457}
   - component: {fileID: 172660456}
   - component: {fileID: 172660455}
+  - component: {fileID: 172660459}
+  - component: {fileID: 172660458}
   m_Layer: 0
   m_Name: fullPuzzle_8
   m_TagString: Untagged
@@ -492,7 +523,7 @@ SpriteRenderer:
   m_Size: {x: 1.25, y: 1.84}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &172660457
 Transform:
@@ -509,6 +540,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &172660458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172660454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &172660459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172660454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &534131921
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,6 +578,8 @@ GameObject:
   - component: {fileID: 534131924}
   - component: {fileID: 534131923}
   - component: {fileID: 534131922}
+  - component: {fileID: 534131926}
+  - component: {fileID: 534131925}
   m_Layer: 0
   m_Name: fullPuzzle_3
   m_TagString: Untagged
@@ -693,7 +753,7 @@ SpriteRenderer:
   m_Size: {x: 1.59, y: 1.81}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &534131924
 Transform:
@@ -710,6 +770,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &534131925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534131921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &534131926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534131921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &859826111
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,8 +808,8 @@ GameObject:
   - component: {fileID: 859826116}
   - component: {fileID: 859826115}
   - component: {fileID: 859826114}
-  - component: {fileID: 859826113}
-  - component: {fileID: 859826112}
+  - component: {fileID: 859826118}
+  - component: {fileID: 859826117}
   m_Layer: 0
   m_Name: fullPuzzle_0
   m_TagString: Untagged
@@ -730,33 +817,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &859826112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859826111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
---- !u!114 &859826113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 859826111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
-  canBeDragged: 1
-  keepPointerOffset: 1
-  disableRigidbodySimulationWhileDragging: 1
 --- !u!60 &859826114
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -904,7 +964,7 @@ SpriteRenderer:
   m_Size: {x: 1.08, y: 1.53}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &859826116
 Transform:
@@ -921,6 +981,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &859826117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859826111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &859826118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859826111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &993063126
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,6 +1019,8 @@ GameObject:
   - component: {fileID: 993063129}
   - component: {fileID: 993063128}
   - component: {fileID: 993063127}
+  - component: {fileID: 993063131}
+  - component: {fileID: 993063130}
   m_Layer: 0
   m_Name: fullPuzzle_9
   m_TagString: Untagged
@@ -1097,7 +1186,7 @@ SpriteRenderer:
   m_Size: {x: 1.47, y: 1.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &993063129
 Transform:
@@ -1114,6 +1203,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &993063130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993063126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &993063131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993063126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1061654321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,6 +1241,8 @@ GameObject:
   - component: {fileID: 1061654324}
   - component: {fileID: 1061654323}
   - component: {fileID: 1061654322}
+  - component: {fileID: 1061654326}
+  - component: {fileID: 1061654325}
   m_Layer: 0
   m_Name: fullPuzzle_5
   m_TagString: Untagged
@@ -1293,7 +1411,7 @@ SpriteRenderer:
   m_Size: {x: 1.43, y: 1.9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1061654324
 Transform:
@@ -1310,6 +1428,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1061654325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061654321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &1061654326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061654321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1461508844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1321,6 +1466,8 @@ GameObject:
   - component: {fileID: 1461508847}
   - component: {fileID: 1461508846}
   - component: {fileID: 1461508845}
+  - component: {fileID: 1461508849}
+  - component: {fileID: 1461508848}
   m_Layer: 0
   m_Name: fullPuzzle_12
   m_TagString: Untagged
@@ -1487,7 +1634,7 @@ SpriteRenderer:
   m_Size: {x: 1.52, y: 1.83}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1461508847
 Transform:
@@ -1504,6 +1651,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1461508848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461508844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &1461508849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461508844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1512033223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,6 +1689,8 @@ GameObject:
   - component: {fileID: 1512033226}
   - component: {fileID: 1512033225}
   - component: {fileID: 1512033224}
+  - component: {fileID: 1512033228}
+  - component: {fileID: 1512033227}
   m_Layer: 0
   m_Name: fullPuzzle_14
   m_TagString: Untagged
@@ -1687,7 +1863,7 @@ SpriteRenderer:
   m_Size: {x: 1.55, y: 1.91}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1512033226
 Transform:
@@ -1704,6 +1880,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1512033227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512033223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &1512033228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512033223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1578516643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1715,6 +1918,8 @@ GameObject:
   - component: {fileID: 1578516646}
   - component: {fileID: 1578516645}
   - component: {fileID: 1578516644}
+  - component: {fileID: 1578516648}
+  - component: {fileID: 1578516647}
   m_Layer: 0
   m_Name: fullPuzzle_10
   m_TagString: Untagged
@@ -1892,7 +2097,7 @@ SpriteRenderer:
   m_Size: {x: 1.63, y: 1.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1578516646
 Transform:
@@ -1909,6 +2114,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1578516647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578516643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &1578516648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578516643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1642382233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,6 +2152,8 @@ GameObject:
   - component: {fileID: 1642382236}
   - component: {fileID: 1642382235}
   - component: {fileID: 1642382234}
+  - component: {fileID: 1642382238}
+  - component: {fileID: 1642382237}
   m_Layer: 0
   m_Name: fullPuzzle_4
   m_TagString: Untagged
@@ -2074,7 +2308,7 @@ SpriteRenderer:
   m_Size: {x: 1.18, y: 1.82}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1642382236
 Transform:
@@ -2091,6 +2325,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1642382237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642382233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &1642382238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642382233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1841369183
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,6 +2363,8 @@ GameObject:
   - component: {fileID: 1841369186}
   - component: {fileID: 1841369185}
   - component: {fileID: 1841369184}
+  - component: {fileID: 1841369188}
+  - component: {fileID: 1841369187}
   m_Layer: 0
   m_Name: fullPuzzle_13
   m_TagString: Untagged
@@ -2270,7 +2533,7 @@ SpriteRenderer:
   m_Size: {x: 1.59, y: 1.98}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1841369186
 Transform:
@@ -2287,6 +2550,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1841369187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841369183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &1841369188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841369183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1873952723
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,6 +2588,8 @@ GameObject:
   - component: {fileID: 1873952726}
   - component: {fileID: 1873952725}
   - component: {fileID: 1873952724}
+  - component: {fileID: 1873952728}
+  - component: {fileID: 1873952727}
   m_Layer: 0
   m_Name: fullPuzzle_7
   m_TagString: Untagged
@@ -2465,7 +2757,7 @@ SpriteRenderer:
   m_Size: {x: 1.46, y: 2.13}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1873952726
 Transform:
@@ -2482,6 +2774,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1873952727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873952723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &1873952728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873952723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1895540521
 GameObject:
   m_ObjectHideFlags: 0
@@ -2493,6 +2812,8 @@ GameObject:
   - component: {fileID: 1895540524}
   - component: {fileID: 1895540523}
   - component: {fileID: 1895540522}
+  - component: {fileID: 1895540526}
+  - component: {fileID: 1895540525}
   m_Layer: 0
   m_Name: fullPuzzle_15
   m_TagString: Untagged
@@ -2653,7 +2974,7 @@ SpriteRenderer:
   m_Size: {x: 1.23, y: 1.81}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1895540524
 Transform:
@@ -2670,6 +2991,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1895540525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895540521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &1895540526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895540521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1946159789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,6 +3029,8 @@ GameObject:
   - component: {fileID: 1946159792}
   - component: {fileID: 1946159791}
   - component: {fileID: 1946159790}
+  - component: {fileID: 1946159794}
+  - component: {fileID: 1946159793}
   m_Layer: 0
   m_Name: fullPuzzle_1
   m_TagString: Untagged
@@ -2836,7 +3186,7 @@ SpriteRenderer:
   m_Size: {x: 1.53, y: 1.67}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1946159792
 Transform:
@@ -2853,6 +3203,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1946159793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946159789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &1946159794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946159789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &1947833479
 GameObject:
   m_ObjectHideFlags: 0
@@ -2864,6 +3241,7 @@ GameObject:
   - component: {fileID: 1947833482}
   - component: {fileID: 1947833481}
   - component: {fileID: 1947833480}
+  - component: {fileID: 1947833483}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2945,6 +3323,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1947833483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947833479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &2008890732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2956,6 +3378,8 @@ GameObject:
   - component: {fileID: 2008890735}
   - component: {fileID: 2008890734}
   - component: {fileID: 2008890733}
+  - component: {fileID: 2008890737}
+  - component: {fileID: 2008890736}
   m_Layer: 0
   m_Name: fullPuzzle_2
   m_TagString: Untagged
@@ -3129,7 +3553,7 @@ SpriteRenderer:
   m_Size: {x: 1.88, y: 1.74}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &2008890735
 Transform:
@@ -3146,6 +3570,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2008890736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008890732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &2008890737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008890732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
 --- !u!1 &2062810569
 GameObject:
   m_ObjectHideFlags: 0
@@ -3157,6 +3608,8 @@ GameObject:
   - component: {fileID: 2062810572}
   - component: {fileID: 2062810571}
   - component: {fileID: 2062810570}
+  - component: {fileID: 2062810574}
+  - component: {fileID: 2062810573}
   m_Layer: 0
   m_Name: fullPuzzle_11
   m_TagString: Untagged
@@ -3317,7 +3770,7 @@ SpriteRenderer:
   m_Size: {x: 1.29, y: 1.76}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &2062810572
 Transform:
@@ -3329,6 +3782,80 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.2588018, y: -0.71572584, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2062810573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062810569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4495dba5575cf4dd38f7d893c6b591ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
+--- !u!114 &2062810574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062810569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fefa802ed1c4443a64a91a6967d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldPuzzleDragObject
+  canBeDragged: 1
+  keepPointerOffset: 1
+  disableRigidbodySimulationWhileDragging: 1
+--- !u!1 &2133053714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2133053716}
+  - component: {fileID: 2133053715}
+  m_Layer: 0
+  m_Name: connectionPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2133053715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133053714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dba54fdbd690436aa64d89caca3f023, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TargetSlot
+  correctPiece: {fileID: 0}
+  minigame: {fileID: 0}
+  snapDistance: 0.5
+--- !u!4 &2133053716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2133053714}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.15889, y: 0.21762, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3355,3 +3882,4 @@ SceneRoots:
   - {fileID: 1841369186}
   - {fileID: 1512033226}
   - {fileID: 1895540524}
+  - {fileID: 2133053716}
