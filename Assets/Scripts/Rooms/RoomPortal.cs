@@ -70,7 +70,9 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
         bool effectivelyUnlocked = unlocked || canUnlockFromInventory;
         bool canTraverse = CanTraverseFromThisSide && linkedPortal && linkedPortal.OwnerRoom && linkedPortal.CanReceiveTraversal;
         string label = effectivelyUnlocked ? enterLabel : lockedLabel;
-        actions.Add(new InteractionAction(this, InteractionMode.Primary, label, primaryGlyphId, effectivelyUnlocked && canTraverse));
+        // When effectively unlocked, use a priority above NPC (default 20) so traverse wins over dialogue
+        int primaryPriority = effectivelyUnlocked ? 30 : 0;
+        actions.Add(new InteractionAction(this, InteractionMode.Primary, label, primaryGlyphId, effectivelyUnlocked && canTraverse, priority: primaryPriority));
 
         string inspect = GetInspectText(effectivelyUnlocked);
         if (!string.IsNullOrWhiteSpace(inspect))
