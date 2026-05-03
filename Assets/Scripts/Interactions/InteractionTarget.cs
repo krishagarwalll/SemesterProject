@@ -99,8 +99,13 @@ public class InteractionTarget : MonoBehaviour
 
     public void SetHovered(bool hovered)
     {
-        EnsureOutline();
         Outline?.SetHighlighted(hovered);
+
+        var simpleOutline = GetComponent<SimpleOutline>();
+        if (simpleOutline != null)
+        {
+            simpleOutline.SetOutline(hovered);
+        }
 
         if (hovered && !wasHovered && hover != null && audioSource != null)
         {
@@ -112,20 +117,23 @@ public class InteractionTarget : MonoBehaviour
 
     public void OnClicked()
     {
-        Sprite spriteToUse = itemSprite;
+        Debug.Log("OnClicked fired for " + name);
 
-        if (spriteToUse == null)
+        if (itemSprite == null)
         {
-            SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            if (sr != null)
-                spriteToUse = sr.sprite;
+            Debug.LogError("❌ itemSprite is NULL on " + name);
+            return;
         }
 
-        InteractionPanelUI.Instance.Show(
-            spriteToUse,
-            itemName,
-            description
-        );
+        if (InteractionPanelUI.Instance == null)
+        {
+            Debug.LogError("❌ InteractionPanelUI.Instance is NULL");
+            return;
+        }
+
+        Debug.Log("✅ Showing panel");
+
+        InteractionPanelUI.Instance.Show(itemSprite, itemName, description);
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)

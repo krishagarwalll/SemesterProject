@@ -91,10 +91,7 @@ public class PointerContext : MonoBehaviour
     public PointerState State => ResolveState();
     public PointerCursorKind CurrentCursorKind => currentCursorKind;
 
-    private void Awake()
-    {
-        Debug.Log("PointerContext AWAKE");
-    }
+
     
     private void Reset()
     {
@@ -309,7 +306,7 @@ public class PointerContext : MonoBehaviour
 
     private void UpdatePrimaryState()
     {
-        Debug.Log($"Pressed: {WasPrimaryPressedThisFrame()} Released: {WasPrimaryReleasedThisFrame()}");
+        //Debug.Log($"Pressed: {WasPrimaryPressedThisFrame()} Released: {WasPrimaryReleasedThisFrame()}");
 
         bool primaryPressed = WasPrimaryPressedThisFrame();
         bool primaryReleased = WasPrimaryReleasedThisFrame();

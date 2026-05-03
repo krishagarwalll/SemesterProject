@@ -221,6 +221,96 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &6327159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6327160}
+  - component: {fileID: 6327162}
+  - component: {fileID: 6327161}
+  m_Layer: 10
+  m_Name: _SpriteOutlineProxy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6327160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.01}
+  m_LocalScale: {x: 1.0412474, y: 1.0240848, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1921100153}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6327161
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327159}
+  m_Mesh: {fileID: 0}
+--- !u!23 &6327162
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327159}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ef05891516a584629873c7b20ef823f7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 401001002
+  m_SortingLayer: 3
+  m_SortingOrder: -1
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7295315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,6 +1266,7 @@ MonoBehaviour:
   interactionRadiusOverride: 0.4
   selectionPriority: 0
   room: {fileID: 300000402}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -1397,6 +1488,96 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.42671883, y: 0.59144604}
   m_EdgeRadius: 0
+--- !u!1 &115187932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 115187933}
+  - component: {fileID: 115187935}
+  - component: {fileID: 115187934}
+  m_Layer: 10
+  m_Name: _SpriteOutlineProxy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &115187933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115187932}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.01}
+  m_LocalScale: {x: 1.031284, y: 1.0461254, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 450514445}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &115187934
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115187932}
+  m_Mesh: {fileID: 0}
+--- !u!23 &115187935
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115187932}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ef05891516a584629873c7b20ef823f7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 401001002
+  m_SortingLayer: 3
+  m_SortingOrder: -1
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &116707040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,6 +1861,8 @@ MonoBehaviour:
   room: {fileID: 158121683}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -1695,6 +1878,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &120058701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,6 +2070,7 @@ MonoBehaviour:
   nameText: {fileID: 152546490}
   choiceContainer: {fileID: 505883067}
   choiceButtonPrefab: {fileID: 5685550414944582712, guid: d5b59e455a0c4ed478d9ff78ae607c8a, type: 3}
+  dialogueCanvasGroup: {fileID: 0}
 --- !u!1 &145528344
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,6 +2156,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 300000402}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -2397,6 +2585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
+  musicClip: {fileID: 0}
   boundsVolume: {fileID: 953206102}
   defaultAnchor: {fileID: 1473660954}
   contentRoot: {fileID: 158121682}
@@ -3451,6 +3640,8 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -3466,6 +3657,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &227945257
 GameObject:
   m_ObjectHideFlags: 0
@@ -3571,17 +3765,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4971911390447125958, guid: 7fd37d2fcae6348198a83e918a74d560, type: 3}
   m_PrefabInstance: {fileID: 7261024325795596946}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &228908240 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 308449673978307724, guid: 7fd37d2fcae6348198a83e918a74d560, type: 3}
-  m_PrefabInstance: {fileID: 7261024325795596946}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 848581928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b6cf1600a3be3448c72401eac399ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PointClickController
 --- !u!1 &234097353
 GameObject:
   m_ObjectHideFlags: 0
@@ -3843,10 +4026,11 @@ GameObject:
   - component: {fileID: 238138068}
   - component: {fileID: 238138070}
   - component: {fileID: 238138069}
-  - component: {fileID: 238138073}
   - component: {fileID: 238138072}
-  - component: {fileID: 238138071}
   - component: {fileID: 238138074}
+  - component: {fileID: 238138071}
+  - component: {fileID: 238138075}
+  - component: {fileID: 238138076}
   m_Layer: 10
   m_Name: Dresser
   m_TagString: Untagged
@@ -3956,6 +4140,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 300000302}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 0
   itemSprite: {fileID: 1494192971192115210, guid: 66525981c259742559fdb42aabd191be, type: 3}
@@ -3978,28 +4163,19 @@ MonoBehaviour:
   spriteRenderer: {fileID: 238138069}
   alphaCutoff: 0.1
   outlineThickness: 0.37
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
+  outlineColor:
+    r: 0.97819746
+    g: 0.514151
+    b: 1
+    a: 1
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
---- !u!114 &238138073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238138067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
-  outlineMode: 1
-  includeInactiveChildren: 1
-  autoCreateSpriteOutlines: 1
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
-  outlineThickness: 0.37
-  spriteHighlightColor: {r: 1, g: 1, b: 1, a: 1}
-  spriteHighlightStrength: 0.2
+  proxyRoot: {fileID: 833611584}
+  proxyFilter: {fileID: 833611585}
+  proxyRenderer: {fileID: 833611586}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: 1494192971192115210, guid: 66525981c259742559fdb42aabd191be, type: 3}
 --- !u!61 &238138074
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4046,6 +4222,40 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 9.572749, y: 10.719999}
   m_EdgeRadius: 0
+--- !u!114 &238138075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238138067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2001d77af22154d3db746b7e92f830b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleOutline
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  thickness: 0.27
+--- !u!114 &238138076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238138067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
 --- !u!1 &242117053
 GameObject:
   m_ObjectHideFlags: 0
@@ -4218,7 +4428,6 @@ MonoBehaviour:
     quantity: 0
   - definition: {fileID: 0}
     quantity: 0
-  selectedIndex: -1
 --- !u!114 &300000003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4280,7 +4489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505293af901d3e749bfac81d2b7c2aeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTransitionService
-  player: {fileID: 228908240}
+  player: {fileID: 0}
   screenFade: {fileID: 300000124}
   activeRoom: {fileID: 300000302}
   zoomAction: {fileID: 6240969308177333660, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
@@ -4469,7 +4678,6 @@ MonoBehaviour:
   slideSpeed: 1200
   slotSize: {x: 88, y: 88}
   slotColor: {r: 0.14, g: 0.14, b: 0.16, a: 0.92}
-  selectedSlotColor: {r: 0.85, g: 0.72, b: 0.37, a: 0.98}
   emptySlotColor: {r: 0.08, g: 0.08, b: 0.09, a: 0.7}
 --- !u!1 &300000120
 GameObject:
@@ -5027,6 +5235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Bedroom
+  musicClip: {fileID: 0}
   boundsVolume: {fileID: 910001101}
   defaultAnchor: {fileID: 300000332}
   contentRoot: {fileID: 300000301}
@@ -5328,6 +5537,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 300000302}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -5425,6 +5635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
+  musicClip: {fileID: 0}
   boundsVolume: {fileID: 910001111}
   defaultAnchor: {fileID: 300000432}
   contentRoot: {fileID: 300000401}
@@ -5699,6 +5910,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1
   selectionPriority: 0
   room: {fileID: 300000402}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -5753,6 +5965,8 @@ GameObject:
   - component: {fileID: 910001203}
   - component: {fileID: 300000502}
   - component: {fileID: 300000503}
+  - component: {fileID: 910001204}
+  - component: {fileID: 910001205}
   m_Layer: 11
   m_Name: NewspaperPickup
   m_TagString: Untagged
@@ -5772,7 +5986,8 @@ Transform:
   m_LocalPosition: {x: 9.461, y: 6.802, z: 0}
   m_LocalScale: {x: 0.28797, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1327486862}
   m_Father: {fileID: 2132483815}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &300000502
@@ -5861,6 +6076,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 300000402}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -5882,6 +6098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: b9f7fc0987d54612a7b6e5f93701086c, type: 2}
   quantity: 1
+  saveId: 2a837c6c34fe450db8200c0c76677673
   dragBody: {fileID: 910001201}
   placementAnchor: {fileID: 0}
   transferController: {fileID: 300000003}
@@ -5911,6 +6128,8 @@ GameObject:
   - component: {fileID: 910001301}
   - component: {fileID: 910001302}
   - component: {fileID: 910001303}
+  - component: {fileID: 910001304}
+  - component: {fileID: 910001305}
   m_Layer: 11
   m_Name: RustyKeyPickup
   m_TagString: Untagged
@@ -5930,7 +6149,8 @@ Transform:
   m_LocalPosition: {x: 4.197, y: -1.852, z: 0}
   m_LocalScale: {x: 0.33, y: 0.33, z: 1.8333334}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 2083247731}
   m_Father: {fileID: 1061360782}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &300000522
@@ -6019,6 +6239,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 1061360783}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -6040,6 +6261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
   quantity: 1
+  saveId: 3d2a2f3e2ccf4c2e98c7a805178b89e2
   dragBody: {fileID: 910001301}
   placementAnchor: {fileID: 0}
   transferController: {fileID: 300000003}
@@ -6227,6 +6449,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1
   selectionPriority: 0
   room: {fileID: 1181567491}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -7347,6 +7570,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 1061360783}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -8672,13 +8896,13 @@ GameObject:
   m_Component:
   - component: {fileID: 442498856}
   - component: {fileID: 442498860}
-  - component: {fileID: 442498859}
   - component: {fileID: 442498858}
   - component: {fileID: 442498857}
   - component: {fileID: 442498863}
-  - component: {fileID: 442498862}
-  - component: {fileID: 442498861}
   - component: {fileID: 442498864}
+  - component: {fileID: 442498862}
+  - component: {fileID: 442498865}
+  - component: {fileID: 442498866}
   m_Layer: 10
   m_Name: Box
   m_TagString: Untagged
@@ -8769,52 +8993,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 442498855}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!61 &442498859
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442498855}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.0017915815, y: 0.010471087}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.12262, y: 6.52}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.18660322, y: 0.21815515}
-  m_EdgeRadius: 0
 --- !u!50 &442498860
 Rigidbody2D:
   serializedVersion: 5
@@ -8842,25 +9020,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &442498861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442498855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
-  outlineMode: 2
-  includeInactiveChildren: 1
-  autoCreateSpriteOutlines: 1
-  outlineColor: {r: 0.5137255, g: 0.77724713, b: 1, a: 1}
-  outlineThickness: 0.31
-  spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
-  spriteHighlightStrength: 0.2
 --- !u!114 &442498862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8880,6 +9039,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 0}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: -9051692800306759852, guid: dd020f10fd33e4e998cb6d5812c1b930, type: 3}
@@ -8902,9 +9062,19 @@ MonoBehaviour:
   spriteRenderer: {fileID: 442498857}
   alphaCutoff: 0.1
   outlineThickness: 0.31
-  outlineColor: {r: 0.5137255, g: 0.77724713, b: 1, a: 1}
+  outlineColor:
+    r: 0.5137255
+    g: 0.77724713
+    b: 1
+    a: 1
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
+  proxyRoot: {fileID: 937545393}
+  proxyFilter: {fileID: 937545394}
+  proxyRenderer: {fileID: 937545395}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: 1482218967514081169, guid: c207a0236806a47ef92785f0c5f7f0e8, type: 3}
 --- !u!58 &442498864
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8941,6 +9111,40 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 4.56131
+--- !u!114 &442498865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442498855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2001d77af22154d3db746b7e92f830b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleOutline
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  thickness: 0.34
+--- !u!114 &442498866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442498855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
 --- !u!1 &450514444
 GameObject:
   m_ObjectHideFlags: 0
@@ -8954,6 +9158,9 @@ GameObject:
   - component: {fileID: 450514447}
   - component: {fileID: 450514446}
   - component: {fileID: 450514449}
+  - component: {fileID: 450514451}
+  - component: {fileID: 450514450}
+  - component: {fileID: 450514452}
   m_Layer: 10
   m_Name: Stove
   m_TagString: Untagged
@@ -8973,7 +9180,8 @@ Transform:
   m_LocalPosition: {x: 2.782, y: -1.869, z: -0}
   m_LocalScale: {x: 1.3110647, y: 1.3093213, z: 0.33}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 115187933}
   m_Father: {fileID: 1061360782}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &450514446
@@ -9102,6 +9310,85 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   dialogueData: {fileID: 11400000, guid: 432dfc6d0ff1ce04588fe3d73d648bf5, type: 2}
+  talkLabel: Talk
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
+--- !u!114 &450514450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450514444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &450514451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450514444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
+  interactionPoint: {fileID: 450514445}
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
+  room: {fileID: 0}
+  autoCreateOutline: 1
+  hoverCursorKind: 1
+  dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
+--- !u!114 &450514452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450514444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e742cfc6827db64da95d8abcebd6105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
+  spriteRenderer: {fileID: 450514446}
+  alphaCutoff: 0.1
+  outlineThickness: 0.025
+  outlineColor:
+    r: 1
+    g: 0.82
+    b: 0.28
+    a: 0.9
+  localOffset: {x: 0, y: 0, z: 0.01}
+  outlineEnabled: 0
+  proxyRoot: {fileID: 115187933}
+  proxyFilter: {fileID: 115187934}
+  proxyRenderer: {fileID: 115187935}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: -8664442358060697932, guid: 4306b9e32abd76745a37d0d94551e2cd, type: 3}
 --- !u!1 &456847387
 GameObject:
   m_ObjectHideFlags: 0
@@ -10453,6 +10740,8 @@ MonoBehaviour:
   room: {fileID: 158121683}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -10468,6 +10757,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &580164252
 GameObject:
   m_ObjectHideFlags: 0
@@ -11147,7 +11439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &612599837
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12319,6 +12611,8 @@ MonoBehaviour:
   room: {fileID: 158121683}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -12334,6 +12628,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &704813579
 GameObject:
   m_ObjectHideFlags: 0
@@ -12577,6 +12874,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1616261023}
     m_Modifications:
+    - target: {fileID: 415207992745428616, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415207992745428616, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415207992745428616, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415207992745428616, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 800850640407614969, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -12677,6 +12990,46 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4935692809186005003, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935692809186005003, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935692809186005003, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935692809186005003, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261408572673451542, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261408572673451542, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261408572673451542, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261408572673451542, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261408572673451542, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5261408572673451542, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7390953563037105642, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -12687,6 +13040,38 @@ PrefabInstance:
       objectReference: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
     - target: {fileID: 7390953563037105642, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7668405909129012108, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7668405909129012108, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7668405909129012108, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7668405909129012108, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860944381162871718, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860944381162871718, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860944381162871718, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860944381162871718, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
@@ -12715,6 +13100,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7976109693725425864, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064734985956057884, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064734985956057884, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064734985956057884, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064734985956057884, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064734985956057884, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064734985956057884, guid: c30f9cd08b6bec14a9c33a0e476e6247, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -13715,7 +14124,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ef05891516a584629873c7b20ef823f7, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14032,6 +14441,8 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -14047,6 +14458,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &841373243
 GameObject:
   m_ObjectHideFlags: 0
@@ -14344,7 +14758,6 @@ MonoBehaviour:
   ignoreWorldWhenOverUi: 1
   interactionProbeRadius: 0.85
   dragThresholdPixels: 8
-  navMeshSampleDistance: 12
 --- !u!1 &857744483
 GameObject:
   m_ObjectHideFlags: 0
@@ -14939,10 +15352,11 @@ MonoBehaviour:
   outlineMode: 1
   includeInactiveChildren: 1
   autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
   outlineThickness: 0.34
-  spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
-  spriteHighlightStrength: 0.2
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
 --- !u!212 &910001123
 SpriteRenderer:
   serializedVersion: 2
@@ -15017,9 +15431,19 @@ MonoBehaviour:
   spriteRenderer: {fileID: 910001123}
   alphaCutoff: 0.1
   outlineThickness: 0.34
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
+  proxyRoot: {fileID: 1207673780}
+  proxyFilter: {fileID: 1207673781}
+  proxyRenderer: {fileID: 1207673782}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: 6741794486925613083, guid: 1b59018bcbb8d724a84691ac68016f33, type: 3}
 --- !u!61 &910001131
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15239,6 +15663,8 @@ MonoBehaviour:
   room: {fileID: 300000402}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -15254,6 +15680,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &910001202
 Rigidbody2D:
   serializedVersion: 5
@@ -15327,6 +15756,54 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &910001204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &910001205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e742cfc6827db64da95d8abcebd6105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
+  spriteRenderer: {fileID: 300000503}
+  alphaCutoff: 0.1
+  outlineThickness: 0.025
+  outlineColor:
+    r: 1
+    g: 0.82
+    b: 0.28
+    a: 0.9
+  localOffset: {x: 0, y: 0, z: 0.01}
+  outlineEnabled: 0
+  proxyRoot: {fileID: 1327486862}
+  proxyFilter: {fileID: 1327486863}
+  proxyRenderer: {fileID: 1327486864}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: -6962918065892611476, guid: 1d32dfddf1dad46b0890e19119557305, type: 3}
 --- !u!114 &910001301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15344,6 +15821,8 @@ MonoBehaviour:
   room: {fileID: 1061360783}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -15359,6 +15838,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &910001302
 Rigidbody2D:
   serializedVersion: 5
@@ -15432,6 +15914,54 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &910001304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &910001305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300000520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e742cfc6827db64da95d8abcebd6105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
+  spriteRenderer: {fileID: 300000523}
+  alphaCutoff: 0.1
+  outlineThickness: 0.025
+  outlineColor:
+    r: 1
+    g: 0.82
+    b: 0.28
+    a: 0.9
+  localOffset: {x: 0, y: 0, z: 0.01}
+  outlineEnabled: 0
+  proxyRoot: {fileID: 2083247731}
+  proxyFilter: {fileID: 2083247732}
+  proxyRenderer: {fileID: 2083247733}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: 21300000, guid: 125ece96188968d4ca492daaa4355bb6, type: 3}
 --- !u!50 &910001402
 Rigidbody2D:
   serializedVersion: 5
@@ -16079,6 +16609,8 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -16094,6 +16626,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &934684052
 GameObject:
   m_ObjectHideFlags: 0
@@ -16414,6 +16949,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1
   selectionPriority: 0
   room: {fileID: 1042786930}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -16573,6 +17109,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1
   selectionPriority: 0
   room: {fileID: 1042786930}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -16963,6 +17500,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1
   selectionPriority: 0
   room: {fileID: 300000402}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -17056,6 +17594,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   dialogueData: {fileID: 11400000, guid: d34f6036241dd6a4393e07d2f34f779a, type: 2}
+  talkLabel: Talk
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
 --- !u!1 &968322671
 GameObject:
   m_ObjectHideFlags: 0
@@ -17838,6 +18380,8 @@ MonoBehaviour:
   room: {fileID: 158121683}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -17853,6 +18397,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1031419173
 GameObject:
   m_ObjectHideFlags: 0
@@ -18020,6 +18567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
+  musicClip: {fileID: 0}
   boundsVolume: {fileID: 227945258}
   defaultAnchor: {fileID: 779117930}
   contentRoot: {fileID: 1042786929}
@@ -18119,6 +18667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Kitchen
+  musicClip: {fileID: 0}
   boundsVolume: {fileID: 428009693}
   defaultAnchor: {fileID: 1166723302}
   contentRoot: {fileID: 1061360782}
@@ -18467,6 +19016,8 @@ MonoBehaviour:
   room: {fileID: 158121683}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -18482,6 +19033,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1084523289
 GameObject:
   m_ObjectHideFlags: 0
@@ -18675,6 +19229,8 @@ MonoBehaviour:
   room: {fileID: 300000402}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -18690,6 +19246,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1085153136
 GameObject:
   m_ObjectHideFlags: 0
@@ -20288,6 +20847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
+  musicClip: {fileID: 0}
   boundsVolume: {fileID: 1483010136}
   defaultAnchor: {fileID: 997049366}
   contentRoot: {fileID: 1181567490}
@@ -20678,7 +21238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PointerContext
   worldCamera: {fileID: 519420031}
-  actor: {fileID: 228908240}
+  actor: {fileID: 0}
   inventory: {fileID: 300000002}
   hotbar: {fileID: 0}
   roomTransitionService: {fileID: 0}
@@ -20697,7 +21257,6 @@ MonoBehaviour:
   ignoreWorldWhenOverUi: 1
   interactionProbeRadius: 0.85
   dragThresholdPixels: 8
-  navMeshSampleDistance: 12
 --- !u!4 &1249125097
 Transform:
   m_ObjectHideFlags: 0
@@ -20713,6 +21272,96 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1252398414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1252398415}
+  - component: {fileID: 1252398417}
+  - component: {fileID: 1252398416}
+  m_Layer: 11
+  m_Name: _SpriteOutlineProxy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1252398415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252398414}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.01}
+  m_LocalScale: {x: 1.0167785, y: 1.0263158, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1676561941}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1252398416
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252398414}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1252398417
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252398414}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ef05891516a584629873c7b20ef823f7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 401001004
+  m_SortingLayer: 5
+  m_SortingOrder: -1
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1257715875
 GameObject:
   m_ObjectHideFlags: 0
@@ -21346,6 +21995,96 @@ MeshRenderer:
   m_SortingOrder: -1
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &1295631335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1295631336}
+  - component: {fileID: 1295631338}
+  - component: {fileID: 1295631337}
+  m_Layer: 11
+  m_Name: _SpriteOutlineProxy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1295631336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295631335}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.01}
+  m_LocalScale: {x: 1.0167785, y: 1.0263158, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1609484445}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1295631337
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295631335}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1295631338
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295631335}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ef05891516a584629873c7b20ef823f7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 401001004
+  m_SortingLayer: 5
+  m_SortingOrder: -1
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1299276201
 GameObject:
   m_ObjectHideFlags: 0
@@ -21573,9 +22312,10 @@ GameObject:
   - component: {fileID: 1308946648}
   - component: {fileID: 1308946647}
   - component: {fileID: 1308946651}
-  - component: {fileID: 1308946654}
   - component: {fileID: 1308946653}
   - component: {fileID: 1308946652}
+  - component: {fileID: 1308946655}
+  - component: {fileID: 1308946656}
   m_Layer: 10
   m_Name: Picture
   m_TagString: Untagged
@@ -21752,6 +22492,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   dialogueData: {fileID: 11400000, guid: 1571f8f41a5620044954af9459bf695b, type: 2}
+  talkLabel: Talk
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
 --- !u!114 &1308946652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21771,6 +22515,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 0}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: -8522433546947300881, guid: ed94cae52ee5a48749de7dc726fd3eec, type: 3}
@@ -21793,10 +22538,34 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1308946647}
   alphaCutoff: 0.1
   outlineThickness: 0.55
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
+  outlineColor:
+    r: 0.97819746
+    g: 0.514151
+    b: 1
+    a: 1
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
---- !u!114 &1308946654
+  proxyRoot: {fileID: 1510797286}
+  proxyFilter: {fileID: 1510797287}
+  proxyRenderer: {fileID: 1510797288}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: -8522433546947300881, guid: ed94cae52ee5a48749de7dc726fd3eec, type: 3}
+--- !u!114 &1308946655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308946645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2001d77af22154d3db746b7e92f830b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleOutline
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  thickness: 0.51
+--- !u!114 &1308946656
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -21811,10 +22580,11 @@ MonoBehaviour:
   outlineMode: 2
   includeInactiveChildren: 1
   autoCreateSpriteOutlines: 1
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
-  outlineThickness: 0.55
-  spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
-  spriteHighlightStrength: 0.2
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
 --- !u!1 &1318759006
 GameObject:
   m_ObjectHideFlags: 0
@@ -21928,6 +22698,96 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318759006}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1327486861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1327486862}
+  - component: {fileID: 1327486864}
+  - component: {fileID: 1327486863}
+  m_Layer: 11
+  m_Name: _SpriteOutlineProxy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1327486862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327486861}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.01}
+  m_LocalScale: {x: 1.014045, y: 1.0227273, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300000501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1327486863
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327486861}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1327486864
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1327486861}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ef05891516a584629873c7b20ef823f7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 401001004
+  m_SortingLayer: 5
+  m_SortingOrder: -1
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1343337006
 GameObject:
   m_ObjectHideFlags: 0
@@ -22234,6 +23094,8 @@ MonoBehaviour:
   room: {fileID: 1042786930}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -22249,6 +23111,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1408063134
 GameObject:
   m_ObjectHideFlags: 0
@@ -22442,6 +23307,8 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -22457,6 +23324,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1408519792
 GameObject:
   m_ObjectHideFlags: 0
@@ -22992,6 +23862,8 @@ MonoBehaviour:
   room: {fileID: 1042786930}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -23007,6 +23879,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1444035150
 GameObject:
   m_ObjectHideFlags: 0
@@ -24455,7 +25330,7 @@ GameObject:
   - component: {fileID: 1559172737}
   - component: {fileID: 1559172736}
   - component: {fileID: 1559172738}
-  - component: {fileID: 1559172739}
+  - component: {fileID: 1559172740}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -24587,7 +25462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63e91f8584461449c9428d5df2bf7644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionHoverSystem
---- !u!114 &1559172739
+--- !u!114 &1559172740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -24596,9 +25471,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1559172735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 209783bc9cfe748269ff95efcc322473, type: 3}
+  m_Script: {fileID: 11500000, guid: b93e15a780be547baa5610049d67c97c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ClickInput
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionClickHandler
 --- !u!1 &1609484444
 GameObject:
   m_ObjectHideFlags: 0
@@ -24615,6 +25490,8 @@ GameObject:
   - component: {fileID: 1609484448}
   - component: {fileID: 1609484447}
   - component: {fileID: 1609484446}
+  - component: {fileID: 1609484453}
+  - component: {fileID: 1609484454}
   m_Layer: 11
   m_Name: RustyKeyPickup
   m_TagString: Untagged
@@ -24634,7 +25511,8 @@ Transform:
   m_LocalPosition: {x: 0.95, y: -2.14, z: 0}
   m_LocalScale: {x: 0.18, y: 0.18, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1295631336}
   m_Father: {fileID: 1061360782}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1609484446
@@ -24727,6 +25605,8 @@ MonoBehaviour:
   room: {fileID: 1061360783}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -24742,6 +25622,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1609484449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24756,6 +25639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
   quantity: 1
+  saveId: 9cc0b45566fc4edfb47ed8d78334234d
   dragBody: {fileID: 1609484448}
   placementAnchor: {fileID: 0}
   transferController: {fileID: 300000003}
@@ -24852,6 +25736,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 1061360783}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -24859,6 +25744,54 @@ MonoBehaviour:
   description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+--- !u!114 &1609484453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609484444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &1609484454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609484444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e742cfc6827db64da95d8abcebd6105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
+  spriteRenderer: {fileID: 1609484450}
+  alphaCutoff: 0.1
+  outlineThickness: 0.025
+  outlineColor:
+    r: 1
+    g: 0.82
+    b: 0.28
+    a: 0.9
+  localOffset: {x: 0, y: 0, z: 0.01}
+  outlineEnabled: 0
+  proxyRoot: {fileID: 1295631336}
+  proxyFilter: {fileID: 1295631337}
+  proxyRenderer: {fileID: 1295631338}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: -8272045637266883246, guid: 3d9c653a4082e4830bbda17bb87a3440, type: 3}
 --- !u!1 &1616261022
 GameObject:
   m_ObjectHideFlags: 0
@@ -25409,6 +26342,8 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -25424,6 +26359,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1638899727
 GameObject:
   m_ObjectHideFlags: 0
@@ -25439,7 +26377,8 @@ GameObject:
   - component: {fileID: 1638899732}
   - component: {fileID: 1638899735}
   - component: {fileID: 1638899734}
-  - component: {fileID: 1638899733}
+  - component: {fileID: 1638899736}
+  - component: {fileID: 1638899737}
   m_Layer: 10
   m_Name: Painting
   m_TagString: Untagged
@@ -25589,25 +26528,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   dialogueData: {fileID: 11400000, guid: b87177e7069a28940904983963e42cea, type: 2}
---- !u!114 &1638899733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1638899727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
-  outlineMode: 2
-  includeInactiveChildren: 1
-  autoCreateSpriteOutlines: 1
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
-  outlineThickness: 0.39
-  spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
-  spriteHighlightStrength: 0.2
+  talkLabel: Talk
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
 --- !u!114 &1638899734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25627,6 +26551,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 0}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 1295955565587498720, guid: 792af3b3b0bc64444b48e0e10a72d255, type: 3}
@@ -25647,11 +26572,145 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
   spriteRenderer: {fileID: 1638899729}
-  alphaCutoff: 0.77
+  alphaCutoff: 0.1
   outlineThickness: 0.39
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
+  outlineColor:
+    r: 0.97819746
+    g: 0.514151
+    b: 1
+    a: 1
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
+  proxyRoot: {fileID: 868370663}
+  proxyFilter: {fileID: 868370664}
+  proxyRenderer: {fileID: 868370665}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: 1295955565587498720, guid: 792af3b3b0bc64444b48e0e10a72d255, type: 3}
+--- !u!114 &1638899736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638899727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2001d77af22154d3db746b7e92f830b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleOutline
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  thickness: 0.24
+--- !u!114 &1638899737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638899727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!1 &1648136416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1648136417}
+  - component: {fileID: 1648136419}
+  - component: {fileID: 1648136418}
+  m_Layer: 10
+  m_Name: _SpriteOutlineProxy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1648136417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648136416}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.01}
+  m_LocalScale: {x: 1.064092, y: 1.0420876, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1934237180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1648136418
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648136416}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1648136419
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648136416}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ef05891516a584629873c7b20ef823f7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 401001002
+  m_SortingLayer: 3
+  m_SortingOrder: -1
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1653146124
 GameObject:
   m_ObjectHideFlags: 0
@@ -25845,6 +26904,8 @@ MonoBehaviour:
   room: {fileID: 158121683}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -25860,6 +26921,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1655485307
 GameObject:
   m_ObjectHideFlags: 0
@@ -26120,6 +27184,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1
   selectionPriority: 0
   room: {fileID: 1181567491}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -26210,6 +27275,8 @@ GameObject:
   - component: {fileID: 1676561944}
   - component: {fileID: 1676561943}
   - component: {fileID: 1676561942}
+  - component: {fileID: 1676561949}
+  - component: {fileID: 1676561950}
   m_Layer: 11
   m_Name: RustyKeyPickup
   m_TagString: Untagged
@@ -26229,7 +27296,8 @@ Transform:
   m_LocalPosition: {x: 1.803, y: -1.889, z: 0}
   m_LocalScale: {x: 0.18, y: 0.18, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1252398415}
   m_Father: {fileID: 2132483815}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1676561942
@@ -26322,6 +27390,8 @@ MonoBehaviour:
   room: {fileID: 2132483816}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -26337,6 +27407,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1676561945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26351,6 +27424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
   itemDefinition: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
   quantity: 1
+  saveId: 0805692901124ad4ab2b6d0eba6f3e34
   dragBody: {fileID: 1676561944}
   placementAnchor: {fileID: 0}
   transferController: {fileID: 300000003}
@@ -26447,6 +27521,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 2132483816}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -26454,6 +27529,54 @@ MonoBehaviour:
   description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+--- !u!114 &1676561949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676561940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &1676561950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676561940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e742cfc6827db64da95d8abcebd6105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
+  spriteRenderer: {fileID: 1676561946}
+  alphaCutoff: 0.1
+  outlineThickness: 0.025
+  outlineColor:
+    r: 1
+    g: 0.82
+    b: 0.28
+    a: 0.9
+  localOffset: {x: 0, y: 0, z: 0.01}
+  outlineEnabled: 0
+  proxyRoot: {fileID: 1252398415}
+  proxyFilter: {fileID: 1252398416}
+  proxyRenderer: {fileID: 1252398417}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: -8272045637266883246, guid: 3d9c653a4082e4830bbda17bb87a3440, type: 3}
 --- !u!1 &1711465749
 GameObject:
   m_ObjectHideFlags: 0
@@ -27133,6 +28256,8 @@ MonoBehaviour:
   room: {fileID: 2132483816}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -27148,6 +28273,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1761151670
 GameObject:
   m_ObjectHideFlags: 0
@@ -27459,6 +28587,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1
   selectionPriority: 0
   room: {fileID: 158121683}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -27948,6 +29077,8 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -27963,6 +29094,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1817088667
 GameObject:
   m_ObjectHideFlags: 0
@@ -28097,10 +29231,11 @@ GameObject:
   - component: {fileID: 1828462820}
   - component: {fileID: 1828462822}
   - component: {fileID: 1828462821}
-  - component: {fileID: 1828462825}
-  - component: {fileID: 1828462824}
-  - component: {fileID: 1828462823}
   - component: {fileID: 1828462826}
+  - component: {fileID: 1828462825}
+  - component: {fileID: 1828462823}
+  - component: {fileID: 1828462827}
+  - component: {fileID: 1828462828}
   m_Layer: 10
   m_Name: cow
   m_TagString: Untagged
@@ -28206,28 +29341,19 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1828462821}
   alphaCutoff: 0.1
   outlineThickness: 0.02
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
+  outlineColor:
+    r: 0.97819746
+    g: 0.514151
+    b: 1
+    a: 1
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
---- !u!114 &1828462824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1828462819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
-  outlineMode: 2
-  includeInactiveChildren: 1
-  autoCreateSpriteOutlines: 1
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
-  outlineThickness: 0.02
-  spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
-  spriteHighlightStrength: 0.2
+  proxyRoot: {fileID: 185027465}
+  proxyFilter: {fileID: 185027466}
+  proxyRenderer: {fileID: 185027467}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: 6168083732550661486, guid: 6be1a37471a2c4653b70015f6916b11a, type: 3}
 --- !u!114 &1828462825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28247,6 +29373,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 0}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 6168083732550661486, guid: 6be1a37471a2c4653b70015f6916b11a, type: 3}
@@ -28346,6 +29473,40 @@ PolygonCollider2D:
       - {x: 0.39111096, y: -0.38704133}
       - {x: 0.47167736, y: -0.43538117}
   m_UseDelaunayMesh: 1
+--- !u!114 &1828462827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828462819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2001d77af22154d3db746b7e92f830b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleOutline
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  thickness: 0.09
+--- !u!114 &1828462828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828462819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
 --- !u!1 &1830626688
 GameObject:
   m_ObjectHideFlags: 0
@@ -28816,10 +29977,10 @@ GameObject:
   - component: {fileID: 1884244652}
   - component: {fileID: 1884244654}
   - component: {fileID: 1884244653}
-  - component: {fileID: 1884244657}
-  - component: {fileID: 1884244656}
-  - component: {fileID: 1884244655}
   - component: {fileID: 1884244658}
+  - component: {fileID: 1884244656}
+  - component: {fileID: 1884244659}
+  - component: {fileID: 1884244660}
   m_Layer: 10
   m_Name: Poster
   m_TagString: Untagged
@@ -28910,25 +30071,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884244651}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1884244655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1884244651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
-  outlineMode: 2
-  includeInactiveChildren: 1
-  autoCreateSpriteOutlines: 1
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
-  outlineThickness: 0.13
-  spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
-  spriteHighlightStrength: 0.2
 --- !u!114 &1884244656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28948,6 +30090,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 0}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: -2056237514340031752, guid: 16a112e86aeec4a858bd9bd7362eed10, type: 3}
@@ -28955,24 +30098,6 @@ MonoBehaviour:
   description: 
   audioSource: {fileID: 1559172736}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
---- !u!114 &1884244657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1884244651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e742cfc6827db64da95d8abcebd6105, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
-  spriteRenderer: {fileID: 1884244653}
-  alphaCutoff: 0.1
-  outlineThickness: 0.13
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
-  localOffset: {x: 0, y: 0, z: 0.01}
-  outlineEnabled: 0
 --- !u!61 &1884244658
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29019,6 +30144,40 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.82, y: 3.07}
   m_EdgeRadius: 0
+--- !u!114 &1884244659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884244651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2001d77af22154d3db746b7e92f830b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleOutline
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  thickness: 0.09
+--- !u!114 &1884244660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884244651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
 --- !u!1 &1886370833
 GameObject:
   m_ObjectHideFlags: 0
@@ -29446,6 +30605,9 @@ GameObject:
   - component: {fileID: 1921100155}
   - component: {fileID: 1921100154}
   - component: {fileID: 1921100157}
+  - component: {fileID: 1921100159}
+  - component: {fileID: 1921100158}
+  - component: {fileID: 1921100160}
   m_Layer: 10
   m_Name: Fridge
   m_TagString: Untagged
@@ -29465,7 +30627,8 @@ Transform:
   m_LocalPosition: {x: 1.69, y: -1.401, z: -0}
   m_LocalScale: {x: 1.5771258, y: 1.6178441, z: 0.33}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 6327160}
   m_Father: {fileID: 1061360782}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1921100154
@@ -29594,6 +30757,85 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   dialogueData: {fileID: 11400000, guid: 4a7fbe04d48e3b641a2289a001a26222, type: 2}
+  talkLabel: Talk
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
+--- !u!114 &1921100158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921100152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &1921100159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921100152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
+  interactionPoint: {fileID: 1921100153}
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
+  room: {fileID: 0}
+  autoCreateOutline: 1
+  hoverCursorKind: 1
+  dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
+--- !u!114 &1921100160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921100152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e742cfc6827db64da95d8abcebd6105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
+  spriteRenderer: {fileID: 1921100154}
+  alphaCutoff: 0.1
+  outlineThickness: 0.025
+  outlineColor:
+    r: 1
+    g: 0.82
+    b: 0.28
+    a: 0.9
+  localOffset: {x: 0, y: 0, z: 0.01}
+  outlineEnabled: 0
+  proxyRoot: {fileID: 6327160}
+  proxyFilter: {fileID: 6327161}
+  proxyRenderer: {fileID: 6327162}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: 6580078988926099068, guid: 4306b9e32abd76745a37d0d94551e2cd, type: 3}
 --- !u!1 &1934237179
 GameObject:
   m_ObjectHideFlags: 0
@@ -29607,6 +30849,9 @@ GameObject:
   - component: {fileID: 1934237182}
   - component: {fileID: 1934237181}
   - component: {fileID: 1934237184}
+  - component: {fileID: 1934237186}
+  - component: {fileID: 1934237185}
+  - component: {fileID: 1934237187}
   m_Layer: 10
   m_Name: Crate (24)
   m_TagString: Untagged
@@ -29626,7 +30871,8 @@ Transform:
   m_LocalPosition: {x: 2.474, y: -1.4910002, z: 0}
   m_LocalScale: {x: 2.218227, y: 2.1536593, z: 0.33}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1648136417}
   m_Father: {fileID: 2132483815}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1934237181
@@ -29755,6 +31001,85 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   dialogueData: {fileID: 11400000, guid: dfe6915269e13e74884db599b9ad6b20, type: 2}
+  talkLabel: Talk
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
+--- !u!114 &1934237185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934237179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &1934237186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934237179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
+  interactionPoint: {fileID: 1934237180}
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
+  room: {fileID: 0}
+  autoCreateOutline: 1
+  hoverCursorKind: 1
+  dragCursorKind: 4
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
+--- !u!114 &1934237187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934237179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e742cfc6827db64da95d8abcebd6105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOutlineProxy
+  spriteRenderer: {fileID: 1934237181}
+  alphaCutoff: 0.1
+  outlineThickness: 0.025
+  outlineColor:
+    r: 1
+    g: 0.82
+    b: 0.28
+    a: 0.9
+  localOffset: {x: 0, y: 0, z: 0.01}
+  outlineEnabled: 0
+  proxyRoot: {fileID: 1648136417}
+  proxyFilter: {fileID: 1648136418}
+  proxyRenderer: {fileID: 1648136419}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: -124648093558696045, guid: b913d0f970a787445b2e401efbc1e64f, type: 3}
 --- !u!1 &1947883482
 GameObject:
   m_ObjectHideFlags: 0
@@ -29770,7 +31095,8 @@ GameObject:
   - component: {fileID: 1947883485}
   - component: {fileID: 1947883490}
   - component: {fileID: 1947883489}
-  - component: {fileID: 1947883488}
+  - component: {fileID: 1947883491}
+  - component: {fileID: 1947883492}
   m_Layer: 10
   m_Name: Bed
   m_TagString: Untagged
@@ -29861,25 +31187,6 @@ Transform:
   - {fileID: 116707041}
   m_Father: {fileID: 129612614}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1947883488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1947883482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
-  outlineMode: 2
-  includeInactiveChildren: 1
-  autoCreateSpriteOutlines: 1
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
-  outlineThickness: 0.06
-  spriteHighlightColor: {r: 1, g: 0.95, b: 0.65, a: 1}
-  spriteHighlightStrength: 0.2
 --- !u!114 &1947883489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29899,6 +31206,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 0}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 2122107185238573207, guid: aff1e0a71350b46baad5d72bb49360cb, type: 3}
@@ -29921,9 +31229,53 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1947883485}
   alphaCutoff: 0.1
   outlineThickness: 0.06
-  outlineColor: {r: 0.97819746, g: 0.514151, b: 1, a: 1}
+  outlineColor:
+    r: 0.97819746
+    g: 0.514151
+    b: 1
+    a: 1
   localOffset: {x: 0, y: 0, z: 0.01}
   outlineEnabled: 0
+  proxyRoot: {fileID: 116707041}
+  proxyFilter: {fileID: 116707042}
+  proxyRenderer: {fileID: 116707043}
+  proxyMesh: {fileID: 0}
+  runtimeMaterial: {fileID: 0}
+  lastSprite: {fileID: 2122107185238573207, guid: aff1e0a71350b46baad5d72bb49360cb, type: 3}
+--- !u!114 &1947883491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947883482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2001d77af22154d3db746b7e92f830b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleOutline
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  thickness: 0.09
+--- !u!114 &1947883492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947883482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
 --- !u!1 &1980029756
 GameObject:
   m_ObjectHideFlags: 0
@@ -30928,6 +32280,7 @@ MonoBehaviour:
   interactionRadiusOverride: 1.25
   selectionPriority: 0
   room: {fileID: 2132483816}
+  autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
   itemSprite: {fileID: 0}
@@ -31542,6 +32895,8 @@ MonoBehaviour:
   room: {fileID: 1042786930}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -31557,6 +32912,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2067809773
 GameObject:
   m_ObjectHideFlags: 0
@@ -31750,6 +33108,8 @@ MonoBehaviour:
   room: {fileID: 1181567491}
   useGrabOffset: 1
   centerOnPointer: 1
+  dragLabel: Drag
+  dragGlyphId: Primary
   idleGravityScale: 1
   idleLinearDamping: 0
   dragGravityScale: 0.15
@@ -31765,6 +33125,9 @@ MonoBehaviour:
   freezeRotationWhileIdle: 1
   freezeRotationWhileDragging: 1
   ignorePlayerCollisions: 1
+  blockingLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2068013759
 GameObject:
   m_ObjectHideFlags: 0
@@ -31912,6 +33275,96 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.42671883, y: 0.59144604}
   m_EdgeRadius: 0
+--- !u!1 &2083247730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2083247731}
+  - component: {fileID: 2083247733}
+  - component: {fileID: 2083247732}
+  m_Layer: 11
+  m_Name: _SpriteOutlineProxy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2083247731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083247730}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.01}
+  m_LocalScale: {x: 1.0342466, y: 1.0314862, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 300000521}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2083247732
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083247730}
+  m_Mesh: {fileID: 0}
+--- !u!23 &2083247733
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083247730}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 0
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ef05891516a584629873c7b20ef823f7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 401001004
+  m_SortingLayer: 5
+  m_SortingOrder: -1
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &2095818600
 GameObject:
   m_ObjectHideFlags: 0
@@ -32226,6 +33679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Garage
+  musicClip: {fileID: 0}
   boundsVolume: {fileID: 1266574543}
   defaultAnchor: {fileID: 1451249983}
   contentRoot: {fileID: 2132483815}

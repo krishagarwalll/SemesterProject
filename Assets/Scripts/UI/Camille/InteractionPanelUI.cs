@@ -29,6 +29,11 @@ public class InteractionPanelUI : MonoBehaviour
     {
         Instance = this;
 
+
+    // ✅ Hide panel at start
+    if (panelRoot != null)
+        panelRoot.SetActive(false);
+
         closeButton.onClick.AddListener(Hide);
         backgroundButton.onClick.AddListener(Hide);
 
