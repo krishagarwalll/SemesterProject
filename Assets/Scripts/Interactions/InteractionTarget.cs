@@ -97,8 +97,10 @@ public class InteractionTarget : MonoBehaviour
     //     audioSource.PlayOneShot(hover);
     // }
 
-    public void SetHovered(bool hovered)
+        public void SetHovered(bool hovered)
     {
+        if (InteractionLock.IsLocked) return; 
+
         Outline?.SetHighlighted(hovered);
 
         var simpleOutline = GetComponent<SimpleOutline>();
@@ -115,25 +117,29 @@ public class InteractionTarget : MonoBehaviour
         wasHovered = hovered;
     }
 
-    public void OnClicked()
+        public void OnClicked()
     {
-        Debug.Log("OnClicked fired for " + name);
+        if (InteractionLock.IsLocked) return;
 
-        if (itemSprite == null)
+        Debug.Log("Clicked: " + name);
+
+        // open minigame instead
+        if (CompareTag("Bowl"))
         {
-            Debug.LogError("❌ itemSprite is NULL on " + name);
+            FindKey.Instance.Open();
             return;
         }
 
-        if (InteractionPanelUI.Instance == null)
+        if (FindKey.Instance != null && FindKey.Instance.gameObject.activeSelf)
         {
-            Debug.LogError("❌ InteractionPanelUI.Instance is NULL");
-            return;
+            return; // block ALL interactions while minigame is open
         }
 
-        Debug.Log("✅ Showing panel");
-
-        InteractionPanelUI.Instance.Show(itemSprite, itemName, description);
+        //Default behavior (other objects)
+        if (itemSprite != null && InteractionPanelUI.Instance != null)
+        {
+            InteractionPanelUI.Instance.Show(itemSprite, name, description);
+        }
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)

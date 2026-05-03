@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3247331319056101465}
-  - component: {fileID: 3772072899746669000}
   - component: {fileID: 272854528934982567}
   m_Layer: 0
   m_Name: PlayerInteractionHitBox
@@ -34,19 +33,6 @@ Transform:
   - {fileID: 4342616745814693192}
   m_Father: {fileID: 4971911390447125958}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3772072899746669000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2107890203785909695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7d0701b2010ee64ea5f66abd85aca01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionDetector
-  interactableIcon: {fileID: 7233251003942412115}
 --- !u!58 &272854528934982567
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -381,7 +367,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3772072899746669000}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InteractionDetector, Assembly-CSharp
         m_MethodName: OnInteract
         m_Mode: 0

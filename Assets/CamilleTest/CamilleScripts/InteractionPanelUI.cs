@@ -16,7 +16,6 @@ public class InteractionPanelUI : MonoBehaviour
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private Button closeButton;
-    [SerializeField] private Button backgroundButton;
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
@@ -27,15 +26,30 @@ public class InteractionPanelUI : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
 
+        if (panelRoot == null)
+        {
+            Debug.LogError("PanelRoot NOT assigned!");
+            return;
+        }
 
-    // ✅ Hide panel at start
-    if (panelRoot != null)
-        panelRoot.SetActive(false);
+        if (canvasGroup == null)
+        {
+            Debug.LogError("CanvasGroup NOT assigned!");
+            return;
+        }
 
-        closeButton.onClick.AddListener(Hide);
-        backgroundButton.onClick.AddListener(Hide);
+        if (closeButton != null)
+            closeButton.onClick.AddListener(Hide);
+        else
+            Debug.LogError("CloseButton NOT assigned!");
 
         HideInstant();
     }
@@ -43,6 +57,8 @@ public class InteractionPanelUI : MonoBehaviour
     public void Show(Sprite sprite, string itemName, string desc)
     {
         panelRoot.SetActive(true);
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
 
         itemImage.sprite = sprite;
         nameText.text = itemName;
@@ -56,6 +72,9 @@ public class InteractionPanelUI : MonoBehaviour
 
     public void Hide()
     {
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+        
         if (audioSource && closeSound)
             audioSource.PlayOneShot(closeSound);
 
@@ -64,6 +83,8 @@ public class InteractionPanelUI : MonoBehaviour
 
     void HideInstant()
     {
+        Debug.Log("PANEL CLOSE");
+
         panelRoot.SetActive(false);
         canvasGroup.alpha = 0;
     }

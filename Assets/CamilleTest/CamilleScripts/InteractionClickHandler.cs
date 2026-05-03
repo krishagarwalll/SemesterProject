@@ -23,7 +23,16 @@ public class InteractionClickHandler : MonoBehaviour
                 if (target != null)
                 {
                     Debug.Log("TARGET FOUND: " + target.name);
-                    target.OnClicked();
+                    var bowl = target.GetComponent<BowlMinigameTrigger>();
+
+                    if (bowl != null)
+                    {
+                        bowl.TriggerMinigame(); // minigame
+                    }
+                    else
+                    {
+                        target.OnClicked(); // normal popup
+                    }
                 }
             }
             else
