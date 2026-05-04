@@ -649,6 +649,7 @@ GameObject:
   - component: {fileID: 10342323}
   - component: {fileID: 10342328}
   - component: {fileID: 10342327}
+  - component: {fileID: 10342329}
   m_Layer: 10
   m_Name: Mirror
   m_TagString: Untagged
@@ -843,11 +844,26 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
+  itemSprite: {fileID: -3222790432060283442, guid: a82867181c8acd24994d9a938a780788, type: 3}
+  itemName: mirror
   description: 
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 963815830}
   hover: {fileID: 0}
+--- !u!114 &10342329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10342321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
+  itemSprite: {fileID: -3222790432060283442, guid: a82867181c8acd24994d9a938a780788, type: 3}
+  itemName: mirror
+  description: change sprite so it looks eerier
 --- !u!1 &11552846
 GameObject:
   m_ObjectHideFlags: 0
@@ -8601,6 +8617,7 @@ GameObject:
   - component: {fileID: 249062301}
   - component: {fileID: 249062300}
   - component: {fileID: 249062299}
+  - component: {fileID: 249062302}
   m_Layer: 10
   m_Name: Newspaper
   m_TagString: Untagged
@@ -8754,6 +8771,21 @@ MonoBehaviour:
   description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+--- !u!114 &249062302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249062295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
+  itemSprite: {fileID: 4462837344885546308, guid: a82867181c8acd24994d9a938a780788, type: 3}
+  itemName: 
+  description: change newspaper to realistc sprite
 --- !u!1 &249954542
 GameObject:
   m_ObjectHideFlags: 0
@@ -32379,8 +32411,10 @@ GameObject:
   m_Component:
   - component: {fileID: 963815831}
   - component: {fileID: 963815830}
+  - component: {fileID: 963815833}
+  - component: {fileID: 963815832}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32498,6 +32532,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963815832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963815829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93e15a780be547baa5610049d67c97c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionClickHandler
+--- !u!114 &963815833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963815829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e91f8584461449c9428d5df2bf7644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionHoverSystem
 --- !u!1 &969293979
 GameObject:
   m_ObjectHideFlags: 0
@@ -46029,6 +46087,7 @@ GameObject:
   - component: {fileID: 1308946651}
   - component: {fileID: 1308946653}
   - component: {fileID: 1308946652}
+  - component: {fileID: 1308946654}
   m_Layer: 10
   m_Name: Picture
   m_TagString: Untagged
@@ -46223,11 +46282,26 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: -6215980573622810759, guid: cffba3b4ba3d4e449a18a33c6dc78333, type: 3}
-  itemName: Photo
+  itemSprite: {fileID: 0}
+  itemName: 
   description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+--- !u!114 &1308946654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308946645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
 --- !u!1 &1313017733
 GameObject:
   m_ObjectHideFlags: 0
@@ -50810,6 +50884,7 @@ GameObject:
   - component: {fileID: 1638899732}
   - component: {fileID: 1638899734}
   - component: {fileID: 1638899733}
+  - component: {fileID: 1638899735}
   m_Layer: 10
   m_Name: Board
   m_TagString: Untagged
@@ -51009,6 +51084,21 @@ MonoBehaviour:
   description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+--- !u!114 &1638899735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638899727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
+  itemSprite: {fileID: 2225645817397188732, guid: cffba3b4ba3d4e449a18a33c6dc78333, type: 3}
+  itemName: board
+  description: ...
 --- !u!1 &1655978625
 GameObject:
   m_ObjectHideFlags: 0
