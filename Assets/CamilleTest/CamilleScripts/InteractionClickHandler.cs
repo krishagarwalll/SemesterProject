@@ -7,37 +7,39 @@ public class InteractionClickHandler : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Debug.Log("CLICK");
-
             Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector2 mousePos = new Vector2(mousePos3D.x, mousePos3D.y);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero);
 
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
-
-            if (hit.collider != null)
+            foreach (var hit in hits)
             {
-                Debug.Log("HIT: " + hit.collider.name);
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Walkable"))
+                    continue;
 
-                InteractionTarget target = hit.collider.GetComponentInParent<InteractionTarget>();
+                //check for minigame trigger
+                var bowl = hit.collider.GetComponentInParent<BowlMinigameTrigger>();
+                if (bowl != null)
+                {
+                    Debug.Log("BOWL TRIGGERED");
+                    bowl.TriggerMinigame();
+                    break;
+                }
 
+                //popup system
+                var popup = hit.collider.GetComponentInParent<PopUpInteraction>();
+                if (popup != null)
+                {
+                    popup.HandleClick();
+                    break;
+                }
+
+                //fallback to team system
+                var target = hit.collider.GetComponentInParent<InteractionTarget>();
                 if (target != null)
                 {
-                    Debug.Log("TARGET FOUND: " + target.name);
-                    var bowl = target.GetComponent<BowlMinigameTrigger>();
-
-                    if (bowl != null)
-                    {
-                        bowl.TriggerMinigame(); // minigame
-                    }
-                    else
-                    {
-                        target.OnClicked(); // normal popup
-                    }
+                    target.OnClicked();
+                    break;
                 }
-            }
-            else
-            {
-                Debug.Log("NO HIT");
             }
         }
     }

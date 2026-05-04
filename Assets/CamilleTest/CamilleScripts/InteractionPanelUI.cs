@@ -26,6 +26,7 @@ public class InteractionPanelUI : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("InteractionPanelUI Awake");
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);

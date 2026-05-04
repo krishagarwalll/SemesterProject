@@ -24,10 +24,10 @@ public class InteractionTarget : MonoBehaviour
     [SerializeField] private PointerCursorKind hoverCursorKind = PointerCursorKind.Interact;
     [SerializeField] private PointerCursorKind dragCursorKind = PointerCursorKind.Dragging;
 
-    [Header("UI")] //panel pop up
-    [SerializeField] private Sprite itemSprite;
-    [SerializeField] private string itemName;
-    [SerializeField] [TextArea(3,6)] private string description; 
+    //[Header("UI")] //panel pop up
+    //[SerializeField] private Sprite itemSprite;
+    //[SerializeField] private string itemName;
+    //[SerializeField] [TextArea(3,6)] private string description; 
 
     private readonly List<InteractionAction> actionBuffer = new();
     private MonoBehaviour[] behaviours;
@@ -99,7 +99,7 @@ public class InteractionTarget : MonoBehaviour
 
         public void SetHovered(bool hovered)
     {
-        if (InteractionLock.IsLocked) return; 
+        //if (InteractionLock.IsLocked) return; 
 
         Outline?.SetHighlighted(hovered);
 
@@ -119,27 +119,7 @@ public class InteractionTarget : MonoBehaviour
 
         public void OnClicked()
     {
-        if (InteractionLock.IsLocked) return;
-
-        Debug.Log("Clicked: " + name);
-
-        // open minigame instead
-        if (CompareTag("Bowl"))
-        {
-            FindKey.Instance.Open();
-            return;
-        }
-
-        if (FindKey.Instance != null && FindKey.Instance.gameObject.activeSelf)
-        {
-            return; // block ALL interactions while minigame is open
-        }
-
-        //Default behavior (other objects)
-        if (itemSprite != null && InteractionPanelUI.Instance != null)
-        {
-            InteractionPanelUI.Instance.Show(itemSprite, name, description);
-        }
+        Debug.Log("InteractionTarget clicked: " + name);
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)
