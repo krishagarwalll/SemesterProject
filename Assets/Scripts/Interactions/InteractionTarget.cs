@@ -24,10 +24,10 @@ public class InteractionTarget : MonoBehaviour
     [SerializeField] private PointerCursorKind hoverCursorKind = PointerCursorKind.Interact;
     [SerializeField] private PointerCursorKind dragCursorKind = PointerCursorKind.Dragging;
 
-    [Header("UI")] //panel pop up
-    [SerializeField] private Sprite itemSprite;
-    [SerializeField] private string itemName;
-    [SerializeField] [TextArea(3,6)] private string description; 
+    //[Header("UI")] //panel pop up
+    //[SerializeField] private Sprite itemSprite;
+    //[SerializeField] private string itemName;
+    //[SerializeField] [TextArea(3,6)] private string description; 
 
     private readonly List<InteractionAction> actionBuffer = new();
     private MonoBehaviour[] behaviours;
@@ -97,10 +97,17 @@ public class InteractionTarget : MonoBehaviour
     //     audioSource.PlayOneShot(hover);
     // }
 
-    public void SetHovered(bool hovered)
+        public void SetHovered(bool hovered)
     {
-        EnsureOutline();
+        //if (InteractionLock.IsLocked) return; 
+
         Outline?.SetHighlighted(hovered);
+
+        var simpleOutline = GetComponent<SimpleOutline>();
+        if (simpleOutline != null)
+        {
+            simpleOutline.SetOutline(hovered);
+        }
 
         if (hovered && !wasHovered && hover != null && audioSource != null)
         {
@@ -110,22 +117,9 @@ public class InteractionTarget : MonoBehaviour
         wasHovered = hovered;
     }
 
-    public void OnClicked()
+        public void OnClicked()
     {
-        Sprite spriteToUse = itemSprite;
-
-        if (spriteToUse == null)
-        {
-            SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            if (sr != null)
-                spriteToUse = sr.sprite;
-        }
-
-        InteractionPanelUI.Instance.Show(
-            spriteToUse,
-            itemName,
-            description
-        );
+        Debug.Log("InteractionTarget clicked: " + name);
     }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)
