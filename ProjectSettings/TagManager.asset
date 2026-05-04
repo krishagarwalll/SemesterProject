@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - minigame
   - flashlight
+  - Bowl
   layers:
   - Default
   - TransparentFX
