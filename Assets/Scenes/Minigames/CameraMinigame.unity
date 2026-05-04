@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 219474061}
   - component: {fileID: 219474066}
   - component: {fileID: 219474067}
+  - component: {fileID: 219474068}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -413,7 +414,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -932701535801381845, guid: 6e35dd6edb6294f7abf6d3e80e5dfa94, type: 3}
+  m_Sprite: {fileID: -2400266477324617778, guid: 1d9b5340681e9054e885de2932c0403b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -478,8 +479,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.07, y: 1.28}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.3191489, y: 1.4067487}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -595,6 +596,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8afd888a60453e956136d4433b3910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteract
+--- !u!95 &219474068
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219474060}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b82e78948f0c601439066f2ac6464be7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &501754908
 GameObject:
   m_ObjectHideFlags: 0

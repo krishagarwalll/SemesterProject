@@ -13,6 +13,7 @@ public class CameraFlash : MonoBehaviour
 
     private float cooldownTimer;
     private Camera mainCamera;
+    private Vector2 aimDirection = Vector2.right;
 
     private void Awake()
     {
@@ -38,8 +39,10 @@ public class CameraFlash : MonoBehaviour
         if (Mouse.current == null) return;
         Vector2 mouseScreen = Mouse.current.position.ReadValue();
         Vector3 mouseWorld = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreen.x, mouseScreen.y, -mainCamera.transform.position.z));
-        Vector2 direction = mouseWorld - transform.position;
-        float deg = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Vector2 direction = (Vector2)mouseWorld - (Vector2)transform.position;
+        if (direction.sqrMagnitude < 0.0001f) return;
+        aimDirection = direction.normalized;
+        float deg = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, deg);
     }
 
@@ -50,6 +53,8 @@ public class CameraFlash : MonoBehaviour
         cooldownTimer = cooldown;
 
         Transform spawnPoint = firePoint != null ? firePoint : transform;
-        Instantiate(projectilePrefab, spawnPoint.position, transform.rotation);
+        GameObject instance = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
+        if (instance.TryGetComponent(out CameraFlashProjectile projectile))
+            projectile.Launch(aimDirection);
     }
 }
