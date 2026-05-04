@@ -845,7 +845,7 @@ MonoBehaviour:
   hoverCursorKind: 1
   dragCursorKind: 4
   audioSource: {fileID: 963815830}
-  hover: {fileID: 0}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &10342329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8764,7 +8764,7 @@ MonoBehaviour:
   hoverCursorKind: 1
   dragCursorKind: 4
   audioSource: {fileID: 963815830}
-  hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &249062302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30167,8 +30167,80 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5081333138664372813, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 827608887}
   m_SourcePrefab: {fileID: 100100000, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+--- !u!114 &827608880 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2551246001325454872, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &827608881 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8316641149892198346, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &827608882 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2914527541517436738, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &827608883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4270889412184862943, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &827608884 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5081333138664372813, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &827608886 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 885174321323960719, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &827608887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827608884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018e82f0dca53453db3d3b1fc9f38753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionPanelUI
+  panelRoot: {fileID: 827608883}
+  canvasGroup: {fileID: 827608886}
+  itemImage: {fileID: 827608882}
+  nameText: {fileID: 827608881}
+  descriptionText: {fileID: 827608880}
+  closeButton: {fileID: 1938348931}
+  audioSource: {fileID: 963815830}
+  openSound: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
+  closeSound: {fileID: 8300000, guid: 7975d370c92eb499c8c69b77d8b08c13, type: 3}
 --- !u!1 &844751948
 GameObject:
   m_ObjectHideFlags: 0
@@ -46240,7 +46312,7 @@ MonoBehaviour:
   hoverCursorKind: 1
   dragCursorKind: 4
   audioSource: {fileID: 963815830}
-  hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &1308946654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49600,6 +49672,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3857915085759159650, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: hover
+      value: 
+      objectReference: {fileID: 8300000, guid: f19b44fa857d94b3db033f9441d467e6, type: 3}
+    - target: {fileID: 3857915085759159650, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 963815830}
     - target: {fileID: 5657309652596756716, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
       propertyPath: m_Name
       value: Bowl MINIGAME
@@ -51086,7 +51166,7 @@ MonoBehaviour:
   hoverCursorKind: 1
   dragCursorKind: 4
   audioSource: {fileID: 963815830}
-  hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!114 &1638899735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52549,6 +52629,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 331021158}
     - target: {fileID: 1433723122615106268, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
+      propertyPath: hover
+      value: 
+      objectReference: {fileID: 8300000, guid: 0677c3c8d28fe45e4b252b30fad47ce4, type: 3}
+    - target: {fileID: 1433723122615106268, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 963815830}
@@ -52571,6 +52655,10 @@ PrefabInstance:
     - target: {fileID: 6855726772711474361, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
       propertyPath: m_Name
       value: RustyKeyPickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855726772711474361, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7007957633189858391, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
       propertyPath: m_LocalScale.x
@@ -58097,6 +58185,7 @@ GameObject:
   - component: {fileID: 1921100157}
   - component: {fileID: 1921100159}
   - component: {fileID: 1921100158}
+  - component: {fileID: 1921100160}
   m_Layer: 10
   m_Name: Fridge
   m_TagString: Untagged
@@ -58291,8 +58380,23 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  audioSource: {fileID: 0}
-  hover: {fileID: 0}
+  audioSource: {fileID: 963815830}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
+--- !u!114 &1921100160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921100152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
+  itemSprite: {fileID: 6580078988926099068, guid: a4b182c9e92ac4b40ae4f23154c6655b, type: 3}
+  itemName: 
+  description: show fridge food going bad
 --- !u!1 &1922650890
 GameObject:
   m_ObjectHideFlags: 0
@@ -59090,6 +59194,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.67445, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1938348931 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1791453367115093974, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &1943220091
 GameObject:
   m_ObjectHideFlags: 0
