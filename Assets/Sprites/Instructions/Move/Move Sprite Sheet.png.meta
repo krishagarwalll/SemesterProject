@@ -1,0 +1,772 @@
+fileFormatVersion: 2
+guid: 56015110f7f9c914bb4ea6a565dd9f0e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2283277970418855353
+    second: Move Sprite Sheet_0
+  - first:
+      213: -1841883546433448436
+    second: Move Sprite Sheet_1
+  - first:
+      213: 8098329498636988814
+    second: Move Sprite Sheet_2
+  - first:
+      213: -9019008859880388329
+    second: Move Sprite Sheet_3
+  - first:
+      213: 7722536108997287843
+    second: Move Sprite Sheet_4
+  - first:
+      213: 7718479807746234719
+    second: Move Sprite Sheet_5
+  - first:
+      213: -688464142579423607
+    second: Move Sprite Sheet_6
+  - first:
+      213: 3349740021269346769
+    second: Move Sprite Sheet_7
+  - first:
+      213: -7729274825351734707
+    second: Move Sprite Sheet_8
+  - first:
+      213: 8220864358318109906
+    second: Move Sprite Sheet_9
+  - first:
+      213: -5471860949456623408
+    second: Move Sprite Sheet_10
+  - first:
+      213: -8324705345292653219
+    second: Move Sprite Sheet_11
+  - first:
+      213: 1918375412247442660
+    second: Move Sprite Sheet_12
+  - first:
+      213: 494621840500897281
+    second: Move Sprite Sheet_13
+  - first:
+      213: 8118897050704691372
+    second: Move Sprite Sheet_14
+  - first:
+      213: -1046706639206468294
+    second: Move Sprite Sheet_15
+  - first:
+      213: 5876484719463576126
+    second: Move Sprite Sheet_16
+  - first:
+      213: 3297717099732293063
+    second: Move Sprite Sheet_17
+  - first:
+      213: -3765929868081757953
+    second: Move Sprite Sheet_18
+  - first:
+      213: 6420982864853483413
+    second: Move Sprite Sheet_19
+  - first:
+      213: 5941100013190779970
+    second: Move Sprite Sheet_20
+  - first:
+      213: 6788477658676212039
+    second: Move Sprite Sheet_21
+  - first:
+      213: -2301470025020791541
+    second: Move Sprite Sheet_22
+  - first:
+      213: -4397296497027624395
+    second: Move Sprite Sheet_23
+  - first:
+      213: -3279831187167074994
+    second: Move Sprite Sheet_24
+  - first:
+      213: -5633618599915633637
+    second: Move Sprite Sheet_25
+  - first:
+      213: -7728803092299676506
+    second: Move Sprite Sheet_26
+  - first:
+      213: -6158393845381046858
+    second: Move Sprite Sheet_27
+  - first:
+      213: 284017077812687395
+    second: Move Sprite Sheet_28
+  - first:
+      213: -7721372693097996729
+    second: Move Sprite Sheet_29
+  - first:
+      213: -4963791947550264136
+    second: Move Sprite Sheet_30
+  - first:
+      213: 8291580372221804218
+    second: Move Sprite Sheet_31
+  - first:
+      213: -4714354430757418241
+    second: Move Sprite Sheet_32
+  - first:
+      213: 53706342767638139
+    second: Move Sprite Sheet_33
+  - first:
+      213: -8265202529350792938
+    second: Move Sprite Sheet_34
+  - first:
+      213: -4870914648149053637
+    second: Move Sprite Sheet_35
+  - first:
+      213: 508519742781625889
+    second: Move Sprite Sheet_36
+  - first:
+      213: 6532721776010308756
+    second: Move Sprite Sheet_37
+  - first:
+      213: 7769888095529934083
+    second: Move Sprite Sheet_38
+  - first:
+      213: -5509271809399403841
+    second: Move Sprite Sheet_39
+  - first:
+      213: -3752518571170513411
+    second: Move Sprite Sheet_40
+  - first:
+      213: 3961507142706465541
+    second: Move Sprite Sheet_41
+  - first:
+      213: -8795635676909179312
+    second: Move Sprite Sheet_42
+  - first:
+      213: 7720867344030182111
+    second: Move Sprite Sheet_43
+  - first:
+      213: 7031866095334007315
+    second: Move Sprite Sheet_44
+  - first:
+      213: 5275188897588880708
+    second: Move Sprite Sheet_45
+  - first:
+      213: 7086215630161035229
+    second: Move Sprite Sheet_46
+  - first:
+      213: -1765416244089010282
+    second: Move Sprite Sheet_47
+  - first:
+      213: -6832668974996494852
+    second: Move Sprite Sheet_48
+  - first:
+      213: -5880173205299272371
+    second: Move Sprite Sheet_49
+  - first:
+      213: -4292634987245414494
+    second: Move Sprite Sheet_50
+  - first:
+      213: 2821678726986333078
+    second: Move Sprite Sheet_51
+  - first:
+      213: 7915985749517921961
+    second: Move Sprite Sheet_52
+  - first:
+      213: -8860709352804590615
+    second: Move Sprite Sheet_53
+  - first:
+      213: 3422360859547468729
+    second: Move Sprite Sheet_54
+  - first:
+      213: -7027470937449418094
+    second: Move Sprite Sheet_55
+  - first:
+      213: -6250771551326568422
+    second: Move Sprite Sheet_56
+  - first:
+      213: -6059591036359883583
+    second: Move Sprite Sheet_57
+  - first:
+      213: 1485779751748923781
+    second: Move Sprite Sheet_58
+  - first:
+      213: 9209845075279705284
+    second: Move Sprite Sheet_59
+  - first:
+      213: -5322753658692094619
+    second: Move Sprite Sheet_60
+  - first:
+      213: 2728090139853956370
+    second: Move Sprite Sheet_61
+  - first:
+      213: -6740138736917007201
+    second: Move Sprite Sheet_62
+  - first:
+      213: 9123919537696589551
+    second: Move Sprite Sheet_63
+  - first:
+      213: 7854226243199919412
+    second: Move Sprite Sheet_64
+  - first:
+      213: -975125887083355657
+    second: Move Sprite Sheet_65
+  - first:
+      213: 2835842439226321653
+    second: Move Sprite Sheet_66
+  - first:
+      213: 7424764368174913801
+    second: Move Sprite Sheet_67
+  - first:
+      213: 2203267923838458770
+    second: Move Sprite Sheet_68
+  - first:
+      213: 7014751714708884760
+    second: Move Sprite Sheet_69
+  - first:
+      213: -3433649089524243964
+    second: Move Sprite Sheet_70
+  - first:
+      213: -5741489907010711928
+    second: Move Sprite Sheet_71
+  - first:
+      213: -4942237466453131211
+    second: Move Sprite Sheet_72
+  - first:
+      213: -8784789703579115548
+    second: Move Sprite Sheet_73
+  - first:
+      213: 54409543943506632
+    second: Move Sprite Sheet_74
+  - first:
+      213: 7273228164095198278
+    second: Move Sprite Sheet_75
+  - first:
+      213: 7083914188397754005
+    second: Move Sprite Sheet_76
+  - first:
+      213: 2846767123289674850
+    second: Move Sprite Sheet_77
+  - first:
+      213: -5938304240901860451
+    second: Move Sprite Sheet_78
+  - first:
+      213: 5290235846946116989
+    second: Move Sprite Sheet_79
+  - first:
+      213: -7187515582759369734
+    second: Move Sprite Sheet_80
+  - first:
+      213: -7288973100774957033
+    second: Move Sprite Sheet_81
+  - first:
+      213: -7650444682200295612
+    second: Move Sprite Sheet_82
+  - first:
+      213: -4712078724701587270
+    second: Move Sprite Sheet_83
+  - first:
+      213: 1901429758815432908
+    second: Move Sprite Sheet_84
+  - first:
+      213: -7531526326722189327
+    second: Move Sprite Sheet_85
+  - first:
+      213: 1727336189837832690
+    second: Move Sprite Sheet_86
+  - first:
+      213: -4043618161878174041
+    second: Move Sprite Sheet_87
+  - first:
+      213: -2645680390152850451
+    second: Move Sprite Sheet_88
+  - first:
+      213: 7694685808785329703
+    second: Move Sprite Sheet_89
+  - first:
+      213: -6865549715708108583
+    second: Move Sprite Sheet_90
+  - first:
+      213: 2532034561780273965
+    second: Move Sprite Sheet_91
+  - first:
+      213: -3417236533473236442
+    second: Move Sprite Sheet_92
+  - first:
+      213: -3417744741624848251
+    second: Move Sprite Sheet_93
+  - first:
+      213: 1267975912298609470
+    second: Move Sprite Sheet_94
+  - first:
+      213: 8217282794423483042
+    second: Move Sprite Sheet_95
+  - first:
+      213: -4324028783314801922
+    second: Move Sprite Sheet_96
+  - first:
+      213: -7473944806020716353
+    second: Move Sprite Sheet_97
+  - first:
+      213: 1146402340552929612
+    second: Move Sprite Sheet_98
+  - first:
+      213: 6179153773647600311
+    second: Move Sprite Sheet_99
+  - first:
+      213: 4078524064744751690
+    second: Move Sprite Sheet_100
+  - first:
+      213: -166982107416777497
+    second: Move Sprite Sheet_101
+  - first:
+      213: 7927050145763345476
+    second: Move Sprite Sheet_102
+  - first:
+      213: 6815542459438452862
+    second: Move Sprite Sheet_103
+  - first:
+      213: -6734319813511141564
+    second: Move Sprite Sheet_104
+  - first:
+      213: -7087222956621649359
+    second: Move Sprite Sheet_105
+  - first:
+      213: 2686908058154421502
+    second: Move Sprite Sheet_106
+  - first:
+      213: -6155381982999760987
+    second: Move Sprite Sheet_107
+  - first:
+      213: 1639190519245386651
+    second: Move Sprite Sheet_108
+  - first:
+      213: 4334338921343956449
+    second: Move Sprite Sheet_109
+  - first:
+      213: -1956487980457049609
+    second: Move Sprite Sheet_110
+  - first:
+      213: 7765574949629051306
+    second: Move Sprite Sheet_111
+  - first:
+      213: -2333982207976850861
+    second: Move Sprite Sheet_112
+  - first:
+      213: -4703949899522359072
+    second: Move Sprite Sheet_113
+  - first:
+      213: -7636781169246824403
+    second: Move Sprite Sheet_114
+  - first:
+      213: -8988916180447005169
+    second: Move Sprite Sheet_115
+  - first:
+      213: 4803725435500952434
+    second: Move Sprite Sheet_116
+  - first:
+      213: -5856417748857166131
+    second: Move Sprite Sheet_117
+  - first:
+      213: -805843928909974071
+    second: Move Sprite Sheet_118
+  - first:
+      213: -6538215335676949908
+    second: Move Sprite Sheet_119
+  - first:
+      213: -3774808333605292077
+    second: Move Sprite Sheet_120
+  - first:
+      213: -3626999184994565846
+    second: Move Sprite Sheet_121
+  - first:
+      213: -1504219668245772785
+    second: Move Sprite Sheet_122
+  - first:
+      213: 8094804148804982490
+    second: Move Sprite Sheet_123
+  - first:
+      213: -6271907421004091991
+    second: Move Sprite Sheet_124
+  - first:
+      213: 7809211235116896283
+    second: Move Sprite Sheet_125
+  - first:
+      213: -915202193186684268
+    second: Move Sprite Sheet_126
+  - first:
+      213: 4534032260774335672
+    second: Move Sprite Sheet_127
+  - first:
+      213: 9210884841119107679
+    second: Move Sprite Sheet_128
+  - first:
+      213: -6111904648601863896
+    second: Move Sprite Sheet_129
+  - first:
+      213: 8161392234503285500
+    second: Move Sprite Sheet_130
+  - first:
+      213: -8819891769315042512
+    second: Move Sprite Sheet_131
+  - first:
+      213: -2502379627762592285
+    second: Move Sprite Sheet_132
+  - first:
+      213: -1445949486168414911
+    second: Move Sprite Sheet_133
+  - first:
+      213: -1136507971529456030
+    second: Move Sprite Sheet_134
+  - first:
+      213: 8434397104578523291
+    second: Move Sprite Sheet_135
+  - first:
+      213: -4293023364782004236
+    second: Move Sprite Sheet_136
+  - first:
+      213: 5310186442329278385
+    second: Move Sprite Sheet_137
+  - first:
+      213: 6005109270882851849
+    second: Move Sprite Sheet_138
+  - first:
+      213: 8946223427092400344
+    second: Move Sprite Sheet_139
+  - first:
+      213: -2048574190736906498
+    second: Move Sprite Sheet_140
+  - first:
+      213: -8515747304894630794
+    second: Move Sprite Sheet_141
+  - first:
+      213: 6504152930732613050
+    second: Move Sprite Sheet_142
+  - first:
+      213: 8411702752136220408
+    second: Move Sprite Sheet_143
+  - first:
+      213: -7231586175225027958
+    second: Move Sprite Sheet_144
+  - first:
+      213: 1637192824739353724
+    second: Move Sprite Sheet_145
+  - first:
+      213: -5237584813841904586
+    second: Move Sprite Sheet_146
+  - first:
+      213: -1326817554277051027
+    second: Move Sprite Sheet_147
+  - first:
+      213: 5861516536783532687
+    second: Move Sprite Sheet_148
+  - first:
+      213: -8395707169087026054
+    second: Move Sprite Sheet_149
+  - first:
+      213: -8241785305829574661
+    second: Move Sprite Sheet_150
+  - first:
+      213: -3587059198282880928
+    second: Move Sprite Sheet_151
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Move Sprite Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74295b188ca2050e0800000000000000
+      internalID: -2283277970418855353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move Sprite Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0692395ca05076e0800000000000000
+      internalID: -1841883546433448436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move Sprite Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e813350b5cb036070800000000000000
+      internalID: 8098329498636988814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move Sprite Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 1851
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7198ab80a3b06d280800000000000000
+      internalID: -9019008859880388329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move Sprite Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 2468
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3af19e5eca5fb2b60800000000000000
+      internalID: 7722536108997287843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move Sprite Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 3085
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f595dbaad7c8d1b60800000000000000
+      internalID: 7718479807746234719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move Sprite Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 3702
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 986a5fc82851276f0800000000000000
+      internalID: -688464142579423607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Move Sprite Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 4319
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d93ba93dcaac7e20800000000000000
+      internalID: 3349740021269346769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b1db36ea68a21f349a5a8836683de3df
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":617.0,"y":818.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Move Sprite Sheet_0: -2283277970418855353
+      Move Sprite Sheet_1: -1841883546433448436
+      Move Sprite Sheet_2: 8098329498636988814
+      Move Sprite Sheet_3: -9019008859880388329
+      Move Sprite Sheet_4: 7722536108997287843
+      Move Sprite Sheet_5: 7718479807746234719
+      Move Sprite Sheet_6: -688464142579423607
+      Move Sprite Sheet_7: 3349740021269346769
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
