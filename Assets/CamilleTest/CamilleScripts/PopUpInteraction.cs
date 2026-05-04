@@ -10,6 +10,7 @@ public class PopUpInteraction : MonoBehaviour
     public void HandleClick()
     {
         Debug.Log("PopUp Click: " + name);
+        Debug.Log("CALLING POPUP");
 
         // Bowl = minigame
         if (CompareTag("Bowl"))
@@ -20,7 +21,7 @@ public class PopUpInteraction : MonoBehaviour
         }
 
         // Block if minigame open
-        if (FindKey.Instance != null && FindKey.Instance.gameObject.activeSelf)
+        if (InteractionLock.IsLocked)
             return;
 
         // Show UI

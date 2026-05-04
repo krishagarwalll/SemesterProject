@@ -5,6 +5,11 @@ public class InteractionClickHandler : MonoBehaviour
 {
     void Update()
     {
+        if (InteractionLock.IsLocked)
+            {
+                return;
+            }
+
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());

@@ -7,6 +7,18 @@ public class InteractionHoverSystem : MonoBehaviour
 
     void Update()
     {
+        // BLOCK EVERYTHING when minigame/UI is open
+        if (InteractionLock.IsLocked)
+        {
+            // Clear current hover if something was hovered before
+            if (currentHover != null)
+            {
+                currentHover.SetHovered(false);
+                currentHover = null;
+            }
+            return;
+        }
+
         if (Mouse.current == null) return;
 
         Vector2 mouseScreen = Mouse.current.position.ReadValue();

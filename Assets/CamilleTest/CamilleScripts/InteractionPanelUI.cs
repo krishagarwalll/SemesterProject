@@ -58,6 +58,8 @@ public class InteractionPanelUI : MonoBehaviour
     public void Show(Sprite sprite, string itemName, string desc)
     {
         panelRoot.SetActive(true);
+        canvasGroup.alpha = 1f;
+        
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
 
