@@ -31827,6 +31827,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4494577717321230282, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: openSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
+    - target: {fileID: 4494577717321230282, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: closeSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7975d370c92eb499c8c69b77d8b08c13, type: 3}
+    - target: {fileID: 4494577717321230282, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 963815830}
     - target: {fileID: 4548886874031076632, guid: fb73885269dd042abb15cf721590ba04, type: 3}
       propertyPath: m_IsActive
       value: 0
