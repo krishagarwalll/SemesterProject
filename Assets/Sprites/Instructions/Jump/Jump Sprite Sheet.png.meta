@@ -1,0 +1,760 @@
+fileFormatVersion: 2
+guid: d6b33aaf7ae22be41ab3535d4bee76e0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4415448965181270004
+    second: Jump Sprite Sheet_0
+  - first:
+      213: 6377111403115322058
+    second: Jump Sprite Sheet_1
+  - first:
+      213: 2293635425784523072
+    second: Jump Sprite Sheet_2
+  - first:
+      213: -147293305257179728
+    second: Jump Sprite Sheet_3
+  - first:
+      213: -6287667273589621290
+    second: Jump Sprite Sheet_4
+  - first:
+      213: 5036009902110782501
+    second: Jump Sprite Sheet_5
+  - first:
+      213: 6623060279556929368
+    second: Jump Sprite Sheet_6
+  - first:
+      213: 5438801861807260127
+    second: Jump Sprite Sheet_7
+  - first:
+      213: 6306166145219409126
+    second: Jump Sprite Sheet_8
+  - first:
+      213: 1823299263358935525
+    second: Jump Sprite Sheet_9
+  - first:
+      213: -4402523455559226640
+    second: Jump Sprite Sheet_10
+  - first:
+      213: -4139377052467554947
+    second: Jump Sprite Sheet_11
+  - first:
+      213: -4170140073566023281
+    second: Jump Sprite Sheet_12
+  - first:
+      213: -5850938839931785203
+    second: Jump Sprite Sheet_13
+  - first:
+      213: -3482219875987237093
+    second: Jump Sprite Sheet_14
+  - first:
+      213: 5002045276778613498
+    second: Jump Sprite Sheet_15
+  - first:
+      213: -4621090327820007659
+    second: Jump Sprite Sheet_16
+  - first:
+      213: -2741172675278980541
+    second: Jump Sprite Sheet_17
+  - first:
+      213: 6577064296533343111
+    second: Jump Sprite Sheet_18
+  - first:
+      213: 8596243664823193561
+    second: Jump Sprite Sheet_19
+  - first:
+      213: -4370866942923066742
+    second: Jump Sprite Sheet_20
+  - first:
+      213: 7309883472531770561
+    second: Jump Sprite Sheet_21
+  - first:
+      213: 6037902651555161631
+    second: Jump Sprite Sheet_22
+  - first:
+      213: -4043656637089104886
+    second: Jump Sprite Sheet_23
+  - first:
+      213: 2963838777204924901
+    second: Jump Sprite Sheet_24
+  - first:
+      213: 5152403861402354835
+    second: Jump Sprite Sheet_25
+  - first:
+      213: -5073168337633387698
+    second: Jump Sprite Sheet_26
+  - first:
+      213: 7675499068144537444
+    second: Jump Sprite Sheet_27
+  - first:
+      213: -8898440043060549298
+    second: Jump Sprite Sheet_28
+  - first:
+      213: -2533883126367469431
+    second: Jump Sprite Sheet_29
+  - first:
+      213: 4668163851654099210
+    second: Jump Sprite Sheet_30
+  - first:
+      213: -9213264577681770099
+    second: Jump Sprite Sheet_31
+  - first:
+      213: -4749362847809836818
+    second: Jump Sprite Sheet_32
+  - first:
+      213: 5312680933021765346
+    second: Jump Sprite Sheet_33
+  - first:
+      213: -5113988210033532527
+    second: Jump Sprite Sheet_34
+  - first:
+      213: -4074843759341991736
+    second: Jump Sprite Sheet_35
+  - first:
+      213: -3750761500580096783
+    second: Jump Sprite Sheet_36
+  - first:
+      213: 778411477582166891
+    second: Jump Sprite Sheet_37
+  - first:
+      213: -3921063835328445932
+    second: Jump Sprite Sheet_38
+  - first:
+      213: 8629878549175668255
+    second: Jump Sprite Sheet_39
+  - first:
+      213: 8130972106864616933
+    second: Jump Sprite Sheet_40
+  - first:
+      213: -6247132596616769297
+    second: Jump Sprite Sheet_41
+  - first:
+      213: 8117543452001217518
+    second: Jump Sprite Sheet_42
+  - first:
+      213: 3683831865874624789
+    second: Jump Sprite Sheet_43
+  - first:
+      213: 6731760824442084181
+    second: Jump Sprite Sheet_44
+  - first:
+      213: 4667239856313866877
+    second: Jump Sprite Sheet_45
+  - first:
+      213: 6244376968096482285
+    second: Jump Sprite Sheet_46
+  - first:
+      213: 115544515695507053
+    second: Jump Sprite Sheet_47
+  - first:
+      213: -6071058714441075842
+    second: Jump Sprite Sheet_48
+  - first:
+      213: -1291255147361846113
+    second: Jump Sprite Sheet_49
+  - first:
+      213: -1332602891464577935
+    second: Jump Sprite Sheet_50
+  - first:
+      213: -1037521447118070146
+    second: Jump Sprite Sheet_51
+  - first:
+      213: 9148540342300606694
+    second: Jump Sprite Sheet_52
+  - first:
+      213: -3892571037093862987
+    second: Jump Sprite Sheet_53
+  - first:
+      213: 9042869892958589026
+    second: Jump Sprite Sheet_54
+  - first:
+      213: -591725705471714613
+    second: Jump Sprite Sheet_55
+  - first:
+      213: 4194713751566974428
+    second: Jump Sprite Sheet_56
+  - first:
+      213: 3132849242044209369
+    second: Jump Sprite Sheet_57
+  - first:
+      213: 5711422263104930391
+    second: Jump Sprite Sheet_58
+  - first:
+      213: 7881991382224535129
+    second: Jump Sprite Sheet_59
+  - first:
+      213: -2333285770858764841
+    second: Jump Sprite Sheet_60
+  - first:
+      213: -977779887820399506
+    second: Jump Sprite Sheet_61
+  - first:
+      213: -888950959880486122
+    second: Jump Sprite Sheet_62
+  - first:
+      213: -5474192771186660409
+    second: Jump Sprite Sheet_63
+  - first:
+      213: -1073119988463050637
+    second: Jump Sprite Sheet_64
+  - first:
+      213: -2448766394962223872
+    second: Jump Sprite Sheet_65
+  - first:
+      213: 8999560412148370795
+    second: Jump Sprite Sheet_66
+  - first:
+      213: -3614661951960499509
+    second: Jump Sprite Sheet_67
+  - first:
+      213: 8528561521260401286
+    second: Jump Sprite Sheet_68
+  - first:
+      213: -3895892842064014735
+    second: Jump Sprite Sheet_69
+  - first:
+      213: -8638448506325213478
+    second: Jump Sprite Sheet_70
+  - first:
+      213: 1256555004262091148
+    second: Jump Sprite Sheet_71
+  - first:
+      213: 213870233239656451
+    second: Jump Sprite Sheet_72
+  - first:
+      213: -8958133638911716365
+    second: Jump Sprite Sheet_73
+  - first:
+      213: -5325892117665920782
+    second: Jump Sprite Sheet_74
+  - first:
+      213: -8596978713737081867
+    second: Jump Sprite Sheet_75
+  - first:
+      213: 6938287965607999388
+    second: Jump Sprite Sheet_76
+  - first:
+      213: 5061660408909584389
+    second: Jump Sprite Sheet_77
+  - first:
+      213: -8882206894576448437
+    second: Jump Sprite Sheet_78
+  - first:
+      213: 4910227531117054121
+    second: Jump Sprite Sheet_79
+  - first:
+      213: -3553284659063446843
+    second: Jump Sprite Sheet_80
+  - first:
+      213: -6128997379524467580
+    second: Jump Sprite Sheet_81
+  - first:
+      213: 4401291908038451520
+    second: Jump Sprite Sheet_82
+  - first:
+      213: 4210087993402926542
+    second: Jump Sprite Sheet_83
+  - first:
+      213: -6187384075571531206
+    second: Jump Sprite Sheet_84
+  - first:
+      213: -2603151133770350702
+    second: Jump Sprite Sheet_85
+  - first:
+      213: -750209785195906051
+    second: Jump Sprite Sheet_86
+  - first:
+      213: -3613240649703267923
+    second: Jump Sprite Sheet_87
+  - first:
+      213: -6585829010962082480
+    second: Jump Sprite Sheet_88
+  - first:
+      213: 1152865164290219377
+    second: Jump Sprite Sheet_89
+  - first:
+      213: 8011214373476999321
+    second: Jump Sprite Sheet_90
+  - first:
+      213: 133869748515025860
+    second: Jump Sprite Sheet_91
+  - first:
+      213: -2909616329442964021
+    second: Jump Sprite Sheet_92
+  - first:
+      213: -3155164314170105636
+    second: Jump Sprite Sheet_93
+  - first:
+      213: 1382187754662730016
+    second: Jump Sprite Sheet_94
+  - first:
+      213: 523328157071598790
+    second: Jump Sprite Sheet_95
+  - first:
+      213: -9164553298145711208
+    second: Jump Sprite Sheet_96
+  - first:
+      213: -4882347506481331269
+    second: Jump Sprite Sheet_97
+  - first:
+      213: 1785772375854620082
+    second: Jump Sprite Sheet_98
+  - first:
+      213: -4490154582778969131
+    second: Jump Sprite Sheet_99
+  - first:
+      213: -5734466728532794231
+    second: Jump Sprite Sheet_100
+  - first:
+      213: 7556996781527105112
+    second: Jump Sprite Sheet_101
+  - first:
+      213: -2627145837234117762
+    second: Jump Sprite Sheet_102
+  - first:
+      213: -177119551731961572
+    second: Jump Sprite Sheet_103
+  - first:
+      213: -3156060591901072953
+    second: Jump Sprite Sheet_104
+  - first:
+      213: -7801895445961426978
+    second: Jump Sprite Sheet_105
+  - first:
+      213: 4972291525876041164
+    second: Jump Sprite Sheet_106
+  - first:
+      213: -7375605683157763179
+    second: Jump Sprite Sheet_107
+  - first:
+      213: -7339305430023116186
+    second: Jump Sprite Sheet_108
+  - first:
+      213: 794316668127705562
+    second: Jump Sprite Sheet_109
+  - first:
+      213: 4001048473669949465
+    second: Jump Sprite Sheet_110
+  - first:
+      213: -7512099994732022049
+    second: Jump Sprite Sheet_111
+  - first:
+      213: 2768860246822810046
+    second: Jump Sprite Sheet_112
+  - first:
+      213: -2939863738922043460
+    second: Jump Sprite Sheet_113
+  - first:
+      213: 7905933395979593080
+    second: Jump Sprite Sheet_114
+  - first:
+      213: -6031214794874476744
+    second: Jump Sprite Sheet_115
+  - first:
+      213: -2548127257445531763
+    second: Jump Sprite Sheet_116
+  - first:
+      213: -5125156039969494134
+    second: Jump Sprite Sheet_117
+  - first:
+      213: -97836505835790431
+    second: Jump Sprite Sheet_118
+  - first:
+      213: -8823070444490318029
+    second: Jump Sprite Sheet_119
+  - first:
+      213: 3452017172564494010
+    second: Jump Sprite Sheet_120
+  - first:
+      213: 2380886218837776055
+    second: Jump Sprite Sheet_121
+  - first:
+      213: -4305439805581597505
+    second: Jump Sprite Sheet_122
+  - first:
+      213: 1300457193758960046
+    second: Jump Sprite Sheet_123
+  - first:
+      213: -6966117665696376
+    second: Jump Sprite Sheet_124
+  - first:
+      213: -4856598441111120777
+    second: Jump Sprite Sheet_125
+  - first:
+      213: 3945232654913209427
+    second: Jump Sprite Sheet_126
+  - first:
+      213: -7412144301553314864
+    second: Jump Sprite Sheet_127
+  - first:
+      213: -7934726064409046289
+    second: Jump Sprite Sheet_128
+  - first:
+      213: -2664727927279815904
+    second: Jump Sprite Sheet_129
+  - first:
+      213: 1839155895134317693
+    second: Jump Sprite Sheet_130
+  - first:
+      213: -2385369341160259716
+    second: Jump Sprite Sheet_131
+  - first:
+      213: -578509711685862705
+    second: Jump Sprite Sheet_132
+  - first:
+      213: 5865736827909855496
+    second: Jump Sprite Sheet_133
+  - first:
+      213: -4806884215415616135
+    second: Jump Sprite Sheet_134
+  - first:
+      213: -1743639803026518441
+    second: Jump Sprite Sheet_135
+  - first:
+      213: -543420121144393177
+    second: Jump Sprite Sheet_136
+  - first:
+      213: -7587638513326402295
+    second: Jump Sprite Sheet_137
+  - first:
+      213: 327096356883195550
+    second: Jump Sprite Sheet_138
+  - first:
+      213: -4075114423431585713
+    second: Jump Sprite Sheet_139
+  - first:
+      213: 2753398436822543871
+    second: Jump Sprite Sheet_140
+  - first:
+      213: -7826954846849273819
+    second: Jump Sprite Sheet_141
+  - first:
+      213: 4904774174923366893
+    second: Jump Sprite Sheet_142
+  - first:
+      213: 8269309150785566321
+    second: Jump Sprite Sheet_143
+  - first:
+      213: 851451738219108276
+    second: Jump Sprite Sheet_144
+  - first:
+      213: -1506894202605366245
+    second: Jump Sprite Sheet_145
+  - first:
+      213: -6539579414767037666
+    second: Jump Sprite Sheet_146
+  - first:
+      213: -6604294091167673509
+    second: Jump Sprite Sheet_147
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Jump Sprite Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f7ee759073d64d30800000000000000
+      internalID: 4415448965181270004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jump Sprite Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aca18c3a80d008850800000000000000
+      internalID: 6377111403115322058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jump Sprite Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 049632e7441a4df10800000000000000
+      internalID: 2293635425784523072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jump Sprite Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 1851
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b54a5ee485b4fdf0800000000000000
+      internalID: -147293305257179728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jump Sprite Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 2468
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dd77db9de7bdb8a0800000000000000
+      internalID: -6287667273589621290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jump Sprite Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 3085
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 524b9a4f25083e540800000000000000
+      internalID: 5036009902110782501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jump Sprite Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 3702
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8577df8db36d9eb50800000000000000
+      internalID: 6623060279556929368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jump Sprite Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 4319
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd141c03a718a7b40800000000000000
+      internalID: 5438801861807260127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 20b86f0ef8de3174eb8ff99dd681627d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":617.0,"y":818.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Jump Sprite Sheet_0: 4415448965181270004
+      Jump Sprite Sheet_1: 6377111403115322058
+      Jump Sprite Sheet_2: 2293635425784523072
+      Jump Sprite Sheet_3: -147293305257179728
+      Jump Sprite Sheet_4: -6287667273589621290
+      Jump Sprite Sheet_5: 5036009902110782501
+      Jump Sprite Sheet_6: 6623060279556929368
+      Jump Sprite Sheet_7: 5438801861807260127
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
