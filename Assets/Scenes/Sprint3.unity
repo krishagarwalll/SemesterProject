@@ -649,6 +649,7 @@ GameObject:
   - component: {fileID: 10342323}
   - component: {fileID: 10342328}
   - component: {fileID: 10342327}
+  - component: {fileID: 10342329}
   m_Layer: 10
   m_Name: Mirror
   m_TagString: Untagged
@@ -843,11 +844,23 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
-  audioSource: {fileID: 0}
-  hover: {fileID: 0}
+  audioSource: {fileID: 963815830}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
+--- !u!114 &10342329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10342321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
+  itemSprite: {fileID: -3222790432060283442, guid: a82867181c8acd24994d9a938a780788, type: 3}
+  itemName: mirror
+  description: change sprite so it looks eerier
 --- !u!1 &11552846
 GameObject:
   m_ObjectHideFlags: 0
@@ -8601,6 +8614,7 @@ GameObject:
   - component: {fileID: 249062301}
   - component: {fileID: 249062300}
   - component: {fileID: 249062299}
+  - component: {fileID: 249062302}
   m_Layer: 10
   m_Name: Newspaper
   m_TagString: Untagged
@@ -8749,11 +8763,23 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
+  audioSource: {fileID: 963815830}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
+--- !u!114 &249062302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249062295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: 4462837344885546308, guid: a82867181c8acd24994d9a938a780788, type: 3}
   itemName: 
-  description: 
-  audioSource: {fileID: 963815830}
-  hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+  description: change newspaper to realistc sprite
 --- !u!1 &249954542
 GameObject:
   m_ObjectHideFlags: 0
@@ -9259,9 +9285,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: -2098832471947761793, guid: a82867181c8acd24994d9a938a780788, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &300721202
@@ -9547,9 +9570,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
   audioSource: {fileID: 0}
   hover: {fileID: 0}
 --- !u!114 &302202139
@@ -9814,9 +9834,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 2705326229983186474, guid: a82867181c8acd24994d9a938a780788, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &312236973
@@ -10614,9 +10631,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &335863834
@@ -15424,9 +15438,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!1 &389912122
@@ -15630,9 +15641,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 21300000, guid: 135e09dfe8841d542ad9b076930ea99c, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &390773837
@@ -15939,9 +15947,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: -3631888362705389627, guid: a82867181c8acd24994d9a938a780788, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!1 &412315348
@@ -16748,9 +16753,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: -4918598981731528394, guid: a4b182c9e92ac4b40ae4f23154c6655b, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 0}
   hover: {fileID: 0}
 --- !u!1 &476099767
@@ -20542,9 +20544,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 21300000, guid: 135e09dfe8841d542ad9b076930ea99c, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &514099656
@@ -21315,9 +21314,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 21300000, guid: 19bf8ed9f605b284b8ba996c37b452b1, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &577592017
@@ -21811,9 +21807,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &618873112
@@ -23394,9 +23387,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &689796561
@@ -30106,6 +30096,151 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &827608879
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 15328362047173246, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_Name
+      value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.35315
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.29681
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270889412184862943, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4548886874031076632, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9160399757212749026, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 963815830}
+    - target: {fileID: 9160399757212749026, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: objectToEnable
+      value: 
+      objectReference: {fileID: 1787433927}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5081333138664372813, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 827608887}
+  m_SourcePrefab: {fileID: 100100000, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+--- !u!114 &827608880 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2551246001325454872, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &827608881 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8316641149892198346, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &827608882 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2914527541517436738, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &827608883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4270889412184862943, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &827608884 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5081333138664372813, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &827608886 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 885174321323960719, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &827608887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827608884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018e82f0dca53453db3d3b1fc9f38753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionPanelUI
+  panelRoot: {fileID: 827608883}
+  canvasGroup: {fileID: 827608886}
+  itemImage: {fileID: 827608882}
+  nameText: {fileID: 827608881}
+  descriptionText: {fileID: 827608880}
+  closeButton: {fileID: 1938348931}
+  audioSource: {fileID: 963815830}
+  openSound: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
+  closeSound: {fileID: 8300000, guid: 7975d370c92eb499c8c69b77d8b08c13, type: 3}
 --- !u!1 &844751948
 GameObject:
   m_ObjectHideFlags: 0
@@ -32169,9 +32304,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!1 &961437880
@@ -32314,8 +32446,10 @@ GameObject:
   m_Component:
   - component: {fileID: 963815831}
   - component: {fileID: 963815830}
+  - component: {fileID: 963815833}
+  - component: {fileID: 963815832}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32433,6 +32567,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963815832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963815829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93e15a780be547baa5610049d67c97c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionClickHandler
+--- !u!114 &963815833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963815829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63e91f8584461449c9428d5df2bf7644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionHoverSystem
 --- !u!1 &969293979
 GameObject:
   m_ObjectHideFlags: 0
@@ -37915,9 +38073,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
   audioSource: {fileID: 0}
   hover: {fileID: 0}
 --- !u!114 &1074836345
@@ -45487,9 +45642,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &1277763537
@@ -45964,6 +46116,7 @@ GameObject:
   - component: {fileID: 1308946651}
   - component: {fileID: 1308946653}
   - component: {fileID: 1308946652}
+  - component: {fileID: 1308946654}
   m_Layer: 10
   m_Name: Picture
   m_TagString: Untagged
@@ -46158,11 +46311,23 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: -6215980573622810759, guid: cffba3b4ba3d4e449a18a33c6dc78333, type: 3}
-  itemName: Photo
-  description: 
   audioSource: {fileID: 963815830}
-  hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
+--- !u!114 &1308946654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308946645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
+  itemSprite: {fileID: 0}
+  itemName: 
+  description: 
 --- !u!1 &1313017733
 GameObject:
   m_ObjectHideFlags: 0
@@ -47557,9 +47722,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 21300000, guid: 135e09dfe8841d542ad9b076930ea99c, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &1388607723
@@ -48525,9 +48687,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: -6073489803032909171, guid: a82867181c8acd24994d9a938a780788, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &1500138550
@@ -49505,6 +49664,75 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1001 &1541039356
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3857915085759159650, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: hover
+      value: 
+      objectReference: {fileID: 8300000, guid: f19b44fa857d94b3db033f9441d467e6, type: 3}
+    - target: {fileID: 3857915085759159650, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 963815830}
+    - target: {fileID: 5657309652596756716, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_Name
+      value: Bowl MINIGAME
+      objectReference: {fileID: 0}
+    - target: {fileID: 5657309652596756716, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_TagString
+      value: Bowl
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658825717162959873, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.521387
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658825717162959873, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -13.615339
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658825717162959873, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658825717162959873, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658825717162959873, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658825717162959873, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658825717162959873, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658825717162959873, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658825717162959873, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658825717162959873, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
 --- !u!1 &1543211934
 GameObject:
   m_ObjectHideFlags: 0
@@ -50604,9 +50832,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &1625611961
@@ -50745,6 +50970,7 @@ GameObject:
   - component: {fileID: 1638899732}
   - component: {fileID: 1638899734}
   - component: {fileID: 1638899733}
+  - component: {fileID: 1638899735}
   m_Layer: 10
   m_Name: Board
   m_TagString: Untagged
@@ -50939,11 +51165,23 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 2225645817397188732, guid: cffba3b4ba3d4e449a18a33c6dc78333, type: 3}
-  itemName: Board
-  description: 
   audioSource: {fileID: 963815830}
-  hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
+--- !u!114 &1638899735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638899727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
+  itemSprite: {fileID: 2225645817397188732, guid: cffba3b4ba3d4e449a18a33c6dc78333, type: 3}
+  itemName: board
+  description: ...
 --- !u!1 &1655978625
 GameObject:
   m_ObjectHideFlags: 0
@@ -52391,9 +52629,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 331021158}
     - target: {fileID: 1433723122615106268, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
+      propertyPath: hover
+      value: 
+      objectReference: {fileID: 8300000, guid: 0677c3c8d28fe45e4b252b30fad47ce4, type: 3}
+    - target: {fileID: 1433723122615106268, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 963815830}
+    - target: {fileID: 3999430382169652967, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3999430382169652967, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.13
+      objectReference: {fileID: 0}
     - target: {fileID: 5166351539546378498, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
       propertyPath: transferController
       value: 
@@ -52406,13 +52656,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: RustyKeyPickup
       objectReference: {fileID: 0}
+    - target: {fileID: 6855726772711474361, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7007957633189858391, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.130581
+      objectReference: {fileID: 0}
+    - target: {fileID: 7007957633189858391, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.105633005
+      objectReference: {fileID: 0}
     - target: {fileID: 7007957633189858391, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.182
+      value: 5.428
       objectReference: {fileID: 0}
     - target: {fileID: 7007957633189858391, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.852
+      value: -1.247
       objectReference: {fileID: 0}
     - target: {fileID: 7007957633189858391, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -52446,6 +52708,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7520292715740225516, guid: 7eaaca6cf38c8db44964fa34df5ca5a8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1095141833252711340, guid: 1f4e0949072274caaa28801eb41b95bc, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -57777,9 +58043,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: -6073489803032909171, guid: a82867181c8acd24994d9a938a780788, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!61 &1918073998
@@ -57922,6 +58185,7 @@ GameObject:
   - component: {fileID: 1921100157}
   - component: {fileID: 1921100159}
   - component: {fileID: 1921100158}
+  - component: {fileID: 1921100160}
   m_Layer: 10
   m_Name: Fridge
   m_TagString: Untagged
@@ -58116,11 +58380,23 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 0}
+  audioSource: {fileID: 963815830}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
+--- !u!114 &1921100160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921100152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
+  itemSprite: {fileID: 6580078988926099068, guid: a4b182c9e92ac4b40ae4f23154c6655b, type: 3}
   itemName: 
-  description: 
-  audioSource: {fileID: 0}
-  hover: {fileID: 0}
+  description: show fridge food going bad
 --- !u!1 &1922650890
 GameObject:
   m_ObjectHideFlags: 0
@@ -58344,9 +58620,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: 21300000, guid: 135e09dfe8841d542ad9b076930ea99c, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!212 &1928907494
@@ -58841,9 +59114,6 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  itemSprite: {fileID: -124648093558696045, guid: fbfb23e69ed3dd44ebf5accc188f907b, type: 3}
-  itemName: 
-  description: 
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: 10195bae043094000859970f5dacbbc9, type: 3}
 --- !u!1 &1936751790
@@ -58924,6 +59194,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.67445, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1938348931 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1791453367115093974, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+  m_PrefabInstance: {fileID: 827608879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &1943220091
 GameObject:
   m_ObjectHideFlags: 0
@@ -65754,3 +66035,5 @@ SceneRoots:
   - {fileID: 1633005346}
   - {fileID: 277298074}
   - {fileID: 220763315}
+  - {fileID: 827608879}
+  - {fileID: 1541039356}
