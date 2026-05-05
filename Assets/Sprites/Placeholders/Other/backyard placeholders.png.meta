@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 496a1d38d1c885f458f60d443ef6d408
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5843566742391072604
+    second: backyard placeholders_0
+  - first:
+      213: 4979213135319552595
+    second: backyard placeholders_1
+  - first:
+      213: -5592605379963600332
+    second: backyard placeholders_2
+  - first:
+      213: -4646352116499559161
+    second: backyard placeholders_3
+  - first:
+      213: 4899452419520192489
+    second: backyard placeholders_4
+  - first:
+      213: 8852354572007545313
+    second: backyard placeholders_5
+  - first:
+      213: 5513519889032500029
+    second: backyard placeholders_6
+  - first:
+      213: 1006293275931892654
+    second: backyard placeholders_7
+  - first:
+      213: 6897464708619131567
+    second: backyard placeholders_8
+  - first:
+      213: -8068137644096873727
+    second: backyard placeholders_9
+  - first:
+      213: -5235116903413002624
+    second: backyard placeholders_10
+  - first:
+      213: 7338955920516697946
+    second: backyard placeholders_11
+  - first:
+      213: -350841605425493958
+    second: backyard placeholders_12
+  - first:
+      213: 6273031416175413917
+    second: backyard placeholders_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: White square sprite
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 1911
+        width: 156
+        height: 135
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c57a18dddf4881150800000000000000
+      internalID: 5843566742391072604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_leaf_placeholder_1
+      rect:
+        serializedVersion: 2
+        x: 1714
+        y: 1810
+        width: 613
+        height: 248
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3525eaf27f7b91540800000000000000
+      internalID: 4979213135319552595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree leaf placeholder_2
+      rect:
+        serializedVersion: 2
+        x: 2482
+        y: 1898
+        width: 463
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 432c45ea9031362b0800000000000000
+      internalID: -5592605379963600332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: side garage placeholder
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 103
+        width: 1609
+        height: 1732
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70dc8a21e57d48fb0800000000000000
+      internalID: -4646352116499559161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fence placeholder
+      rect:
+        serializedVersion: 2
+        x: 1689
+        y: 1383
+        width: 1364
+        height: 339
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9efdd63640a5ef340800000000000000
+      internalID: 4899452419520192489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fence gate side placeholder
+      rect:
+        serializedVersion: 2
+        x: 3085
+        y: 1107
+        width: 156
+        height: 695
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e9905ad491e9da70800000000000000
+      internalID: 8852354572007545313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trunk placeholder
+      rect:
+        serializedVersion: 2
+        x: 1776
+        y: 895
+        width: 40
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3355df8025f38c40800000000000000
+      internalID: 5513519889032500029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forest sign placeholder
+      rect:
+        serializedVersion: 2
+        x: 1909
+        y: 847
+        width: 560
+        height: 492
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eabd8c3276217fd00800000000000000
+      internalID: 1006293275931892654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: backyard light placeholder
+      rect:
+        serializedVersion: 2
+        x: 2512
+        y: 856
+        width: 217
+        height: 435
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faa5900bb97b8bf50800000000000000
+      internalID: 6897464708619131567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mail placeholder
+      rect:
+        serializedVersion: 2
+        x: 2773
+        y: 741
+        width: 275
+        height: 603
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10b16ac3f87380090800000000000000
+      internalID: -8068137644096873727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cop_1_placeholder
+      rect:
+        serializedVersion: 2
+        x: 1846
+        y: 308
+        width: 304
+        height: 482
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08ecc66c9e02957b0800000000000000
+      internalID: -5235116903413002624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cop_2_placeholder
+      rect:
+        serializedVersion: 2
+        x: 2232
+        y: 301
+        width: 286
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5fc5a8b68539d560800000000000000
+      internalID: 7338955920516697946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fence gate placeholder
+      rect:
+        serializedVersion: 2
+        x: 2626
+        y: 21
+        width: 607
+        height: 530
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a388f203b6f812bf0800000000000000
+      internalID: -350841605425493958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pavement placeholder
+      rect:
+        serializedVersion: 2
+        x: 1780
+        y: 48
+        width: 823
+        height: 165
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9a400a46d84e0750800000000000000
+      internalID: 6273031416175413917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: a5035d517c0da5c46a282d432179154d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      White square sprite: 5843566742391072604
+      backyard light placeholder: 6897464708619131567
+      cop_1_placeholder: -5235116903413002624
+      cop_2_placeholder: 7338955920516697946
+      fence gate placeholder: -350841605425493958
+      fence gate side placeholder: 8852354572007545313
+      fence placeholder: 4899452419520192489
+      forest sign placeholder: 1006293275931892654
+      mail placeholder: -8068137644096873727
+      pavement placeholder: 6273031416175413917
+      side garage placeholder: -4646352116499559161
+      tree leaf placeholder_2: -5592605379963600332
+      tree_leaf_placeholder_1: 4979213135319552595
+      trunk placeholder: 5513519889032500029
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
