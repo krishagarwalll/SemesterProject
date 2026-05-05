@@ -1,22 +1,28 @@
 fileFormatVersion: 2
-guid: 6f369fe9455cf704c9b40be122686d77
+guid: 9ab26aeb2abf90d4ba6d11f06a1d15eb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7564000907968061636
-    second: Camera_Sprites_0
+      213: -1987734593661266995
+    second: Items imp_0
   - first:
-      213: -1929934298584615340
-    second: Camera_Sprites_1
+      213: 1841869043778865082
+    second: Items imp_1
   - first:
-      213: 3329591638280455246
-    second: Camera_Sprites_2
+      213: -214559164097416243
+    second: Items imp_2
   - first:
-      213: 333147827346616488
-    second: Camera_Sprites_3
+      213: -735547289717470673
+    second: Items imp_3
   - first:
-      213: 7518371376143165461
-    second: Camera_Sprites_4
+      213: 50563799758530155
+    second: Items imp_4
+  - first:
+      213: 3354603212473536782
+    second: Items imp_5
+  - first:
+      213: -8450593848234730278
+    second: Items imp_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -63,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1000
+  spritePixelsToUnits: 500
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -125,13 +131,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Camera_wave_1
+      name: Bowl sprite
       rect:
         serializedVersion: 2
-        x: 87
-        y: 1129
-        width: 903
-        height: 257
+        x: 209
+        y: 1413
+        width: 655
+        height: 122
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +146,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4c02b2000cab8f860800000000000000
-      internalID: 7564000907968061636
+      spriteID: f2a83e813afcac5f0800000000000000
+      internalID: -735547289717470673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Camera_wave_2
+      name: Coat Rack sprite
       rect:
         serializedVersion: 2
-        x: 110
-        y: 506
-        width: 871
-        height: 380
+        x: 166
+        y: 154
+        width: 223
+        height: 1099
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,20 +168,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 456750d0bfe7735e0800000000000000
-      internalID: -1929934298584615340
+      spriteID: b66e91b0283a3b000800000000000000
+      internalID: 50563799758530155
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Camera_sprite
+      name: Jacket sprite
       rect:
         serializedVersion: 2
-        x: 439
-        y: 217
-        width: 237
-        height: 152
+        x: 508
+        y: 695
+        width: 379
+        height: 488
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,8 +190,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5186a7cbeee965860800000000000000
-      internalID: 7518371376143165461
+      spriteID: e019ed929d1fd8e20800000000000000
+      internalID: 3354603212473536782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: New key sprite
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 155
+        width: 236
+        height: 241
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adc1ede0ba579ba80800000000000000
+      internalID: -8450593848234730278
       vertices: []
       indices: 
       edges: []
@@ -194,7 +222,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b5f0ccc104a334549833248f07c6760f
+    spriteID: d477d6fe054b2cf41ad4ffdc951fc991
     internalID: 0
     vertices: []
     indices: 
@@ -204,11 +232,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Camera_Sprites_2: 3329591638280455246
-      Camera_Sprites_3: 333147827346616488
-      Camera_sprite: 7518371376143165461
-      Camera_wave_1: 7564000907968061636
-      Camera_wave_2: -1929934298584615340
+      Bowl sprite: -735547289717470673
+      Coat Rack sprite: 50563799758530155
+      Items imp_0: -1987734593661266995
+      Items imp_1: 1841869043778865082
+      Items imp_2: -214559164097416243
+      Jacket sprite: 3354603212473536782
+      New key sprite: -8450593848234730278
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
