@@ -1,31 +1,46 @@
 fileFormatVersion: 2
-guid: 817a88b1486a9604fbbffa1b019bdab0
+guid: ec22b83ff3cea0745967ad883dc73a72
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2602859560928599804
-    second: bushes2_0
+      213: 7177899232186392246
+    second: tree platforms_0
   - first:
-      213: 5198789725642061349
-    second: bushes2_1
+      213: 742542716531689757
+    second: tree platforms_1
   - first:
-      213: 2623926665278762864
-    second: bushes2_2
+      213: 4819585340461164861
+    second: tree platforms_2
   - first:
-      213: -8994294570715410261
-    second: bushes2_3
+      213: -1470858424449934350
+    second: tree platforms_3
   - first:
-      213: 5747817752962185419
-    second: bushes2_4
+      213: -1489537303809493827
+    second: tree platforms_4
   - first:
-      213: 5044112553774508223
-    second: bushes2_5
+      213: 9192991774376967655
+    second: tree platforms_5
   - first:
-      213: 4498018323591030687
-    second: bushes2_6
+      213: 508669209113787728
+    second: tree platforms_6
   - first:
-      213: -108175333588003148
-    second: bushes2_7
+      213: -8124655360701727662
+    second: tree platforms_7
+  - first:
+      213: -5999175504160232687
+    second: tree platforms_8
+  - first:
+      213: 8069134693083899089
+    second: tree platforms_9
+  - first:
+      213: 4693806486081625420
+    second: tree platforms_10
+  - first:
+      213: -5143825733697201417
+    second: tree platforms_11
+  - first:
+      213: -2334054579258332391
+    second: tree platforms_12
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -134,177 +149,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bushes2_0
+      name: tree platforms_0
       rect:
         serializedVersion: 2
-        x: 86
-        y: 2211
-        width: 209
-        height: 321
+        x: 28
+        y: 1977
+        width: 1878
+        height: 1005
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cfed069eaf63f1420800000000000000
-      internalID: 2602859560928599804
+      spriteID: 6bed40052550d9360800000000000000
+      internalID: 7177899232186392246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bushes2_1
+      name: tree platforms_5
       rect:
         serializedVersion: 2
-        x: 641
-        y: 1982
-        width: 1068
-        height: 581
+        x: 1251
+        y: 684
+        width: 1802
+        height: 1082
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 52678da06bfc52840800000000000000
-      internalID: 5198789725642061349
+      spriteID: 7edb3deef41149f70800000000000000
+      internalID: 9192991774376967655
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bushes2_2
+      name: tree platforms_6
       rect:
         serializedVersion: 2
-        x: 1989
-        y: 2002
-        width: 840
-        height: 449
+        x: 15
+        y: 10
+        width: 1098
+        height: 1172
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 07fad90666f0a6420800000000000000
-      internalID: 2623926665278762864
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bushes2_3
-      rect:
-        serializedVersion: 2
-        x: 123
-        y: 1736
-        width: 218
-        height: 346
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ba09843edb8dd2380800000000000000
-      internalID: -8994294570715410261
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bushes2_4
-      rect:
-        serializedVersion: 2
-        x: 97
-        y: 1096
-        width: 412
-        height: 467
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bc8bef60bc954cf40800000000000000
-      internalID: 5747817752962185419
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bushes2_5
-      rect:
-        serializedVersion: 2
-        x: 680
-        y: 960
-        width: 1404
-        height: 657
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fb861de84a9400640800000000000000
-      internalID: 5044112553774508223
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bushes2_6
-      rect:
-        serializedVersion: 2
-        x: 103
-        y: 574
-        width: 347
-        height: 343
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f9767d275db2c6e30800000000000000
-      internalID: 4498018323591030687
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bushes2_7
-      rect:
-        serializedVersion: 2
-        x: 928
-        y: 138
-        width: 1066
-        height: 501
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4b617047b1faf7ef0800000000000000
-      internalID: -108175333588003148
+      spriteID: 05df76d53f72f0700800000000000000
+      internalID: 508669209113787728
       vertices: []
       indices: 
       edges: []
@@ -313,7 +218,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2177460dfd083124da08ca3eac9c95c6
     internalID: 0
     vertices: []
     indices: 
@@ -323,14 +228,19 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      bushes2_0: 2602859560928599804
-      bushes2_1: 5198789725642061349
-      bushes2_2: 2623926665278762864
-      bushes2_3: -8994294570715410261
-      bushes2_4: 5747817752962185419
-      bushes2_5: 5044112553774508223
-      bushes2_6: 4498018323591030687
-      bushes2_7: -108175333588003148
+      tree platforms_0: 7177899232186392246
+      tree platforms_1: 742542716531689757
+      tree platforms_10: 4693806486081625420
+      tree platforms_11: -5143825733697201417
+      tree platforms_12: -2334054579258332391
+      tree platforms_2: 4819585340461164861
+      tree platforms_3: -1470858424449934350
+      tree platforms_4: -1489537303809493827
+      tree platforms_5: 9192991774376967655
+      tree platforms_6: 508669209113787728
+      tree platforms_7: -8124655360701727662
+      tree platforms_8: -5999175504160232687
+      tree platforms_9: 8069134693083899089
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
