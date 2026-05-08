@@ -1,0 +1,624 @@
+fileFormatVersion: 2
+guid: 6bcedb2f3b232d04895801620a1b8945
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3466246098946005757
+    second: circle spritesheet_0
+  - first:
+      213: 5361921841796499241
+    second: circle spritesheet_1
+  - first:
+      213: 563608520984364152
+    second: circle spritesheet_2
+  - first:
+      213: -3269725310200626493
+    second: circle spritesheet_3
+  - first:
+      213: 2769156894509026292
+    second: circle spritesheet_4
+  - first:
+      213: -7581789448486888063
+    second: circle spritesheet_5
+  - first:
+      213: -4940139671481282442
+    second: circle spritesheet_6
+  - first:
+      213: -544883238560685255
+    second: circle spritesheet_7
+  - first:
+      213: -5878063917647281936
+    second: circle spritesheet_8
+  - first:
+      213: 2204544242874392076
+    second: circle spritesheet_9
+  - first:
+      213: 7219074045384358490
+    second: circle spritesheet_10
+  - first:
+      213: 2286514793448476056
+    second: circle spritesheet_11
+  - first:
+      213: -7070791872336404395
+    second: circle spritesheet_12
+  - first:
+      213: 5903552135176927965
+    second: circle spritesheet_13
+  - first:
+      213: -506239713161899883
+    second: circle spritesheet_14
+  - first:
+      213: 2168553069913514972
+    second: circle spritesheet_15
+  - first:
+      213: 3635651710083737749
+    second: circle spritesheet_16
+  - first:
+      213: 9042943414040674570
+    second: circle spritesheet_17
+  - first:
+      213: -1662822434114414632
+    second: circle spritesheet_18
+  - first:
+      213: 6171819357319222787
+    second: circle spritesheet_19
+  - first:
+      213: -6227826393346786039
+    second: circle spritesheet_20
+  - first:
+      213: -1422875449894931057
+    second: circle spritesheet_21
+  - first:
+      213: 5152358421644191374
+    second: circle spritesheet_22
+  - first:
+      213: -6317957992828114759
+    second: circle spritesheet_23
+  - first:
+      213: -5998440305841313489
+    second: circle spritesheet_24
+  - first:
+      213: 8988393299361179946
+    second: circle spritesheet_25
+  - first:
+      213: -4210556311937259554
+    second: circle spritesheet_26
+  - first:
+      213: 7325887713995727855
+    second: circle spritesheet_27
+  - first:
+      213: -1775802071298421469
+    second: circle spritesheet_28
+  - first:
+      213: -5118771760545149695
+    second: circle spritesheet_29
+  - first:
+      213: 3093853962905850768
+    second: circle spritesheet_30
+  - first:
+      213: 3887181643329295774
+    second: circle spritesheet_31
+  - first:
+      213: 5890973785251104362
+    second: circle spritesheet_32
+  - first:
+      213: -3123340208875084842
+    second: circle spritesheet_33
+  - first:
+      213: 2489418295229877442
+    second: circle spritesheet_34
+  - first:
+      213: 5720570769310377059
+    second: circle spritesheet_35
+  - first:
+      213: -6652656843453359424
+    second: circle spritesheet_36
+  - first:
+      213: -1424836874655102406
+    second: circle spritesheet_37
+  - first:
+      213: 7879013691931317063
+    second: circle spritesheet_38
+  - first:
+      213: 3541953836182092253
+    second: circle spritesheet_39
+  - first:
+      213: -2343802694760137407
+    second: circle spritesheet_40
+  - first:
+      213: -2983676735180315530
+    second: circle spritesheet_41
+  - first:
+      213: 8569668402351165855
+    second: circle spritesheet_42
+  - first:
+      213: -2924755342326734758
+    second: circle spritesheet_43
+  - first:
+      213: 6096374377018933546
+    second: circle spritesheet_44
+  - first:
+      213: 4111126657679962851
+    second: circle spritesheet_45
+  - first:
+      213: -7947140189839111739
+    second: circle spritesheet_46
+  - first:
+      213: 4980025897120807032
+    second: circle spritesheet_47
+  - first:
+      213: -6338140990671200189
+    second: circle spritesheet_48
+  - first:
+      213: -4336298259998421944
+    second: circle spritesheet_49
+  - first:
+      213: 3706643195934358550
+    second: circle spritesheet_50
+  - first:
+      213: -1123383171601567725
+    second: circle spritesheet_51
+  - first:
+      213: 6737973745411046787
+    second: circle spritesheet_52
+  - first:
+      213: -2369129998253387228
+    second: circle spritesheet_53
+  - first:
+      213: 9013878176306042054
+    second: circle spritesheet_54
+  - first:
+      213: -3961465495314340001
+    second: circle spritesheet_55
+  - first:
+      213: 1033245504424853148
+    second: circle spritesheet_56
+  - first:
+      213: -3643558375011240385
+    second: circle spritesheet_57
+  - first:
+      213: -8653362378063017243
+    second: circle spritesheet_58
+  - first:
+      213: 2234872083631733187
+    second: circle spritesheet_59
+  - first:
+      213: 4422638930139299866
+    second: circle spritesheet_60
+  - first:
+      213: 450016914881322963
+    second: circle spritesheet_61
+  - first:
+      213: -7250212470088936185
+    second: circle spritesheet_62
+  - first:
+      213: 6066578250685563086
+    second: circle spritesheet_63
+  - first:
+      213: -5595840795017989124
+    second: circle spritesheet_64
+  - first:
+      213: 2855968909672225896
+    second: circle spritesheet_65
+  - first:
+      213: 6558087732818001017
+    second: circle spritesheet_66
+  - first:
+      213: -2242242974513006247
+    second: circle spritesheet_67
+  - first:
+      213: 6285760852998542705
+    second: circle spritesheet_68
+  - first:
+      213: 5909671045319753562
+    second: circle spritesheet_69
+  - first:
+      213: 1588805892415156806
+    second: circle spritesheet_70
+  - first:
+      213: 97270081170006542
+    second: circle spritesheet_71
+  - first:
+      213: 845906859872360567
+    second: circle spritesheet_72
+  - first:
+      213: 629686958448761366
+    second: circle spritesheet_73
+  - first:
+      213: 4702676225666800
+    second: circle spritesheet_74
+  - first:
+      213: -5238169488285935175
+    second: circle spritesheet_75
+  - first:
+      213: 2495179968900265318
+    second: circle spritesheet_76
+  - first:
+      213: -3665288487202193548
+    second: circle spritesheet_77
+  - first:
+      213: 4737642420433260259
+    second: circle spritesheet_78
+  - first:
+      213: 3370484233669061105
+    second: circle spritesheet_79
+  - first:
+      213: 4050427322071374975
+    second: circle spritesheet_80
+  - first:
+      213: 6554925383433598887
+    second: circle spritesheet_81
+  - first:
+      213: 3428936241110451154
+    second: circle spritesheet_82
+  - first:
+      213: 9112201527833291880
+    second: circle spritesheet_83
+  - first:
+      213: -8130345915597582285
+    second: circle spritesheet_84
+  - first:
+      213: -3185004544365296248
+    second: circle spritesheet_85
+  - first:
+      213: 7709686639562255213
+    second: circle spritesheet_86
+  - first:
+      213: -5559177546182605443
+    second: circle spritesheet_87
+  - first:
+      213: -7752961489999129596
+    second: circle spritesheet_88
+  - first:
+      213: 1109082022947078084
+    second: circle spritesheet_89
+  - first:
+      213: -4899189163399947299
+    second: circle spritesheet_90
+  - first:
+      213: -5511671196816516668
+    second: circle spritesheet_91
+  - first:
+      213: 7334038816745978459
+    second: circle spritesheet_92
+  - first:
+      213: -2998077131867808770
+    second: circle spritesheet_93
+  - first:
+      213: 1834557119266927170
+    second: circle spritesheet_94
+  - first:
+      213: 3270113978406739433
+    second: circle spritesheet_95
+  - first:
+      213: 8847210071262518583
+    second: circle spritesheet_96
+  - first:
+      213: 9152317554287728317
+    second: circle spritesheet_97
+  - first:
+      213: 4227152013324373296
+    second: circle spritesheet_98
+  - first:
+      213: 7065283936109840053
+    second: circle spritesheet_99
+  - first:
+      213: -1039786793451451404
+    second: circle spritesheet_100
+  - first:
+      213: 5569060224600527640
+    second: circle spritesheet_101
+  - first:
+      213: 3619829540529105136
+    second: circle spritesheet_102
+  - first:
+      213: -7098190394060938008
+    second: circle spritesheet_103
+  - first:
+      213: -7234778314075289341
+    second: circle spritesheet_104
+  - first:
+      213: 5096520120881601507
+    second: circle spritesheet_105
+  - first:
+      213: 7983518981005328607
+    second: circle spritesheet_106
+  - first:
+      213: -6278286698407950349
+    second: circle spritesheet_107
+  - first:
+      213: 1875144016688011864
+    second: circle spritesheet_108
+  - first:
+      213: 5438355579702704656
+    second: circle spritesheet_109
+  - first:
+      213: 7781534822038660245
+    second: circle spritesheet_110
+  - first:
+      213: 483249819026195882
+    second: circle spritesheet_111
+  - first:
+      213: -149519884842939710
+    second: circle spritesheet_112
+  - first:
+      213: -6006994271882678130
+    second: circle spritesheet_113
+  - first:
+      213: -7252253171079349421
+    second: circle spritesheet_114
+  - first:
+      213: 944135423884042528
+    second: circle spritesheet_115
+  - first:
+      213: 530165285273962189
+    second: circle spritesheet_116
+  - first:
+      213: 1547058403343859589
+    second: circle spritesheet_117
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: circle spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1580
+        height: 1600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfa92c746749a1030800000000000000
+      internalID: 3466246098946005757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: circle spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 0
+        width: 1580
+        height: 1600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92740b5a18f596a40800000000000000
+      internalID: 5361921841796499241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: circle spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 3160
+        y: 0
+        width: 1580
+        height: 1600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87408a5b6f652d700800000000000000
+      internalID: 563608520984364152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: circle spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 4740
+        y: 0
+        width: 1580
+        height: 1600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c24364772a9f92d0800000000000000
+      internalID: -3269725310200626493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: circle spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 6320
+        y: 0
+        width: 1580
+        height: 1600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fbc88026850e6620800000000000000
+      internalID: 2769156894509026292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: circle spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 7900
+        y: 0
+        width: 1580
+        height: 1600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a2e517f8e560a644944ddcaf5c4864c
+      internalID: -108422066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c08413d04ec8ed543a508043c149dbd2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1580.0,"y":1600.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      circle spritesheet_0: 3466246098946005757
+      circle spritesheet_1: 5361921841796499241
+      circle spritesheet_2: 563608520984364152
+      circle spritesheet_3: -3269725310200626493
+      circle spritesheet_4: 2769156894509026292
+      circle spritesheet_5: -108422066
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
