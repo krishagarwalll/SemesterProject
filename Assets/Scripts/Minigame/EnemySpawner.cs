@@ -10,6 +10,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 2f;
     [SerializeField] private int maxEnemies = 10;
 
+    [Tooltip("Optional. If set, spawn points are clamped into this collider's area so enemies never appear outside the floor.")]
+    [SerializeField] private Collider2D spawnBounds;
+    [Tooltip("Random rejection-sampling attempts before falling back to clamping onto the bounds edge.")]
+    [SerializeField, Min(1)] private int spawnSampleAttempts = 8;
+
     private float timer;
 
     private void Update()
@@ -28,9 +33,25 @@ public class EnemySpawner : MonoBehaviour
         if (enemyPrefab == null || playerCenter == null) return;
         if (FindObjectsByType<MinigameEnemy>(FindObjectsSortMode.None).Length >= maxEnemies) return;
 
-        Vector2 randomDir = Random.insideUnitCircle.normalized;
-        Vector3 spawnPos = playerCenter.position + new Vector3(randomDir.x, randomDir.y) * spawnRadius;
-
+        Vector3 spawnPos = PickSpawnPosition();
         Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+    }
+
+    private Vector3 PickSpawnPosition()
+    {
+        Vector3 candidate = default;
+        for (int i = 0; i < spawnSampleAttempts; i++)
+        {
+            Vector2 randomDir = Random.insideUnitCircle.normalized;
+            candidate = playerCenter.position + new Vector3(randomDir.x, randomDir.y) * spawnRadius;
+
+            if (spawnBounds == null || spawnBounds.OverlapPoint(candidate))
+            {
+                return candidate;
+            }
+        }
+
+        Vector2 clamped = spawnBounds.ClosestPoint(candidate);
+        return new Vector3(clamped.x, clamped.y, candidate.z);
     }
 }

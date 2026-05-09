@@ -14,6 +14,10 @@ public class PointToMove : MonoBehaviour
     [SerializeField] private Transform head; //position for head accessories - assign in inspector
     //add other transforms for other decorations - body, feet, necklace, etc
 
+    [Tooltip("Optional. If set, click targets are clamped to this collider's area so the player cannot walk outside of it. " +
+             "Use a trigger Collider2D over the playable floor.")]
+    [SerializeField] private Collider2D movementBounds;
+
     //public AudioClip walking;
     
     //AudioSource audioSource;
@@ -53,6 +57,12 @@ public class PointToMove : MonoBehaviour
 
             var pos = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 0));
             pos.z = 0;
+
+            if (movementBounds != null)
+            {
+                Vector2 clamped = movementBounds.ClosestPoint(pos);
+                pos = new Vector3(clamped.x, clamped.y, 0);
+            }
 
             StopAllCoroutines();
             StartCoroutine(DoTheThing(pos));
