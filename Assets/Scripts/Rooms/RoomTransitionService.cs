@@ -100,6 +100,24 @@ public class RoomTransitionService : MonoBehaviour
         ApplyActiveRoom(activeRoom);
     }
 
+    public void RefreshActiveRoom()
+    {
+        if (!Player)
+        {
+            return;
+        }
+
+        System.Collections.Generic.IReadOnlyList<Room> rooms = Room.ActiveRooms;
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            if (rooms[i] && rooms[i].ContainsPoint(Player.transform.position))
+            {
+                ApplyActiveRoom(rooms[i]);
+                return;
+            }
+        }
+    }
+
     public bool TryTraverse(RoomPortal portal, float fadeDuration)
     {
         if (!portal || !portal.LinkedPortal || !portal.LinkedPortal.OwnerRoom)

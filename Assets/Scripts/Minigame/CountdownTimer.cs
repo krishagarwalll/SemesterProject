@@ -8,6 +8,9 @@ public class CountdownTimer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float duration = 60f;
     [SerializeField] private string nextSceneName = "Sprint3";
+    [Tooltip("If true, restore from SaveManager when the timer ends instead of just loading nextSceneName. " +
+             "Use this for the camera minigame so the player returns to Sprint3 with inventory, quests, and position intact.")]
+    [SerializeField] private bool restoreFromSave = true;
 
     private float timeRemaining;
     private bool finished;
@@ -28,7 +31,15 @@ public class CountdownTimer : MonoBehaviour
             timeRemaining = 0f;
             finished = true;
             UpdateText();
-            SceneManager.LoadScene(nextSceneName);
+
+            if (restoreFromSave && SaveManager.Instance != null && SaveManager.Instance.HasSave())
+            {
+                SaveManager.Instance.LoadAndApply();
+            }
+            else
+            {
+                SceneManager.LoadScene(nextSceneName);
+            }
             return;
         }
         UpdateText();

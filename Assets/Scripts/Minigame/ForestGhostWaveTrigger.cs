@@ -22,6 +22,11 @@ public class ForestGhostWaveTrigger : MonoBehaviour
     [Header("Scene")]
     [SerializeField] private string cameraMinigameSceneName = "CameraMinigame";
 
+    [Header("Return")]
+    [Tooltip("Optional. Where the player should reappear when they return from the minigame. " +
+             "Leave empty to reuse the player's current position at the moment the trigger fires.")]
+    [SerializeField] private Transform returnPoint;
+
     [Header("Behaviour")]
     [Tooltip("If true, this trigger won't re-fire after the player returns from the minigame scene.")]
     [SerializeField] private bool oneShotPerSession = true;
@@ -131,6 +136,25 @@ public class ForestGhostWaveTrigger : MonoBehaviour
         AudioListener.pause = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        if (SaveManager.Instance != null)
+        {
+            Vector3 savePos;
+            if (returnPoint != null)
+            {
+                savePos = returnPoint.position;
+            }
+            else
+            {
+                var player = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Exclude);
+                savePos = player != null ? player.transform.position : transform.position;
+            }
+            SaveManager.Instance.SaveWithPlayerPosition(savePos);
+        }
+        else if (debugLogs)
+        {
+            Debug.LogWarning("[GhostWave] No SaveManager.Instance found — minigame return state will not be preserved.", this);
+        }
 
         SceneManager.sceneLoaded -= ClearPauseAfterLoad;
         SceneManager.sceneLoaded += ClearPauseAfterLoad;

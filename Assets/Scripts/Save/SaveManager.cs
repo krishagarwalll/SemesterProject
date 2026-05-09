@@ -41,7 +41,19 @@ public class SaveManager : MonoBehaviour
 
     public void Save()
     {
+        WriteSave(GatherCurrentState());
+    }
+
+    public void SaveWithPlayerPosition(Vector3 position)
+    {
         SaveData data = GatherCurrentState();
+        data.playerX = position.x;
+        data.playerY = position.y;
+        WriteSave(data);
+    }
+
+    private void WriteSave(SaveData data)
+    {
         try
         {
             storage.Write(SaveKey, JsonUtility.ToJson(data, prettyPrint: true));
@@ -204,6 +216,10 @@ public class SaveManager : MonoBehaviour
         var player = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Exclude);
         if (player)
             player.TryWarp(new Vector3(data.playerX, data.playerY, player.transform.position.z));
+
+        var roomTransition = FindFirstObjectByType<RoomTransitionService>(FindObjectsInactive.Exclude);
+        if (roomTransition)
+            roomTransition.RefreshActiveRoom();
     }
 
     private void RestoreProgression(SaveData data)

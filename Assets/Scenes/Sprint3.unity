@@ -61438,6 +61438,7 @@ MonoBehaviour:
     [Right Mouse] to fend them off!'
   countdownText: {fileID: 0}
   cameraMinigameSceneName: CameraMinigame
+  returnPoint: {fileID: 0}
   oneShotPerSession: 1
   debugLogs: 1
 --- !u!1 &1299443924
