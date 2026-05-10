@@ -37,6 +37,8 @@ public class Inventory : MonoBehaviour
 
     public event Action Changed;
 
+    public static event Action<InventoryItemDefinition, int> AnyItemAdded;
+
     public int Capacity => capacity;
     public int Count => CountOccupiedEntries();
     public bool IsFull => Count >= capacity;
@@ -82,6 +84,7 @@ public class Inventory : MonoBehaviour
         {
             entries[stackIndex] = entries[stackIndex].Add(quantity);
             NotifyChanged();
+            AnyItemAdded?.Invoke(definition, quantity);
             return true;
         }
 
@@ -93,6 +96,7 @@ public class Inventory : MonoBehaviour
 
         entries[emptyIndex] = new Entry(definition, quantity);
         NotifyChanged();
+        AnyItemAdded?.Invoke(definition, quantity);
         return true;
     }
 
@@ -107,6 +111,7 @@ public class Inventory : MonoBehaviour
         {
             entries[index] = new Entry(definition, quantity);
             NotifyChanged();
+            AnyItemAdded?.Invoke(definition, quantity);
             return true;
         }
 
@@ -117,6 +122,7 @@ public class Inventory : MonoBehaviour
 
         entries[index] = entries[index].Add(quantity);
         NotifyChanged();
+        AnyItemAdded?.Invoke(definition, quantity);
         return true;
     }
 
@@ -147,6 +153,7 @@ public class Inventory : MonoBehaviour
         {
             entries[index] = entries[index].Add(quantity);
             NotifyChanged();
+            AnyItemAdded?.Invoke(definition, quantity);
             return true;
         }
 
@@ -158,6 +165,7 @@ public class Inventory : MonoBehaviour
 
         entries[targetIndex] = new Entry(definition, quantity);
         NotifyChanged();
+        AnyItemAdded?.Invoke(definition, quantity);
         return true;
     }
 

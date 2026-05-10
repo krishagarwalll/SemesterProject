@@ -18,11 +18,12 @@ MonoBehaviour:
     house? There must be a key lying around somewhere.
   - What are you waiting for? Go in.
   typingSpeed: 0.01
-  autoProgressLines: 
+  autoProgressLines:
   endDialogueLines: 0101
   autoProgressDelay: 1.5
   choices: []
   questInProgressIndex: 0
   questCompletedIndex: 1
-  quest: {fileID: 0}
+  quest: {fileID: 11400000, guid: 96b6e146039af96418f1aae9f04dad84, type: 2}
   isQuestHandInNPC: 0
+  autoGiveQuestOnStart: 1

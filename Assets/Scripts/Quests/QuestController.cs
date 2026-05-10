@@ -21,14 +21,47 @@ public class QuestController : MonoBehaviour
         Instance = this;
 
         questUI = FindFirstObjectByType<QuestUI>(FindObjectsInactive.Include);
+
+        Inventory.AnyItemAdded += HandleInventoryItemAdded;
     }
 
     private void OnDestroy()
     {
+        Inventory.AnyItemAdded -= HandleInventoryItemAdded;
+
         if (Instance == this)
         {
             Instance = null;
         }
+    }
+
+    private void HandleInventoryItemAdded(InventoryItemDefinition definition, int amount)
+    {
+        if (definition == null || amount <= 0) return;
+        AdvanceCollectObjectives(definition.ItemId, amount);
+    }
+
+    public int AdvanceCollectObjectives(string itemId, int amount = 1)
+    {
+        if (string.IsNullOrWhiteSpace(itemId) || amount <= 0) return 0;
+
+        int hits = 0;
+        for (int i = 0; i < activateQuests.Count; i++)
+        {
+            QuestProgress qp = activateQuests[i];
+            for (int j = 0; j < qp.objectives.Count; j++)
+            {
+                QuestObjective obj = qp.objectives[j];
+                if (obj.type != ObjectiveType.CollectItem) continue;
+                if (obj.itemId != itemId) continue;
+
+                obj.currentAmount = Mathf.Min(obj.currentAmount + amount, obj.requiredAmount);
+                hits++;
+            }
+        }
+
+        if (hits > 0) questUI?.UpdateQuestUI();
+        return hits;
     }
 
     public void AcceptQuest(Quest quest)
@@ -93,6 +126,20 @@ public class QuestController : MonoBehaviour
 
     public bool IsQuestActive(string questID) => isQuestActive(questID);
     public bool IsQuestHandedIn(string questID) => isQuestHandedIn(questID);
+
+    public bool SetObjectiveDescription(string questID, int objectiveIndex, string newDescription)
+    {
+        QuestProgress quest = activateQuests.Find(q => q.QuestID == questID);
+        if (quest == null) return false;
+        if (objectiveIndex < 0 || objectiveIndex >= quest.objectives.Count) return false;
+
+        QuestObjective objective = quest.objectives[objectiveIndex];
+        if (objective.description == newDescription) return false;
+
+        objective.description = newDescription;
+        questUI?.UpdateQuestUI();
+        return true;
+    }
 
     public bool TryAdvanceObjective(string questID, string objectiveDescription, int amount = 1)
     {

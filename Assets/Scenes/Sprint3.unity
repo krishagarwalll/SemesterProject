@@ -7106,6 +7106,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &112302773
 MonoBehaviour:
@@ -12985,6 +12986,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 11400000, guid: 96b6e146039af96418f1aae9f04dad84, type: 2}
   startUnlocked: 0
 --- !u!114 &300721200
 MonoBehaviour:
@@ -13899,6 +13901,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &312236972
 MonoBehaviour:
@@ -15188,6 +15191,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &335863833
 MonoBehaviour:
@@ -20789,6 +20793,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &387807167
 MonoBehaviour:
@@ -21038,6 +21043,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &390773836
 MonoBehaviour:
@@ -26964,6 +26970,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &514099655
 MonoBehaviour:
@@ -28458,6 +28465,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &577592016
 MonoBehaviour:
@@ -29585,6 +29593,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &618873111
 MonoBehaviour:
@@ -32128,6 +32137,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &689796560
 MonoBehaviour:
@@ -60710,6 +60720,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &1277763536
 MonoBehaviour:
@@ -61366,7 +61377,7 @@ Transform:
   m_GameObject: {fileID: 1298834668}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.74, y: -1.82, z: 0}
+  m_LocalPosition: {x: 4.78, y: -1.39, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61439,6 +61450,7 @@ MonoBehaviour:
   countdownText: {fileID: 0}
   cameraMinigameSceneName: CameraMinigame
   returnPoint: {fileID: 0}
+  questToStart: {fileID: 11400000, guid: f3a89c2b71e64d558cd3abf012345679, type: 2}
   oneShotPerSession: 1
   debugLogs: 1
 --- !u!1 &1299443924
@@ -64837,6 +64849,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &1388607722
 MonoBehaviour:
@@ -68474,6 +68487,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &1500138549
 MonoBehaviour:
@@ -72786,6 +72800,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &1625611960
 MonoBehaviour:
@@ -83068,6 +83083,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 1
 --- !u!114 &1918073997
 MonoBehaviour:
@@ -83691,6 +83707,7 @@ MonoBehaviour:
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
+  questToCompleteOnUnlock: {fileID: 0}
   startUnlocked: 0
 --- !u!114 &1928907493
 MonoBehaviour:
@@ -93825,6 +93842,103 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcfec7f13542a084aa5841db5037f60b, type: 3}
+--- !u!1001 &892870713988456008
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6842421658320616566, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746854677239614510, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
+      propertyPath: m_Name
+      value: Quest Ui Panel
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cacb4ee05a736475e9791087540d33fd, type: 3}
 --- !u!1001 &1293758386729385044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94290,6 +94404,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 715d54c6a760f204ab4f95a17119af88, type: 3}
+--- !u!1001 &6742247681504825554
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 637565767647304249, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 960
+      objectReference: {fileID: 0}
+    - target: {fileID: 637565767647304249, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 540
+      objectReference: {fileID: 0}
+    - target: {fileID: 637565767647304249, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637565767647304249, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 637565767647304249, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637565767647304249, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637565767647304249, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637565767647304249, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637565767647304249, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637565767647304249, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5787806075376613072, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
+      propertyPath: m_Name
+      value: QuestController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ff5be4ea022f3405e86e1f408615ccd2, type: 3}
 --- !u!1001 &8136019076008057111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94506,3 +94677,5 @@ SceneRoots:
   - {fileID: 827608879}
   - {fileID: 1541039356}
   - {fileID: 1822824214}
+  - {fileID: 892870713988456008}
+  - {fileID: 6742247681504825554}

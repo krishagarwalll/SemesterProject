@@ -71,6 +71,33 @@ public class SaveManager : MonoBehaviour
         Debug.Log("[SaveManager] Save deleted.");
     }
 
+    public bool MarkQuestHandedInInSave(string questId)
+    {
+        if (string.IsNullOrWhiteSpace(questId)) return false;
+        if (!storage.TryRead(SaveKey, out string json)) return false;
+
+        SaveData data;
+        try { data = JsonUtility.FromJson<SaveData>(json); }
+        catch { return false; }
+        if (data == null) return false;
+
+        if (data.activeQuests != null)
+        {
+            data.activeQuests.RemoveAll(q => q != null && q.questId == questId);
+        }
+        if (data.handedInQuestIds == null)
+        {
+            data.handedInQuestIds = new List<string>();
+        }
+        if (!data.handedInQuestIds.Contains(questId))
+        {
+            data.handedInQuestIds.Add(questId);
+        }
+
+        WriteSave(data);
+        return true;
+    }
+
     public void LoadAndApply()
     {
         if (!storage.TryRead(SaveKey, out string json))

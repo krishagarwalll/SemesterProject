@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad450c27536d93840a83253529f9ac2b, type: 3}
-  m_Name: GarageDoor
+  m_Name: SurviveWave
   m_EditorClassIdentifier: Assembly-CSharp::Quest
-  questID: e3c05fe1-1ae6-417a-8a5a-28a320192499
-  questName: Open Garage Door
-  questDescription: find the key for the garage door
+  questID: f3a89c2b-71e6-4d55-8cd3-abf012345679
+  questName: Survive the Ghost Wave
+  questDescription: Use your camera to fend off the ghost wave in the forest.
   questObjectives:
-  - description: Find a key
-    type: 0
-    requiredAmount: 1
+  - description: Starting in 5
+    type: 3
+    requiredAmount: 0
     currentAmount: 0
-    itemId: rusty_key
+    itemId:

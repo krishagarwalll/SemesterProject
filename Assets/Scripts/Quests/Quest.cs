@@ -27,6 +27,9 @@ public class QuestObjective
     public int requiredAmount;
     public int currentAmount;
 
+    [Tooltip("For CollectItem objectives only. Matches InventoryItemDefinition.itemId so the objective can auto-advance on pickup.")]
+    public string itemId;
+
     public bool isCompleted => currentAmount >= requiredAmount;
 }
 
@@ -68,7 +71,8 @@ public class QuestProgress
                 description = obj.description,
                 type = obj.type,
                 requiredAmount = obj.requiredAmount,
-                currentAmount = 0
+                currentAmount = 0,
+                itemId = obj.itemId
             });
         }
     }    

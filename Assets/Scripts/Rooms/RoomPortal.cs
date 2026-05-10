@@ -26,6 +26,10 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     [SerializeField] private AudioClip enterRoom;
     [SerializeField] private AudioClip lockedDoor;
 
+    [Header("Quest")]
+    [Tooltip("Optional. When the lock is opened by consuming the required item, this quest is handed in immediately.")]
+    [SerializeField] private Quest questToCompleteOnUnlock;
+
 
 
     private RoomTransitionService transitionService;
@@ -95,6 +99,7 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
                             context.Inventory.TryRemove(requiredItem);
                         }
                         unlockedByItem = true;
+                        TryHandInUnlockQuest();
                     }
                     else
                     {
@@ -144,6 +149,28 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
         {
             audioSource.PlayOneShot(lockedDoor);
         }
+    }
+
+    private void TryHandInUnlockQuest()
+    {
+        if (questToCompleteOnUnlock == null || QuestController.Instance == null)
+        {
+            return;
+        }
+
+        string questId = questToCompleteOnUnlock.questID;
+        if (string.IsNullOrWhiteSpace(questId) || QuestController.Instance.isQuestHandedIn(questId))
+        {
+            return;
+        }
+
+        if (!QuestController.Instance.isQuestActive(questId))
+        {
+            QuestController.Instance.AcceptQuest(questToCompleteOnUnlock);
+        }
+
+        QuestController.Instance.MarkQuestReadyToHandIn(questId);
+        QuestController.Instance.CompleteQuest(questId);
     }
 
     public bool CanTraverseFromThisSide => traversalMode != PortalTraversalMode.ExitOnly;

@@ -11,6 +11,9 @@ public class CountdownTimer : MonoBehaviour
     [Tooltip("If true, restore from SaveManager when the timer ends instead of just loading nextSceneName. " +
              "Use this for the camera minigame so the player returns to Sprint3 with inventory, quests, and position intact.")]
     [SerializeField] private bool restoreFromSave = true;
+    [Tooltip("Optional. If set, this quest is marked as handed in (in the save file) right before reloading. " +
+             "Use this for quests that complete by surviving the minigame.")]
+    [SerializeField] private Quest questToCompleteOnTimerEnd;
 
     private float timeRemaining;
     private bool finished;
@@ -34,6 +37,10 @@ public class CountdownTimer : MonoBehaviour
 
             if (restoreFromSave && SaveManager.Instance != null && SaveManager.Instance.HasSave())
             {
+                if (questToCompleteOnTimerEnd != null)
+                {
+                    SaveManager.Instance.MarkQuestHandedInInSave(questToCompleteOnTimerEnd.questID);
+                }
                 SaveManager.Instance.LoadAndApply();
             }
             else

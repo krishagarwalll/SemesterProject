@@ -28,13 +28,15 @@ public class QuestUI : MonoBehaviour
             TMP_Text questNameText = entry.transform.Find("QuestNameText").GetComponent<TMP_Text>();
             Transform objectiveList = entry.transform.Find("ObjectiveList");
 
-            questNameText.text = quest.quest.name;
+            questNameText.text = string.IsNullOrWhiteSpace(quest.quest.questName) ? quest.quest.name : quest.quest.questName;
 
             foreach (var objective in quest.objectives)
             {
                 GameObject objTextGO = Instantiate(objectiveTextPrefab, objectiveList);
                 TMP_Text objText = objTextGO.GetComponent<TMP_Text>();
-                objText.text = $"{objective.description} ({objective.currentAmount}/{objective.requiredAmount})";
+                objText.text = objective.requiredAmount > 0
+                    ? $"{objective.description} ({objective.currentAmount}/{objective.requiredAmount})"
+                    : objective.description;
             }
         }
     }

@@ -90,6 +90,15 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
 
         syncQuestState();
 
+        if (questState == QuestState.NotStarted &&
+            dialogueData.autoGiveQuestOnStart &&
+            dialogueData.quest != null &&
+            QuestController.Instance != null)
+        {
+            QuestController.Instance.AcceptQuest(dialogueData.quest);
+            syncQuestState();
+        }
+
         if (questState == QuestState.NotStarted)
         {
             dialogueIndex = 0;

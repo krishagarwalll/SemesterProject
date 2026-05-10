@@ -27,6 +27,10 @@ public class ForestGhostWaveTrigger : MonoBehaviour
              "Leave empty to reuse the player's current position at the moment the trigger fires.")]
     [SerializeField] private Transform returnPoint;
 
+    [Header("Quest")]
+    [Tooltip("Optional. Quest accepted the moment the player enters the trigger.")]
+    [SerializeField] private Quest questToStart;
+
     [Header("Behaviour")]
     [Tooltip("If true, this trigger won't re-fire after the player returns from the minigame scene.")]
     [SerializeField] private bool oneShotPerSession = true;
@@ -106,6 +110,14 @@ public class ForestGhostWaveTrigger : MonoBehaviour
         if (debugLogs) Debug.Log("[GhostWave] Player matched. Starting warning coroutine.");
         triggered = true;
         if (oneShotPerSession) s_alreadyFired = true;
+
+        if (questToStart != null && QuestController.Instance != null
+            && !QuestController.Instance.isQuestHandedIn(questToStart.questID)
+            && !QuestController.Instance.isQuestActive(questToStart.questID))
+        {
+            QuestController.Instance.AcceptQuest(questToStart);
+        }
+
         StartCoroutine(RunWarningThenLoadScene());
     }
 
@@ -120,10 +132,22 @@ public class ForestGhostWaveTrigger : MonoBehaviour
         if (countdownText != null) countdownText.gameObject.SetActive(true);
 
         float remaining = warningDuration;
+        int lastSecondsLeft = -1;
         while (remaining > 0f)
         {
+            int secondsLeft = Mathf.CeilToInt(remaining);
             if (countdownText != null)
-                countdownText.text = Mathf.CeilToInt(remaining).ToString();
+                countdownText.text = secondsLeft.ToString();
+
+            if (secondsLeft != lastSecondsLeft)
+            {
+                lastSecondsLeft = secondsLeft;
+                if (questToStart != null && QuestController.Instance != null)
+                {
+                    QuestController.Instance.SetObjectiveDescription(questToStart.questID, 0, $"Starting in {secondsLeft}");
+                }
+            }
+
             yield return null;
             remaining -= Time.deltaTime;
         }

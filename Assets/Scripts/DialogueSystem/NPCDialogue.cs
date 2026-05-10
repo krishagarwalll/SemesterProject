@@ -16,6 +16,10 @@ public class NPCDialogue : ScriptableObject
     public int questCompletedIndex;
     public Quest quest;
     public bool isQuestHandInNPC;
+
+    [Tooltip("If true, the linked quest is auto-accepted the first time this dialogue is opened. " +
+             "Use for quests that don't need a player choice to start (e.g. inspecting a locked door).")]
+    public bool autoGiveQuestOnStart;
 }
 
 [System.Serializable]
