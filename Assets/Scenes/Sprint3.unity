@@ -835,9 +835,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
-  itemSprite: {fileID: -3222790432060283442, guid: a82867181c8acd24994d9a938a780788, type: 3}
+  itemSprite: {fileID: 5632821140356901969, guid: 64f9df8d0e0674bc99b7e4daf3130e25, type: 3}
   itemName: mirror
-  description: change sprite so it looks eerier
+  description: ...
 --- !u!1 &11552846
 GameObject:
   m_ObjectHideFlags: 0
@@ -10876,9 +10876,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
-  itemSprite: {fileID: 4462837344885546308, guid: a82867181c8acd24994d9a938a780788, type: 3}
+  itemSprite: {fileID: 6879538022904502005, guid: 813d2f9fc0fd542699eb0ebe8da736e0, type: 3}
   itemName: 
-  description: change newspaper to realistc sprite
+  description: 'https://newspaper.jaguarpaw.co.uk/ ->change if you want ito be more
+    lore accurate '
 --- !u!61 &249062303
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -37796,6 +37797,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 26602289146086074, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -230
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506764922793686697, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 763.1083
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506764922793686697, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 565.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506764922793686697, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 7.4246
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506764922793686697, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 17.305
+      objectReference: {fileID: 0}
     - target: {fileID: 1795421790334168232, guid: fb73885269dd042abb15cf721590ba04, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.35315
@@ -37836,6 +37857,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1939113655915187419, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 1939113655915187419, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00088215
+      objectReference: {fileID: 0}
     - target: {fileID: 4270889412184862943, guid: fb73885269dd042abb15cf721590ba04, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -37843,6 +37872,14 @@ PrefabInstance:
     - target: {fileID: 4548886874031076632, guid: fb73885269dd042abb15cf721590ba04, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501144493596264154, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 74.941
+      objectReference: {fileID: 0}
+    - target: {fileID: 6501144493596264154, guid: fb73885269dd042abb15cf721590ba04, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -303
       objectReference: {fileID: 0}
     - target: {fileID: 9160399757212749026, guid: fb73885269dd042abb15cf721590ba04, type: 3}
       propertyPath: audioSource
@@ -59492,9 +59529,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
-  itemSprite: {fileID: 0}
-  itemName: 
-  description: 
+  itemSprite: {fileID: -8522433546947300881, guid: 939b129830cf64f1c853610d820aa2ee, type: 3}
+  itemName: photograph
+  description: '?'
 --- !u!1 &1313017733
 GameObject:
   m_ObjectHideFlags: 0
@@ -63037,7 +63074,7 @@ GameObject:
   - component: {fileID: 1444150344}
   - component: {fileID: 1444150350}
   m_Layer: 10
-  m_Name: Newspaper (1)
+  m_Name: jacket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63070,9 +63107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
-  itemSprite: {fileID: 3354603212473536782, guid: 9ab26aeb2abf90d4ba6d11f06a1d15eb, type: 3}
+  itemSprite: {fileID: 7631416622193281335, guid: c1007ac4bd9e14bb28c14a9a3ea7507a, type: 3}
   itemName: 
-  description: Change to realistic jacket.
+  description: ...
 --- !u!114 &1444150345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70293,9 +70330,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
-  itemSprite: {fileID: 2225645817397188732, guid: cffba3b4ba3d4e449a18a33c6dc78333, type: 3}
+  itemSprite: {fileID: -3249212755272163497, guid: 277beb968adbe4e8693ffa0a894c7434, type: 3}
   itemName: board
-  description: ...
+  description: '?'
 --- !u!1001 &1639410110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79782,9 +79819,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
-  itemSprite: {fileID: 6580078988926099068, guid: a4b182c9e92ac4b40ae4f23154c6655b, type: 3}
+  itemSprite: {fileID: 5739897283171119737, guid: de78503862eb544a897f938592b1ed36, type: 3}
   itemName: 
-  description: show fridge food going bad
+  description: seems like its going bad...
 --- !u!1 &1922566741
 GameObject:
   m_ObjectHideFlags: 0
