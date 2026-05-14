@@ -605,6 +605,7 @@ Transform:
   - {fileID: 496125912}
   - {fileID: 1884244652}
   - {fileID: 1024209487}
+  - {fileID: 1826703280}
   - {fileID: 74673856}
   - {fileID: 1947883487}
   - {fileID: 1308946646}
@@ -5477,8 +5478,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 331021158}
   targetCamera: {fileID: 0}
+  followTarget: {fileID: 0}
   disableCinemachineBrainWhenLive: 1
-  snapImmediately: 1
+  followSmoothTime: 0.12
 --- !u!114 &76845992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6741,23 +6743,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 689796559}
   spawnPoint: {fileID: 617618377}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step back into the bedroom.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &112302773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11811,8 +11813,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 2009901047}
   targetCamera: {fileID: 0}
+  followTarget: {fileID: 0}
   disableCinemachineBrainWhenLive: 0
-  snapImmediately: 1
+  followSmoothTime: 0.12
 --- !u!1 &300631182
 GameObject:
   m_ObjectHideFlags: 0
@@ -11950,23 +11953,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 514099654}
   spawnPoint: {fileID: 2000391228}
   traversalMode: 2
-  lockMode: 2
-  requiredFlag: 
-  requiredItem: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
-  consumeRequiredItem: 1
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: You must find a key to the garage.
   inspectText: Step into the garage.
+  lockMode: 2
+  requiredFlag: 
+  requiredItem: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
+  consumeRequiredItem: 1
+  startUnlocked: 0
+  lockedInspectText: You must find a key to the garage.
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 11400000, guid: 96b6e146039af96418f1aae9f04dad84, type: 2}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 11400000, guid: 96b6e146039af96418f1aae9f04dad84, type: 2}
-  startUnlocked: 0
 --- !u!114 &300721200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12865,23 +12868,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 1388607721}
   spawnPoint: {fileID: 564030923}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step back into the bedroom.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &312236972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13315,6 +13318,7 @@ Transform:
   - {fileID: 1166723303}
   - {fileID: 390773834}
   - {fileID: 844751949}
+  - {fileID: 339916568}
   m_Father: {fileID: 189585593}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &331021158
@@ -13833,23 +13837,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 387807166}
   spawnPoint: {fileID: 1736577661}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step back into the bedroom.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &335863833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14042,6 +14046,129 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7418599457599269517, guid: a3f0555822de67d479cff2fd3fb95a7d, type: 3}
   m_PrefabInstance: {fileID: 8382556313870883212}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &339916567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339916568}
+  - component: {fileID: 339916571}
+  - component: {fileID: 339916570}
+  - component: {fileID: 339916569}
+  m_Layer: 10
+  m_Name: InventoryInstruction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &339916568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339916567}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.363, y: -0.474, z: 0}
+  m_LocalScale: {x: 0.82346505, y: 0.8499405, z: 0.33}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 331021157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &339916569
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339916567}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c72186da328007a45898b771abf0057e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &339916570
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339916567}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 401001002
+  m_SortingLayer: 3
+  m_SortingOrder: 2
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 167656138612505357, guid: bfe2cf32b85ebed45bdb8430b044750f, type: 3}
+  m_Color: {r: 0.8726415, g: 0.98934865, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+--- !u!33 &339916571
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339916567}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &339998585
 GameObject:
   m_ObjectHideFlags: 0
@@ -14336,8 +14463,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 368697165}
   targetCamera: {fileID: 0}
+  followTarget: {fileID: 0}
   disableCinemachineBrainWhenLive: 1
-  snapImmediately: 1
+  followSmoothTime: 0.12
 --- !u!114 &342965092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19288,23 +19416,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 335863832}
   spawnPoint: {fileID: 165472288}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step outside.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &387807167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19538,23 +19666,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 0}
   spawnPoint: {fileID: 0}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step back into the hallway.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 0}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &390773836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21647,8 +21775,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 301832345}
   targetCamera: {fileID: 0}
+  followTarget: {fileID: 0}
   disableCinemachineBrainWhenLive: 1
-  snapImmediately: 1
+  followSmoothTime: 0.12
 --- !u!114 &476099770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25351,23 +25480,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 300721199}
   spawnPoint: {fileID: 1416714065}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step back into the bedroom.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &514099655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26893,23 +27022,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 618873110}
   spawnPoint: {fileID: 1327813370}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step back into the bedroom.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &577592016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27299,8 +27428,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 9331182}
   targetCamera: {fileID: 826020563}
+  followTarget: {fileID: 0}
   disableCinemachineBrainWhenLive: 0
-  snapImmediately: 0
+  followSmoothTime: 0.12
 --- !u!114 &605235360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27874,23 +28004,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 577592015}
   spawnPoint: {fileID: 913372031}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step back into the bedroom.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &618873111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29360,8 +29490,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 869665204}
   targetCamera: {fileID: 0}
+  followTarget: {fileID: 0}
   disableCinemachineBrainWhenLive: 1
-  snapImmediately: 1
+  followSmoothTime: 0.12
 --- !u!114 &657802118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30371,23 +30502,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 112302772}
   spawnPoint: {fileID: 2070017530}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step outside.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &689796560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37038,8 +37169,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 159757789}
   targetCamera: {fileID: 0}
+  followTarget: {fileID: 0}
   disableCinemachineBrainWhenLive: 1
-  snapImmediately: 1
+  followSmoothTime: 0.12
 --- !u!114 &768841648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51375,8 +51507,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 1369323095}
   targetCamera: {fileID: 0}
+  followTarget: {fileID: 0}
   disableCinemachineBrainWhenLive: 1
-  snapImmediately: 1
+  followSmoothTime: 0.12
 --- !u!114 &1161097315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58609,23 +58742,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 1625611959}
   spawnPoint: {fileID: 1822716159}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step back into the bedroom.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &1277763536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62416,23 +62549,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 312236971}
   spawnPoint: {fileID: 570977943}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step back into the hallway.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &1388607722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65935,23 +66068,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 1918073996}
   spawnPoint: {fileID: 1344733966}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step through to the hallway.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &1500138549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68808,6 +68941,10 @@ PrefabInstance:
       value: 0.0074683726
       objectReference: {fileID: 0}
     - target: {fileID: 8756855443268272749, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756855443268272749, guid: 4bd3c6d1c3c8947b686740e7053e322b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 1.31
       objectReference: {fileID: 0}
@@ -69226,8 +69363,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 2009901047}
   targetCamera: {fileID: 826020563}
+  followTarget: {fileID: 0}
   disableCinemachineBrainWhenLive: 0
-  snapImmediately: 1
+  followSmoothTime: 0.12
 --- !u!114 &1570065314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70009,11 +70147,11 @@ RectTransform:
   - {fileID: 766244410}
   m_Father: {fileID: 1356202514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -12, y: 0}
-  m_SizeDelta: {x: 112, y: 648}
-  m_Pivot: {x: 1, y: 0.5}
+  m_SizeDelta: {x: 724, y: 112}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1610575156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70248,23 +70386,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 1277763535}
   spawnPoint: {fileID: 1669124227}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 11400000, guid: dc6714b308914f4585d6383e02823550, type: 2}
-  consumeRequiredItem: 1
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step outside.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 11400000, guid: dc6714b308914f4585d6383e02823550, type: 2}
+  consumeRequiredItem: 1
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &1625611960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73969,6 +74107,129 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf2ade3201e5af446b82ad920d72f67a, type: 3}
+--- !u!1 &1826703279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1826703280}
+  - component: {fileID: 1826703283}
+  - component: {fileID: 1826703282}
+  - component: {fileID: 1826703281}
+  m_Layer: 10
+  m_Name: Zoom Instruction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1826703280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826703279}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -11.3806, y: -1.1766, z: 0}
+  m_LocalScale: {x: 0.7806792, y: 0.7350616, z: 0.33}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 9331183}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1826703281
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826703279}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ee24892d58dd8349b8049f459616cfb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &1826703282
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826703279}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 401001002
+  m_SortingLayer: 3
+  m_SortingOrder: -1
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 21300000, guid: 2b2842e1f86bb0c4bba24940c9fbfa77, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+--- !u!33 &1826703283
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826703279}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1828462819
 GameObject:
   m_ObjectHideFlags: 0
@@ -79787,23 +80048,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 1500138548}
   spawnPoint: {fileID: 1229854860}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: Step back into the bedroom.
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 1
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 1
 --- !u!114 &1918073997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80586,23 +80847,23 @@ MonoBehaviour:
   linkedPortal: {fileID: 312236971}
   spawnPoint: {fileID: 570977943}
   traversalMode: 2
-  lockMode: 0
-  requiredFlag: 
-  requiredItem: {fileID: 0}
-  consumeRequiredItem: 0
   enterLabel: Enter
   lockedLabel: Locked
   inspectLabel: Inspect
   primaryGlyphId: Primary
   inspectGlyphId: Context
-  lockedInspectText: 
   inspectText: 
+  lockMode: 0
+  requiredFlag: 
+  requiredItem: {fileID: 0}
+  consumeRequiredItem: 0
+  startUnlocked: 0
+  lockedInspectText: 
   fadeDuration: 0.2
+  questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}
-  questToCompleteOnUnlock: {fileID: 0}
-  startUnlocked: 0
 --- !u!114 &1928907493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80787,8 +81048,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomCameraController
   room: {fileID: 331021158}
   targetCamera: {fileID: 0}
+  followTarget: {fileID: 0}
   disableCinemachineBrainWhenLive: 1
-  snapImmediately: 1
+  followSmoothTime: 0.12
 --- !u!114 &1929507757
 MonoBehaviour:
   m_ObjectHideFlags: 0

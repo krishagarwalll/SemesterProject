@@ -1,0 +1,473 @@
+fileFormatVersion: 2
+guid: 926db97cc7b49794cafa8135f770cf52
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8594476548167178390
+    second: InvPart2Spritesheet_0
+  - first:
+      213: -3296920587964137309
+    second: InvPart2Spritesheet_1
+  - first:
+      213: -454509212075719183
+    second: InvPart2Spritesheet_2
+  - first:
+      213: 8529800163915347002
+    second: InvPart2Spritesheet_3
+  - first:
+      213: -7939729792821977958
+    second: InvPart2Spritesheet_4
+  - first:
+      213: 4418380914773687718
+    second: InvPart2Spritesheet_5
+  - first:
+      213: 7445632244386569106
+    second: InvPart2Spritesheet_6
+  - first:
+      213: 2132989321845758926
+    second: InvPart2Spritesheet_7
+  - first:
+      213: 6231437407636639355
+    second: InvPart2Spritesheet_8
+  - first:
+      213: -8369186573711218499
+    second: InvPart2Spritesheet_9
+  - first:
+      213: 3805066262749640461
+    second: InvPart2Spritesheet_10
+  - first:
+      213: 4358915373201987357
+    second: InvPart2Spritesheet_11
+  - first:
+      213: -5618968402532412014
+    second: InvPart2Spritesheet_12
+  - first:
+      213: 5275298949834294566
+    second: InvPart2Spritesheet_13
+  - first:
+      213: 6860820257806854263
+    second: InvPart2Spritesheet_14
+  - first:
+      213: -452949427342149425
+    second: InvPart2Spritesheet_15
+  - first:
+      213: -7165843817969754212
+    second: InvPart2Spritesheet_16
+  - first:
+      213: -2131063050032956722
+    second: InvPart2Spritesheet_17
+  - first:
+      213: -403108683004200287
+    second: InvPart2Spritesheet_18
+  - first:
+      213: 4195294622930595294
+    second: InvPart2Spritesheet_19
+  - first:
+      213: -211349258435446044
+    second: InvPart2Spritesheet_20
+  - first:
+      213: 4361082260903813844
+    second: InvPart2Spritesheet_21
+  - first:
+      213: -7466655204268315402
+    second: InvPart2Spritesheet_22
+  - first:
+      213: -565708347989503300
+    second: InvPart2Spritesheet_23
+  - first:
+      213: -9209288244455858012
+    second: InvPart2Spritesheet_24
+  - first:
+      213: 5481153914645374408
+    second: InvPart2Spritesheet_25
+  - first:
+      213: -5001790422629732856
+    second: InvPart2Spritesheet_26
+  - first:
+      213: 7204525065038656866
+    second: InvPart2Spritesheet_27
+  - first:
+      213: -4853901007559748614
+    second: InvPart2Spritesheet_28
+  - first:
+      213: -8921076039145501572
+    second: InvPart2Spritesheet_29
+  - first:
+      213: 830799963224402912
+    second: InvPart2Spritesheet_30
+  - first:
+      213: 1007074145682613356
+    second: InvPart2Spritesheet_31
+  - first:
+      213: 386358221222320054
+    second: InvPart2Spritesheet_32
+  - first:
+      213: 987745444266424161
+    second: InvPart2Spritesheet_33
+  - first:
+      213: -150095772723229996
+    second: InvPart2Spritesheet_34
+  - first:
+      213: 966193919177203488
+    second: InvPart2Spritesheet_35
+  - first:
+      213: -5127585878256620703
+    second: InvPart2Spritesheet_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: InvPart2Spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 950
+        height: 764
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6981ee392e6b54770800000000000000
+      internalID: 8594476548167178390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvPart2Spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 0
+        width: 950
+        height: 764
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a0c9bd613cfe32d0800000000000000
+      internalID: -3296920587964137309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvPart2Spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 1900
+        y: 0
+        width: 950
+        height: 764
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f5851b974241b9f0800000000000000
+      internalID: -454509212075719183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvPart2Spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 2850
+        y: 0
+        width: 950
+        height: 764
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a343e376e00ff5670800000000000000
+      internalID: 8529800163915347002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvPart2Spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 3800
+        y: 0
+        width: 950
+        height: 764
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9c9246e1d960d190800000000000000
+      internalID: -7939729792821977958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvPart2Spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 4750
+        y: 0
+        width: 950
+        height: 764
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ad737b480e315d30800000000000000
+      internalID: 4418380914773687718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvPart2Spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 5700
+        y: 0
+        width: 950
+        height: 764
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29b1bded313345760800000000000000
+      internalID: 7445632244386569106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvPart2Spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 6650
+        y: 0
+        width: 950
+        height: 764
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecb5156bc76e99d10800000000000000
+      internalID: 2132989321845758926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvPart2Spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 7600
+        y: 0
+        width: 950
+        height: 764
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7e43428e438a7650800000000000000
+      internalID: 6231437407636639355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvPart2Spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 8550
+        y: 0
+        width: 950
+        height: 764
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db869fe272daadb80800000000000000
+      internalID: -8369186573711218499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: a1885bc0ac775c444b0e63e05156670d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":950.0,"y":764.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      InvPart2Spritesheet_0: 8594476548167178390
+      InvPart2Spritesheet_1: -3296920587964137309
+      InvPart2Spritesheet_2: -454509212075719183
+      InvPart2Spritesheet_3: 8529800163915347002
+      InvPart2Spritesheet_4: -7939729792821977958
+      InvPart2Spritesheet_5: 4418380914773687718
+      InvPart2Spritesheet_6: 7445632244386569106
+      InvPart2Spritesheet_7: 2132989321845758926
+      InvPart2Spritesheet_8: 6231437407636639355
+      InvPart2Spritesheet_9: -8369186573711218499
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
