@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 985aa3edb99af8348b473b5585c6e17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  defaultMasterVolume: 1
   defaultMusicVolume: 0.6
   defaultSfxVolume: 1
 --- !u!114 &2292956
@@ -185,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99cd11e283c5141e0a47df30e32b72e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseInputHandler
+  pauseAction: {fileID: 0}
 --- !u!4 &2292958
 Transform:
   m_ObjectHideFlags: 0
@@ -669,6 +671,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: 0b5720ce3f561034b9034c131f9aba0e, type: 2}
 --- !u!212 &10342324
 SpriteRenderer:
@@ -842,6 +849,31 @@ MonoBehaviour:
   itemSprite: {fileID: 5632821140356901969, guid: 64f9df8d0e0674bc99b7e4daf3130e25, type: 3}
   itemName: mirror
   description: ...
+--- !u!1 &11104217 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+  m_PrefabInstance: {fileID: 592263094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &11104218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11104217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
 --- !u!1 &11552846
 GameObject:
   m_ObjectHideFlags: 0
@@ -6827,6 +6859,7 @@ MonoBehaviour:
   choiceContainer: {fileID: 1148356070}
   choiceButtonPrefab: {fileID: 5685550414944582712, guid: d5b59e455a0c4ed478d9ff78ae607c8a, type: 3}
   dialogueCanvasGroup: {fileID: 0}
+  dismissButton: {fileID: 0}
 --- !u!1 &109399081
 GameObject:
   m_ObjectHideFlags: 0
@@ -7000,6 +7033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: 1a7f22d2995646808cdbba222038232b
   linkedPortal: {fileID: 689796559}
   spawnPoint: {fileID: 617618377}
   traversalMode: 2
@@ -7012,10 +7046,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -11182,6 +11218,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: 6dc69c9769414ff4f83d735f9efd1bc8, type: 2}
 --- !u!114 &249062300
 MonoBehaviour:
@@ -12218,6 +12259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: a2d0e0df13a14efc95825ac0332b40cb
   linkedPortal: {fileID: 514099654}
   spawnPoint: {fileID: 2000391228}
   traversalMode: 2
@@ -12230,10 +12272,12 @@ MonoBehaviour:
   lockMode: 2
   requiredFlag: 
   requiredItem: {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
+  requiredItemQuantity: 1
   consumeRequiredItem: 1
   startUnlocked: 0
   lockedInspectText: You must find a key to the garage.
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 11400000, guid: 96b6e146039af96418f1aae9f04dad84, type: 2}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -12255,6 +12299,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: d34f6036241dd6a4393e07d2f34f779a, type: 2}
 --- !u!114 &300721201
 MonoBehaviour:
@@ -12853,6 +12902,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: b87177e7069a28940904983963e42cea, type: 2}
 --- !u!212 &302202140
 SpriteRenderer:
@@ -13258,6 +13312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: 82157a397b5c4deea02936c698582466
   linkedPortal: {fileID: 1388607721}
   spawnPoint: {fileID: 564030923}
   traversalMode: 2
@@ -13270,10 +13325,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -14239,6 +14296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: ed62003d6d29419491c2dfa51e6a6010
   linkedPortal: {fileID: 387807166}
   spawnPoint: {fileID: 1736577661}
   traversalMode: 2
@@ -14251,10 +14309,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
@@ -19815,6 +19875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: a4470c867408437fb23a13f7b9570db1
   linkedPortal: {fileID: 335863832}
   spawnPoint: {fileID: 165472288}
   traversalMode: 2
@@ -19827,10 +19888,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
@@ -20065,6 +20128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: 0c270a6d7da04ece896b534e5f55e374
   linkedPortal: {fileID: 0}
   spawnPoint: {fileID: 0}
   traversalMode: 2
@@ -20077,10 +20141,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 0}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -20404,6 +20470,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: c3bcfefcaf6370643954d9262df78e18, type: 2}
 --- !u!114 &396348740
 MonoBehaviour:
@@ -21907,6 +21978,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: 432dfc6d0ff1ce04588fe3d73d648bf5, type: 2}
 --- !u!114 &450514450
 MonoBehaviour:
@@ -26131,6 +26207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: 20dd5d5b44f84dd48916e031953510cf
   linkedPortal: {fileID: 300721199}
   spawnPoint: {fileID: 1416714065}
   traversalMode: 2
@@ -26143,10 +26220,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -27747,6 +27826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: 72911429634f4344acbf18a6d312ec51
   linkedPortal: {fileID: 618873110}
   spawnPoint: {fileID: 1327813370}
   traversalMode: 2
@@ -27759,10 +27839,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -28047,6 +28129,78 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580867210}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &592263094
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_Name
+      value: MemoryFragmentWorld
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.033837
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.6052774
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100004, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: room
+      value: 
+      objectReference: {fileID: 9331182}
+    - target: {fileID: 700100005, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: room
+      value: 
+      objectReference: {fileID: 9331182}
+    - target: {fileID: 700100006, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: transferController
+      value: 
+      objectReference: {fileID: 1633005344}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 11104218}
+  m_SourcePrefab: {fileID: 100100000, guid: 28d3b4998840da64293047161186f078, type: 3}
 --- !u!1001 &595831268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28741,6 +28895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: 9eaeceb7d68340a2beb4f1b7abe0ca0f
   linkedPortal: {fileID: 577592015}
   spawnPoint: {fileID: 913372031}
   traversalMode: 2
@@ -28753,10 +28908,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -31414,6 +31571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: f6dd719eca044bd88f6b6709803cb092
   linkedPortal: {fileID: 112302772}
   spawnPoint: {fileID: 2070017530}
   traversalMode: 2
@@ -31426,10 +31584,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
@@ -48630,6 +48790,107 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1008886385}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1016037042
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_Name
+      value: MemoryFragmentWorld (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 70.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -18.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100004, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: room
+      value: 
+      objectReference: {fileID: 301832345}
+    - target: {fileID: 700100005, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: room
+      value: 
+      objectReference: {fileID: 301832345}
+    - target: {fileID: 700100006, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: saveId
+      value: c19926443df748b596f8df2bf2d85468
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100006, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: transferController
+      value: 
+      objectReference: {fileID: 1633005344}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1016037044}
+  m_SourcePrefab: {fileID: 100100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+--- !u!1 &1016037043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+  m_PrefabInstance: {fileID: 1016037042}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1016037044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016037043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
 --- !u!1 &1024209486
 GameObject:
   m_ObjectHideFlags: 0
@@ -50443,6 +50704,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: dfe6915269e13e74884db599b9ad6b20, type: 2}
 --- !u!212 &1074836346
 SpriteRenderer:
@@ -59974,6 +60240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: 59287a6c2e724e099b8671d6ce440a4f
   linkedPortal: {fileID: 1625611959}
   spawnPoint: {fileID: 1822716159}
   traversalMode: 2
@@ -59986,10 +60253,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
@@ -60573,6 +60842,7 @@ MonoBehaviour:
     Use your camera by pressing
     [Right Mouse] to fend them off!'
   countdownText: {fileID: 0}
+  saveId: a09560940c29470287400d112ca84efd
   cameraMinigameSceneName: CameraMinigame
   returnPoint: {fileID: 0}
   questToStart: {fileID: 11400000, guid: f3a89c2b71e64d558cd3abf012345679, type: 2}
@@ -61245,6 +61515,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: 1571f8f41a5620044954af9459bf695b, type: 2}
 --- !u!114 &1308946652
 MonoBehaviour:
@@ -63905,6 +64180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: dc92415e08ec412f88ad470baba1494d
   linkedPortal: {fileID: 312236971}
   spawnPoint: {fileID: 570977943}
   traversalMode: 2
@@ -63917,10 +64193,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -65202,6 +65480,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: c59fb307659d985408ae8feeb4bee222, type: 2}
 --- !u!114 &1444150346
 MonoBehaviour:
@@ -67727,6 +68010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: aed4cda5f85a4aa585cd32a51831711b
   linkedPortal: {fileID: 1918073996}
   spawnPoint: {fileID: 1344733966}
   traversalMode: 2
@@ -67739,10 +68023,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -71946,8 +72232,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -12, y: 0}
-  m_SizeDelta: {x: 724, y: 112}
+  m_AnchoredPosition: {x: 0, y: -24}
+  m_SizeDelta: {x: 892, y: 136}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1610575156
 MonoBehaviour:
@@ -71969,7 +72255,7 @@ MonoBehaviour:
   collapsed: 0
   collapsedOffset: 220
   slideSpeed: 1200
-  slotSize: {x: 88, y: 88}
+  slotSize: {x: 112, y: 112}
   slotColor: {r: 0.14, g: 0.14, b: 0.16, a: 0.92}
   emptySlotColor: {r: 0.08, g: 0.08, b: 0.09, a: 0.7}
 --- !u!1 &1613906659
@@ -72174,7 +72460,7 @@ Transform:
   m_GameObject: {fileID: 1625611957}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.52, y: 4.58, z: 0}
+  m_LocalPosition: {x: 24.56, y: 4.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72192,6 +72478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: efe113be25d840af80c6a9c702cf1fd8
   linkedPortal: {fileID: 1277763535}
   spawnPoint: {fileID: 1669124227}
   traversalMode: 2
@@ -72627,6 +72914,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: b87177e7069a28940904983963e42cea, type: 2}
 --- !u!114 &1638899733
 MonoBehaviour:
@@ -82497,6 +82789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: 550371b90c9a437dbf803ad73ee094f4
   linkedPortal: {fileID: 1500138548}
   spawnPoint: {fileID: 1229854860}
   traversalMode: 2
@@ -82509,10 +82802,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 1
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -82880,6 +83175,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: 4a7fbe04d48e3b641a2289a001a26222, type: 2}
 --- !u!114 &1921100158
 MonoBehaviour:
@@ -83297,6 +83597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f221206e2b831e4784a7049e34ec997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPortal
+  saveId: 561370a87d74461a92f1738dc9b86d4a
   linkedPortal: {fileID: 312236971}
   spawnPoint: {fileID: 570977943}
   traversalMode: 2
@@ -83309,10 +83610,12 @@ MonoBehaviour:
   lockMode: 0
   requiredFlag: 
   requiredItem: {fileID: 0}
+  requiredItemQuantity: 1
   consumeRequiredItem: 0
   startUnlocked: 0
   lockedInspectText: 
   fadeDuration: 0.2
+  questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 0}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 3c16874a0e3a2471facce5ab552765e4, type: 3}
@@ -84041,6 +84344,11 @@ MonoBehaviour:
   glyphId: Primary
   actionPriority: 20
   dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
   dialogueData: {fileID: 11400000, guid: dfe6915269e13e74884db599b9ad6b20, type: 2}
 --- !u!114 &1934237185
 MonoBehaviour:
@@ -90378,6 +90686,107 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.2476835, y: 0.31185812}
   m_EdgeRadius: 0
+--- !u!1001 &2049538185
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_Name
+      value: MemoryFragmentWorld (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -24.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100004, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: room
+      value: 
+      objectReference: {fileID: 368697165}
+    - target: {fileID: 700100005, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: room
+      value: 
+      objectReference: {fileID: 368697165}
+    - target: {fileID: 700100006, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: saveId
+      value: c19926443df748b596f8df2bf2d85467
+      objectReference: {fileID: 0}
+    - target: {fileID: 700100006, guid: 28d3b4998840da64293047161186f078, type: 3}
+      propertyPath: transferController
+      value: 
+      objectReference: {fileID: 1633005344}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2049538187}
+  m_SourcePrefab: {fileID: 100100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+--- !u!1 &2049538186 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
+  m_PrefabInstance: {fileID: 2049538185}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2049538187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049538186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
 --- !u!1 &2054260429
 GameObject:
   m_ObjectHideFlags: 0
@@ -93957,3 +94366,6 @@ SceneRoots:
   - {fileID: 1822824214}
   - {fileID: 892870713988456008}
   - {fileID: 6742247681504825554}
+  - {fileID: 592263094}
+  - {fileID: 2049538185}
+  - {fileID: 1016037042}
