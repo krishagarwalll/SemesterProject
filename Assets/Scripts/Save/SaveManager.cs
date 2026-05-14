@@ -12,6 +12,7 @@ public class SaveManager : MonoBehaviour
     [SerializeField] private InventoryItemDefinition[] allItemDefinitions;
 
     public static SaveManager Instance { get; private set; }
+    public static event Action SaveWritten;
 
     private ISaveStorage storage;
     private SaveData pendingSceneLoadData;
@@ -110,6 +111,7 @@ public class SaveManager : MonoBehaviour
         {
             storage.Write(SaveKey, JsonUtility.ToJson(data, prettyPrint: true));
             Debug.Log("[SaveManager] Game saved.");
+            SaveWritten?.Invoke();
         }
         catch (System.Exception exception)
         {

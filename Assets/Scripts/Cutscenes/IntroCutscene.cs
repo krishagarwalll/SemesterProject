@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -15,26 +16,53 @@ public class CutsceneController : MonoBehaviour
     [SerializeField] private bool saveCompletionImmediately = true;
 
     [Header("Playback")]
+    [FormerlySerializedAs("VideoPlayer")]
     [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private PlayableDirector playableDirector;
+    [FormerlySerializedAs("cutsceneCanvas")]
     [SerializeField] private GameObject cutsceneRoot;
-    [SerializeField] private Button skipButton;
     [SerializeField] private bool pausePlayerInput = true;
-
-    [Header("Input")]
-    [SerializeField] private InputActionReference skipAction;
-    [SerializeField] private InputActionReference fastForwardAction;
-    [SerializeField] private bool anyKeyboardKeySkips;
-    [SerializeField] private Key fallbackSkipKey = Key.Escape;
-    [SerializeField] private Key fallbackFastForwardKey = Key.Space;
     [SerializeField, Min(1f)] private float fastForwardSpeed = 4f;
 
+    [Header("Input")]
+    [SerializeField] private CutsceneInputBindings input = new();
+    [SerializeField, HideInInspector] private InputActionReference skipAction;
+    [SerializeField, HideInInspector] private InputActionReference fastForwardAction;
+    [SerializeField, HideInInspector] private bool anyKeyboardKeySkips;
+    [SerializeField, HideInInspector] private Key fallbackSkipKey = Key.None;
+    [SerializeField, HideInInspector] private Key fallbackFastForwardKey = Key.None;
+
+    [Header("Skip Button")]
+    [SerializeField] private Button skipButton;
+    [SerializeField, Min(0f)] private float revealSkipButtonAfterFastForwardSeconds = 1.25f;
+    [SerializeField, Min(0.01f)] private float skipButtonFadeDuration = 0.25f;
+
+    private CutscenePlaybackDriver playback;
+    private CutsceneSkipButtonPresenter skipButtonPresenter;
     private bool hasEnded;
-    private double normalDirectorSpeed = 1d;
-    private float normalVideoSpeed = 1f;
+    private bool inputPausedByThisCutscene;
 
     public string SaveId => ResolveSaveId();
     public bool HasEnded => hasEnded;
+
+    protected virtual void Awake()
+    {
+        ResolveReferences();
+        input.ApplyLegacyFields(
+            skipAction,
+            fastForwardAction,
+            anyKeyboardKeySkips,
+            fallbackSkipKey,
+            fallbackFastForwardKey);
+        playback = new CutscenePlaybackDriver(videoPlayer, playableDirector, this, name);
+        skipButtonPresenter = new CutsceneSkipButtonPresenter(
+            cutsceneRoot,
+            skipButton,
+            revealSkipButtonAfterFastForwardSeconds,
+            skipButtonFadeDuration);
+        skipButtonPresenter.Prepare();
+        skipButton = skipButtonPresenter.Button;
+    }
 
     protected virtual void Start()
     {
@@ -44,31 +72,26 @@ public class CutsceneController : MonoBehaviour
             return;
         }
 
-        normalVideoSpeed = videoPlayer ? videoPlayer.playbackSpeed : 1f;
-        CacheDirectorSpeed();
-
-        if (playableDirector) playableDirector.stopped += HandleDirectorStopped;
-        if (videoPlayer) videoPlayer.loopPointReached += HandleVideoFinished;
+        playback.Bind(Complete, FailOpen);
         if (skipButton) skipButton.onClick.AddListener(Skip);
-
-        EnableAction(skipAction);
-        EnableAction(fastForwardAction);
+        input.Enable();
 
         if (pausePlayerInput)
         {
             PauseService.Pause(PauseType.Input);
+            inputPausedByThisCutscene = true;
         }
     }
 
     protected virtual void OnDestroy()
     {
-        if (videoPlayer) videoPlayer.loopPointReached -= HandleVideoFinished;
-        if (playableDirector) playableDirector.stopped -= HandleDirectorStopped;
+        playback?.Unbind();
         if (skipButton) skipButton.onClick.RemoveListener(Skip);
 
-        if (!hasEnded && pausePlayerInput)
+        if (!hasEnded && inputPausedByThisCutscene)
         {
             PauseService.Resume(PauseType.Input);
+            inputPausedByThisCutscene = false;
         }
     }
 
@@ -79,125 +102,79 @@ public class CutsceneController : MonoBehaviour
             return;
         }
 
-        if (WasSkipPressed())
+        if (input.WasSkipPressed())
         {
             Skip();
             return;
         }
 
-        SetFastForward(IsFastForwardHeld());
+        bool fastForwardHeld = input.IsFastForwardHeld();
+        playback.SetFastForward(fastForwardHeld, fastForwardSpeed);
+        skipButtonPresenter.Tick(fastForwardHeld);
     }
 
-    public void Skip()
-    {
-        End(markComplete: true);
-    }
+    public void Skip() => End(markComplete: true);
 
-    public void End()
-    {
-        End(markComplete: true);
-    }
+    public void End() => End(markComplete: true);
 
-    public void RestoreCompleted()
-    {
-        End(markComplete: false);
-    }
+    public void RestoreCompleted() => End(markComplete: false);
 
     protected void End(bool markComplete)
     {
         if (hasEnded) return;
         hasEnded = true;
-        SetFastForward(false);
-        if (videoPlayer) videoPlayer.Stop();
-        if (playableDirector) playableDirector.Stop();
-        if (cutsceneRoot) cutsceneRoot.SetActive(false);
+
+        playback?.Stop();
+        playback?.Unbind();
 
         if (markComplete && playOnce && SaveManager.Instance != null)
         {
             SaveManager.Instance.MarkCutsceneCompleted(SaveId, saveCompletionImmediately);
         }
 
-        if (pausePlayerInput)
+        if (inputPausedByThisCutscene)
         {
             PauseService.Resume(PauseType.Input);
+            inputPausedByThisCutscene = false;
+        }
+
+        if (cutsceneRoot)
+        {
+            cutsceneRoot.SetActive(false);
         }
     }
 
-    private void CacheDirectorSpeed()
+    private void ResolveReferences()
     {
+        if (!cutsceneRoot)
+        {
+            cutsceneRoot = gameObject;
+        }
+
+        if (!videoPlayer)
+        {
+            videoPlayer = cutsceneRoot.GetComponentInChildren<VideoPlayer>(true);
+        }
+
         if (!playableDirector)
         {
-            normalDirectorSpeed = 1d;
-            return;
+            playableDirector = cutsceneRoot.GetComponentInChildren<PlayableDirector>(true);
         }
 
-        normalDirectorSpeed = playableDirector.playableGraph.IsValid()
-            && playableDirector.playableGraph.GetRootPlayableCount() > 0
-            ? playableDirector.playableGraph.GetRootPlayable(0).GetSpeed()
-            : 1d;
-    }
-
-    private void SetFastForward(bool enabled)
-    {
-        float speed = enabled ? fastForwardSpeed : 1f;
-        if (videoPlayer)
+        if (!skipButton)
         {
-            videoPlayer.playbackSpeed = normalVideoSpeed * speed;
-        }
-
-        if (playableDirector
-            && playableDirector.playableGraph.IsValid()
-            && playableDirector.playableGraph.GetRootPlayableCount() > 0)
-        {
-            playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(normalDirectorSpeed * speed);
+            skipButton = cutsceneRoot.GetComponentInChildren<Button>(true);
         }
     }
 
-    private bool WasSkipPressed()
-    {
-        if (skipAction && skipAction.action != null && skipAction.action.WasPressedThisFrame())
-        {
-            return true;
-        }
-
-        Keyboard keyboard = Keyboard.current;
-        if (keyboard == null)
-        {
-            return false;
-        }
-
-        if (anyKeyboardKeySkips && keyboard.anyKey.wasPressedThisFrame)
-        {
-            return true;
-        }
-
-        return fallbackSkipKey != Key.None && keyboard[fallbackSkipKey].wasPressedThisFrame;
-    }
-
-    private bool IsFastForwardHeld()
-    {
-        if (fastForwardAction && fastForwardAction.action != null)
-        {
-            return fastForwardAction.action.IsPressed();
-        }
-
-        Keyboard keyboard = Keyboard.current;
-        return keyboard != null
-            && fallbackFastForwardKey != Key.None
-            && keyboard[fallbackFastForwardKey].isPressed;
-    }
-
-    private void HandleVideoFinished(VideoPlayer player)
+    private void Complete()
     {
         End(markComplete: true);
     }
 
-    private void HandleDirectorStopped(PlayableDirector director)
+    private void FailOpen()
     {
-        if (!hasEnded)
-        {
-            End(markComplete: true);
-        }
+        End(markComplete: false);
     }
 
     private void Reset()
@@ -211,6 +188,11 @@ public class CutsceneController : MonoBehaviour
 
     private void OnValidate()
     {
+        if (!cutsceneRoot)
+        {
+            cutsceneRoot = gameObject;
+        }
+
         EnsureSerializedSaveId();
     }
 
@@ -233,14 +215,6 @@ public class CutsceneController : MonoBehaviour
         }
 
         saveId = Guid.NewGuid().ToString("N");
-    }
-
-    private static void EnableAction(InputActionReference actionReference)
-    {
-        if (actionReference && actionReference.action != null && !actionReference.action.enabled)
-        {
-            actionReference.action.Enable();
-        }
     }
 
     private static string GetHierarchyPath(Transform current)
