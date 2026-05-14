@@ -15,7 +15,7 @@ MonoBehaviour:
   itemId: memory_fragment
   displayName: Memory Fragment
   icon: {fileID: -6962918065892611476, guid: 1d32dfddf1dad46b0890e19119557305, type: 3}
-  description: The date is wrong. The ink is damp, but nothing around you is wet.
+  description: The fragment of a memory...
   worldPrefab: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
   primaryLabel: Use
   inspectLabel: Inspect
