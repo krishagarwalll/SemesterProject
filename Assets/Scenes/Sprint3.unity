@@ -662,11 +662,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: 0b5720ce3f561034b9034c131f9aba0e, type: 2}
   talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: 0b5720ce3f561034b9034c131f9aba0e, type: 2}
 --- !u!212 &10342324
 SpriteRenderer:
   serializedVersion: 2
@@ -10917,11 +10918,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: 6dc69c9769414ff4f83d735f9efd1bc8, type: 2}
   talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: 6dc69c9769414ff4f83d735f9efd1bc8, type: 2}
 --- !u!114 &249062300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11982,11 +11984,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: d34f6036241dd6a4393e07d2f34f779a, type: 2}
   talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: d34f6036241dd6a4393e07d2f34f779a, type: 2}
 --- !u!114 &300721201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12456,11 +12459,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: b87177e7069a28940904983963e42cea, type: 2}
   talkLabel: Talk
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: b87177e7069a28940904983963e42cea, type: 2}
 --- !u!212 &302202140
 SpriteRenderer:
   serializedVersion: 2
@@ -19997,11 +20001,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: c3bcfefcaf6370643954d9262df78e18, type: 2}
   talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: c3bcfefcaf6370643954d9262df78e18, type: 2}
 --- !u!114 &396348740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21376,11 +21381,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: 432dfc6d0ff1ce04588fe3d73d648bf5, type: 2}
   talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: 432dfc6d0ff1ce04588fe3d73d648bf5, type: 2}
 --- !u!114 &450514450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39052,7 +39058,7 @@ Transform:
   m_GameObject: {fileID: 863601489}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.42, y: 4.64, z: 0}
+  m_LocalPosition: {x: 24.48, y: 4.52, z: 0}
   m_LocalScale: {x: 0.66, y: 0.6775604, z: 0.15364063}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -49450,11 +49456,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: dfe6915269e13e74884db599b9ad6b20, type: 2}
   talkLabel: Talk
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: dfe6915269e13e74884db599b9ad6b20, type: 2}
 --- !u!212 &1074836346
 SpriteRenderer:
   serializedVersion: 2
@@ -60005,11 +60012,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: 1571f8f41a5620044954af9459bf695b, type: 2}
   talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: 1571f8f41a5620044954af9459bf695b, type: 2}
 --- !u!114 &1308946652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63659,11 +63667,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: c59fb307659d985408ae8feeb4bee222, type: 2}
   talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: c59fb307659d985408ae8feeb4bee222, type: 2}
 --- !u!114 &1444150346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70811,11 +70820,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: b87177e7069a28940904983963e42cea, type: 2}
   talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: b87177e7069a28940904983963e42cea, type: 2}
 --- !u!114 &1638899733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71111,7 +71121,7 @@ Transform:
   m_GameObject: {fileID: 1669124226}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.62, y: 4.9, z: 0}
+  m_LocalPosition: {x: 24.39, y: 4.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -80423,11 +80433,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: 4a7fbe04d48e3b641a2289a001a26222, type: 2}
   talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: 4a7fbe04d48e3b641a2289a001a26222, type: 2}
 --- !u!114 &1921100158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81571,11 +81582,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  dialogueData: {fileID: 11400000, guid: dfe6915269e13e74884db599b9ad6b20, type: 2}
   talkLabel: Inspect
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
+  dismissDistance: 4
+  dialogueData: {fileID: 11400000, guid: dfe6915269e13e74884db599b9ad6b20, type: 2}
 --- !u!114 &1934237185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90932,6 +90944,10 @@ PrefabInstance:
     - target: {fileID: 399170391618729037, guid: be1db5e6411c15a44af0c8a2ec06fe44, type: 3}
       propertyPath: m_Name
       value: CameraWorld
+      objectReference: {fileID: 0}
+    - target: {fileID: 399170391618729037, guid: be1db5e6411c15a44af0c8a2ec06fe44, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3821854494094902133, guid: be1db5e6411c15a44af0c8a2ec06fe44, type: 3}
       propertyPath: m_Sprite
