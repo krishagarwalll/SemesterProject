@@ -166,10 +166,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
   allQuests:
   - {fileID: 11400000, guid: 96b6e146039af96418f1aae9f04dad84, type: 2}
+  - {fileID: 11400000, guid: 2f1c9a9a4c674e80a41f6869fe633d4b, type: 2}
   allItemDefinitions:
   - {fileID: 11400000, guid: dc6714b308914f4585d6383e02823550, type: 2}
   - {fileID: 11400000, guid: b9f7fc0987d54612a7b6e5f93701086c, type: 2}
   - {fileID: 11400000, guid: c686e32c90484a32a0e8b44cbe69ce86, type: 2}
+  - {fileID: 11400000, guid: 224281d98ae53f24a8c864e659303d0f, type: 2}
   - {fileID: 11400000, guid: 975d3ddb1f7ffde4e80e86aac5f869dc, type: 2}
 --- !u!114 &2292957
 MonoBehaviour:
@@ -19730,7 +19732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1981c85f72bfd448458a68ca758dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
-  itemDefinition: {fileID: 11400000, guid: b9f7fc0987d54612a7b6e5f93701086c, type: 2}
+  itemDefinition: {fileID: 11400000, guid: 224281d98ae53f24a8c864e659303d0f, type: 2}
   quantity: 1
   saveId: 077ddb7d7bca41cd95c95af08badee71
   dragBody: {fileID: 387327288}
@@ -19742,10 +19744,7 @@ MonoBehaviour:
   dragGlyphId: Primary
   storeGlyphId: Primary
   inspectGlyphId: Context
-  inspectText: 'The headline is dated tomorrow.
-
-    Something is wrong with time
-    here.'
+  inspectText: A fragment of a memory.
 --- !u!114 &387327290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72202,14 +72201,16 @@ MonoBehaviour:
   primaryGlyphId: Primary
   inspectGlyphId: Context
   inspectText: Step outside.
-  lockMode: 0
+  lockMode: 2
   requiredFlag: 
-  requiredItem: {fileID: 11400000, guid: dc6714b308914f4585d6383e02823550, type: 2}
-  consumeRequiredItem: 1
-  startUnlocked: 1
-  lockedInspectText: 
+  requiredItem: {fileID: 11400000, guid: 224281d98ae53f24a8c864e659303d0f, type: 2}
+  requiredItemQuantity: 3
+  consumeRequiredItem: 0
+  startUnlocked: 0
+  lockedInspectText: Find three memory fragments before going deeper.
   fadeDuration: 0.2
-  questToCompleteOnUnlock: {fileID: 0}
+  questToStartWhenLocked: {fileID: 11400000, guid: 2f1c9a9a4c674e80a41f6869fe633d4b, type: 2}
+  questToCompleteOnUnlock: {fileID: 11400000, guid: 2f1c9a9a4c674e80a41f6869fe633d4b, type: 2}
   audioSource: {fileID: 963815830}
   enterRoom: {fileID: 8300000, guid: 1bb8b7baf6fe14132a71eb77eafc1878, type: 3}
   lockedDoor: {fileID: 8300000, guid: 90e72e6025b114b1daeb157242392aba, type: 3}

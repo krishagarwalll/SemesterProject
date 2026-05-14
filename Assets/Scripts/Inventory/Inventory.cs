@@ -38,6 +38,7 @@ public class Inventory : MonoBehaviour
     public event Action Changed;
 
     public static event Action<InventoryItemDefinition, int> AnyItemAdded;
+    public static event Action AnyInventoryChanged;
 
     public int Capacity => capacity;
     public int Count => CountOccupiedEntries();
@@ -321,6 +322,7 @@ public class Inventory : MonoBehaviour
     private void NotifyChanged()
     {
         Changed?.Invoke();
+        AnyInventoryChanged?.Invoke();
     }
 
     // ── Developer query API ──────────────────────────────────────

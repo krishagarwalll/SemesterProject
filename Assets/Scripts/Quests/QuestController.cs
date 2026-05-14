@@ -23,11 +23,13 @@ public class QuestController : MonoBehaviour
         questUI = FindFirstObjectByType<QuestUI>(FindObjectsInactive.Include);
 
         Inventory.AnyItemAdded += HandleInventoryItemAdded;
+        Inventory.AnyInventoryChanged += HandleInventoryChanged;
     }
 
     private void OnDestroy()
     {
         Inventory.AnyItemAdded -= HandleInventoryItemAdded;
+        Inventory.AnyInventoryChanged -= HandleInventoryChanged;
 
         if (Instance == this)
         {
@@ -38,7 +40,12 @@ public class QuestController : MonoBehaviour
     private void HandleInventoryItemAdded(InventoryItemDefinition definition, int amount)
     {
         if (definition == null || amount <= 0) return;
-        AdvanceCollectObjectives(definition.ItemId, amount);
+        SyncCollectObjectivesFromInventory();
+    }
+
+    private void HandleInventoryChanged()
+    {
+        SyncCollectObjectivesFromInventory();
     }
 
     public int AdvanceCollectObjectives(string itemId, int amount = 1)
@@ -70,6 +77,7 @@ public class QuestController : MonoBehaviour
         if (isQuestActive(quest.questID) || isQuestHandedIn(quest.questID)) return;
 
         activateQuests.Add(new QuestProgress(quest));
+        SyncCollectObjectivesFromInventory();
         questUI?.UpdateQuestUI();
     }
 
@@ -184,6 +192,7 @@ public class QuestController : MonoBehaviour
         }
 
         progress.readyToHandIn = readyToHandIn;
+        SyncCollectObjectivesFromInventory();
         questUI?.UpdateQuestUI();
         return true;
     }
@@ -198,5 +207,42 @@ public class QuestController : MonoBehaviour
         activateQuests.RemoveAll(q => q.QuestID == questID);
         handInQuestIDs.Add(questID);
         questUI?.UpdateQuestUI();
+    }
+
+    private void SyncCollectObjectivesFromInventory()
+    {
+        Inventory inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
+        if (!inventory)
+        {
+            return;
+        }
+
+        bool changed = false;
+        for (int i = 0; i < activateQuests.Count; i++)
+        {
+            QuestProgress progress = activateQuests[i];
+            for (int j = 0; j < progress.objectives.Count; j++)
+            {
+                QuestObjective objective = progress.objectives[j];
+                if (objective.type != ObjectiveType.CollectItem || string.IsNullOrWhiteSpace(objective.itemId))
+                {
+                    continue;
+                }
+
+                int count = Mathf.Clamp(inventory.CountItem(objective.itemId), 0, objective.requiredAmount);
+                if (objective.currentAmount == count)
+                {
+                    continue;
+                }
+
+                objective.currentAmount = count;
+                changed = true;
+            }
+        }
+
+        if (changed)
+        {
+            questUI?.UpdateQuestUI();
+        }
     }
 }

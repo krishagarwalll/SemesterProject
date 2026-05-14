@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1981c85f72bfd448458a68ca758dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupItem
-  itemDefinition: {fileID: 11400000, guid: b9f7fc0987d54612a7b6e5f93701086c, type: 2}
+  itemDefinition: {fileID: 11400000, guid: 224281d98ae53f24a8c864e659303d0f, type: 2}
   quantity: 1
   saveId: 
   dragBody: {fileID: 700100005}
@@ -184,10 +184,7 @@ MonoBehaviour:
   dragGlyphId: Primary
   storeGlyphId: Primary
   inspectGlyphId: Context
-  inspectText: 'The headline is dated tomorrow.
-
-    Something is wrong with time
-    here.'
+  inspectText: A fragment of a memory.
 --- !u!50 &700100007
 Rigidbody2D:
   serializedVersion: 5
