@@ -9,6 +9,7 @@ public class InventoryHotbar : MonoBehaviour
     private const string DragPreviewName = "InventoryDragPreview";
     private const string InventoryContextMenuName = "InventoryContextMenu";
 
+    // Pivot is left-center; anchor is panel top-left. Negative Y places it inside the panel.
     private Vector2 ExpandedSlotPosition => new(12f, -(slotSize.y * 0.5f + 12f));
 
     [SerializeField] private Inventory inventory;
@@ -43,7 +44,6 @@ public class InventoryHotbar : MonoBehaviour
 
     private RectTransform Panel => panel ? panel : panel = transform as RectTransform;
     private RectTransform SlotContainer => slotContainer ? slotContainer : slotContainer = EnsureSlotContainer();
-    private Button BackpackButton => backpackButton ? backpackButton : backpackButton = EnsureBackpackButton();
     private Inventory SceneInventory => inventory ? inventory : inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
     private InventoryTransferController TransferController => transferController ? transferController : transferController = FindFirstObjectByType<InventoryTransferController>(FindObjectsInactive.Include);
     private Canvas RootCanvas => rootCanvas ? rootCanvas : rootCanvas = GetComponentInParent<Canvas>();
@@ -53,70 +53,64 @@ public class InventoryHotbar : MonoBehaviour
     private void Reset()
     {
         panel = transform as RectTransform;
-        slotContainer = EnsureSlotContainer();
-        backpackButton = EnsureBackpackButton();
         ApplyPanelLayout();
-        EnsureSlots();
     }
 
     private void Awake()
     {
         ApplyPanelLayout();
-        RebuildSlotCache();
-        EnsureSlots();
-        Refresh();
-        UpdateTargetPosition(true);
-    }
-
-    private void OnValidate()
-    {
-        ApplyPanelLayout();
+        // Always call directly — lazy property short-circuits if the serialized
+        // field is already set from scene data, which skips layout group cleanup.
         slotContainer = EnsureSlotContainer();
         backpackButton = EnsureBackpackButton();
         RebuildSlotCache();
         EnsureSlots();
-        UpdateTargetPosition(true);
         Refresh();
+        UpdateTargetPosition(applyImmediately: true);
+    }
+
+    private void OnValidate()
+    {
+        // Safe edit-mode recalc only — no GameObject creation, no scene queries.
+        if (Panel) ApplyPanelLayout();
     }
 
     private void OnEnable()
     {
         if (SceneInventory)
-        {
             SceneInventory.Changed += Refresh;
-        }
 
-        BackpackButton.onClick.AddListener(ToggleCollapsed);
+        // Use field (not lazy property) — avoid creating UI elements during enable.
+        if (backpackButton)
+            backpackButton.onClick.AddListener(ToggleCollapsed);
+
         Refresh();
-        UpdateTargetPosition(true);
+        UpdateTargetPosition(applyImmediately: true);
     }
 
     private void OnDisable()
     {
         if (inventory)
-        {
             inventory.Changed -= Refresh;
-        }
 
         if (backpackButton)
-        {
             backpackButton.onClick.RemoveListener(ToggleCollapsed);
-        }
 
         EndSlotDrag(Vector2.zero, cancelled: true);
     }
 
     private void Update()
     {
-        if (SlotContainer)
+        // Use field directly — avoid triggering EnsureSlotContainer every frame.
+        if (slotContainer)
         {
-            SlotContainer.anchoredPosition = Vector2.MoveTowards(SlotContainer.anchoredPosition, targetAnchoredPosition, slideSpeed * Time.unscaledDeltaTime);
+            slotContainer.anchoredPosition = Vector2.MoveTowards(
+                slotContainer.anchoredPosition, targetAnchoredPosition, slideSpeed * Time.unscaledDeltaTime);
         }
     }
 
     public void HandleSlotClick(int slotIndex)
     {
-        // Left-click opens the context menu at the slot centre (same as right-click)
         if (!SceneInventory || !SceneInventory.TryGetEntry(slotIndex, out _)) return;
         HandleSlotSecondaryClick(slotIndex, GetSlotScreenCenter(slotIndex));
     }
@@ -163,10 +157,7 @@ public class InventoryHotbar : MonoBehaviour
 
     public void BeginSlotDrag(int slotIndex, Vector2 screenPosition)
     {
-        if (!SceneInventory || !SceneInventory.TryGetEntry(slotIndex, out Inventory.Entry entry))
-        {
-            return;
-        }
+        if (!SceneInventory || !SceneInventory.TryGetEntry(slotIndex, out Inventory.Entry entry)) return;
 
         dragSourceIndex = slotIndex;
         lastDragScreenPosition = screenPosition;
@@ -177,10 +168,7 @@ public class InventoryHotbar : MonoBehaviour
 
     public void UpdateSlotDrag(Vector2 screenPosition)
     {
-        if (dragSourceIndex < 0)
-        {
-            return;
-        }
+        if (dragSourceIndex < 0) return;
 
         lastDragScreenPosition = screenPosition;
         bool overInventory = IsInventoryZone(screenPosition);
@@ -222,9 +210,7 @@ public class InventoryHotbar : MonoBehaviour
         }
 
         if (screenPosition == Vector2.zero)
-        {
             screenPosition = lastDragScreenPosition;
-        }
 
         bool overInventory = IsInventoryZone(screenPosition);
         bool canWorldPreview = TransferController && !overInventory && TransferController.CanPreviewPlacementAt(screenPosition);
@@ -237,15 +223,10 @@ public class InventoryHotbar : MonoBehaviour
             lastDragScreenPosition = Vector2.zero;
             worldPlacementActive = false;
             HideDragPreview();
-            if (commitPlacement)
-            {
-                return;
-            }
+            if (commitPlacement) return;
         }
 
-        if (!cancelled
-            && !worldPlacementActive
-            && canWorldPreview
+        if (!cancelled && !worldPlacementActive && canWorldPreview
             && TransferController
             && TransferController.TryBeginPlacementTransfer(dragSourceIndex, screenPosition))
         {
@@ -262,9 +243,7 @@ public class InventoryHotbar : MonoBehaviour
             if (TryGetInventoryDropTarget(screenPosition, out int slotIndex, out _))
             {
                 if (slotIndex >= 0 && slotIndex != dragSourceIndex)
-                {
                     SceneInventory.Move(dragSourceIndex, slotIndex);
-                }
             }
         }
 
@@ -289,21 +268,17 @@ public class InventoryHotbar : MonoBehaviour
     private void ToggleCollapsed()
     {
         collapsed = !collapsed;
-        UpdateTargetPosition(false);
+        UpdateTargetPosition(applyImmediately: false);
     }
 
-    public bool IsInventoryArea(Vector2 screenPosition)
-    {
-        return IsInventoryZone(screenPosition);
-    }
+    public bool IsInventoryArea(Vector2 screenPosition) => IsInventoryZone(screenPosition);
 
     public bool BlocksWorldInteractionAt(Vector2 screenPosition)
     {
         Camera eventCamera = GetEventCamera();
-        if (BackpackButton && RectTransformUtility.RectangleContainsScreenPoint(BackpackButton.transform as RectTransform, screenPosition, eventCamera))
-        {
+        if (backpackButton && RectTransformUtility.RectangleContainsScreenPoint(
+                backpackButton.transform as RectTransform, screenPosition, eventCamera))
             return true;
-        }
 
         return !collapsed && TryGetExactSlotIndex(screenPosition, eventCamera, out _);
     }
@@ -317,15 +292,10 @@ public class InventoryHotbar : MonoBehaviour
     public void UpdateTransferPreview(Vector2 screenPosition)
     {
         if (dragPreviewRoot)
-        {
             dragPreviewRoot.anchoredPosition = ScreenToCanvasPosition(screenPosition);
-        }
     }
 
-    public void HideTransferPreview()
-    {
-        HideDragPreview();
-    }
+    public void HideTransferPreview() => HideDragPreview();
 
     public bool TryGetStoreDropTarget(Vector2 screenPosition, out int slotIndex, out bool overBackpack)
     {
@@ -333,7 +303,8 @@ public class InventoryHotbar : MonoBehaviour
         overBackpack = false;
 
         Camera eventCamera = GetEventCamera();
-        if (BackpackButton && RectTransformUtility.RectangleContainsScreenPoint(BackpackButton.transform as RectTransform, screenPosition, eventCamera))
+        if (backpackButton && RectTransformUtility.RectangleContainsScreenPoint(
+                backpackButton.transform as RectTransform, screenPosition, eventCamera))
         {
             overBackpack = true;
             return true;
@@ -348,18 +319,17 @@ public class InventoryHotbar : MonoBehaviour
         overBackpack = false;
 
         Camera eventCamera = GetEventCamera();
-        if (BackpackButton && RectTransformUtility.RectangleContainsScreenPoint(BackpackButton.transform as RectTransform, screenPosition, eventCamera))
+        if (backpackButton && RectTransformUtility.RectangleContainsScreenPoint(
+                backpackButton.transform as RectTransform, screenPosition, eventCamera))
         {
             overBackpack = true;
             return true;
         }
 
         if (!collapsed && TryGetExactSlotIndex(screenPosition, eventCamera, out slotIndex))
-        {
             return true;
-        }
 
-        if (Panel && RectTransformUtility.RectangleContainsScreenPoint(Panel, screenPosition, eventCamera))
+        if (panel && RectTransformUtility.RectangleContainsScreenPoint(panel, screenPosition, eventCamera))
         {
             overBackpack = true;
             return true;
@@ -382,51 +352,42 @@ public class InventoryHotbar : MonoBehaviour
 
     private void EnsureSlots()
     {
-        if (slots.Count == 0)
-        {
-            RebuildSlotCache();
-        }
+        if (slots.Count == 0) RebuildSlotCache();
 
         int slotCount = SceneInventory ? SceneInventory.Capacity : 6;
         while (slots.Count < slotCount)
-        {
             slots.Add(InventoryHotbarSlot.Create(SlotContainer, slotSize));
-        }
 
         for (int i = 0; i < slots.Count; i++)
-        {
             slots[i].gameObject.SetActive(i < slotCount);
-        }
     }
 
     private void RebuildSlotCache()
     {
         slots.Clear();
-        if (!SlotContainer)
-        {
-            return;
-        }
-
-        slots.AddRange(SlotContainer.GetComponentsInChildren<InventoryHotbarSlot>(true));
+        if (!slotContainer) return;
+        slots.AddRange(slotContainer.GetComponentsInChildren<InventoryHotbarSlot>(true));
     }
 
     private void EnsureDragPreview()
     {
-        if (dragPreviewRoot || !RootCanvas)
-        {
-            return;
-        }
+        if (dragPreviewRoot || !RootCanvas) return;
 
         Transform existing = RootCanvas.transform.Find(DragPreviewName);
         if (existing)
         {
             dragPreviewRoot = existing as RectTransform;
             dragPreviewBackground = dragPreviewRoot ? dragPreviewRoot.GetComponent<Image>() : null;
-            dragPreviewIcon = dragPreviewRoot && dragPreviewRoot.Find("Icon") ? dragPreviewRoot.Find("Icon").GetComponent<Image>() : null;
-            dragPreviewLabel = dragPreviewRoot && dragPreviewRoot.Find("Label") ? dragPreviewRoot.Find("Label").GetComponent<TextMeshProUGUI>() : null;
-            dragPreviewQuantity = dragPreviewRoot && dragPreviewRoot.Find("Quantity") ? dragPreviewRoot.Find("Quantity").GetComponent<TextMeshProUGUI>() : null;
+            var iconT = dragPreviewRoot ? dragPreviewRoot.Find("Icon") : null;
+            var labelT = dragPreviewRoot ? dragPreviewRoot.Find("Label") : null;
+            var quantityT = dragPreviewRoot ? dragPreviewRoot.Find("Quantity") : null;
+            dragPreviewIcon = iconT ? iconT.GetComponent<Image>() : null;
+            dragPreviewLabel = labelT ? labelT.GetComponent<TextMeshProUGUI>() : null;
+            dragPreviewQuantity = quantityT ? quantityT.GetComponent<TextMeshProUGUI>() : null;
             return;
         }
+
+        TMP_FontAsset font = TMP_Settings.defaultFontAsset;
 
         GameObject previewObject = new(DragPreviewName, typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
         dragPreviewRoot = previewObject.GetComponent<RectTransform>();
@@ -451,7 +412,6 @@ public class InventoryHotbar : MonoBehaviour
         iconRect.anchorMax = new Vector2(0.5f, 0.5f);
         iconRect.pivot = new Vector2(0.5f, 0.5f);
         iconRect.sizeDelta = slotSize * 0.72f;
-
         dragPreviewIcon = iconObject.GetComponent<Image>();
         dragPreviewIcon.preserveAspect = true;
         dragPreviewIcon.raycastTarget = false;
@@ -463,11 +423,10 @@ public class InventoryHotbar : MonoBehaviour
         labelRect.anchorMax = Vector2.one;
         labelRect.offsetMin = new Vector2(8f, 8f);
         labelRect.offsetMax = new Vector2(-8f, -8f);
-
         dragPreviewLabel = labelObject.GetComponent<TextMeshProUGUI>();
         dragPreviewLabel.alignment = TextAlignmentOptions.Center;
         dragPreviewLabel.fontSize = 18f;
-        dragPreviewLabel.font = TMP_Settings.defaultFontAsset;
+        if (font) dragPreviewLabel.font = font;
         dragPreviewLabel.raycastTarget = false;
 
         GameObject quantityObject = new("Quantity", typeof(RectTransform), typeof(TextMeshProUGUI));
@@ -478,11 +437,10 @@ public class InventoryHotbar : MonoBehaviour
         quantityRect.pivot = new Vector2(1f, 0f);
         quantityRect.anchoredPosition = new Vector2(-8f, 8f);
         quantityRect.sizeDelta = new Vector2(slotSize.x - 16f, 22f);
-
         dragPreviewQuantity = quantityObject.GetComponent<TextMeshProUGUI>();
         dragPreviewQuantity.alignment = TextAlignmentOptions.BottomRight;
         dragPreviewQuantity.fontSize = 18f;
-        dragPreviewQuantity.font = TMP_Settings.defaultFontAsset;
+        if (font) dragPreviewQuantity.font = font;
         dragPreviewQuantity.raycastTarget = false;
 
         dragPreviewRoot.gameObject.SetActive(false);
@@ -490,10 +448,7 @@ public class InventoryHotbar : MonoBehaviour
 
     private void UpdateDragPreview(Inventory.Entry entry, Vector2 screenPosition)
     {
-        if (!dragPreviewRoot)
-        {
-            return;
-        }
+        if (!dragPreviewRoot) return;
 
         InventoryItemDefinition definition = entry.Definition;
         Sprite previewSprite = InventoryItemVisualResolver.GetSprite(definition);
@@ -511,24 +466,21 @@ public class InventoryHotbar : MonoBehaviour
     private void HideDragPreview()
     {
         if (dragPreviewRoot)
-        {
             dragPreviewRoot.gameObject.SetActive(false);
-        }
     }
 
     private void EnsureContextMenu()
     {
-        if (contextMenuRoot || !RootCanvas)
-        {
-            return;
-        }
+        if (contextMenuRoot || !RootCanvas) return;
 
         Transform existing = RootCanvas.transform.Find(InventoryContextMenuName);
         if (existing)
         {
             contextMenuRoot = existing as RectTransform;
-            contextInspectButton = contextMenuRoot && contextMenuRoot.Find("Inspect") ? contextMenuRoot.Find("Inspect").GetComponent<Button>() : null;
-            contextDropButton = contextMenuRoot && contextMenuRoot.Find("Drop") ? contextMenuRoot.Find("Drop").GetComponent<Button>() : null;
+            var inspectT = contextMenuRoot ? contextMenuRoot.Find("Inspect") : null;
+            var dropT = contextMenuRoot ? contextMenuRoot.Find("Drop") : null;
+            contextInspectButton = inspectT ? inspectT.GetComponent<Button>() : null;
+            contextDropButton = dropT ? dropT.GetComponent<Button>() : null;
             return;
         }
 
@@ -540,8 +492,7 @@ public class InventoryHotbar : MonoBehaviour
         contextMenuRoot.pivot = new Vector2(0.5f, 0.5f);
         contextMenuRoot.sizeDelta = new Vector2(220f, 0f);
 
-        Image background = menuObject.GetComponent<Image>();
-        background.color = new Color(0.08f, 0.08f, 0.1f, 0.96f);
+        menuObject.GetComponent<Image>().color = new Color(0.08f, 0.08f, 0.1f, 0.96f);
 
         VerticalLayoutGroup layout = menuObject.GetComponent<VerticalLayoutGroup>();
         layout.spacing = 4f;
@@ -563,17 +514,17 @@ public class InventoryHotbar : MonoBehaviour
 
     private Button CreateContextButton(string objectName, string labelText)
     {
+        TMP_FontAsset font = TMP_Settings.defaultFontAsset;
+
         GameObject buttonObject = new(objectName, typeof(RectTransform), typeof(Image), typeof(Button), typeof(LayoutElement));
         RectTransform rect = buttonObject.GetComponent<RectTransform>();
         rect.SetParent(contextMenuRoot, false);
         rect.sizeDelta = new Vector2(0f, 34f);
+        buttonObject.GetComponent<Image>().color = new Color(0.15f, 0.15f, 0.18f, 1f);
 
-        Image image = buttonObject.GetComponent<Image>();
-        image.color = new Color(0.15f, 0.15f, 0.18f, 1f);
-
-        LayoutElement layout = buttonObject.GetComponent<LayoutElement>();
-        layout.preferredWidth = 204f;
-        layout.preferredHeight = 34f;
+        LayoutElement le = buttonObject.GetComponent<LayoutElement>();
+        le.preferredWidth = 204f;
+        le.preferredHeight = 34f;
 
         GameObject labelObject = new("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
         RectTransform labelRect = labelObject.GetComponent<RectTransform>();
@@ -586,7 +537,7 @@ public class InventoryHotbar : MonoBehaviour
         TextMeshProUGUI label = labelObject.GetComponent<TextMeshProUGUI>();
         label.alignment = TextAlignmentOptions.MidlineLeft;
         label.fontSize = 18f;
-        label.font = TMP_Settings.defaultFontAsset;
+        if (font) label.font = font;
         label.text = labelText;
 
         return buttonObject.GetComponent<Button>();
@@ -594,10 +545,7 @@ public class InventoryHotbar : MonoBehaviour
 
     private void ConfigureContextMenu(Inventory.Entry entry)
     {
-        if (!contextInspectButton || !contextDropButton)
-        {
-            return;
-        }
+        if (!contextInspectButton || !contextDropButton) return;
 
         InventoryItemDefinition definition = entry.Definition;
         bool canInspect = definition && !string.IsNullOrWhiteSpace(definition.Description);
@@ -621,10 +569,7 @@ public class InventoryHotbar : MonoBehaviour
             contextDropButton.onClick.AddListener(() =>
             {
                 if (contextSlotIndex >= 0)
-                {
                     TransferController.TryDropEntryToWorld(contextSlotIndex);
-                }
-
                 HideContextMenu();
                 Refresh();
             });
@@ -633,11 +578,7 @@ public class InventoryHotbar : MonoBehaviour
 
     private void ShowContextMenu(Vector2 screenPosition)
     {
-        if (!contextMenuRoot)
-        {
-            return;
-        }
-
+        if (!contextMenuRoot) return;
         contextMenuRoot.gameObject.SetActive(true);
         contextMenuRoot.anchoredPosition = ScreenToCanvasPosition(screenPosition);
     }
@@ -646,31 +587,25 @@ public class InventoryHotbar : MonoBehaviour
     {
         contextSlotIndex = -1;
         if (contextMenuRoot)
-        {
             contextMenuRoot.gameObject.SetActive(false);
-        }
     }
 
     private void UpdateTargetPosition(bool applyImmediately)
     {
-        // Collapse slides slots UP (positive local Y = above panel top = off-screen)
+        // Collapsed: container slides up (positive Y = above panel top anchor = off-screen)
         targetAnchoredPosition = collapsed
             ? new Vector2(ExpandedSlotPosition.x, collapsedOffset)
             : ExpandedSlotPosition;
-        if (applyImmediately && SlotContainer)
-        {
-            SlotContainer.anchoredPosition = targetAnchoredPosition;
-        }
+
+        if (applyImmediately && slotContainer)
+            slotContainer.anchoredPosition = targetAnchoredPosition;
     }
 
     private void ApplyPanelLayout()
     {
-        if (!Panel)
-        {
-            return;
-        }
+        if (!Panel) return;
 
-        // Top-centre horizontal bar: width fits 6 slots + gaps + backpack button + padding
+        // Top-centre horizontal bar: 6 slots + gaps + backpack button + padding
         Panel.anchorMin = new Vector2(0.5f, 1f);
         Panel.anchorMax = new Vector2(0.5f, 1f);
         Panel.pivot = new Vector2(0.5f, 1f);
@@ -688,10 +623,14 @@ public class InventoryHotbar : MonoBehaviour
             container.SetParent(transform, false);
         }
 
-        // Remove any old VerticalLayoutGroup (switching to horizontal top-bar layout)
-        if (container.TryGetComponent(out VerticalLayoutGroup vertLayout))
+        // Remove any layout group that isn't HorizontalLayoutGroup.
+        // Use DestroyImmediate so the removal takes effect before we add HLG below —
+        // Destroy() is deferred and would leave both VLG and HLG active on the same frame,
+        // causing the VLG to keep driving vertical layout.
+        foreach (LayoutGroup lg in container.GetComponents<LayoutGroup>())
         {
-            if (Application.isPlaying) Destroy(vertLayout); else DestroyImmediate(vertLayout);
+            if (lg is not HorizontalLayoutGroup)
+                DestroyImmediate(lg);
         }
 
         HorizontalLayoutGroup layout = container.GetOrAddComponent<HorizontalLayoutGroup>();
@@ -702,7 +641,7 @@ public class InventoryHotbar : MonoBehaviour
         layout.childForceExpandHeight = false;
         layout.childForceExpandWidth = false;
 
-        // Anchor at panel top-left, pivot at left-centre so the container slides vertically
+        // Anchor to panel top-left; pivot at left-centre so the container slides vertically.
         container.anchorMin = new Vector2(0f, 1f);
         container.anchorMax = new Vector2(0f, 1f);
         container.pivot = new Vector2(0f, 0.5f);
@@ -727,23 +666,26 @@ public class InventoryHotbar : MonoBehaviour
             rect.sizeDelta = new Vector2(slotSize.x, slotSize.y);
             rect.anchoredPosition = new Vector2(-12f, 0f);
 
-            Image image = buttonObject.GetComponent<Image>();
-            image.color = slotColor;
+            buttonObject.GetComponent<Image>().color = slotColor;
             button = buttonObject.GetComponent<Button>();
 
-            GameObject labelObject = new("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
-            RectTransform labelRect = labelObject.GetComponent<RectTransform>();
-            labelRect.SetParent(rect, false);
-            labelRect.anchorMin = Vector2.zero;
-            labelRect.anchorMax = Vector2.one;
-            labelRect.offsetMin = Vector2.zero;
-            labelRect.offsetMax = Vector2.zero;
+            TMP_FontAsset font = TMP_Settings.defaultFontAsset;
+            if (font)
+            {
+                GameObject labelObject = new("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
+                RectTransform labelRect = labelObject.GetComponent<RectTransform>();
+                labelRect.SetParent(rect, false);
+                labelRect.anchorMin = Vector2.zero;
+                labelRect.anchorMax = Vector2.one;
+                labelRect.offsetMin = Vector2.zero;
+                labelRect.offsetMax = Vector2.zero;
 
-            TextMeshProUGUI label = labelObject.GetComponent<TextMeshProUGUI>();
-            label.alignment = TextAlignmentOptions.Center;
-            label.fontSize = 20f;
-            label.text = "Bag";
-            label.font = TMP_Settings.defaultFontAsset;
+                TextMeshProUGUI label = labelObject.GetComponent<TextMeshProUGUI>();
+                label.alignment = TextAlignmentOptions.Center;
+                label.fontSize = 20f;
+                label.text = "Bag";
+                label.font = font;
+            }
         }
 
         return button;
@@ -754,11 +696,7 @@ public class InventoryHotbar : MonoBehaviour
         slotIndex = -1;
         for (int i = 0; i < slots.Count; i++)
         {
-            if (!slots[i] || !slots[i].gameObject.activeInHierarchy)
-            {
-                continue;
-            }
-
+            if (!slots[i] || !slots[i].gameObject.activeInHierarchy) continue;
             RectTransform slotRect = slots[i].transform as RectTransform;
             if (slotRect && RectTransformUtility.RectangleContainsScreenPoint(slotRect, screenPosition, eventCamera))
             {
@@ -773,27 +711,23 @@ public class InventoryHotbar : MonoBehaviour
     private bool IsInventoryZone(Vector2 screenPosition)
     {
         Camera eventCamera = GetEventCamera();
-        if (BackpackButton && RectTransformUtility.RectangleContainsScreenPoint(BackpackButton.transform as RectTransform, screenPosition, eventCamera))
-        {
+        if (backpackButton && RectTransformUtility.RectangleContainsScreenPoint(
+                backpackButton.transform as RectTransform, screenPosition, eventCamera))
             return true;
-        }
 
         if (!collapsed && TryGetExactSlotIndex(screenPosition, eventCamera, out _))
-        {
             return true;
-        }
 
-        return Panel && RectTransformUtility.RectangleContainsScreenPoint(Panel, screenPosition, eventCamera);
+        return panel && RectTransformUtility.RectangleContainsScreenPoint(panel, screenPosition, eventCamera);
     }
 
     private Vector2 ScreenToCanvasPosition(Vector2 screenPosition)
     {
         RectTransform canvasRect = RootCanvas.transform as RectTransform;
         Camera eventCamera = GetEventCamera();
-        if (!canvasRect || !RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPosition, eventCamera, out Vector2 localPosition))
-        {
+        if (!canvasRect || !RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvasRect, screenPosition, eventCamera, out Vector2 localPosition))
             return screenPosition;
-        }
 
         return localPosition;
     }

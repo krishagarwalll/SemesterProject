@@ -1,21 +1,40 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class IntroCutscene : MonoBehaviour
 {
-    public VideoPlayer VideoPlayer;
+    [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField] private GameObject cutsceneCanvas;
+    [SerializeField] private Button skipButton;
 
-    public GameObject cutsceneCanvas;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private bool hasEnded;
+
+    private void Start()
     {
+        if (videoPlayer) videoPlayer.loopPointReached += _ => End();
+        if (skipButton) skipButton.onClick.AddListener(End);
 
-        VideoPlayer.loopPointReached += EndVideo;
+        PauseService.Pause(PauseType.Input);
     }
-    
 
-    void EndVideo(VideoPlayer vp)
+    private void OnDestroy()
     {
-        cutsceneCanvas.SetActive(false);
+        if (!hasEnded) PauseService.Resume(PauseType.Input);
+    }
+
+    private void Update()
+    {
+        if (!hasEnded && Input.anyKeyDown)
+            End();
+    }
+
+    private void End()
+    {
+        if (hasEnded) return;
+        hasEnded = true;
+        if (videoPlayer) videoPlayer.Stop();
+        if (cutsceneCanvas) cutsceneCanvas.SetActive(false);
+        PauseService.Resume(PauseType.Input);
     }
 }
