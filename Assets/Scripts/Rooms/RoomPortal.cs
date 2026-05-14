@@ -5,36 +5,47 @@ using UnityEngine;
 [RequireComponent(typeof(InteractionTarget))]
 public class RoomPortal : MonoBehaviour, IInteractionActionProvider
 {
+    [FieldHeader("Connection")]
     [SerializeField] private RoomPortal linkedPortal;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private PortalTraversalMode traversalMode = PortalTraversalMode.Bidirectional;
-    [SerializeField] private PortalLockMode lockMode;
-    [SerializeField] private string requiredFlag;
-    [SerializeField] private InventoryItemDefinition requiredItem;
-    [SerializeField] private bool consumeRequiredItem;
+
+    [FieldHeader("Labels")]
     [SerializeField] private string enterLabel = "Enter";
     [SerializeField] private string lockedLabel = "Locked";
     [SerializeField] private string inspectLabel = "Inspect";
     [SerializeField] private string primaryGlyphId = "Primary";
     [SerializeField] private string inspectGlyphId = "Context";
-    [SerializeField, TextArea] private string lockedInspectText;
     [SerializeField, TextArea] private string inspectText;
-    [SerializeField, Min(0f)] private float fadeDuration = 0.2f;
 
-    [Header("Audio")]
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip enterRoom;
-    [SerializeField] private AudioClip lockedDoor;
+    [FieldHeader("Lock")]
+    [SerializeField] private PortalLockMode lockMode;
+    [ConditionalField("lockMode", (int)PortalLockMode.Flag, header: "Flag Lock")]
+    [SerializeField] private string requiredFlag;
+    [ConditionalField("lockMode", (int)PortalLockMode.RequiredItem, header: "Item Lock")]
+    [SerializeField] private InventoryItemDefinition requiredItem;
+    [ConditionalField("lockMode", (int)PortalLockMode.RequiredItem)]
+    [SerializeField] private bool consumeRequiredItem;
+    [ConditionalField("lockMode", (int)PortalLockMode.RequiredItem)]
+    [Tooltip("Skip the item check — portal starts pre-unlocked. Useful for testing or one-time events.")]
+    [SerializeField] private bool startUnlocked;
+    [ConditionalField("lockMode", (int)PortalLockMode.None, invertEnumMatch: true)]
+    [SerializeField, TextArea] private string lockedInspectText;
+
+    [FieldHeader("Transition")]
+    [SerializeField, Min(0f)] private float fadeDuration = 0.2f;
 
     [Header("Quest")]
     [Tooltip("Optional. When the lock is opened by consuming the required item, this quest is handed in immediately.")]
     [SerializeField] private Quest questToCompleteOnUnlock;
 
-
+    [FieldHeader("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip enterRoom;
+    [SerializeField] private AudioClip lockedDoor;
 
     private RoomTransitionService transitionService;
     private RoomStateFlags stateFlags;
-    [SerializeField] private bool startUnlocked;
     private bool unlockedByItem;
 
     public RoomPortal LinkedPortal => linkedPortal;
@@ -54,29 +65,20 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
         unlockedByItem = startUnlocked;
     }
 
-    private bool HasRequiredItemInInventory(in InteractionContext context)
-    {
-        return lockMode == PortalLockMode.RequiredItem
-            && requiredItem
-            && context.Inventory
-            && context.Inventory.Contains(requiredItem);
-    }
-
-    private bool IsEffectivelyUnlocked(in InteractionContext context)
-    {
-        return IsUnlocked() || HasRequiredItemInInventory(context);
-    }
-
     public void GetActions(in InteractionContext context, List<InteractionAction> actions)
     {
         bool unlocked = IsUnlocked();
         bool canUnlockFromInventory = !unlocked && HasRequiredItemInInventory(context);
         bool effectivelyUnlocked = unlocked || canUnlockFromInventory;
         bool canTraverse = CanTraverseFromThisSide && linkedPortal && linkedPortal.OwnerRoom && linkedPortal.CanReceiveTraversal;
+
         string label = effectivelyUnlocked ? enterLabel : lockedLabel;
-        // When effectively unlocked, use a priority above NPC (default 20) so traverse wins over dialogue
+
+        // Priority above NPC dialogue (default 20) so traversal wins when near a door.
+        // Always enable so locked doors show the locked message on click rather than silently ignoring.
         int primaryPriority = effectivelyUnlocked ? 30 : 0;
-        actions.Add(new InteractionAction(this, InteractionMode.Primary, label, primaryGlyphId, effectivelyUnlocked && canTraverse, priority: primaryPriority));
+        actions.Add(new InteractionAction(this, InteractionMode.Primary, label, primaryGlyphId,
+            enabled: canTraverse || !effectivelyUnlocked, priority: primaryPriority));
 
         string inspect = GetInspectText(effectivelyUnlocked);
         if (!string.IsNullOrWhiteSpace(inspect))
@@ -115,11 +117,15 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
                     return false;
                 }
 
+                if (!linkedPortal.OwnerRoom)
+                {
+                    Debug.LogWarning($"[RoomPortal] {name}: linked portal '{linkedPortal.name}' has no owner Room.", this);
+                    return false;
+                }
+
                 bool traverseSuccess = TransitionService && TransitionService.TryTraverse(this, fadeDuration);
                 if (traverseSuccess) PlayEnterSound();
                 return traverseSuccess;
-
-
 
             case InteractionMode.Inspect:
                 string inspect = GetInspectText(IsEffectivelyUnlocked(context));
@@ -127,7 +133,6 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
                 {
                     return false;
                 }
-
                 InteractionFeedback.Show(inspect, this);
                 return true;
         }
@@ -135,20 +140,41 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
         return false;
     }
 
-    private void PlayEnterSound()
+    public bool CanTraverseFromThisSide => traversalMode != PortalTraversalMode.ExitOnly;
+    public bool CanReceiveTraversal => traversalMode != PortalTraversalMode.EntryOnly;
+    public bool IsCurrentlyUnlocked => IsUnlocked();
+
+    private bool HasRequiredItemInInventory(in InteractionContext context)
     {
-        if (audioSource != null && enterRoom != null)
-        {
-            audioSource.PlayOneShot(enterRoom);
-        }
+        return lockMode == PortalLockMode.RequiredItem
+            && requiredItem
+            && context.Inventory
+            && context.Inventory.Contains(requiredItem);
     }
 
-    private void PlayLockedSound()
+    private bool IsEffectivelyUnlocked(in InteractionContext context)
     {
-        if (audioSource != null && lockedDoor != null)
+        return IsUnlocked() || HasRequiredItemInInventory(context);
+    }
+
+    private bool IsUnlocked()
+    {
+        return lockMode switch
         {
-            audioSource.PlayOneShot(lockedDoor);
+            PortalLockMode.None => true,
+            PortalLockMode.Flag => Flags != null && Flags.HasFlag(requiredFlag),
+            PortalLockMode.RequiredItem => unlockedByItem,
+            _ => true
+        };
+    }
+
+    private string GetInspectText(bool unlocked)
+    {
+        if (!unlocked && !string.IsNullOrWhiteSpace(lockedInspectText))
+        {
+            return lockedInspectText;
         }
+        return inspectText;
     }
 
     private void TryHandInUnlockQuest()
@@ -173,28 +199,34 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
         QuestController.Instance.CompleteQuest(questId);
     }
 
-    public bool CanTraverseFromThisSide => traversalMode != PortalTraversalMode.ExitOnly;
-    public bool CanReceiveTraversal => traversalMode != PortalTraversalMode.EntryOnly;
-
-    private bool IsUnlocked()
+    private void PlayEnterSound()
     {
-        return lockMode switch
+        if (audioSource && enterRoom)
         {
-            PortalLockMode.None => true,
-            PortalLockMode.Flag => Flags && Flags.HasFlag(requiredFlag),
-            PortalLockMode.RequiredItem => unlockedByItem,
-            _ => true
-        };
+            audioSource.PlayOneShot(enterRoom);
+        }
     }
 
-    private string GetInspectText(bool unlocked)
+    private void PlayLockedSound()
     {
-        if (!unlocked && !string.IsNullOrWhiteSpace(lockedInspectText))
+        if (audioSource && lockedDoor)
         {
-            return lockedInspectText;
+            audioSource.PlayOneShot(lockedDoor);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!linkedPortal)
+        {
+            return;
         }
 
-        return inspectText;
+        Gizmos.color = IsUnlocked() ? new Color(0.2f, 0.9f, 0.2f, 0.5f) : new Color(0.9f, 0.3f, 0.2f, 0.5f);
+        Vector3 from = transform.position;
+        Vector3 to = linkedPortal.transform.position;
+        Gizmos.DrawLine(from, to);
+        Gizmos.DrawWireSphere(to, 0.15f);
     }
 }
 
