@@ -8,7 +8,8 @@ public class InventoryHotbar : MonoBehaviour
 {
     private const string DragPreviewName = "InventoryDragPreview";
     private const string InventoryContextMenuName = "InventoryContextMenu";
-    private static readonly Vector2 ExpandedSlotPosition = new(-12f, -72f);
+
+    private Vector2 ExpandedSlotPosition => new(12f, -(slotSize.y * 0.5f + 12f));
 
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryTransferController transferController;
@@ -264,7 +265,7 @@ public class InventoryHotbar : MonoBehaviour
                 {
                     SceneInventory.Move(dragSourceIndex, slotIndex);
                 }
-                }
+            }
         }
 
         dragSourceIndex = -1;
@@ -652,8 +653,9 @@ public class InventoryHotbar : MonoBehaviour
 
     private void UpdateTargetPosition(bool applyImmediately)
     {
+        // Collapse slides slots UP (positive local Y = above panel top = off-screen)
         targetAnchoredPosition = collapsed
-            ? new Vector2(collapsedOffset, ExpandedSlotPosition.y)
+            ? new Vector2(ExpandedSlotPosition.x, collapsedOffset)
             : ExpandedSlotPosition;
         if (applyImmediately && SlotContainer)
         {
@@ -668,10 +670,11 @@ public class InventoryHotbar : MonoBehaviour
             return;
         }
 
-        Panel.anchorMin = new Vector2(1f, 0.5f);
-        Panel.anchorMax = new Vector2(1f, 0.5f);
-        Panel.pivot = new Vector2(1f, 0.5f);
-        Panel.sizeDelta = new Vector2(slotSize.x + 24f, slotSize.y * 6f + 120f);
+        // Top-centre horizontal bar: width fits 6 slots + gaps + backpack button + padding
+        Panel.anchorMin = new Vector2(0.5f, 1f);
+        Panel.anchorMax = new Vector2(0.5f, 1f);
+        Panel.pivot = new Vector2(0.5f, 1f);
+        Panel.sizeDelta = new Vector2(slotSize.x * 6f + 12f * 5f + slotSize.x + 48f, slotSize.y + 24f);
     }
 
     private RectTransform EnsureSlotContainer()
@@ -680,23 +683,30 @@ public class InventoryHotbar : MonoBehaviour
         RectTransform container = child as RectTransform;
         if (!container)
         {
-            GameObject containerObject = new("Slots", typeof(RectTransform), typeof(VerticalLayoutGroup));
+            GameObject containerObject = new("Slots", typeof(RectTransform));
             container = containerObject.GetComponent<RectTransform>();
             container.SetParent(transform, false);
         }
 
-        VerticalLayoutGroup layout = container.GetOrAddComponent<VerticalLayoutGroup>();
+        // Remove any old VerticalLayoutGroup (switching to horizontal top-bar layout)
+        if (container.TryGetComponent(out VerticalLayoutGroup vertLayout))
+        {
+            if (Application.isPlaying) Destroy(vertLayout); else DestroyImmediate(vertLayout);
+        }
+
+        HorizontalLayoutGroup layout = container.GetOrAddComponent<HorizontalLayoutGroup>();
         layout.spacing = 12f;
-        layout.childAlignment = TextAnchor.UpperCenter;
+        layout.childAlignment = TextAnchor.MiddleLeft;
         layout.childControlHeight = false;
         layout.childControlWidth = false;
         layout.childForceExpandHeight = false;
         layout.childForceExpandWidth = false;
 
-        container.anchorMin = new Vector2(1f, 1f);
-        container.anchorMax = new Vector2(1f, 1f);
-        container.pivot = new Vector2(1f, 1f);
-        container.sizeDelta = new Vector2(slotSize.x, slotSize.y * 6f + 60f);
+        // Anchor at panel top-left, pivot at left-centre so the container slides vertically
+        container.anchorMin = new Vector2(0f, 1f);
+        container.anchorMax = new Vector2(0f, 1f);
+        container.pivot = new Vector2(0f, 0.5f);
+        container.sizeDelta = new Vector2(slotSize.x * 6f + 12f * 5f, slotSize.y);
         container.anchoredPosition = ExpandedSlotPosition;
         return container;
     }
@@ -710,11 +720,12 @@ public class InventoryHotbar : MonoBehaviour
             GameObject buttonObject = new("BackpackButton", typeof(RectTransform), typeof(Image), typeof(Button));
             RectTransform rect = buttonObject.GetComponent<RectTransform>();
             rect.SetParent(transform, false);
-            rect.anchorMin = new Vector2(1f, 1f);
-            rect.anchorMax = new Vector2(1f, 1f);
-            rect.pivot = new Vector2(1f, 1f);
-            rect.sizeDelta = new Vector2(slotSize.x, 52f);
-            rect.anchoredPosition = new Vector2(-12f, -12f);
+            // Right end of the top bar, vertically centred
+            rect.anchorMin = new Vector2(1f, 0.5f);
+            rect.anchorMax = new Vector2(1f, 0.5f);
+            rect.pivot = new Vector2(1f, 0.5f);
+            rect.sizeDelta = new Vector2(slotSize.x, slotSize.y);
+            rect.anchoredPosition = new Vector2(-12f, 0f);
 
             Image image = buttonObject.GetComponent<Image>();
             image.color = slotColor;
