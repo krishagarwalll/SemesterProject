@@ -12,6 +12,10 @@ public class SettingsPanel : MonoBehaviour
     [SerializeField] private Toggle fullscreenToggle;
     [SerializeField] private TMP_Dropdown qualityDropdown;
     [SerializeField] private Button backButton;
+    [SerializeField] private Button saveButton;
+    [SerializeField] private Button loadButton;
+    [SerializeField] private Button deleteSaveButton;
+    [SerializeField] private TextMeshProUGUI saveStatusLabel;
     [SerializeField] private GameObject graphicsQualityRow;
 
     public event System.Action BackRequested;
@@ -35,6 +39,8 @@ public class SettingsPanel : MonoBehaviour
             backButton.onClick.AddListener(OnBackClicked);
         }
 
+        WireSaveButtons();
+
         if (fullscreenToggle)
         {
             fullscreenToggle.SetIsOnWithoutNotify(Screen.fullScreen);
@@ -52,6 +58,9 @@ public class SettingsPanel : MonoBehaviour
         if (fullscreenToggle) fullscreenToggle.onValueChanged.RemoveListener(OnFullscreenChanged);
         if (qualityDropdown) qualityDropdown.onValueChanged.RemoveListener(OnQualityChanged);
         if (backButton) backButton.onClick.RemoveListener(OnBackClicked);
+        if (saveButton) saveButton.onClick.RemoveListener(OnSaveClicked);
+        if (loadButton) loadButton.onClick.RemoveListener(OnLoadClicked);
+        if (deleteSaveButton) deleteSaveButton.onClick.RemoveListener(OnDeleteSaveClicked);
     }
 
     private void RefreshSliders()
@@ -118,6 +127,58 @@ public class SettingsPanel : MonoBehaviour
 
     private void OnBackClicked() => BackRequested?.Invoke();
 
+    private void WireSaveButtons()
+    {
+        bool hasSave = SaveManager.Instance && SaveManager.Instance.HasSave();
+        if (saveButton)
+        {
+            saveButton.onClick.RemoveListener(OnSaveClicked);
+            saveButton.onClick.AddListener(OnSaveClicked);
+        }
+
+        if (loadButton)
+        {
+            loadButton.interactable = hasSave;
+            loadButton.onClick.RemoveListener(OnLoadClicked);
+            loadButton.onClick.AddListener(OnLoadClicked);
+        }
+
+        if (deleteSaveButton)
+        {
+            deleteSaveButton.interactable = hasSave;
+            deleteSaveButton.onClick.RemoveListener(OnDeleteSaveClicked);
+            deleteSaveButton.onClick.AddListener(OnDeleteSaveClicked);
+        }
+
+        SetSaveStatus(hasSave ? "Save data found" : "No save data");
+    }
+
+    private void OnSaveClicked()
+    {
+        SaveManager.Instance?.Save();
+        WireSaveButtons();
+    }
+
+    private void OnLoadClicked()
+    {
+        SaveManager.Instance?.LoadAndApply();
+        WireSaveButtons();
+    }
+
+    private void OnDeleteSaveClicked()
+    {
+        SaveManager.Instance?.DeleteSave();
+        WireSaveButtons();
+    }
+
+    private void SetSaveStatus(string status)
+    {
+        if (saveStatusLabel)
+        {
+            saveStatusLabel.text = status;
+        }
+    }
+
     private void EnsurePanelCanReceiveInput()
     {
         Canvas canvas = GetComponentInParent<Canvas>(true);
@@ -182,6 +243,11 @@ public class SettingsPanel : MonoBehaviour
         qualityDropdown = CreateLabeledDropdown(contentRT, "Quality", QualitySettings.names, QualitySettings.GetQualityLevel());
         graphicsQualityRow = qualityDropdown ? qualityDropdown.transform.parent.gameObject : null;
         fullscreenToggle = CreateLabeledToggle(contentRT, "Fullscreen", Screen.fullScreen);
+        saveStatusLabel = CreateStatusLabel(contentRT, "No save data", 20);
+        RectTransform saveActions = CreateButtonRow(contentRT, "SaveActions");
+        saveButton = CreateButton(saveActions, "Save", new Vector2(160, 54));
+        loadButton = CreateButton(saveActions, "Load", new Vector2(160, 54));
+        deleteSaveButton = CreateButton(saveActions, "Delete Save", new Vector2(220, 54));
         backButton = CreateButton(contentRT, "Back", new Vector2(200, 60));
     }
 
@@ -196,6 +262,37 @@ public class SettingsPanel : MonoBehaviour
         tmp.color = Color.white;
         LayoutElement le = go.AddComponent<LayoutElement>();
         le.preferredHeight = fontSize * 1.5f;
+    }
+
+    private static TextMeshProUGUI CreateStatusLabel(RectTransform parent, string text, float fontSize)
+    {
+        GameObject go = new("SaveStatus_Label", typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
+        go.transform.SetParent(parent, false);
+        TextMeshProUGUI tmp = go.GetComponent<TextMeshProUGUI>();
+        tmp.text = text;
+        tmp.fontSize = fontSize;
+        tmp.alignment = TextAlignmentOptions.Center;
+        tmp.color = new Color(0.82f, 0.86f, 0.9f, 1f);
+        LayoutElement le = go.GetComponent<LayoutElement>();
+        le.preferredHeight = 32f;
+        return tmp;
+    }
+
+    private static RectTransform CreateButtonRow(RectTransform parent, string name)
+    {
+        GameObject rowGO = new(name, typeof(RectTransform), typeof(HorizontalLayoutGroup), typeof(LayoutElement));
+        RectTransform row = rowGO.GetComponent<RectTransform>();
+        row.SetParent(parent, false);
+        HorizontalLayoutGroup layout = rowGO.GetComponent<HorizontalLayoutGroup>();
+        layout.spacing = 14f;
+        layout.childAlignment = TextAnchor.MiddleCenter;
+        layout.childControlWidth = false;
+        layout.childControlHeight = false;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = false;
+        LayoutElement element = rowGO.GetComponent<LayoutElement>();
+        element.preferredHeight = 58f;
+        return row;
     }
 
     private static Slider CreateLabeledSlider(RectTransform parent, string label, float min, float max, float value)

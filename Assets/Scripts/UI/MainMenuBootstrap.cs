@@ -208,7 +208,7 @@ public static class MainMenuBootstrap
         rect.anchorMin = new Vector2(0.5f, 0.5f);
         rect.anchorMax = new Vector2(0.5f, 0.5f);
         rect.pivot = new Vector2(0.5f, 0.5f);
-        rect.sizeDelta = new Vector2(760f, 520f);
+        rect.sizeDelta = new Vector2(820f, 720f);
         return panel;
     }
 

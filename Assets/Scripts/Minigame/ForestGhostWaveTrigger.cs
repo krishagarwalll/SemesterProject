@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,7 @@ public class ForestGhostWaveTrigger : MonoBehaviour
     [SerializeField] private TextMeshProUGUI countdownText;
 
     [Header("Scene")]
+    [SerializeField] private string saveId;
     [SerializeField] private string cameraMinigameSceneName = "CameraMinigame";
 
     [Header("Return")]
@@ -40,17 +42,26 @@ public class ForestGhostWaveTrigger : MonoBehaviour
 
     private static bool s_alreadyFired;
     private bool triggered;
+    public string SaveId => ResolveSaveId();
+    public bool HasFired => triggered || s_alreadyFired;
 
     private void Reset()
     {
         Collider2D col = GetComponent<Collider2D>();
         if (col != null) col.isTrigger = true;
+        EnsureSerializedSaveId();
     }
 
     private Collider2D selfCollider;
 
     private void Awake()
     {
+        if (SaveManager.Instance != null && SaveManager.Instance.IsSceneEventTriggered(SaveId))
+        {
+            triggered = true;
+            s_alreadyFired = true;
+        }
+
         selfCollider = GetComponent<Collider2D>();
         if (warningText != null) warningText.gameObject.SetActive(false);
         if (countdownText != null) countdownText.gameObject.SetActive(false);
@@ -110,6 +121,7 @@ public class ForestGhostWaveTrigger : MonoBehaviour
         if (debugLogs) Debug.Log("[GhostWave] Player matched. Starting warning coroutine.");
         triggered = true;
         if (oneShotPerSession) s_alreadyFired = true;
+        SaveManager.Instance?.MarkSceneEventTriggered(SaveId);
 
         if (questToStart != null && QuestController.Instance != null
             && !QuestController.Instance.isQuestHandedIn(questToStart.questID)
@@ -191,5 +203,57 @@ public class ForestGhostWaveTrigger : MonoBehaviour
         PauseService.ClearAll();
         Time.timeScale = 1f;
         AudioListener.pause = false;
+    }
+
+    public void RestoreTriggered(bool value)
+    {
+        triggered = value;
+        if (value)
+        {
+            s_alreadyFired = true;
+        }
+    }
+
+    private void OnValidate()
+    {
+        EnsureSerializedSaveId();
+    }
+
+    private string ResolveSaveId()
+    {
+        if (!string.IsNullOrWhiteSpace(saveId))
+        {
+            return saveId;
+        }
+
+        string sceneName = gameObject.scene.IsValid() ? gameObject.scene.name : SceneManager.GetActiveScene().name;
+        return $"{sceneName}:trigger:{GetHierarchyPath(transform)}";
+    }
+
+    private void EnsureSerializedSaveId()
+    {
+        if (!string.IsNullOrWhiteSpace(saveId) || Application.isPlaying)
+        {
+            return;
+        }
+
+        saveId = Guid.NewGuid().ToString("N");
+    }
+
+    private static string GetHierarchyPath(Transform current)
+    {
+        if (!current)
+        {
+            return string.Empty;
+        }
+
+        string path = current.name;
+        while (current.parent)
+        {
+            current = current.parent;
+            path = current.name + "/" + path;
+        }
+
+        return path;
     }
 }

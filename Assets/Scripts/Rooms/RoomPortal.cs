@@ -1,11 +1,14 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(InteractionTarget))]
 public class RoomPortal : MonoBehaviour, IInteractionActionProvider
 {
     [FieldHeader("Connection")]
+    [SerializeField] private string saveId;
     [SerializeField] private RoomPortal linkedPortal;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private PortalTraversalMode traversalMode = PortalTraversalMode.Bidirectional;
@@ -25,6 +28,8 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     [ConditionalField("lockMode", (int)PortalLockMode.RequiredItem, header: "Item Lock")]
     [SerializeField] private InventoryItemDefinition requiredItem;
     [ConditionalField("lockMode", (int)PortalLockMode.RequiredItem)]
+    [SerializeField, Min(1)] private int requiredItemQuantity = 1;
+    [ConditionalField("lockMode", (int)PortalLockMode.RequiredItem)]
     [SerializeField] private bool consumeRequiredItem;
     [ConditionalField("lockMode", (int)PortalLockMode.RequiredItem)]
     [Tooltip("Skip the item check — portal starts pre-unlocked. Useful for testing or one-time events.")]
@@ -36,6 +41,8 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     [SerializeField, Min(0f)] private float fadeDuration = 0.2f;
 
     [Header("Quest")]
+    [Tooltip("Optional. Accepted when the player tries this locked portal without the required item quantity.")]
+    [SerializeField] private Quest questToStartWhenLocked;
     [Tooltip("Optional. When the lock is opened by consuming the required item, this quest is handed in immediately.")]
     [SerializeField] private Quest questToCompleteOnUnlock;
 
@@ -47,10 +54,13 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     private RoomTransitionService transitionService;
     private RoomStateFlags stateFlags;
     private bool unlockedByItem;
+    private int RequiredItemQuantity => Mathf.Max(1, requiredItemQuantity);
 
     public RoomPortal LinkedPortal => linkedPortal;
     public Room OwnerRoom => GetComponentInParent<Room>(true);
     public Transform SpawnPoint => spawnPoint ? spawnPoint : transform;
+    public string SaveId => ResolveSaveId();
+    public bool WasUnlockedByItem => unlockedByItem;
 
     private RoomTransitionService TransitionService => transitionService ? transitionService : transitionService = FindFirstObjectByType<RoomTransitionService>(FindObjectsInactive.Include);
     private RoomStateFlags Flags => stateFlags ? stateFlags : stateFlags = FindFirstObjectByType<RoomStateFlags>(FindObjectsInactive.Include);
@@ -58,11 +68,18 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     private void Reset()
     {
         spawnPoint = transform;
+        EnsureSerializedSaveId();
     }
 
     private void Awake()
     {
         unlockedByItem = startUnlocked;
+    }
+
+    private void OnValidate()
+    {
+        requiredItemQuantity = Mathf.Max(1, requiredItemQuantity);
+        EnsureSerializedSaveId();
     }
 
     public void GetActions(in InteractionContext context, List<InteractionAction> actions)
@@ -94,17 +111,19 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
             case InteractionMode.Primary:
                 if (!IsUnlocked())
                 {
-                    if (lockMode == PortalLockMode.RequiredItem && requiredItem && context.Inventory && context.Inventory.Contains(requiredItem))
+                    if (HasRequiredItemInInventory(context))
                     {
                         if (consumeRequiredItem)
                         {
-                            context.Inventory.TryRemove(requiredItem);
+                            context.Inventory.TryRemove(requiredItem, RequiredItemQuantity);
                         }
                         unlockedByItem = true;
                         TryHandInUnlockQuest();
+                        SaveManager.Instance?.MarkRoomPortalUnlocked(SaveId);
                     }
                     else
                     {
+                        TryStartLockedQuest();
                         PlayLockedSound();
                         InteractionFeedback.Show(GetInspectText(unlocked: false), this);
                         return false;
@@ -149,7 +168,7 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
         return lockMode == PortalLockMode.RequiredItem
             && requiredItem
             && context.Inventory
-            && context.Inventory.Contains(requiredItem);
+            && context.Inventory.CountItem(requiredItem.ItemId) >= RequiredItemQuantity;
     }
 
     private bool IsEffectivelyUnlocked(in InteractionContext context)
@@ -166,6 +185,49 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
             PortalLockMode.RequiredItem => unlockedByItem,
             _ => true
         };
+    }
+
+    public void RestoreUnlockedByItem(bool value)
+    {
+        unlockedByItem = startUnlocked || value;
+    }
+
+    private string ResolveSaveId()
+    {
+        if (!string.IsNullOrWhiteSpace(saveId))
+        {
+            return saveId;
+        }
+
+        string sceneName = gameObject.scene.IsValid() ? gameObject.scene.name : SceneManager.GetActiveScene().name;
+        return $"{sceneName}:portal:{GetHierarchyPath(transform)}";
+    }
+
+    private void EnsureSerializedSaveId()
+    {
+        if (!string.IsNullOrWhiteSpace(saveId) || Application.isPlaying)
+        {
+            return;
+        }
+
+        saveId = Guid.NewGuid().ToString("N");
+    }
+
+    private static string GetHierarchyPath(Transform current)
+    {
+        if (!current)
+        {
+            return string.Empty;
+        }
+
+        string path = current.name;
+        while (current.parent)
+        {
+            current = current.parent;
+            path = current.name + "/" + path;
+        }
+
+        return path;
     }
 
     private string GetInspectText(bool unlocked)
@@ -197,6 +259,24 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
 
         QuestController.Instance.MarkQuestReadyToHandIn(questId);
         QuestController.Instance.CompleteQuest(questId);
+    }
+
+    private void TryStartLockedQuest()
+    {
+        if (questToStartWhenLocked == null || QuestController.Instance == null)
+        {
+            return;
+        }
+
+        string questId = questToStartWhenLocked.questID;
+        if (string.IsNullOrWhiteSpace(questId)
+            || QuestController.Instance.isQuestActive(questId)
+            || QuestController.Instance.isQuestHandedIn(questId))
+        {
+            return;
+        }
+
+        QuestController.Instance.AcceptQuest(questToStartWhenLocked);
     }
 
     private void PlayEnterSound()

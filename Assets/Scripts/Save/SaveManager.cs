@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,7 +6,7 @@ using UnityEngine.SceneManagement;
 [DisallowMultipleComponent]
 public class SaveManager : MonoBehaviour
 {
-    private const string SaveKey = "GameSave_v1";
+    public const string SaveKey = "GameSave_v1";
 
     [SerializeField] private Quest[] allQuests;
     [SerializeField] private InventoryItemDefinition[] allItemDefinitions;
@@ -39,6 +40,57 @@ public class SaveManager : MonoBehaviour
 
     public bool HasSave() => storage.Exists(SaveKey);
 
+    public bool TryGetSaveJson(out string json) => storage.TryRead(SaveKey, out json);
+
+    public bool TryGetSaveData(out SaveData data)
+    {
+        data = null;
+        if (!storage.TryRead(SaveKey, out string json))
+        {
+            return false;
+        }
+
+        try
+        {
+            data = JsonUtility.FromJson<SaveData>(json);
+            EnsureLists(data);
+            return data != null;
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogWarning($"[SaveManager] Save data could not be read: {exception.Message}");
+            return false;
+        }
+    }
+
+    public bool OverwriteSaveJson(string json)
+    {
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            Debug.LogWarning("[SaveManager] Empty save JSON was not written.");
+            return false;
+        }
+
+        try
+        {
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            if (data == null || string.IsNullOrWhiteSpace(data.sceneName))
+            {
+                Debug.LogWarning("[SaveManager] Save JSON is invalid.");
+                return false;
+            }
+
+            EnsureLists(data);
+            WriteSave(data);
+            return true;
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogWarning($"[SaveManager] Save JSON could not be parsed: {exception.Message}");
+            return false;
+        }
+    }
+
     public void Save()
     {
         WriteSave(GatherCurrentState());
@@ -69,6 +121,49 @@ public class SaveManager : MonoBehaviour
     {
         storage.Delete(SaveKey);
         Debug.Log("[SaveManager] Save deleted.");
+    }
+
+    public bool IsCutsceneCompleted(string cutsceneId)
+    {
+        return ContainsSavedId(cutsceneId, data => data.completedCutsceneIds);
+    }
+
+    public void MarkCutsceneCompleted(string cutsceneId, bool writeImmediately = true)
+    {
+        AddSavedId(cutsceneId, data => data.completedCutsceneIds, writeImmediately);
+    }
+
+    public bool IsSceneEventTriggered(string eventId)
+    {
+        return ContainsSavedId(eventId, data => data.triggeredSceneEventIds);
+    }
+
+    public void MarkSceneEventTriggered(string eventId, bool writeImmediately = true)
+    {
+        AddSavedId(eventId, data => data.triggeredSceneEventIds, writeImmediately);
+    }
+
+    public void MarkRoomPortalUnlocked(string portalId, bool writeImmediately = true)
+    {
+        if (string.IsNullOrWhiteSpace(portalId))
+        {
+            return;
+        }
+
+        SaveData data = ReadSaveOrGatherCurrent();
+        EnsureLists(data);
+        SavedRoomPortal portal = data.roomPortals.Find(p => p != null && p.saveId == portalId);
+        if (portal == null)
+        {
+            portal = new SavedRoomPortal { saveId = portalId };
+            data.roomPortals.Add(portal);
+        }
+
+        portal.unlockedByItem = true;
+        if (writeImmediately)
+        {
+            WriteSave(data);
+        }
     }
 
     public bool MarkQuestHandedInInSave(string questId)
@@ -140,10 +235,15 @@ public class SaveManager : MonoBehaviour
     // Call this after a scene has been loaded if the scene was different from the save
     public void ApplySaveData(SaveData data)
     {
+        EnsureLists(data);
+        RestoreCutscenes(data);
         RestorePlayerPosition(data);
         RestoreProgression(data);
         RestoreInventory(data);
         RestoreQuests(data);
+        RestoreRoomState(data);
+        RestoreDialogueLineStates(data);
+        RestoreSceneEvents(data);
         RestoreWorldItems(data);
     }
 
@@ -163,7 +263,7 @@ public class SaveManager : MonoBehaviour
 
     private SaveData GatherCurrentState()
     {
-        var data = new SaveData();
+        var data = ReadExistingSaveOrNew();
         data.sceneName = SceneManager.GetActiveScene().name;
 
         var player = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Exclude);
@@ -233,6 +333,16 @@ public class SaveManager : MonoBehaviour
             });
         }
 
+        var roomFlags = FindFirstObjectByType<RoomStateFlags>(FindObjectsInactive.Include);
+        if (roomFlags)
+        {
+            data.roomFlags = roomFlags.Snapshot();
+        }
+
+        SaveRoomPortalState(data);
+        SaveDialogueLineStates(data);
+        SaveSceneEventStates(data);
+
         return data;
     }
 
@@ -286,7 +396,7 @@ public class SaveManager : MonoBehaviour
 
     private void RestoreQuests(SaveData data)
     {
-        if (QuestController.Instance == null || allQuests == null) return;
+        if (QuestController.Instance == null) return;
 
         var questLookup = BuildQuestLookup();
         QuestController.Instance.ClearRuntimeState();
@@ -353,6 +463,223 @@ public class SaveManager : MonoBehaviour
                 item.gameObject.SetActive(false);
             }
         }
+    }
+
+    private void RestoreCutscenes(SaveData data)
+    {
+        CutsceneController[] cutscenes = FindObjectsByType<CutsceneController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        HashSet<string> completedIds = data.completedCutsceneIds == null
+            ? new HashSet<string>()
+            : new HashSet<string>(data.completedCutsceneIds);
+
+        for (int i = 0; i < cutscenes.Length; i++)
+        {
+            if (cutscenes[i] && completedIds.Contains(cutscenes[i].SaveId))
+            {
+                cutscenes[i].RestoreCompleted();
+            }
+        }
+    }
+
+    private void RestoreRoomState(SaveData data)
+    {
+        RoomStateFlags flags = FindFirstObjectByType<RoomStateFlags>(FindObjectsInactive.Include);
+        if (flags)
+        {
+            flags.Restore(data.roomFlags);
+        }
+
+        Dictionary<string, SavedRoomPortal> savedPortals = new();
+        if (data.roomPortals != null)
+        {
+            for (int i = 0; i < data.roomPortals.Count; i++)
+            {
+                SavedRoomPortal saved = data.roomPortals[i];
+                if (saved != null && !string.IsNullOrWhiteSpace(saved.saveId))
+                {
+                    savedPortals[saved.saveId] = saved;
+                }
+            }
+        }
+
+        RoomPortal[] portals = FindObjectsByType<RoomPortal>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < portals.Length; i++)
+        {
+            RoomPortal portal = portals[i];
+            if (!portal || string.IsNullOrWhiteSpace(portal.SaveId))
+            {
+                continue;
+            }
+
+            if (savedPortals.TryGetValue(portal.SaveId, out SavedRoomPortal saved))
+            {
+                portal.RestoreUnlockedByItem(saved.unlockedByItem);
+            }
+        }
+    }
+
+    private void RestoreDialogueLineStates(SaveData data)
+    {
+        Dictionary<string, int> savedIndexes = new();
+        if (data.dialogueLineStates != null)
+        {
+            for (int i = 0; i < data.dialogueLineStates.Count; i++)
+            {
+                SavedDialogueLineState saved = data.dialogueLineStates[i];
+                if (saved != null && !string.IsNullOrWhiteSpace(saved.saveId))
+                {
+                    savedIndexes[saved.saveId] = saved.currentDialogueIndex;
+                }
+            }
+        }
+
+        DialogueLines[] dialogueLines = FindObjectsByType<DialogueLines>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < dialogueLines.Length; i++)
+        {
+            DialogueLines dialogue = dialogueLines[i];
+            if (dialogue && savedIndexes.TryGetValue(dialogue.SaveId, out int index))
+            {
+                dialogue.RestoreDialogueIndex(index);
+            }
+        }
+    }
+
+    private void RestoreSceneEvents(SaveData data)
+    {
+        HashSet<string> triggeredIds = data.triggeredSceneEventIds == null
+            ? new HashSet<string>()
+            : new HashSet<string>(data.triggeredSceneEventIds);
+
+        ForestGhostWaveTrigger[] triggers = FindObjectsByType<ForestGhostWaveTrigger>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < triggers.Length; i++)
+        {
+            ForestGhostWaveTrigger trigger = triggers[i];
+            if (trigger && triggeredIds.Contains(trigger.SaveId))
+            {
+                trigger.RestoreTriggered(true);
+            }
+        }
+    }
+
+    private void SaveRoomPortalState(SaveData data)
+    {
+        RoomPortal[] portals = FindObjectsByType<RoomPortal>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < portals.Length; i++)
+        {
+            RoomPortal portal = portals[i];
+            if (!portal || string.IsNullOrWhiteSpace(portal.SaveId))
+            {
+                continue;
+            }
+
+            data.roomPortals.RemoveAll(saved => saved != null && saved.saveId == portal.SaveId);
+            data.roomPortals.Add(new SavedRoomPortal
+            {
+                saveId = portal.SaveId,
+                unlockedByItem = portal.WasUnlockedByItem
+            });
+        }
+    }
+
+    private void SaveDialogueLineStates(SaveData data)
+    {
+        DialogueLines[] dialogueLines = FindObjectsByType<DialogueLines>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < dialogueLines.Length; i++)
+        {
+            DialogueLines dialogue = dialogueLines[i];
+            if (!dialogue || string.IsNullOrWhiteSpace(dialogue.SaveId))
+            {
+                continue;
+            }
+
+            data.dialogueLineStates.RemoveAll(saved => saved != null && saved.saveId == dialogue.SaveId);
+            data.dialogueLineStates.Add(new SavedDialogueLineState
+            {
+                saveId = dialogue.SaveId,
+                currentDialogueIndex = dialogue.currentDialogueIndex
+            });
+        }
+    }
+
+    private void SaveSceneEventStates(SaveData data)
+    {
+        ForestGhostWaveTrigger[] triggers = FindObjectsByType<ForestGhostWaveTrigger>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < triggers.Length; i++)
+        {
+            ForestGhostWaveTrigger trigger = triggers[i];
+            if (!trigger || string.IsNullOrWhiteSpace(trigger.SaveId) || !trigger.HasFired)
+            {
+                continue;
+            }
+
+            if (!data.triggeredSceneEventIds.Contains(trigger.SaveId))
+            {
+                data.triggeredSceneEventIds.Add(trigger.SaveId);
+            }
+        }
+    }
+
+    private bool ContainsSavedId(string id, Func<SaveData, List<string>> listSelector)
+    {
+        if (string.IsNullOrWhiteSpace(id) || !TryGetSaveData(out SaveData data))
+        {
+            return false;
+        }
+
+        List<string> ids = listSelector(data);
+        return ids != null && ids.Contains(id);
+    }
+
+    private void AddSavedId(string id, Func<SaveData, List<string>> listSelector, bool writeImmediately)
+    {
+        if (string.IsNullOrWhiteSpace(id))
+        {
+            return;
+        }
+
+        SaveData data = ReadSaveOrGatherCurrent();
+        EnsureLists(data);
+        List<string> ids = listSelector(data);
+        if (!ids.Contains(id))
+        {
+            ids.Add(id);
+        }
+
+        if (writeImmediately)
+        {
+            WriteSave(data);
+        }
+    }
+
+    private SaveData ReadSaveOrGatherCurrent()
+    {
+        return TryGetSaveData(out SaveData data) ? data : GatherCurrentState();
+    }
+
+    private SaveData ReadExistingSaveOrNew()
+    {
+        SaveData data = TryGetSaveData(out SaveData existing) ? existing : new SaveData();
+        EnsureLists(data);
+        return data;
+    }
+
+    private static void EnsureLists(SaveData data)
+    {
+        if (data == null)
+        {
+            return;
+        }
+
+        data.inventoryItems ??= new List<SavedInventoryItem>();
+        data.activeQuests ??= new List<SavedQuest>();
+        data.handedInQuestIds ??= new List<string>();
+        data.pickedUpWorldItemIds ??= new List<string>();
+        data.worldItems ??= new List<SavedWorldItem>();
+        data.completedCutsceneIds ??= new List<string>();
+        data.roomPortals ??= new List<SavedRoomPortal>();
+        data.roomFlags ??= new List<string>();
+        data.dialogueLineStates ??= new List<SavedDialogueLineState>();
+        data.triggeredSceneEventIds ??= new List<string>();
     }
 
     // ── Lookup builders ──────────────────────────────────────────
@@ -426,12 +753,24 @@ public class SaveManager : MonoBehaviour
     private Dictionary<string, Quest> BuildQuestLookup()
     {
         var lookup = new Dictionary<string, Quest>();
-        if (allQuests == null) return lookup;
-        foreach (var quest in allQuests)
+        AddQuestsToLookup(lookup, Resources.LoadAll<Quest>(string.Empty));
+        AddQuestsToLookup(lookup, allQuests);
+        return lookup;
+    }
+
+    private static void AddQuestsToLookup(Dictionary<string, Quest> lookup, Quest[] quests)
+    {
+        if (quests == null)
+        {
+            return;
+        }
+
+        foreach (var quest in quests)
         {
             if (quest && !lookup.ContainsKey(quest.questID))
+            {
                 lookup[quest.questID] = quest;
+            }
         }
-        return lookup;
     }
 }

@@ -12,6 +12,11 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
     [SerializeField] private string glyphId = "Primary";
     [SerializeField] private int actionPriority = 20;
     [SerializeField, Min(0f)] private float dismissDistance = 4f;
+    [SerializeField] private InputActionReference advanceAction;
+    [SerializeField] private InputActionReference fastForwardAction;
+    [SerializeField] private Key[] fallbackAdvanceKeys = { Key.Space, Key.Enter };
+    [SerializeField] private Key fallbackFastForwardKey = Key.Space;
+    [SerializeField, Min(1f)] private float fastForwardMultiplier = 4f;
 
     public NPCDialogue dialogueData;
 
@@ -34,18 +39,15 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
     private void Start()
     {
         dialogueUI = DialogueController.Instance;
+        EnableAction(advanceAction);
+        EnableAction(fastForwardAction);
     }
 
     private void Update()
     {
         if (!isDialogueActive) return;
 
-        // Space or Enter to fast-forward / advance
-        bool advancePressed = Keyboard.current != null
-            ? Keyboard.current.spaceKey.wasPressedThisFrame || Keyboard.current.enterKey.wasPressedThisFrame
-            : Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return);
-
-        if (advancePressed)
+        if (WasAdvancePressed())
         {
             Interact();
             return;
@@ -171,7 +173,12 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
         foreach (char letter in dialogueData.dialogueLines[dialogueIndex])
         {
             dialogueUI.SetDialogueText(dialogueUI.dialogueText.text += letter);
-            yield return new WaitForSeconds(dialogueData.typingSpeed);
+            float speed = Mathf.Max(0.001f, dialogueData.typingSpeed);
+            if (IsFastForwardHeld())
+            {
+                speed /= fastForwardMultiplier;
+            }
+            yield return new WaitForSeconds(speed);
         }
 
         isTyping = false;
@@ -287,4 +294,56 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
         string label = isDialogueActive ? continueLabel : talkLabel;
         return string.IsNullOrWhiteSpace(label) ? "Talk" : label;
     }
+
+    private bool WasAdvancePressed()
+    {
+        if (advanceAction && advanceAction.action != null && advanceAction.action.WasPressedThisFrame())
+        {
+            return true;
+        }
+
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null)
+        {
+            return false;
+        }
+
+        if (fallbackAdvanceKeys == null || fallbackAdvanceKeys.Length == 0)
+        {
+            return keyboard.spaceKey.wasPressedThisFrame || keyboard.enterKey.wasPressedThisFrame;
+        }
+
+        for (int i = 0; i < fallbackAdvanceKeys.Length; i++)
+        {
+            Key key = fallbackAdvanceKeys[i];
+            if (key != Key.None && keyboard[key].wasPressedThisFrame)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool IsFastForwardHeld()
+    {
+        if (fastForwardAction && fastForwardAction.action != null)
+        {
+            return fastForwardAction.action.IsPressed();
+        }
+
+        Keyboard keyboard = Keyboard.current;
+        return keyboard != null
+            && fallbackFastForwardKey != Key.None
+            && keyboard[fallbackFastForwardKey].isPressed;
+    }
+
+    private static void EnableAction(InputActionReference actionReference)
+    {
+        if (actionReference && actionReference.action != null && !actionReference.action.enabled)
+        {
+            actionReference.action.Enable();
+        }
+    }
+
 }

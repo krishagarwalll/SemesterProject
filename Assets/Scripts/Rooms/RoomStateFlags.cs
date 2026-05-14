@@ -41,4 +41,29 @@ public class RoomStateFlags : MonoBehaviour
             flags.Remove(flagId);
         }
     }
+
+    public List<string> Snapshot()
+    {
+        List<string> snapshot = new(flags);
+        snapshot.Sort();
+        return snapshot;
+    }
+
+    public void Restore(IEnumerable<string> savedFlags)
+    {
+        flags.Clear();
+
+        if (savedFlags == null)
+        {
+            return;
+        }
+
+        foreach (string flag in savedFlags)
+        {
+            if (!string.IsNullOrWhiteSpace(flag))
+            {
+                flags.Add(flag);
+            }
+        }
+    }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [Serializable]
 public class SaveData
 {
-    public int version = 2;
+    public int version = 3;
     public string sceneName = "";
     public float playerX = 0f;
     public float playerY = 0f;
@@ -14,6 +14,11 @@ public class SaveData
     public List<string> handedInQuestIds = new();
     public List<string> pickedUpWorldItemIds = new();
     public List<SavedWorldItem> worldItems = new();
+    public List<string> completedCutsceneIds = new();
+    public List<SavedRoomPortal> roomPortals = new();
+    public List<string> roomFlags = new();
+    public List<SavedDialogueLineState> dialogueLineStates = new();
+    public List<string> triggeredSceneEventIds = new();
 }
 
 [Serializable]
@@ -41,4 +46,18 @@ public class SavedWorldItem
     public float y;
     public float z;
     public float rotationZ;
+}
+
+[Serializable]
+public class SavedRoomPortal
+{
+    public string saveId = "";
+    public bool unlockedByItem;
+}
+
+[Serializable]
+public class SavedDialogueLineState
+{
+    public string saveId = "";
+    public int currentDialogueIndex;
 }
