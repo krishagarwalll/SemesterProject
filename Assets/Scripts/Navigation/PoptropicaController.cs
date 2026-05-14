@@ -15,7 +15,7 @@ public class PoptropicaController : MonoBehaviour
     [SerializeField, Min(0.01f)] private float moveEaseDistance = 1.25f;
     [SerializeField, Range(0.05f, 1f)] private float minimumEaseSpeedFactor = 0.18f;
     [SerializeField, Min(1f)] private float jumpForce = 14f;
-    [SerializeField, Min(0.1f)] private float jumpThreshold = 1.2f;
+    [SerializeField, Min(0.1f)] private float jumpThreshold = 0.65f;
     [SerializeField, Min(0.01f)] private float clickMoveStopDistance = 0.12f;
     [SerializeField] private bool ignorePointerOverUi = true;
 
@@ -62,7 +62,7 @@ public class PoptropicaController : MonoBehaviour
     private Collider2D[] Colliders2D => colliders2D ??= GetComponentsInChildren<Collider2D>(true);
     private Collider[] Colliders3D => colliders3D ??= GetComponentsInChildren<Collider>(true);
     private Vector3 Position => transform.position;
-    private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi && activeDrag == null;
+    private bool IsPointerBlocked => ignorePointerOverUi && Pointer && (Pointer.IsPointerOverUi || Pointer.IsDragging);
 
     public bool HasActiveInteraction => activeDrag != null || pendingAction.IsValid;
     public bool IsGrounded => isGrounded;
@@ -160,7 +160,7 @@ public class PoptropicaController : MonoBehaviour
         }
 
         bool buttonHeld = IsMovementButtonHeld();
-        bool blockedByUi = ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi && activeDrag == null;
+        bool blockedByUi = IsPointerBlocked;
         if (buttonHeld && !blockedByUi)
         {
             hasMoveTarget = false;
@@ -192,8 +192,9 @@ public class PoptropicaController : MonoBehaviour
 
     private bool IsMovementButtonHeld()
     {
-        if (Mouse.current != null) return Mouse.current.leftButton.isPressed;
-        return Pointer && Pointer.IsPrimaryPressed;
+        if (Pointer) return Pointer.IsPrimaryPressed;
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed) return true;
+        return Mouse.current != null && Mouse.current.leftButton.isPressed;
     }
 
     // ── Public API (mirrors PointClickController for compatibility) ──────────
@@ -569,16 +570,6 @@ public class PoptropicaController : MonoBehaviour
         }
     }
 
-    private void SetMoveTarget(Vector2 targetWorldPosition)
-    {
-        moveTargetX = targetWorldPosition.x;
-        hasMoveTarget = Mathf.Abs(moveTargetX - transform.position.x) > clickMoveStopDistance;
-        if (targetWorldPosition.y - transform.position.y > jumpThreshold)
-        {
-            TryJump();
-        }
-    }
-
     private void StopHorizontalMovement()
     {
         if (Body2D)
@@ -661,22 +652,14 @@ public class PoptropicaController : MonoBehaviour
         if (IsPointerBlocked || activeDrag != null) return;
         if (!context.ClickedTarget)
         {
-            if (context.TryGetWorldPoint(out Vector3 point))
-            {
-                SetMoveTarget(point);
-            }
-
+            hasMoveTarget = false;
             return;
         }
 
         InteractionTarget target = context.ClickedTarget;
         if (!target.TryGetPrimaryAction(CreateContext(target), out InteractionAction action) || !action.Enabled)
         {
-            if (context.TryGetWorldPoint(out Vector3 point))
-            {
-                SetMoveTarget(point);
-            }
-
+            hasMoveTarget = false;
             return;
         }
 
@@ -686,6 +669,7 @@ public class PoptropicaController : MonoBehaviour
     private void HandleDragStarted(PointerContext context)
     {
         if (PauseService.IsGameplayInputPaused(this)) return;
+        if (IsPointerBlocked && !context.TryGetWorldDragTarget(out _)) return;
         InteractionTarget target = context.DragTarget;
         if (!target && context) context.TryGetWorldDragTarget(out target);
         if (!target || !target.TryGetDraggable(out IWorldDraggable draggable) || !Pointer) return;

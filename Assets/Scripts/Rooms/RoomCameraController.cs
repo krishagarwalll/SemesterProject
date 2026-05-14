@@ -167,8 +167,9 @@ public class RoomCameraController : MonoBehaviour
         float minY = bounds.min.y + halfH;
         float maxY = bounds.max.y - halfH;
 
-        float desiredX = followTarget.position.x + offset.x;
-        float desiredY = followTarget.position.y + offset.y;
+        Vector3 followPoint = GetFollowPoint();
+        float desiredX = followPoint.x + offset.x;
+        float desiredY = followPoint.y + offset.y;
 
         float camX = maxX >= minX ? Mathf.Clamp(desiredX, minX, maxX) : bounds.center.x + offset.x;
         float camY = maxY >= minY ? Mathf.Clamp(desiredY, minY, maxY) : bounds.center.y + offset.y;
@@ -220,5 +221,28 @@ public class RoomCameraController : MonoBehaviour
     {
         PoptropicaController pc = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
         return pc ? pc.transform : null;
+    }
+
+    private Vector3 GetFollowPoint()
+    {
+        if (!followTarget)
+        {
+            return Vector3.zero;
+        }
+
+        PoptropicaController controller = followTarget.GetComponent<PoptropicaController>();
+        if (controller)
+        {
+            return controller.GetWorldBounds(0f).center;
+        }
+
+        Collider2D collider2D = followTarget.GetComponentInChildren<Collider2D>();
+        if (collider2D)
+        {
+            return collider2D.bounds.center;
+        }
+
+        Renderer renderer = followTarget.GetComponentInChildren<Renderer>();
+        return renderer ? renderer.bounds.center : followTarget.position;
     }
 }
