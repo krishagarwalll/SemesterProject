@@ -6,15 +6,18 @@ public class RoomCameraController : MonoBehaviour
 {
     [SerializeField] private Room room;
     [SerializeField] private Camera targetCamera;
+    [SerializeField] private Transform followTarget;
     [SerializeField] private bool disableCinemachineBrainWhenLive = true;
-    [SerializeField] private bool snapImmediately = true;
+    [SerializeField, Min(0f)] private float followSmoothTime = 0.12f;
 
     private CinemachineCamera virtualCamera;
     private CinemachineBrain cameraBrain;
     private bool isLive;
+    private bool snapNextFrame;
     private float desiredOrthographicSize = 5f;
     private float minOrthographicSize = 2f;
     private float maxOrthographicSize = 10f;
+    private Vector3 cameraVelocity;
 
     private Room OwnerRoom => room ? room : room = GetComponentInParent<Room>(true);
     private Camera TargetCamera => targetCamera ? targetCamera : targetCamera = Camera.main;
@@ -25,6 +28,7 @@ public class RoomCameraController : MonoBehaviour
     {
         room = GetComponentInParent<Room>(true);
         targetCamera = Camera.main;
+        followTarget = FindFollowTarget();
     }
 
     private void Awake()
@@ -32,6 +36,11 @@ public class RoomCameraController : MonoBehaviour
         if (VirtualCamera)
         {
             VirtualCamera.enabled = false;
+        }
+
+        if (!followTarget)
+        {
+            followTarget = FindFollowTarget();
         }
     }
 
@@ -42,9 +51,14 @@ public class RoomCameraController : MonoBehaviour
             VirtualCamera.enabled = false;
         }
 
+        if (!followTarget)
+        {
+            followTarget = FindFollowTarget();
+        }
+
         if (isLive)
         {
-            ApplyShot();
+            ApplyShot(snap: true);
         }
     }
 
@@ -58,19 +72,28 @@ public class RoomCameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (isLive && !snapImmediately)
+        if (!isLive)
         {
-            ApplyShot();
+            return;
         }
+
+        ApplyShot(snap: snapNextFrame);
+        snapNextFrame = false;
     }
 
     public void SetLive(bool live, Camera viewCamera = null, float desiredSize = 5f, float minSize = 2f, float maxSize = 10f)
     {
         isLive = live;
+        snapNextFrame = true;
         targetCamera = viewCamera ? viewCamera : Camera.main;
         desiredOrthographicSize = desiredSize;
         minOrthographicSize = minSize;
         maxOrthographicSize = maxSize;
+
+        if (!followTarget)
+        {
+            followTarget = FindFollowTarget();
+        }
 
         if (VirtualCamera)
         {
@@ -84,11 +107,11 @@ public class RoomCameraController : MonoBehaviour
 
         if (live)
         {
-            ApplyShot();
+            ApplyShot(snap: true);
         }
     }
 
-    private void ApplyShot()
+    private void ApplyShot(bool snap)
     {
         Camera camera = TargetCamera;
         if (!camera || !OwnerRoom)
@@ -96,15 +119,66 @@ public class RoomCameraController : MonoBehaviour
             return;
         }
 
-        camera.transform.position = OwnerRoom.GetCameraPosition();
         camera.transform.rotation = Quaternion.identity;
         camera.orthographic = true;
 
         float aspect = camera.aspect > 0.01f ? camera.aspect : 16f / 9f;
         OwnerRoom.TryGetOrthographicSize(aspect, out float roomOrthographicSize);
-        camera.orthographicSize = Mathf.Clamp(
+        float orthoSize = Mathf.Clamp(
             desiredOrthographicSize,
             minOrthographicSize,
             Mathf.Max(minOrthographicSize, Mathf.Min(maxOrthographicSize, roomOrthographicSize)));
+        camera.orthographicSize = orthoSize;
+
+        Vector3 targetPos = ComputeCameraTarget(orthoSize, aspect);
+
+        if (snap || followSmoothTime <= 0f)
+        {
+            cameraVelocity = Vector3.zero;
+            camera.transform.position = targetPos;
+        }
+        else
+        {
+            camera.transform.position = Vector3.SmoothDamp(
+                camera.transform.position, targetPos, ref cameraVelocity,
+                followSmoothTime, Mathf.Infinity, Time.unscaledDeltaTime);
+        }
+    }
+
+    private Vector3 ComputeCameraTarget(float orthoSize, float aspect)
+    {
+        Vector3 roomCenter = OwnerRoom.GetCameraPosition();
+
+        if (!followTarget || !OwnerRoom.BoundsVolume)
+        {
+            return roomCenter;
+        }
+
+        Bounds bounds = OwnerRoom.BoundsVolume.bounds;
+        Vector3 offset = OwnerRoom.CameraOffset;
+
+        float halfW = orthoSize * aspect;
+        float halfH = orthoSize;
+
+        // Camera X/Y must keep the viewport within room bounds.
+        // If the room is narrower than the viewport, fall back to room centre.
+        float minX = bounds.min.x + halfW;
+        float maxX = bounds.max.x - halfW;
+        float minY = bounds.min.y + halfH;
+        float maxY = bounds.max.y - halfH;
+
+        float desiredX = followTarget.position.x + offset.x;
+        float desiredY = followTarget.position.y + offset.y;
+
+        float camX = maxX >= minX ? Mathf.Clamp(desiredX, minX, maxX) : bounds.center.x + offset.x;
+        float camY = maxY >= minY ? Mathf.Clamp(desiredY, minY, maxY) : bounds.center.y + offset.y;
+
+        return new Vector3(camX, camY, roomCenter.z);
+    }
+
+    private static Transform FindFollowTarget()
+    {
+        PoptropicaController pc = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
+        return pc ? pc.transform : null;
     }
 }
