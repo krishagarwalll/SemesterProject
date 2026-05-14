@@ -1,5 +1,5 @@
-using TMPro;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,176 +7,134 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CanvasGroup))]
 public class SettingsPanel : MonoBehaviour
 {
+    private const string ContentName = "SettingsContent";
+
+    [SerializeField] private Slider masterSlider;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
-    [SerializeField] private Toggle fullscreenToggle;
-    [SerializeField] private TMP_Dropdown qualityDropdown;
-    [SerializeField] private Button backButton;
+    [SerializeField] private TMP_Dropdown windowModeDropdown;
     [SerializeField] private Button saveButton;
     [SerializeField] private Button loadButton;
     [SerializeField] private Button deleteSaveButton;
+    [SerializeField] private Button backButton;
     [SerializeField] private TextMeshProUGUI saveStatusLabel;
-    [SerializeField] private GameObject graphicsQualityRow;
 
     public event System.Action BackRequested;
 
     private void Awake()
     {
         EnsurePanelCanReceiveInput();
-        if (!musicSlider || !sfxSlider || !backButton || !fullscreenToggle || !qualityDropdown)
-            BuildUI();
+        RebuildUI();
     }
 
     private void OnEnable()
     {
-#if UNITY_WEBGL
-        if (graphicsQualityRow) graphicsQualityRow.SetActive(false);
-#endif
-        RefreshSliders();
-        if (backButton)
-        {
-            backButton.onClick.RemoveListener(OnBackClicked);
-            backButton.onClick.AddListener(OnBackClicked);
-        }
-
-        WireSaveButtons();
-
-        if (fullscreenToggle)
-        {
-            fullscreenToggle.SetIsOnWithoutNotify(Screen.fullScreen);
-            fullscreenToggle.onValueChanged.RemoveListener(OnFullscreenChanged);
-            fullscreenToggle.onValueChanged.AddListener(OnFullscreenChanged);
-        }
-
-        RefreshQualityDropdown();
+        RefreshValues();
+        WireButtons();
     }
 
     private void OnDisable()
     {
+        if (masterSlider) masterSlider.onValueChanged.RemoveListener(OnMasterSliderChanged);
         if (musicSlider) musicSlider.onValueChanged.RemoveListener(OnMusicSliderChanged);
         if (sfxSlider) sfxSlider.onValueChanged.RemoveListener(OnSfxSliderChanged);
-        if (fullscreenToggle) fullscreenToggle.onValueChanged.RemoveListener(OnFullscreenChanged);
-        if (qualityDropdown) qualityDropdown.onValueChanged.RemoveListener(OnQualityChanged);
-        if (backButton) backButton.onClick.RemoveListener(OnBackClicked);
+        if (windowModeDropdown) windowModeDropdown.onValueChanged.RemoveListener(OnWindowModeChanged);
         if (saveButton) saveButton.onClick.RemoveListener(OnSaveClicked);
         if (loadButton) loadButton.onClick.RemoveListener(OnLoadClicked);
         if (deleteSaveButton) deleteSaveButton.onClick.RemoveListener(OnDeleteSaveClicked);
+        if (backButton) backButton.onClick.RemoveListener(OnBackClicked);
     }
 
-    private void RefreshSliders()
+    private void RefreshValues()
     {
-        if (!AudioManager.Instance) return;
-        if (musicSlider)
+        if (AudioManager.Instance)
         {
+            masterSlider.SetValueWithoutNotify(AudioManager.Instance.MasterVolume);
             musicSlider.SetValueWithoutNotify(AudioManager.Instance.MusicVolume);
-            musicSlider.onValueChanged.RemoveListener(OnMusicSliderChanged);
-            musicSlider.onValueChanged.AddListener(OnMusicSliderChanged);
-        }
-
-        if (sfxSlider)
-        {
             sfxSlider.SetValueWithoutNotify(AudioManager.Instance.SfxVolume);
-            sfxSlider.onValueChanged.RemoveListener(OnSfxSliderChanged);
-            sfxSlider.onValueChanged.AddListener(OnSfxSliderChanged);
-        }
-    }
-
-    private void OnMusicSliderChanged(float value)
-    {
-        if (AudioManager.Instance) AudioManager.Instance.SetMusicVolume(value);
-    }
-
-    private void OnSfxSliderChanged(float value)
-    {
-        if (AudioManager.Instance) AudioManager.Instance.SetSfxVolume(value);
-    }
-
-    private void RefreshQualityDropdown()
-    {
-        if (!qualityDropdown)
-        {
-            return;
         }
 
-        qualityDropdown.onValueChanged.RemoveListener(OnQualityChanged);
-        qualityDropdown.ClearOptions();
-        qualityDropdown.AddOptions(new List<string>(QualitySettings.names));
-        qualityDropdown.SetValueWithoutNotify(QualitySettings.GetQualityLevel());
-        qualityDropdown.RefreshShownValue();
-        qualityDropdown.onValueChanged.AddListener(OnQualityChanged);
+        windowModeDropdown.SetValueWithoutNotify(GetCurrentWindowModeIndex());
+        windowModeDropdown.RefreshShownValue();
+        RefreshSaveStatus();
     }
 
-    private static void OnQualityChanged(int qualityIndex)
+    private void WireButtons()
     {
-        if (qualityIndex < 0 || qualityIndex >= QualitySettings.names.Length)
-        {
-            return;
-        }
+        masterSlider.onValueChanged.RemoveListener(OnMasterSliderChanged);
+        masterSlider.onValueChanged.AddListener(OnMasterSliderChanged);
+        musicSlider.onValueChanged.RemoveListener(OnMusicSliderChanged);
+        musicSlider.onValueChanged.AddListener(OnMusicSliderChanged);
+        sfxSlider.onValueChanged.RemoveListener(OnSfxSliderChanged);
+        sfxSlider.onValueChanged.AddListener(OnSfxSliderChanged);
+        windowModeDropdown.onValueChanged.RemoveListener(OnWindowModeChanged);
+        windowModeDropdown.onValueChanged.AddListener(OnWindowModeChanged);
 
-        QualitySettings.SetQualityLevel(qualityIndex, applyExpensiveChanges: true);
-        PlayerPrefs.SetInt("Settings_Quality", qualityIndex);
-        PlayerPrefs.Save();
+        saveButton.onClick.RemoveListener(OnSaveClicked);
+        saveButton.onClick.AddListener(OnSaveClicked);
+        loadButton.onClick.RemoveListener(OnLoadClicked);
+        loadButton.onClick.AddListener(OnLoadClicked);
+        deleteSaveButton.onClick.RemoveListener(OnDeleteSaveClicked);
+        deleteSaveButton.onClick.AddListener(OnDeleteSaveClicked);
+        backButton.onClick.RemoveListener(OnBackClicked);
+        backButton.onClick.AddListener(OnBackClicked);
     }
 
-    private static void OnFullscreenChanged(bool fullscreen)
-    {
-        Screen.fullScreen = fullscreen;
-        PlayerPrefs.SetInt("Settings_Fullscreen", fullscreen ? 1 : 0);
-        PlayerPrefs.Save();
-    }
-
+    private void OnMasterSliderChanged(float value) => AudioManager.Instance?.SetMasterVolume(value);
+    private void OnMusicSliderChanged(float value) => AudioManager.Instance?.SetMusicVolume(value);
+    private void OnSfxSliderChanged(float value) => AudioManager.Instance?.SetSfxVolume(value);
     private void OnBackClicked() => BackRequested?.Invoke();
-
-    private void WireSaveButtons()
-    {
-        bool hasSave = SaveManager.Instance && SaveManager.Instance.HasSave();
-        if (saveButton)
-        {
-            saveButton.onClick.RemoveListener(OnSaveClicked);
-            saveButton.onClick.AddListener(OnSaveClicked);
-        }
-
-        if (loadButton)
-        {
-            loadButton.interactable = hasSave;
-            loadButton.onClick.RemoveListener(OnLoadClicked);
-            loadButton.onClick.AddListener(OnLoadClicked);
-        }
-
-        if (deleteSaveButton)
-        {
-            deleteSaveButton.interactable = hasSave;
-            deleteSaveButton.onClick.RemoveListener(OnDeleteSaveClicked);
-            deleteSaveButton.onClick.AddListener(OnDeleteSaveClicked);
-        }
-
-        SetSaveStatus(hasSave ? "Save data found" : "No save data");
-    }
 
     private void OnSaveClicked()
     {
         SaveManager.Instance?.Save();
-        WireSaveButtons();
+        RefreshSaveStatus();
     }
 
     private void OnLoadClicked()
     {
         SaveManager.Instance?.LoadAndApply();
-        WireSaveButtons();
+        RefreshSaveStatus();
     }
 
     private void OnDeleteSaveClicked()
     {
         SaveManager.Instance?.DeleteSave();
-        WireSaveButtons();
+        RefreshSaveStatus();
     }
 
-    private void SetSaveStatus(string status)
+    private void RefreshSaveStatus()
     {
-        if (saveStatusLabel)
+        bool hasSave = SaveManager.Instance && SaveManager.Instance.HasSave();
+        loadButton.interactable = hasSave;
+        deleteSaveButton.interactable = hasSave;
+        saveStatusLabel.text = hasSave ? "Save data found" : "No save data";
+    }
+
+    private static int GetCurrentWindowModeIndex()
+    {
+        return Screen.fullScreenMode switch
         {
-            saveStatusLabel.text = status;
-        }
+            FullScreenMode.Windowed => 0,
+            FullScreenMode.ExclusiveFullScreen => 1,
+            FullScreenMode.FullScreenWindow => 2,
+            _ => Screen.fullScreen ? 2 : 0
+        };
+    }
+
+    private static void OnWindowModeChanged(int index)
+    {
+        FullScreenMode mode = index switch
+        {
+            1 => FullScreenMode.ExclusiveFullScreen,
+            2 => FullScreenMode.FullScreenWindow,
+            _ => FullScreenMode.Windowed
+        };
+
+        Screen.fullScreenMode = mode;
+        Screen.fullScreen = mode != FullScreenMode.Windowed;
+        PlayerPrefs.SetInt("Settings_WindowMode", index);
+        PlayerPrefs.Save();
     }
 
     private void EnsurePanelCanReceiveInput()
@@ -188,431 +146,289 @@ public class SettingsPanel : MonoBehaviour
             raycaster.enabled = true;
         }
 
-        if (!TryGetComponent(out CanvasGroup group))
-        {
-            group = gameObject.AddComponent<CanvasGroup>();
-        }
-
-        if (!group)
-        {
-            Debug.LogWarning("[SettingsPanel] Missing CanvasGroup; settings UI raycasts may not work.", this);
-            return;
-        }
-
+        CanvasGroup group = GetComponent<CanvasGroup>();
         group.alpha = 1f;
         group.interactable = true;
         group.blocksRaycasts = true;
     }
 
-    // ── Procedural UI builder ────────────────────────────────────
-    // Runs when Inspector references are not wired (freshly placed prefab).
-
-    private void BuildUI()
+    private void RebuildUI()
     {
-        RectTransform root = GetComponent<RectTransform>();
+        RectTransform root = transform as RectTransform;
         if (!root) return;
 
-        if (!GetComponent<Image>())
+        Transform existing = transform.Find(ContentName);
+        if (existing)
         {
-            Image bg = gameObject.AddComponent<Image>();
-            bg.color = new Color(0.1f, 0.1f, 0.1f, 0.92f);
+            Destroy(existing.gameObject);
         }
 
-        GameObject contentGO = new("Content");
-        RectTransform contentRT = contentGO.AddComponent<RectTransform>();
-        contentRT.SetParent(root, false);
-        contentRT.anchorMin = Vector2.zero;
-        contentRT.anchorMax = Vector2.one;
-        contentRT.offsetMin = new Vector2(80, 80);
-        contentRT.offsetMax = new Vector2(-80, -80);
+        Image background = GetComponent<Image>() ?? gameObject.AddComponent<Image>();
+        background.color = new Color(0.08f, 0.09f, 0.1f, 0.96f);
 
-        VerticalLayoutGroup vlg = contentGO.AddComponent<VerticalLayoutGroup>();
-        vlg.padding = new RectOffset(0, 0, 0, 0);
-        vlg.spacing = 30;
-        vlg.childAlignment = TextAnchor.MiddleCenter;
-        vlg.childControlWidth = true;
-        vlg.childControlHeight = true;
-        vlg.childForceExpandWidth = true;
-        vlg.childForceExpandHeight = false;
+        GameObject contentObject = new(ContentName, typeof(RectTransform), typeof(VerticalLayoutGroup));
+        RectTransform content = contentObject.GetComponent<RectTransform>();
+        content.SetParent(root, false);
+        content.anchorMin = Vector2.zero;
+        content.anchorMax = Vector2.one;
+        content.offsetMin = new Vector2(72f, 56f);
+        content.offsetMax = new Vector2(-72f, -56f);
 
-        CreateLabel(contentRT, "Settings", 40);
-        musicSlider = CreateLabeledSlider(contentRT, "Music Volume", 0f, 1f,
-            AudioManager.Instance ? AudioManager.Instance.MusicVolume : 0.6f);
-        sfxSlider = CreateLabeledSlider(contentRT, "SFX Volume", 0f, 1f,
-            AudioManager.Instance ? AudioManager.Instance.SfxVolume : 1f);
-        qualityDropdown = CreateLabeledDropdown(contentRT, "Quality", QualitySettings.names, QualitySettings.GetQualityLevel());
-        graphicsQualityRow = qualityDropdown ? qualityDropdown.transform.parent.gameObject : null;
-        fullscreenToggle = CreateLabeledToggle(contentRT, "Fullscreen", Screen.fullScreen);
-        saveStatusLabel = CreateStatusLabel(contentRT, "No save data", 20);
-        RectTransform saveActions = CreateButtonRow(contentRT, "SaveActions");
-        saveButton = CreateButton(saveActions, "Save", new Vector2(160, 54));
-        loadButton = CreateButton(saveActions, "Load", new Vector2(160, 54));
-        deleteSaveButton = CreateButton(saveActions, "Delete Save", new Vector2(220, 54));
-        backButton = CreateButton(contentRT, "Back", new Vector2(200, 60));
-    }
-
-    private static void CreateLabel(RectTransform parent, string text, float fontSize)
-    {
-        GameObject go = new(text + "_Label", typeof(RectTransform));
-        go.transform.SetParent(parent, false);
-        TextMeshProUGUI tmp = go.AddComponent<TextMeshProUGUI>();
-        tmp.text = text;
-        tmp.fontSize = fontSize;
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.color = Color.white;
-        LayoutElement le = go.AddComponent<LayoutElement>();
-        le.preferredHeight = fontSize * 1.5f;
-    }
-
-    private static TextMeshProUGUI CreateStatusLabel(RectTransform parent, string text, float fontSize)
-    {
-        GameObject go = new("SaveStatus_Label", typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
-        go.transform.SetParent(parent, false);
-        TextMeshProUGUI tmp = go.GetComponent<TextMeshProUGUI>();
-        tmp.text = text;
-        tmp.fontSize = fontSize;
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.color = new Color(0.82f, 0.86f, 0.9f, 1f);
-        LayoutElement le = go.GetComponent<LayoutElement>();
-        le.preferredHeight = 32f;
-        return tmp;
-    }
-
-    private static RectTransform CreateButtonRow(RectTransform parent, string name)
-    {
-        GameObject rowGO = new(name, typeof(RectTransform), typeof(HorizontalLayoutGroup), typeof(LayoutElement));
-        RectTransform row = rowGO.GetComponent<RectTransform>();
-        row.SetParent(parent, false);
-        HorizontalLayoutGroup layout = rowGO.GetComponent<HorizontalLayoutGroup>();
-        layout.spacing = 14f;
-        layout.childAlignment = TextAnchor.MiddleCenter;
-        layout.childControlWidth = false;
+        VerticalLayoutGroup layout = contentObject.GetComponent<VerticalLayoutGroup>();
+        layout.spacing = 18f;
+        layout.childAlignment = TextAnchor.UpperCenter;
+        layout.childControlWidth = true;
         layout.childControlHeight = false;
-        layout.childForceExpandWidth = false;
+        layout.childForceExpandWidth = true;
         layout.childForceExpandHeight = false;
-        LayoutElement element = rowGO.GetComponent<LayoutElement>();
-        element.preferredHeight = 58f;
-        return row;
+
+        CreateTitle(content, "Options");
+        masterSlider = CreateLabeledSlider(content, "Master Volume", AudioManager.Instance ? AudioManager.Instance.MasterVolume : 1f);
+        musicSlider = CreateLabeledSlider(content, "Music Volume", AudioManager.Instance ? AudioManager.Instance.MusicVolume : 0.6f);
+        sfxSlider = CreateLabeledSlider(content, "SFX Volume", AudioManager.Instance ? AudioManager.Instance.SfxVolume : 1f);
+        windowModeDropdown = CreateWindowModeDropdown(content);
+        saveStatusLabel = CreateStatusLabel(content);
+
+        RectTransform saveRow = CreateRow(content, "SaveActions", 58f);
+        saveButton = CreateButton(saveRow, "Save", new Vector2(150f, 52f));
+        loadButton = CreateButton(saveRow, "Load", new Vector2(150f, 52f));
+        deleteSaveButton = CreateButton(saveRow, "Delete Save", new Vector2(210f, 52f));
+        backButton = CreateButton(content, "Back", new Vector2(220f, 58f));
     }
 
-    private static Slider CreateLabeledSlider(RectTransform parent, string label, float min, float max, float value)
+    private static void CreateTitle(RectTransform parent, string text)
     {
-        GameObject rowGO = new(label + "_Row", typeof(RectTransform));
-        rowGO.GetComponent<RectTransform>().SetParent(parent, false);
-        HorizontalLayoutGroup hlg = rowGO.AddComponent<HorizontalLayoutGroup>();
-        hlg.spacing = 20;
-        hlg.childAlignment = TextAnchor.MiddleLeft;
-        hlg.childControlHeight = true;
-        hlg.childForceExpandHeight = true;
-        LayoutElement rowLE = rowGO.AddComponent<LayoutElement>();
-        rowLE.preferredHeight = 50;
+        GameObject go = new("Title", typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
+        go.transform.SetParent(parent, false);
+        TextMeshProUGUI label = go.GetComponent<TextMeshProUGUI>();
+        label.text = text;
+        label.fontSize = 40f;
+        label.alignment = TextAlignmentOptions.Center;
+        label.color = Color.white;
+        go.GetComponent<LayoutElement>().preferredHeight = 62f;
+    }
 
-        GameObject labelGO = new(label, typeof(RectTransform));
-        labelGO.transform.SetParent(rowGO.transform, false);
-        TextMeshProUGUI tmp = labelGO.AddComponent<TextMeshProUGUI>();
-        tmp.text = label;
-        tmp.fontSize = 26;
-        tmp.alignment = TextAlignmentOptions.MidlineLeft;
-        tmp.color = Color.white;
-        LayoutElement labelLE = labelGO.AddComponent<LayoutElement>();
-        labelLE.preferredWidth = 220;
+    private static Slider CreateLabeledSlider(RectTransform parent, string label, float value)
+    {
+        RectTransform row = CreateRow(parent, label + "Row", 54f);
+        CreateRowLabel(row, label);
 
-        Slider slider = CreateSlider(rowGO.GetComponent<RectTransform>(), min, max, value);
-        LayoutElement sliderLE = slider.gameObject.AddComponent<LayoutElement>();
-        sliderLE.flexibleWidth = 1;
-        sliderLE.preferredHeight = 30;
-
+        Slider slider = CreateSlider(row);
+        slider.SetValueWithoutNotify(value);
         return slider;
     }
 
-    private static TMP_Dropdown CreateLabeledDropdown(RectTransform parent, string label, string[] options, int value)
+    private static TMP_Dropdown CreateWindowModeDropdown(RectTransform parent)
     {
-        GameObject rowGO = CreateRow(parent, label);
-        CreateRowLabel(rowGO.transform, label);
+        RectTransform row = CreateRow(parent, "WindowModeRow", 54f);
+        CreateRowLabel(row, "Window Mode");
 
-        GameObject dropdownGO = new("Dropdown", typeof(RectTransform), typeof(Image), typeof(TMP_Dropdown), typeof(LayoutElement));
-        dropdownGO.transform.SetParent(rowGO.transform, false);
-        Image image = dropdownGO.GetComponent<Image>();
-        image.color = new Color(0.18f, 0.2f, 0.22f, 1f);
-
-        LayoutElement layout = dropdownGO.GetComponent<LayoutElement>();
+        GameObject go = new("WindowModeDropdown", typeof(RectTransform), typeof(Image), typeof(TMP_Dropdown), typeof(LayoutElement));
+        go.transform.SetParent(row, false);
+        Image image = go.GetComponent<Image>();
+        image.color = new Color(0.18f, 0.22f, 0.25f, 1f);
+        LayoutElement layout = go.GetComponent<LayoutElement>();
         layout.flexibleWidth = 1f;
         layout.preferredHeight = 44f;
 
-        TMP_Dropdown dropdown = dropdownGO.GetComponent<TMP_Dropdown>();
-        dropdown.options.Clear();
-        dropdown.AddOptions(new List<string>(options));
-        dropdown.value = Mathf.Clamp(value, 0, Mathf.Max(0, options.Length - 1));
+        TMP_Dropdown dropdown = go.GetComponent<TMP_Dropdown>();
         dropdown.targetGraphic = image;
-
-        TextMeshProUGUI caption = CreateDropdownText(dropdownGO.transform, "Label", TextAlignmentOptions.MidlineLeft);
-        caption.margin = new Vector4(12f, 0f, 32f, 0f);
-        dropdown.captionText = caption;
-
-        RectTransform template = CreateDropdownTemplate(dropdownGO.transform, out TextMeshProUGUI item);
+        dropdown.ClearOptions();
+        dropdown.AddOptions(new List<string> { "Window", "Fullscreen", "Fullscreen Borderless" });
+        dropdown.captionText = CreateDropdownText(go.transform, "Label");
+        RectTransform template = CreateDropdownTemplate(go.transform, out TextMeshProUGUI itemText);
         dropdown.template = template;
-        dropdown.itemText = item;
+        dropdown.itemText = itemText;
+        dropdown.SetValueWithoutNotify(GetCurrentWindowModeIndex());
         dropdown.RefreshShownValue();
         return dropdown;
     }
 
-    private static RectTransform CreateDropdownTemplate(Transform parent, out TextMeshProUGUI itemLabel)
+    private static RectTransform CreateRow(RectTransform parent, string name, float height)
     {
-        GameObject templateGO = new("Template", typeof(RectTransform), typeof(Image), typeof(ScrollRect));
-        RectTransform template = templateGO.GetComponent<RectTransform>();
+        GameObject rowObject = new(name, typeof(RectTransform), typeof(HorizontalLayoutGroup), typeof(LayoutElement));
+        RectTransform row = rowObject.GetComponent<RectTransform>();
+        row.SetParent(parent, false);
+        HorizontalLayoutGroup layout = rowObject.GetComponent<HorizontalLayoutGroup>();
+        layout.spacing = 18f;
+        layout.childAlignment = TextAnchor.MiddleCenter;
+        layout.childControlWidth = false;
+        layout.childControlHeight = true;
+        layout.childForceExpandWidth = false;
+        layout.childForceExpandHeight = false;
+        rowObject.GetComponent<LayoutElement>().preferredHeight = height;
+        return row;
+    }
+
+    private static void CreateRowLabel(RectTransform parent, string text)
+    {
+        GameObject go = new(text + "Label", typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
+        go.transform.SetParent(parent, false);
+        TextMeshProUGUI label = go.GetComponent<TextMeshProUGUI>();
+        label.text = text;
+        label.fontSize = 22f;
+        label.alignment = TextAlignmentOptions.MidlineLeft;
+        label.color = Color.white;
+        go.GetComponent<LayoutElement>().preferredWidth = 220f;
+    }
+
+    private static Slider CreateSlider(RectTransform parent)
+    {
+        GameObject go = new("Slider", typeof(RectTransform), typeof(Slider), typeof(LayoutElement));
+        RectTransform rect = go.GetComponent<RectTransform>();
+        rect.SetParent(parent, false);
+        LayoutElement layout = go.GetComponent<LayoutElement>();
+        layout.flexibleWidth = 1f;
+        layout.preferredHeight = 36f;
+
+        RectTransform background = CreateImage(rect, "Background", new Color(0.18f, 0.2f, 0.22f, 1f));
+        background.anchorMin = new Vector2(0f, 0.35f);
+        background.anchorMax = new Vector2(1f, 0.65f);
+        background.offsetMin = Vector2.zero;
+        background.offsetMax = Vector2.zero;
+
+        RectTransform fillArea = new GameObject("Fill Area", typeof(RectTransform)).GetComponent<RectTransform>();
+        fillArea.SetParent(rect, false);
+        fillArea.anchorMin = new Vector2(0f, 0.35f);
+        fillArea.anchorMax = new Vector2(1f, 0.65f);
+        fillArea.offsetMin = Vector2.zero;
+        fillArea.offsetMax = Vector2.zero;
+        RectTransform fill = CreateImage(fillArea, "Fill", new Color(0.35f, 0.75f, 1f, 1f));
+
+        RectTransform handleArea = new GameObject("Handle Slide Area", typeof(RectTransform)).GetComponent<RectTransform>();
+        handleArea.SetParent(rect, false);
+        handleArea.anchorMin = Vector2.zero;
+        handleArea.anchorMax = Vector2.one;
+        handleArea.offsetMin = new Vector2(8f, 0f);
+        handleArea.offsetMax = new Vector2(-8f, 0f);
+        RectTransform handle = CreateImage(handleArea, "Handle", Color.white);
+        handle.sizeDelta = new Vector2(22f, 0f);
+
+        Slider slider = go.GetComponent<Slider>();
+        slider.minValue = 0f;
+        slider.maxValue = 1f;
+        slider.fillRect = fill;
+        slider.handleRect = handle;
+        slider.targetGraphic = handle.GetComponent<Image>();
+        return slider;
+    }
+
+    private static RectTransform CreateImage(RectTransform parent, string name, Color color)
+    {
+        GameObject go = new(name, typeof(RectTransform), typeof(Image));
+        RectTransform rect = go.GetComponent<RectTransform>();
+        rect.SetParent(parent, false);
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+        go.GetComponent<Image>().color = color;
+        return rect;
+    }
+
+    private static TextMeshProUGUI CreateStatusLabel(RectTransform parent)
+    {
+        GameObject go = new("SaveStatus", typeof(RectTransform), typeof(TextMeshProUGUI), typeof(LayoutElement));
+        go.transform.SetParent(parent, false);
+        TextMeshProUGUI label = go.GetComponent<TextMeshProUGUI>();
+        label.fontSize = 18f;
+        label.alignment = TextAlignmentOptions.Center;
+        label.color = new Color(0.82f, 0.86f, 0.9f, 1f);
+        go.GetComponent<LayoutElement>().preferredHeight = 28f;
+        return label;
+    }
+
+    private static Button CreateButton(RectTransform parent, string label, Vector2 size)
+    {
+        GameObject go = new(label.Replace(" ", "") + "Button", typeof(RectTransform), typeof(Image), typeof(Button), typeof(LayoutElement));
+        go.transform.SetParent(parent, false);
+        Image image = go.GetComponent<Image>();
+        image.color = new Color(0.18f, 0.22f, 0.25f, 1f);
+
+        Button button = go.GetComponent<Button>();
+        button.targetGraphic = image;
+
+        ColorBlock colors = button.colors;
+        colors.highlightedColor = new Color(0.28f, 0.34f, 0.38f, 1f);
+        colors.pressedColor = new Color(0.12f, 0.15f, 0.18f, 1f);
+        button.colors = colors;
+
+        LayoutElement layout = go.GetComponent<LayoutElement>();
+        layout.preferredWidth = size.x;
+        layout.preferredHeight = size.y;
+
+        TextMeshProUGUI text = CreateDropdownText(go.transform, "Label");
+        text.text = label;
+        text.alignment = TextAlignmentOptions.Center;
+        return button;
+    }
+
+    private static TextMeshProUGUI CreateDropdownText(Transform parent, string name)
+    {
+        GameObject go = new(name, typeof(RectTransform), typeof(TextMeshProUGUI));
+        RectTransform rect = go.GetComponent<RectTransform>();
+        rect.SetParent(parent, false);
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = new Vector2(12f, 0f);
+        rect.offsetMax = new Vector2(-12f, 0f);
+        TextMeshProUGUI text = go.GetComponent<TextMeshProUGUI>();
+        text.fontSize = 22f;
+        text.alignment = TextAlignmentOptions.MidlineLeft;
+        text.color = Color.white;
+        text.raycastTarget = false;
+        return text;
+    }
+
+    private static RectTransform CreateDropdownTemplate(Transform parent, out TextMeshProUGUI itemText)
+    {
+        GameObject templateObject = new("Template", typeof(RectTransform), typeof(Image), typeof(ScrollRect));
+        RectTransform template = templateObject.GetComponent<RectTransform>();
         template.SetParent(parent, false);
         template.anchorMin = new Vector2(0f, 0f);
         template.anchorMax = new Vector2(1f, 0f);
         template.pivot = new Vector2(0.5f, 1f);
         template.anchoredPosition = new Vector2(0f, 2f);
-        template.sizeDelta = new Vector2(0f, 180f);
-        templateGO.SetActive(false);
+        template.sizeDelta = new Vector2(0f, 150f);
+        templateObject.SetActive(false);
+        templateObject.GetComponent<Image>().color = new Color(0.1f, 0.12f, 0.14f, 1f);
 
-        Image templateImage = templateGO.GetComponent<Image>();
-        templateImage.color = new Color(0.12f, 0.14f, 0.16f, 1f);
+        RectTransform viewport = CreateImage(template, "Viewport", new Color(0.1f, 0.12f, 0.14f, 1f));
+        viewport.gameObject.AddComponent<RectMask2D>();
 
-        GameObject viewportGO = new("Viewport", typeof(RectTransform), typeof(Image), typeof(RectMask2D));
-        RectTransform viewport = viewportGO.GetComponent<RectTransform>();
-        viewport.SetParent(template, false);
-        viewport.anchorMin = Vector2.zero;
-        viewport.anchorMax = Vector2.one;
-        viewport.offsetMin = Vector2.zero;
-        viewport.offsetMax = Vector2.zero;
-        viewportGO.GetComponent<Image>().color = new Color(0.12f, 0.14f, 0.16f, 1f);
-
-        GameObject contentGO = new("Content", typeof(RectTransform), typeof(VerticalLayoutGroup), typeof(ContentSizeFitter));
-        RectTransform content = contentGO.GetComponent<RectTransform>();
+        GameObject contentObject = new("Content", typeof(RectTransform), typeof(VerticalLayoutGroup), typeof(ContentSizeFitter));
+        RectTransform content = contentObject.GetComponent<RectTransform>();
         content.SetParent(viewport, false);
         content.anchorMin = new Vector2(0f, 1f);
         content.anchorMax = new Vector2(1f, 1f);
         content.pivot = new Vector2(0.5f, 1f);
         content.offsetMin = Vector2.zero;
         content.offsetMax = Vector2.zero;
-        VerticalLayoutGroup layout = contentGO.GetComponent<VerticalLayoutGroup>();
-        layout.childControlWidth = true;
-        layout.childControlHeight = false;
-        layout.childForceExpandWidth = true;
-        layout.childForceExpandHeight = false;
-        ContentSizeFitter fitter = contentGO.GetComponent<ContentSizeFitter>();
-        fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        contentObject.GetComponent<VerticalLayoutGroup>().childControlWidth = true;
+        contentObject.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-        GameObject itemGO = new("Item", typeof(RectTransform), typeof(Toggle), typeof(LayoutElement));
-        RectTransform item = itemGO.GetComponent<RectTransform>();
+        GameObject itemObject = new("Item", typeof(RectTransform), typeof(Toggle), typeof(LayoutElement));
+        RectTransform item = itemObject.GetComponent<RectTransform>();
         item.SetParent(content, false);
-        item.sizeDelta = new Vector2(0f, 36f);
-        itemGO.GetComponent<LayoutElement>().preferredHeight = 36f;
+        itemObject.GetComponent<LayoutElement>().preferredHeight = 38f;
+        RectTransform itemBackground = CreateImage(item, "Item Background", new Color(0.18f, 0.22f, 0.25f, 1f));
+        RectTransform checkmark = CreateImage(item, "Item Checkmark", new Color(0.35f, 0.75f, 1f, 1f));
+        checkmark.anchorMin = new Vector2(0f, 0.5f);
+        checkmark.anchorMax = new Vector2(0f, 0.5f);
+        checkmark.anchoredPosition = new Vector2(18f, 0f);
+        checkmark.sizeDelta = new Vector2(12f, 12f);
 
-        GameObject backgroundGO = new("Item Background", typeof(RectTransform), typeof(Image));
-        RectTransform background = backgroundGO.GetComponent<RectTransform>();
-        background.SetParent(item, false);
-        background.anchorMin = Vector2.zero;
-        background.anchorMax = Vector2.one;
-        background.offsetMin = Vector2.zero;
-        background.offsetMax = Vector2.zero;
-        Image backgroundImage = backgroundGO.GetComponent<Image>();
-        backgroundImage.color = new Color(0.18f, 0.2f, 0.22f, 1f);
+        itemText = CreateDropdownText(item, "Item Label");
+        itemText.margin = new Vector4(28f, 0f, 0f, 0f);
+        Toggle toggle = itemObject.GetComponent<Toggle>();
+        toggle.targetGraphic = itemBackground.GetComponent<Image>();
+        toggle.graphic = checkmark.GetComponent<Image>();
 
-        GameObject checkGO = new("Item Checkmark", typeof(RectTransform), typeof(Image));
-        RectTransform check = checkGO.GetComponent<RectTransform>();
-        check.SetParent(item, false);
-        check.anchorMin = new Vector2(0f, 0.5f);
-        check.anchorMax = new Vector2(0f, 0.5f);
-        check.anchoredPosition = new Vector2(18f, 0f);
-        check.sizeDelta = new Vector2(12f, 12f);
-        Image checkImage = checkGO.GetComponent<Image>();
-        checkImage.color = new Color(0.2f, 0.55f, 1f, 1f);
-
-        itemLabel = CreateDropdownText(item, "Item Label", TextAlignmentOptions.MidlineLeft);
-        itemLabel.margin = new Vector4(38f, 0f, 8f, 0f);
-
-        Toggle toggle = itemGO.GetComponent<Toggle>();
-        toggle.targetGraphic = backgroundImage;
-        toggle.graphic = checkImage;
-
-        ScrollRect scrollRect = templateGO.GetComponent<ScrollRect>();
-        scrollRect.viewport = viewport;
-        scrollRect.content = content;
-        scrollRect.horizontal = false;
-        scrollRect.vertical = true;
+        ScrollRect scroll = templateObject.GetComponent<ScrollRect>();
+        scroll.viewport = viewport;
+        scroll.content = content;
+        scroll.horizontal = false;
+        scroll.vertical = true;
         return template;
-    }
-
-    private static Toggle CreateLabeledToggle(RectTransform parent, string label, bool value)
-    {
-        GameObject rowGO = CreateRow(parent, label);
-        CreateRowLabel(rowGO.transform, label);
-
-        GameObject toggleGO = new("Toggle", typeof(RectTransform), typeof(Toggle), typeof(LayoutElement));
-        toggleGO.transform.SetParent(rowGO.transform, false);
-        LayoutElement layout = toggleGO.GetComponent<LayoutElement>();
-        layout.preferredWidth = 56f;
-        layout.preferredHeight = 44f;
-
-        GameObject backgroundGO = new("Background", typeof(RectTransform), typeof(Image));
-        RectTransform background = backgroundGO.GetComponent<RectTransform>();
-        background.SetParent(toggleGO.transform, false);
-        background.anchorMin = new Vector2(0.5f, 0.5f);
-        background.anchorMax = new Vector2(0.5f, 0.5f);
-        background.sizeDelta = new Vector2(36f, 36f);
-        Image backgroundImage = backgroundGO.GetComponent<Image>();
-        backgroundImage.color = new Color(0.18f, 0.2f, 0.22f, 1f);
-
-        GameObject checkGO = new("Checkmark", typeof(RectTransform), typeof(Image));
-        RectTransform check = checkGO.GetComponent<RectTransform>();
-        check.SetParent(background, false);
-        check.anchorMin = new Vector2(0.5f, 0.5f);
-        check.anchorMax = new Vector2(0.5f, 0.5f);
-        check.sizeDelta = new Vector2(20f, 20f);
-        Image checkImage = checkGO.GetComponent<Image>();
-        checkImage.color = new Color(0.2f, 0.55f, 1f, 1f);
-
-        Toggle toggle = toggleGO.GetComponent<Toggle>();
-        toggle.targetGraphic = backgroundImage;
-        toggle.graphic = checkImage;
-        toggle.isOn = value;
-        return toggle;
-    }
-
-    private static GameObject CreateRow(RectTransform parent, string label)
-    {
-        GameObject rowGO = new(label + "_Row", typeof(RectTransform));
-        rowGO.GetComponent<RectTransform>().SetParent(parent, false);
-        HorizontalLayoutGroup hlg = rowGO.AddComponent<HorizontalLayoutGroup>();
-        hlg.spacing = 20;
-        hlg.childAlignment = TextAnchor.MiddleLeft;
-        hlg.childControlHeight = true;
-        hlg.childForceExpandHeight = false;
-        LayoutElement rowLE = rowGO.AddComponent<LayoutElement>();
-        rowLE.preferredHeight = 50;
-        return rowGO;
-    }
-
-    private static void CreateRowLabel(Transform parent, string label)
-    {
-        GameObject labelGO = new(label, typeof(RectTransform));
-        labelGO.transform.SetParent(parent, false);
-        TextMeshProUGUI tmp = labelGO.AddComponent<TextMeshProUGUI>();
-        tmp.text = label;
-        tmp.fontSize = 26;
-        tmp.alignment = TextAlignmentOptions.MidlineLeft;
-        tmp.color = Color.white;
-        LayoutElement labelLE = labelGO.AddComponent<LayoutElement>();
-        labelLE.preferredWidth = 220;
-    }
-
-    private static TextMeshProUGUI CreateDropdownText(Transform parent, string name, TextAlignmentOptions alignment)
-    {
-        GameObject textGO = new(name, typeof(RectTransform), typeof(TextMeshProUGUI));
-        RectTransform textRT = textGO.GetComponent<RectTransform>();
-        textRT.SetParent(parent, false);
-        textRT.anchorMin = Vector2.zero;
-        textRT.anchorMax = Vector2.one;
-        textRT.offsetMin = Vector2.zero;
-        textRT.offsetMax = Vector2.zero;
-        TextMeshProUGUI tmp = textGO.GetComponent<TextMeshProUGUI>();
-        tmp.fontSize = 24f;
-        tmp.alignment = alignment;
-        tmp.color = Color.white;
-        tmp.raycastTarget = false;
-        return tmp;
-    }
-
-    private static Slider CreateSlider(RectTransform parent, float min, float max, float value)
-    {
-        GameObject go = new("Slider", typeof(RectTransform));
-        RectTransform rt = go.GetComponent<RectTransform>();
-        rt.SetParent(parent, false);
-
-        // Background
-        GameObject bgGO = new("Background", typeof(RectTransform));
-        RectTransform bgRT = bgGO.GetComponent<RectTransform>();
-        bgRT.SetParent(rt, false);
-        bgRT.anchorMin = new Vector2(0f, 0.25f);
-        bgRT.anchorMax = new Vector2(1f, 0.75f);
-        bgRT.sizeDelta = Vector2.zero;
-        Image bgImg = bgGO.AddComponent<Image>();
-        bgImg.color = new Color(0.25f, 0.25f, 0.25f, 1f);
-
-        // Fill area + fill
-        GameObject fillAreaGO = new("Fill Area", typeof(RectTransform));
-        RectTransform fillAreaRT = fillAreaGO.GetComponent<RectTransform>();
-        fillAreaRT.SetParent(rt, false);
-        fillAreaRT.anchorMin = new Vector2(0f, 0.25f);
-        fillAreaRT.anchorMax = new Vector2(1f, 0.75f);
-        fillAreaRT.offsetMin = new Vector2(5, 0);
-        fillAreaRT.offsetMax = new Vector2(-15, 0);
-
-        GameObject fillGO = new("Fill", typeof(RectTransform));
-        RectTransform fillRT = fillGO.GetComponent<RectTransform>();
-        fillRT.SetParent(fillAreaRT, false);
-        fillRT.anchorMin = Vector2.zero;
-        fillRT.anchorMax = new Vector2(1f, 1f);
-        fillRT.sizeDelta = new Vector2(10, 0);
-        Image fillImg = fillGO.AddComponent<Image>();
-        fillImg.color = new Color(0.2f, 0.55f, 1f, 1f);
-
-        // Handle area + handle
-        GameObject handleAreaGO = new("Handle Slide Area", typeof(RectTransform));
-        RectTransform handleAreaRT = handleAreaGO.GetComponent<RectTransform>();
-        handleAreaRT.SetParent(rt, false);
-        handleAreaRT.anchorMin = Vector2.zero;
-        handleAreaRT.anchorMax = Vector2.one;
-        handleAreaRT.offsetMin = new Vector2(10, 0);
-        handleAreaRT.offsetMax = new Vector2(-10, 0);
-
-        GameObject handleGO = new("Handle", typeof(RectTransform));
-        RectTransform handleRT = handleGO.GetComponent<RectTransform>();
-        handleRT.SetParent(handleAreaRT, false);
-        handleRT.sizeDelta = new Vector2(20, 0);
-        handleRT.anchorMin = Vector2.zero;
-        handleRT.anchorMax = new Vector2(0f, 1f);
-        Image handleImg = handleGO.AddComponent<Image>();
-        handleImg.color = Color.white;
-
-        Slider slider = go.AddComponent<Slider>();
-        slider.fillRect = fillRT;
-        slider.handleRect = handleRT;
-        slider.targetGraphic = handleImg;
-        slider.minValue = min;
-        slider.maxValue = max;
-        slider.value = value;
-
-        return slider;
-    }
-
-    private static Button CreateButton(RectTransform parent, string label, Vector2 size)
-    {
-        GameObject go = new(label + "Button", typeof(RectTransform));
-        RectTransform rt = go.GetComponent<RectTransform>();
-        rt.SetParent(parent, false);
-
-        LayoutElement le = go.AddComponent<LayoutElement>();
-        le.preferredWidth = size.x;
-        le.preferredHeight = size.y;
-
-        Image img = go.AddComponent<Image>();
-        img.color = new Color(0.3f, 0.3f, 0.35f, 1f);
-
-        Button btn = go.AddComponent<Button>();
-        btn.targetGraphic = img;
-
-        ColorBlock cb = btn.colors;
-        cb.highlightedColor = new Color(0.45f, 0.45f, 0.5f, 1f);
-        cb.pressedColor = new Color(0.2f, 0.2f, 0.25f, 1f);
-        btn.colors = cb;
-
-        GameObject textGO = new("Text", typeof(RectTransform));
-        RectTransform textRT = textGO.GetComponent<RectTransform>();
-        textRT.SetParent(rt, false);
-        textRT.anchorMin = Vector2.zero;
-        textRT.anchorMax = Vector2.one;
-        textRT.sizeDelta = Vector2.zero;
-        TextMeshProUGUI tmp = textGO.AddComponent<TextMeshProUGUI>();
-        tmp.text = label;
-        tmp.fontSize = 26;
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.color = Color.white;
-
-        return btn;
     }
 }

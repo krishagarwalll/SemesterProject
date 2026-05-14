@@ -93,7 +93,6 @@ public class PointerContext : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("PointerContext AWAKE");
     }
     
     private void Reset()
@@ -103,8 +102,6 @@ public class PointerContext : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("PointerContext ENABLED");
-
         pointerPositionAction.SetEnabled(true);
         primaryPressAction.SetEnabled(true);
         secondaryPressAction.SetEnabled(true);
@@ -309,8 +306,6 @@ public class PointerContext : MonoBehaviour
 
     private void UpdatePrimaryState()
     {
-        Debug.Log($"Pressed: {WasPrimaryPressedThisFrame()} Released: {WasPrimaryReleasedThisFrame()}");
-
         bool primaryPressed = WasPrimaryPressedThisFrame();
         bool primaryReleased = WasPrimaryReleasedThisFrame();
 
@@ -395,42 +390,86 @@ public class PointerContext : MonoBehaviour
 
     private Vector2 ReadScreenPosition()
     {
+        if (pointerPositionAction && pointerPositionAction.action != null && pointerPositionAction.action.enabled)
+        {
+            Vector2 actionPosition = pointerPositionAction.ReadValueOrDefault<Vector2>();
+            if (actionPosition != Vector2.zero)
+            {
+                return actionPosition;
+            }
+        }
+
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+        {
+            return Touchscreen.current.primaryTouch.position.ReadValue();
+        }
+
         if (Mouse.current != null)
         {
             return Mouse.current.position.ReadValue();
         }
 
-        return pointerPositionAction.ReadValueOrDefault<Vector2>();
+        return screenPosition;
     }
 
     private bool WasPrimaryPressedThisFrame()
     {
+        if (primaryPressAction && primaryPressAction.action != null && primaryPressAction.WasPressedThisFrame())
+        {
+            return true;
+        }
+
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame)
+        {
+            return true;
+        }
+
         if (Mouse.current != null)
         {
             return Mouse.current.leftButton.wasPressedThisFrame;
         }
 
-        return primaryPressAction.WasPressedThisFrame();
+        return false;
     }
 
     private bool WasPrimaryReleasedThisFrame()
     {
+        if (primaryPressAction && primaryPressAction.action != null && primaryPressAction.WasReleasedThisFrame())
+        {
+            return true;
+        }
+
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasReleasedThisFrame)
+        {
+            return true;
+        }
+
         if (Mouse.current != null)
         {
             return Mouse.current.leftButton.wasReleasedThisFrame;
         }
 
-        return primaryPressAction.WasReleasedThisFrame();
+        return false;
     }
 
     private bool IsPrimaryCurrentlyPressed()
     {
+        if (primaryPressAction && primaryPressAction.action != null && primaryPressAction.IsPressed())
+        {
+            return true;
+        }
+
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+        {
+            return true;
+        }
+
         if (Mouse.current != null)
         {
             return Mouse.current.leftButton.isPressed;
         }
 
-        return primaryPressAction.IsPressed();
+        return false;
     }
 
     private bool WasSecondaryPressedThisFrame()
@@ -801,11 +840,6 @@ public class PointerContext : MonoBehaviour
                 continue;
             }
 
-            if (hitObject.GetComponentInParent<InteractionPromptPresenter>())
-            {
-                continue;
-            }
-
             if (hitObject.GetComponentInParent<InteractionContextMenuPresenter>())
             {
                 clickable = true;
@@ -822,6 +856,14 @@ public class PointerContext : MonoBehaviour
             if (selectable)
             {
                 clickable = selectable.IsActive() && selectable.IsInteractable();
+                return true;
+            }
+
+            CanvasRenderer renderer = hitObject.GetComponent<CanvasRenderer>();
+            Graphic graphic = hitObject.GetComponent<Graphic>();
+            if (renderer || graphic)
+            {
+                clickable = false;
                 return true;
             }
         }

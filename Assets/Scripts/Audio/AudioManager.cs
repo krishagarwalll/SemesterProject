@@ -5,17 +5,21 @@ public class AudioManager : MonoBehaviour
 {
     private const string PrefMusicVolume = "Vol_Music";
     private const string PrefSfxVolume = "Vol_Sfx";
+    private const string PrefMasterVolume = "Vol_Master";
 
+    [SerializeField, Range(0f, 1f)] private float defaultMasterVolume = 1f;
     [SerializeField, Range(0f, 1f)] private float defaultMusicVolume = 0.6f;
     [SerializeField, Range(0f, 1f)] private float defaultSfxVolume = 1f;
 
     private AudioPlayer musicPlayer;
     private AudioPlayer sfxPlayer;
+    private float masterVolume;
     private float musicVolume;
     private float sfxVolume;
 
     public static AudioManager Instance { get; private set; }
 
+    public float MasterVolume => masterVolume;
     public float MusicVolume => musicVolume;
     public float SfxVolume => sfxVolume;
 
@@ -65,13 +69,13 @@ public class AudioManager : MonoBehaviour
     public void PlaySfx(AudioClip clip, float volume = 1f)
     {
         if (!clip) return;
-        SfxPlayer.PlayOneShot(clip, sfxVolume * volume);
+        SfxPlayer.PlayOneShot(clip, masterVolume * sfxVolume * volume);
     }
 
     public void PlayMusic(AudioClip clip, bool loop = true)
     {
         if (!clip) return;
-        MusicPlayer.PlayClip(clip, musicVolume, loop);
+        MusicPlayer.PlayClip(clip, masterVolume * musicVolume, loop);
     }
 
     public void StopMusic()
@@ -82,15 +86,20 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void SetMasterVolume(float volume)
+    {
+        masterVolume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat(PrefMasterVolume, masterVolume);
+        PlayerPrefs.Save();
+        ApplyMusicVolume();
+    }
+
     public void SetMusicVolume(float volume)
     {
         musicVolume = Mathf.Clamp01(volume);
         PlayerPrefs.SetFloat(PrefMusicVolume, musicVolume);
         PlayerPrefs.Save();
-        if (musicPlayer && musicPlayer.Source.isPlaying)
-        {
-            musicPlayer.Source.volume = musicVolume;
-        }
+        ApplyMusicVolume();
     }
 
     public void SetSfxVolume(float volume)
@@ -102,7 +111,17 @@ public class AudioManager : MonoBehaviour
 
     public void LoadVolumeSettings()
     {
+        masterVolume = PlayerPrefs.GetFloat(PrefMasterVolume, defaultMasterVolume);
         musicVolume = PlayerPrefs.GetFloat(PrefMusicVolume, defaultMusicVolume);
         sfxVolume = PlayerPrefs.GetFloat(PrefSfxVolume, defaultSfxVolume);
+        ApplyMusicVolume();
+    }
+
+    private void ApplyMusicVolume()
+    {
+        if (musicPlayer && musicPlayer.Source.isPlaying)
+        {
+            musicPlayer.Source.volume = masterVolume * musicVolume;
+        }
     }
 }

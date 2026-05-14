@@ -40,8 +40,31 @@ public class Outline2D : MonoBehaviour
     {
         outlineThickness = Mathf.Clamp01(outlineThickness);
         highlightStrength = Mathf.Clamp01(highlightStrength);
+
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            UnityEditor.EditorApplication.delayCall -= DelayedEditorRebuild;
+            UnityEditor.EditorApplication.delayCall += DelayedEditorRebuild;
+            return;
+        }
+#endif
+
         Rebuild();
     }
+
+#if UNITY_EDITOR
+    private void DelayedEditorRebuild()
+    {
+        UnityEditor.EditorApplication.delayCall -= DelayedEditorRebuild;
+        if (!this)
+        {
+            return;
+        }
+
+        Rebuild();
+    }
+#endif
 
     public void SetHighlighted(bool highlighted)
     {

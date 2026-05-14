@@ -1,14 +1,12 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public static class MainMenuBootstrap
 {
     private const string MainMenuSceneName = "MainMenu";
-    private const string DefaultGameSceneName = "TutorialScene";
+    private const string DefaultGameSceneName = "Sprint3";
     private const string RuntimeRootName = "MainMenuRuntime";
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -31,10 +29,10 @@ public static class MainMenuBootstrap
             return;
         }
 
-        ResetRuntimeStateForMenu();
-        EnsureSystems();
-        EnsureEventSystem();
-        EnsureCanvasRaycasters();
+        RuntimeUiUtility.ResetRuntimeState();
+        RuntimeUiUtility.EnsureCoreSystems();
+        RuntimeUiUtility.EnsureEventSystem();
+        RuntimeUiUtility.EnsureCanvasRaycasters();
 
         if (GameObject.Find(RuntimeRootName))
         {
@@ -44,94 +42,11 @@ public static class MainMenuBootstrap
         BuildMenu();
     }
 
-    private static void ResetRuntimeStateForMenu()
-    {
-        PauseService.ClearAll();
-        Time.timeScale = 1f;
-        AudioListener.pause = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-
-    private static void EnsureSystems()
-    {
-        if (!AudioManager.Instance)
-        {
-            new GameObject("AudioManager").AddComponent<AudioManager>();
-        }
-
-        if (!SaveManager.Instance)
-        {
-            new GameObject("SaveManager").AddComponent<SaveManager>();
-        }
-    }
-
-    private static void EnsureEventSystem()
-    {
-        EventSystem[] eventSystems = Object.FindObjectsByType<EventSystem>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        EventSystem eventSystem = eventSystems.Length > 0 ? eventSystems[0] : null;
-        GameObject eventSystemObject = eventSystem ? eventSystem.gameObject : new GameObject("EventSystem");
-        eventSystemObject.SetActive(true);
-
-        eventSystem = eventSystemObject.GetOrAddComponent<EventSystem>();
-        eventSystem.enabled = true;
-        eventSystem.sendNavigationEvents = true;
-
-        InputSystemUIInputModule inputModule = eventSystemObject.GetOrAddComponent<InputSystemUIInputModule>();
-        inputModule.enabled = true;
-        if (!inputModule.actionsAsset)
-        {
-            inputModule.AssignDefaultActions();
-        }
-
-        BaseInputModule[] inputModules = eventSystemObject.GetComponents<BaseInputModule>();
-        for (int i = 0; i < inputModules.Length; i++)
-        {
-            if (inputModules[i] && inputModules[i] != inputModule)
-            {
-                inputModules[i].enabled = false;
-            }
-        }
-
-        for (int i = 0; i < eventSystems.Length; i++)
-        {
-            if (eventSystems[i] && eventSystems[i] != eventSystem)
-            {
-                eventSystems[i].enabled = false;
-            }
-        }
-    }
-
-    private static void EnsureCanvasRaycasters()
-    {
-        Canvas[] canvases = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        for (int i = 0; i < canvases.Length; i++)
-        {
-            if (!canvases[i]) continue;
-            GraphicRaycaster raycaster = canvases[i].GetComponent<GraphicRaycaster>() ?? canvases[i].gameObject.AddComponent<GraphicRaycaster>();
-            raycaster.enabled = true;
-        }
-    }
-
     private static void BuildMenu()
     {
-        GameObject root = new(RuntimeRootName, typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-        Canvas canvas = root.GetComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 100;
+        RectTransform rootRect = RuntimeUiUtility.CreateOverlayCanvas(RuntimeRootName, 100);
 
-        CanvasScaler scaler = root.GetComponent<CanvasScaler>();
-        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        scaler.referenceResolution = new Vector2(1920f, 1080f);
-        scaler.matchWidthOrHeight = 0.5f;
-
-        RectTransform rootRect = root.GetComponent<RectTransform>();
-        rootRect.anchorMin = Vector2.zero;
-        rootRect.anchorMax = Vector2.one;
-        rootRect.offsetMin = Vector2.zero;
-        rootRect.offsetMax = Vector2.zero;
-
-        Image background = CreatePanel(rootRect, "Background", new Color(0.07f, 0.08f, 0.09f, 1f));
+        Image background = CreatePanel(rootRect, "Background", new Color(0f, 0f, 0f, 0.55f));
         background.raycastTarget = false;
         RectTransform backgroundRect = background.rectTransform;
         backgroundRect.anchorMin = Vector2.zero;
@@ -140,9 +55,9 @@ public static class MainMenuBootstrap
         backgroundRect.offsetMax = Vector2.zero;
 
         RectTransform content = CreateContent(rootRect);
-        CreateLabel(content, "How To Get To Heaven", 64f, 110f);
-        Button playButton = CreateButton(content, "Play", 320f, 64f);
-        Button continueButton = CreateButton(content, "Continue", 320f, 64f);
+        CreateLabel(content, "How To Get To Heaven", 46f, 96f);
+        bool hasSave = SaveManager.Instance && SaveManager.Instance.HasSave();
+        Button startOrContinueButton = CreateButton(content, hasSave ? "Continue" : "Start", 320f, 64f);
         Button optionsButton = CreateButton(content, "Options", 320f, 64f);
         Button quitButton = CreateButton(content, "Quit", 320f, 64f);
 
@@ -155,20 +70,16 @@ public static class MainMenuBootstrap
         };
         settingsRoot.SetActive(false);
 
-        playButton.onClick.AddListener(() =>
+        startOrContinueButton.onClick.AddListener(() =>
         {
             PauseService.ClearAll();
-            SceneManager.LoadScene(DefaultGameSceneName);
-        });
-
-        continueButton.interactable = SaveManager.Instance && SaveManager.Instance.HasSave();
-        continueButton.onClick.AddListener(() =>
-        {
             if (SaveManager.Instance && SaveManager.Instance.HasSave())
             {
-                PauseService.ClearAll();
                 SaveManager.Instance.LoadAndApply();
+                return;
             }
+
+            SceneManager.LoadScene(DefaultGameSceneName);
         });
 
         optionsButton.onClick.AddListener(() =>
@@ -177,7 +88,7 @@ public static class MainMenuBootstrap
             settingsRoot.SetActive(true);
         });
 
-        quitButton.onClick.AddListener(Application.Quit);
+        quitButton.onClick.AddListener(RuntimeUiUtility.QuitApplication);
     }
 
     private static RectTransform CreateContent(RectTransform parent)
@@ -188,9 +99,12 @@ public static class MainMenuBootstrap
         content.anchorMin = new Vector2(0.5f, 0.5f);
         content.anchorMax = new Vector2(0.5f, 0.5f);
         content.pivot = new Vector2(0.5f, 0.5f);
-        content.sizeDelta = new Vector2(520f, 560f);
+        content.sizeDelta = new Vector2(440f, 420f);
+        Image panelImage = contentObject.AddComponent<Image>();
+        panelImage.color = new Color(0.08f, 0.09f, 0.1f, 0.96f);
 
         VerticalLayoutGroup layout = contentObject.GetComponent<VerticalLayoutGroup>();
+        layout.padding = new RectOffset(36, 36, 36, 36);
         layout.spacing = 18f;
         layout.childAlignment = TextAnchor.MiddleCenter;
         layout.childControlWidth = false;
