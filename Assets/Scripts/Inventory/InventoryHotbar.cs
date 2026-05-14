@@ -22,7 +22,7 @@ public class InventoryHotbar : MonoBehaviour
     [SerializeField, Min(0f)] private float collapsedOffset = 220f;
     [SerializeField, Min(0f)] private float slideSpeed = 1200f;
 
-    [SerializeField] private Vector2 slotSize = new(88f, 88f);
+    [SerializeField] private Vector2 slotSize = new(112f, 112f);
     [SerializeField] private Color slotColor = new(0.14f, 0.14f, 0.16f, 0.92f);
     [SerializeField] private Color emptySlotColor = new(0.08f, 0.08f, 0.09f, 0.7f);
 
@@ -42,6 +42,7 @@ public class InventoryHotbar : MonoBehaviour
     private Vector2 lastDragScreenPosition;
     private bool worldPlacementActive;
 
+    private Vector2 EffectiveSlotSize => new(Mathf.Max(112f, slotSize.x), Mathf.Max(112f, slotSize.y));
     private RectTransform Panel => panel ? panel : panel = transform as RectTransform;
     private RectTransform SlotContainer => slotContainer ? slotContainer : slotContainer = EnsureSlotContainer();
     private Inventory SceneInventory => inventory ? inventory : inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
@@ -58,6 +59,7 @@ public class InventoryHotbar : MonoBehaviour
 
     private void Awake()
     {
+        slotSize = EffectiveSlotSize;
         ApplyPanelLayout();
         // Always call directly — lazy property short-circuits if the serialized
         // field is already set from scene data, which skips layout group cleanup.
@@ -72,6 +74,7 @@ public class InventoryHotbar : MonoBehaviour
     private void OnValidate()
     {
         // Safe edit-mode recalc only — no GameObject creation, no scene queries.
+        slotSize = EffectiveSlotSize;
         if (Panel) ApplyPanelLayout();
     }
 
@@ -359,7 +362,10 @@ public class InventoryHotbar : MonoBehaviour
             slots.Add(InventoryHotbarSlot.Create(SlotContainer, slotSize));
 
         for (int i = 0; i < slots.Count; i++)
+        {
+            ApplySlotLayout(slots[i]);
             slots[i].gameObject.SetActive(i < slotCount);
+        }
     }
 
     private void RebuildSlotCache()
@@ -609,6 +615,7 @@ public class InventoryHotbar : MonoBehaviour
         Panel.anchorMin = new Vector2(0.5f, 1f);
         Panel.anchorMax = new Vector2(0.5f, 1f);
         Panel.pivot = new Vector2(0.5f, 1f);
+        Panel.anchoredPosition = new Vector2(0f, -24f);
         Panel.sizeDelta = new Vector2(slotSize.x * 6f + 12f * 5f + slotSize.x + 48f, slotSize.y + 24f);
     }
 
@@ -654,17 +661,12 @@ public class InventoryHotbar : MonoBehaviour
     {
         Transform child = transform.Find("BackpackButton");
         Button button = child ? child.GetComponent<Button>() : null;
+        RectTransform rect = null;
         if (!button)
         {
             GameObject buttonObject = new("BackpackButton", typeof(RectTransform), typeof(Image), typeof(Button));
-            RectTransform rect = buttonObject.GetComponent<RectTransform>();
+            rect = buttonObject.GetComponent<RectTransform>();
             rect.SetParent(transform, false);
-            // Right end of the top bar, vertically centred
-            rect.anchorMin = new Vector2(1f, 0.5f);
-            rect.anchorMax = new Vector2(1f, 0.5f);
-            rect.pivot = new Vector2(1f, 0.5f);
-            rect.sizeDelta = new Vector2(slotSize.x, slotSize.y);
-            rect.anchoredPosition = new Vector2(-12f, 0f);
 
             buttonObject.GetComponent<Image>().color = slotColor;
             button = buttonObject.GetComponent<Button>();
@@ -688,7 +690,36 @@ public class InventoryHotbar : MonoBehaviour
             }
         }
 
+        rect = rect ? rect : button.transform as RectTransform;
+        if (rect)
+        {
+            // Right end of the top bar, vertically centred. Keep it square.
+            rect.anchorMin = new Vector2(1f, 0.5f);
+            rect.anchorMax = new Vector2(1f, 0.5f);
+            rect.pivot = new Vector2(1f, 0.5f);
+            rect.sizeDelta = new Vector2(slotSize.x, slotSize.x);
+            rect.anchoredPosition = new Vector2(-12f, 0f);
+        }
+
         return button;
+    }
+
+    private void ApplySlotLayout(InventoryHotbarSlot slot)
+    {
+        if (!slot) return;
+
+        RectTransform rect = slot.transform as RectTransform;
+        if (rect)
+        {
+            rect.sizeDelta = slotSize;
+        }
+
+        LayoutElement layout = slot.GetComponent<LayoutElement>();
+        if (layout)
+        {
+            layout.preferredWidth = slotSize.x;
+            layout.preferredHeight = slotSize.y;
+        }
     }
 
     private bool TryGetExactSlotIndex(Vector2 screenPosition, Camera eventCamera, out int slotIndex)

@@ -7,6 +7,7 @@ public class FieldHeaderDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        EditorGUI.BeginProperty(position, label, property);
         FieldHeaderAttribute data = (FieldHeaderAttribute)attribute;
         Rect fieldRect = position;
         if (ShouldDrawHeader(property, data))
@@ -14,10 +15,13 @@ public class FieldHeaderDrawer : PropertyDrawer
             Rect headerRect = position;
             headerRect.height = EditorGUIUtility.singleLineHeight;
             EditorGUI.LabelField(headerRect, string.IsNullOrWhiteSpace(data.Title) ? label.text : data.Title, EditorStyles.boldLabel);
-            fieldRect.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            float headerHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            fieldRect.y += headerHeight;
+            fieldRect.height -= headerHeight;
         }
 
         EditorGUI.PropertyField(fieldRect, property, label, true);
+        EditorGUI.EndProperty();
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)

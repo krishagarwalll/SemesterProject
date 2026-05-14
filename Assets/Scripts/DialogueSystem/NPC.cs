@@ -38,9 +38,14 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
 
     private void Start()
     {
-        dialogueUI = DialogueController.Instance;
+        BindDialogueUI();
         EnableAction(advanceAction);
         EnableAction(fastForwardAction);
+    }
+
+    private void OnDestroy()
+    {
+        if (dialogueUI) dialogueUI.DismissRequested -= StopDialogue;
     }
 
     private void Update()
@@ -92,7 +97,7 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
 
     private void StartDialogue()
     {
-        dialogueUI = dialogueUI ? dialogueUI : DialogueController.Instance;
+        BindDialogueUI();
         if (!dialogueUI || !dialogueData || dialogueData.dialogueLines == null || dialogueData.dialogueLines.Length == 0)
             return;
 
@@ -343,6 +348,27 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
         if (actionReference && actionReference.action != null && !actionReference.action.enabled)
         {
             actionReference.action.Enable();
+        }
+    }
+
+    private void BindDialogueUI()
+    {
+        DialogueController current = DialogueController.Instance;
+        if (dialogueUI == current && dialogueUI)
+        {
+            return;
+        }
+
+        if (dialogueUI)
+        {
+            dialogueUI.DismissRequested -= StopDialogue;
+        }
+
+        dialogueUI = current;
+        if (dialogueUI)
+        {
+            dialogueUI.DismissRequested -= StopDialogue;
+            dialogueUI.DismissRequested += StopDialogue;
         }
     }
 

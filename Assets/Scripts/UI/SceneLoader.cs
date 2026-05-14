@@ -36,15 +36,11 @@ public class SceneLoader : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        RuntimeUiUtility.QuitApplication();
     }
 
     private static void ResetRuntimeStateBeforeSceneChange()
     {
-        PauseService.ClearAll();
-        Time.timeScale = 1f;
-        AudioListener.pause = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        RuntimeUiUtility.ResetRuntimeState();
     }
 }
