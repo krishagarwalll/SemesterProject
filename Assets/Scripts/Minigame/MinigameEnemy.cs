@@ -58,5 +58,17 @@ public class MinigameEnemy : MonoBehaviour
             rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
     }
 
+    private void OnDrawGizmos()
+    {
+        if (target)
+        {
+            Gizmos.color = new Color(0.9f, 0.3f, 0.3f, 0.5f);
+            Gizmos.DrawLine(transform.position, target.position);
+        }
+
+        Gizmos.color = new Color(0.6f, 0.4f, 1f, 0.35f);
+        Gizmos.DrawWireSphere(transform.position, bobAmplitude);
+    }
+
     public void Die() => Destroy(gameObject);
 }

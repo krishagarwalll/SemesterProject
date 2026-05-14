@@ -266,6 +266,13 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
             questState = QuestState.NotStarted;
     }
 
+    private void OnDrawGizmos()
+    {
+        if (dismissDistance <= 0f) return;
+        Gizmos.color = new Color(1f, 0.6f, 0.2f, 0.25f);
+        Gizmos.DrawWireSphere(transform.position, dismissDistance);
+    }
+
     private void EnsureInteractionSetup()
     {
         if (!TryGetComponent(out InteractionTarget _))

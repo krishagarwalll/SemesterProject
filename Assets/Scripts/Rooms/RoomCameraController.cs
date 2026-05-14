@@ -176,6 +176,46 @@ public class RoomCameraController : MonoBehaviour
         return new Vector3(camX, camY, roomCenter.z);
     }
 
+    [Button("Auto-Find Player Follow Target", editModeOnly: true)]
+    private void AutoFindFollowTarget()
+    {
+        PoptropicaController pc = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
+        if (pc)
+        {
+            followTarget = pc.transform;
+            Debug.Log($"[RoomCameraController] Follow target set to '{pc.name}'.", this);
+        }
+        else
+        {
+            Debug.LogWarning("[RoomCameraController] No PoptropicaController found in scene.", this);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!OwnerRoom || !OwnerRoom.BoundsVolume) return;
+
+        float aspect = Camera.main ? (Camera.main.aspect > 0.01f ? Camera.main.aspect : 16f / 9f) : 16f / 9f;
+        OwnerRoom.TryGetOrthographicSize(aspect, out float orthoSize);
+        orthoSize = Mathf.Clamp(orthoSize, 1.25f, 5f);
+
+        Bounds b = OwnerRoom.BoundsVolume.bounds;
+        float safeW = Mathf.Max(0f, b.size.x - orthoSize * aspect * 2f);
+        float safeH = Mathf.Max(0f, b.size.y - orthoSize * 2f);
+        float cx = b.center.x, cy = b.center.y, cz = b.center.z;
+        float hw = safeW * 0.5f, hh = safeH * 0.5f;
+
+        Gizmos.color = new Color(1f, 0.8f, 0.2f, 0.5f);
+        Vector3 tl = new(cx - hw, cy + hh, cz);
+        Vector3 tr = new(cx + hw, cy + hh, cz);
+        Vector3 bl = new(cx - hw, cy - hh, cz);
+        Vector3 br = new(cx + hw, cy - hh, cz);
+        Gizmos.DrawLine(tl, tr);
+        Gizmos.DrawLine(tr, br);
+        Gizmos.DrawLine(br, bl);
+        Gizmos.DrawLine(bl, tl);
+    }
+
     private static Transform FindFollowTarget()
     {
         PoptropicaController pc = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
