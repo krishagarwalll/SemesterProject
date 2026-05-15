@@ -661,7 +661,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10342321}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
@@ -11725,7 +11725,7 @@ MonoBehaviour:
   moveEaseDistance: 1.25
   minimumEaseSpeedFactor: 0.18
   jumpForce: 5
-  jumpThresholdFraction: 0.03
+  jumpGestureThreshold: 0.05
   clickMoveStopDistance: 0.12
   ignorePointerOverUi: 1
   groundCheckDistance: 0.15
@@ -61505,7 +61505,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308946645}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
@@ -61579,7 +61579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: -8522433546947300881, guid: 939b129830cf64f1c853610d820aa2ee, type: 3}
   itemName: photograph
-  description: A picture of a boy and his brother.
+  description: A picture of a boy and his brother. They seem happy.
 --- !u!1 &1313017733
 GameObject:
   m_ObjectHideFlags: 0
@@ -65462,7 +65462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: 7631416622193281335, guid: c1007ac4bd9e14bb28c14a9a3ea7507a, type: 3}
   itemName: 
-  description: ...
+  description: ...This looks familiar.
 --- !u!114 &1444150345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65470,7 +65470,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444150342}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
@@ -72904,7 +72904,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1638899727}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
