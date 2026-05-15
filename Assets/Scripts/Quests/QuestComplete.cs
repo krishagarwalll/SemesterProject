@@ -13,8 +13,9 @@ public class QuestCompletionNPC : MonoBehaviour
 
         if (triggerOnce && hasTriggered) return;
 
-        if (QuestController.Instance.isQuestActive(linkedQuest.questID) &&
-            !QuestController.Instance.IsQuestReadyToHandIn(linkedQuest.questID))
+        if (QuestController.Instance != null
+            && QuestController.Instance.isQuestActive(linkedQuest.questID)
+            && !QuestController.Instance.IsQuestReadyToHandIn(linkedQuest.questID))
         {
             QuestController.Instance.MarkQuestReadyToHandIn(linkedQuest.questID);
             hasTriggered = true;

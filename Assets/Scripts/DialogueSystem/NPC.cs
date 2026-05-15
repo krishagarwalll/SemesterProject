@@ -177,7 +177,7 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
 
         foreach (char letter in dialogueData.dialogueLines[dialogueIndex])
         {
-            dialogueUI.SetDialogueText(dialogueUI.dialogueText.text += letter);
+            dialogueUI.SetDialogueText(dialogueUI.dialogueText.text + letter);
             float speed = Mathf.Max(0.001f, dialogueData.typingSpeed);
             if (IsFastForwardHeld())
             {

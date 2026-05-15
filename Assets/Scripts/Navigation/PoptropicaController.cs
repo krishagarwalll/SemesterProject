@@ -15,7 +15,7 @@ public class PoptropicaController : MonoBehaviour
     [SerializeField, Min(0.01f)] private float moveEaseDistance = 1.25f;
     [SerializeField, Range(0.05f, 1f)] private float minimumEaseSpeedFactor = 0.18f;
     [SerializeField, Min(1f)] private float jumpForce = 14f;
-    [SerializeField, Min(0.1f)] private float jumpThreshold = 0.65f;
+    [SerializeField, Range(0.01f, 0.5f)] private float jumpThresholdFraction = 0.03f;
     [SerializeField, Min(0.01f)] private float clickMoveStopDistance = 0.12f;
     [SerializeField] private bool ignorePointerOverUi = true;
 
@@ -69,6 +69,16 @@ public class PoptropicaController : MonoBehaviour
     public bool IsAirborne => isAirborne;
     // 0 = cursor below threshold, 1 = cursor at max jump height above player
     public float JumpStrengthNormalized { get; private set; }
+
+    private float EffectiveJumpThreshold
+    {
+        get
+        {
+            Camera cam = Camera.main;
+            float orthoSize = cam && cam.orthographic ? cam.orthographicSize : 5f;
+            return jumpThresholdFraction * orthoSize * 2f;
+        }
+    }
 
     private void Awake()
     {
@@ -138,7 +148,8 @@ public class PoptropicaController : MonoBehaviour
             return;
         }
         float dy = cursorWorldPos.y - transform.position.y;
-        JumpStrengthNormalized = Mathf.Clamp01((dy - jumpThreshold) / (jumpThreshold * 2f));
+        float threshold = EffectiveJumpThreshold;
+        JumpStrengthNormalized = Mathf.Clamp01((dy - threshold) / (threshold * 2f));
     }
 
     private void FixedUpdate()
@@ -164,9 +175,7 @@ public class PoptropicaController : MonoBehaviour
         if (buttonHeld && !blockedByUi)
         {
             hasMoveTarget = false;
-            // Don't steer horizontally while in the air — preserve jump trajectory
-            if (!isAirborne)
-                ApplyHorizontalMovement(cursorWorldPos.x);
+            ApplyHorizontalMovement(cursorWorldPos.x);
             TryJump();
             return;
         }
@@ -584,7 +593,7 @@ public class PoptropicaController : MonoBehaviour
         // Require a fresh button press — holding the button doesn't re-jump after landing
         if (!isGrounded || !Body2D || jumpConsumed) return;
         float dy = cursorWorldPos.y - transform.position.y;
-        if (dy <= jumpThreshold) return;
+        if (dy <= EffectiveJumpThreshold) return;
 
         Body2D.linearVelocity = new Vector2(Body2D.linearVelocity.x, 0f);
         Body2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -652,7 +661,8 @@ public class PoptropicaController : MonoBehaviour
         if (IsPointerBlocked || activeDrag != null) return;
         if (!context.ClickedTarget)
         {
-            hasMoveTarget = false;
+            moveTargetX = cursorWorldPos.x;
+            hasMoveTarget = true;
             return;
         }
 
@@ -758,14 +768,15 @@ public class PoptropicaController : MonoBehaviour
     private void OnDrawGizmos()
     {
         // Jump threshold line — shows the minimum cursor height to trigger a jump
+        float threshold = EffectiveJumpThreshold;
         Gizmos.color = new Color(0.3f, 0.8f, 1f, 0.6f);
-        Vector3 center = transform.position + Vector3.up * jumpThreshold;
+        Vector3 center = transform.position + Vector3.up * threshold;
         Gizmos.DrawLine(center - Vector3.right * 0.4f, center + Vector3.right * 0.4f);
 
         // Jump arc preview when cursor is above threshold (edit + play mode)
         if (!Application.isPlaying) return;
         float dy = cursorWorldPos.y - transform.position.y;
-        if (!isGrounded || dy <= jumpThreshold) return;
+        if (!isGrounded || dy <= threshold) return;
 
         Gizmos.color = new Color(0.2f, 1f, 0.4f, 0.5f);
         Vector3 startPos = transform.position;
