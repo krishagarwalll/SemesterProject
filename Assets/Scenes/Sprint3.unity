@@ -11725,7 +11725,7 @@ MonoBehaviour:
   moveEaseDistance: 1.25
   minimumEaseSpeedFactor: 0.18
   jumpForce: 5
-  jumpThreshold: 2
+  jumpThresholdFraction: 0.03
   clickMoveStopDistance: 0.12
   ignorePointerOverUi: 1
   groundCheckDistance: 0.15
@@ -28143,11 +28143,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.033837
+      value: 15.17
       objectReference: {fileID: 0}
     - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6052774
+      value: -48.36
       objectReference: {fileID: 0}
     - target: {fileID: 700100001, guid: 28d3b4998840da64293047161186f078, type: 3}
       propertyPath: m_LocalPosition.z
@@ -28184,11 +28184,11 @@ PrefabInstance:
     - target: {fileID: 700100004, guid: 28d3b4998840da64293047161186f078, type: 3}
       propertyPath: room
       value: 
-      objectReference: {fileID: 9331182}
+      objectReference: {fileID: 159757789}
     - target: {fileID: 700100005, guid: 28d3b4998840da64293047161186f078, type: 3}
       propertyPath: room
       value: 
-      objectReference: {fileID: 9331182}
+      objectReference: {fileID: 159757789}
     - target: {fileID: 700100006, guid: 28d3b4998840da64293047161186f078, type: 3}
       propertyPath: transferController
       value: 
