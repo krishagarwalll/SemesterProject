@@ -848,7 +848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: 5632821140356901969, guid: 64f9df8d0e0674bc99b7e4daf3130e25, type: 3}
   itemName: mirror
-  description: ...
+  description: ... That's me.
 --- !u!1 &11104217 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
