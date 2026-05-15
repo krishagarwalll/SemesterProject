@@ -15,7 +15,7 @@ public class PoptropicaController : MonoBehaviour
     [SerializeField, Min(0.01f)] private float moveEaseDistance = 1.25f;
     [SerializeField, Range(0.05f, 1f)] private float minimumEaseSpeedFactor = 0.18f;
     [SerializeField, Min(1f)] private float jumpForce = 14f;
-    [SerializeField, Range(0.01f, 0.5f)] private float jumpThresholdFraction = 0.03f;
+    [SerializeField, Range(0.01f, 0.3f)] private float jumpGestureThreshold = 0.05f;
     [SerializeField, Min(0.01f)] private float clickMoveStopDistance = 0.12f;
     [SerializeField] private bool ignorePointerOverUi = true;
 
@@ -52,7 +52,12 @@ public class PoptropicaController : MonoBehaviour
     private bool movementLocked;
     private bool hasMoveTarget;
     private bool isAirborne;
-    private bool jumpConsumed;
+    private bool hasJumpGesturePosition;
+    private bool jumpGestureArmed = true;
+    private bool jumpPending;
+    private float previousJumpGestureY;
+    private float jumpUpGestureDistance;
+    private float jumpDownGestureDistance;
 
     private PointerContext Pointer => this.ResolveSceneComponent(ref pointer);
     private Inventory SceneInventory => this.ResolveSceneComponent(ref inventory);
@@ -62,23 +67,11 @@ public class PoptropicaController : MonoBehaviour
     private Collider2D[] Colliders2D => colliders2D ??= GetComponentsInChildren<Collider2D>(true);
     private Collider[] Colliders3D => colliders3D ??= GetComponentsInChildren<Collider>(true);
     private Vector3 Position => transform.position;
-    private bool IsPointerBlocked => ignorePointerOverUi && Pointer && (Pointer.IsPointerOverUi || Pointer.IsDragging);
+    private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi;
 
     public bool HasActiveInteraction => activeDrag != null || pendingAction.IsValid;
     public bool IsGrounded => isGrounded;
     public bool IsAirborne => isAirborne;
-    // 0 = cursor below threshold, 1 = cursor at max jump height above player
-    public float JumpStrengthNormalized { get; private set; }
-
-    private float EffectiveJumpThreshold
-    {
-        get
-        {
-            Camera cam = Camera.main;
-            float orthoSize = cam && cam.orthographic ? cam.orthographicSize : 5f;
-            return jumpThresholdFraction * orthoSize * 2f;
-        }
-    }
 
     private void Awake()
     {
@@ -97,6 +90,7 @@ public class PoptropicaController : MonoBehaviour
         ApplyStableCollisionMaterial();
         ResolveGroundMask();
         SubscribePointerEvents();
+        ResetJumpGesture();
         ResetPresentationState();
     }
 
@@ -123,7 +117,7 @@ public class PoptropicaController : MonoBehaviour
         ResolveGroundPenetration();
         SnapToGroundIfNeeded();
         RefreshAirborneState();
-        RefreshJumpStrength();
+        RefreshJumpGesture();
         RefreshPresentation();
         HandleDragEnd();
         SnapDepth();
@@ -134,22 +128,6 @@ public class PoptropicaController : MonoBehaviour
         // Land when grounded and no longer rising
         if (isAirborne && isGrounded && Body2D && Body2D.linearVelocity.y <= 0.05f)
             isAirborne = false;
-
-        // Release jump-consume lock when button is up so the next fresh press can jump
-        if (!IsMovementButtonHeld())
-            jumpConsumed = false;
-    }
-
-    private void RefreshJumpStrength()
-    {
-        if (!isGrounded)
-        {
-            JumpStrengthNormalized = 0f;
-            return;
-        }
-        float dy = cursorWorldPos.y - transform.position.y;
-        float threshold = EffectiveJumpThreshold;
-        JumpStrengthNormalized = Mathf.Clamp01((dy - threshold) / (threshold * 2f));
     }
 
     private void FixedUpdate()
@@ -299,14 +277,93 @@ public class PoptropicaController : MonoBehaviour
         Camera cam = (Pointer && Pointer.WorldCamera) ? Pointer.WorldCamera : Camera.main;
         if (!cam) return;
 
-        Vector2 screenPos = Mouse.current != null
-            ? Mouse.current.position.ReadValue()
-            : (Vector2)Input.mousePosition;
+        Vector2 screenPos = GetPointerScreenPosition();
 
         // Project cursor onto the player's Z depth plane
         float depth = Mathf.Abs(cam.transform.position.z - fixedDepth);
         Vector3 world = cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, depth));
         cursorWorldPos = new Vector2(world.x, world.y);
+    }
+
+    private Vector2 GetPointerScreenPosition()
+    {
+        if (Pointer)
+        {
+            return Pointer.ScreenPosition;
+        }
+
+        if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
+        {
+            return Touchscreen.current.primaryTouch.position.ReadValue();
+        }
+
+        if (Mouse.current != null)
+        {
+            return Mouse.current.position.ReadValue();
+        }
+
+        return Input.mousePosition;
+    }
+
+    private void RefreshJumpGesture()
+    {
+        if (PauseService.IsGameplayInputPaused(this)
+            || movementLocked
+            || activeDrag != null
+            || IsPointerBlocked
+            || !IsMovementButtonHeld())
+        {
+            ResetJumpGesture();
+            return;
+        }
+
+        Vector2 screenPos = GetPointerScreenPosition();
+        if (!hasJumpGesturePosition)
+        {
+            previousJumpGestureY = screenPos.y;
+            hasJumpGesturePosition = true;
+            return;
+        }
+
+        float deltaY = (screenPos.y - previousJumpGestureY) / Mathf.Max(1f, Screen.height);
+        previousJumpGestureY = screenPos.y;
+
+        if (deltaY < 0f)
+        {
+            jumpDownGestureDistance += -deltaY;
+            jumpUpGestureDistance = 0f;
+            if (jumpDownGestureDistance >= jumpGestureThreshold)
+            {
+                jumpGestureArmed = true;
+            }
+
+            return;
+        }
+
+        if (deltaY <= 0f)
+        {
+            return;
+        }
+
+        jumpUpGestureDistance += deltaY;
+        jumpDownGestureDistance = 0f;
+        if (!jumpGestureArmed || jumpUpGestureDistance < jumpGestureThreshold)
+        {
+            return;
+        }
+
+        jumpPending = true;
+        jumpGestureArmed = false;
+        jumpUpGestureDistance = 0f;
+    }
+
+    private void ResetJumpGesture()
+    {
+        hasJumpGesturePosition = false;
+        jumpGestureArmed = true;
+        jumpPending = false;
+        jumpUpGestureDistance = 0f;
+        jumpDownGestureDistance = 0f;
     }
 
     private void RefreshGroundCheck()
@@ -590,15 +647,12 @@ public class PoptropicaController : MonoBehaviour
 
     private void TryJump()
     {
-        // Require a fresh button press — holding the button doesn't re-jump after landing
-        if (!isGrounded || !Body2D || jumpConsumed) return;
-        float dy = cursorWorldPos.y - transform.position.y;
-        if (dy <= EffectiveJumpThreshold) return;
+        if (!jumpPending || !isGrounded || !Body2D) return;
 
+        jumpPending = false;
         Body2D.linearVelocity = new Vector2(Body2D.linearVelocity.x, 0f);
         Body2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         isAirborne = true;
-        jumpConsumed = true;
         // Clear click target so the character continues on trajectory rather than
         // stopping horizontal movement at moveTargetX mid-air
         hasMoveTarget = false;
@@ -767,16 +821,8 @@ public class PoptropicaController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // Jump threshold line — shows the minimum cursor height to trigger a jump
-        float threshold = EffectiveJumpThreshold;
-        Gizmos.color = new Color(0.3f, 0.8f, 1f, 0.6f);
-        Vector3 center = transform.position + Vector3.up * threshold;
-        Gizmos.DrawLine(center - Vector3.right * 0.4f, center + Vector3.right * 0.4f);
-
-        // Jump arc preview when cursor is above threshold (edit + play mode)
         if (!Application.isPlaying) return;
-        float dy = cursorWorldPos.y - transform.position.y;
-        if (!isGrounded || dy <= threshold) return;
+        if (!isGrounded || !IsMovementButtonHeld() || IsPointerBlocked) return;
 
         Gizmos.color = new Color(0.2f, 1f, 0.4f, 0.5f);
         Vector3 startPos = transform.position;
