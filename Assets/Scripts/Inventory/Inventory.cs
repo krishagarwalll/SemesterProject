@@ -348,11 +348,12 @@ public class Inventory : MonoBehaviour
 
     public int CountItem(string itemId)
     {
+        int total = 0;
         for (int i = 0; i < entries.Count; i++)
         {
-            if (entries[i].IsOccupied && entries[i].Definition.ItemId == itemId) return entries[i].Quantity;
+            if (entries[i].IsOccupied && entries[i].Definition.ItemId == itemId) total += entries[i].Quantity;
         }
-        return 0;
+        return total;
     }
 
     public bool TryRemoveItem(string itemId, int count = 1)
