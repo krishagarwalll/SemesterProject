@@ -58,6 +58,7 @@ public static class MainMenuBootstrap
         CreateLabel(content, "How To Get To Heaven", 46f, 96f);
         bool hasSave = SaveManager.Instance && SaveManager.Instance.HasSave();
         Button startOrContinueButton = CreateButton(content, hasSave ? "Continue" : "Start", 320f, 64f);
+        Button newGameButton = hasSave ? CreateButton(content, "New Game", 320f, 64f) : null;
         Button optionsButton = CreateButton(content, "Options", 320f, 64f);
         Button quitButton = CreateButton(content, "Quit", 320f, 64f);
 
@@ -81,6 +82,16 @@ public static class MainMenuBootstrap
 
             SceneManager.LoadScene(DefaultGameSceneName);
         });
+
+        if (newGameButton != null)
+        {
+            newGameButton.onClick.AddListener(() =>
+            {
+                PauseService.ClearAll();
+                SaveManager.Instance?.DeleteSave();
+                SceneManager.LoadScene(DefaultGameSceneName);
+            });
+        }
 
         optionsButton.onClick.AddListener(() =>
         {

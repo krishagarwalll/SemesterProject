@@ -16,6 +16,7 @@ public class PoptropicaController : MonoBehaviour
     [SerializeField, Range(0.05f, 1f)] private float minimumEaseSpeedFactor = 0.18f;
     [SerializeField, Min(1f)] private float jumpForce = 14f;
     [SerializeField, Range(0.01f, 0.3f)] private float jumpGestureThreshold = 0.05f;
+    [SerializeField, Range(0f, 0.3f)] private float coyoteTime = 0.12f;
     [SerializeField, Min(0.01f)] private float clickMoveStopDistance = 0.12f;
     [SerializeField] private bool ignorePointerOverUi = true;
 
@@ -58,6 +59,7 @@ public class PoptropicaController : MonoBehaviour
     private float previousJumpGestureY;
     private float jumpUpGestureDistance;
     private float jumpDownGestureDistance;
+    private float coyoteTimer;
 
     private PointerContext Pointer => this.ResolveSceneComponent(ref pointer);
     private Inventory SceneInventory => this.ResolveSceneComponent(ref inventory);
@@ -72,6 +74,7 @@ public class PoptropicaController : MonoBehaviour
     public bool HasActiveInteraction => activeDrag != null || pendingAction.IsValid;
     public bool IsGrounded => isGrounded;
     public bool IsAirborne => isAirborne;
+    private bool CanJump => !isAirborne && (isGrounded || coyoteTimer > 0f);
 
     private void Awake()
     {
@@ -117,6 +120,7 @@ public class PoptropicaController : MonoBehaviour
         ResolveGroundPenetration();
         SnapToGroundIfNeeded();
         RefreshAirborneState();
+        UpdateCoyoteTimer();
         RefreshJumpGesture();
         RefreshPresentation();
         HandleDragEnd();
@@ -128,6 +132,16 @@ public class PoptropicaController : MonoBehaviour
         // Land when grounded and no longer rising
         if (isAirborne && isGrounded && Body2D && Body2D.linearVelocity.y <= 0.05f)
             isAirborne = false;
+    }
+
+    private void UpdateCoyoteTimer()
+    {
+        if (isGrounded)
+            coyoteTimer = coyoteTime;
+        else if (isAirborne)
+            coyoteTimer = 0f;
+        else
+            coyoteTimer = Mathf.Max(0f, coyoteTimer - Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -153,6 +167,7 @@ public class PoptropicaController : MonoBehaviour
         if (buttonHeld && !blockedByUi)
         {
             hasMoveTarget = false;
+            pendingAction = default;
             ApplyHorizontalMovement(cursorWorldPos.x);
             TryJump();
             return;
@@ -647,9 +662,10 @@ public class PoptropicaController : MonoBehaviour
 
     private void TryJump()
     {
-        if (!jumpPending || !isGrounded || !Body2D) return;
+        if (!jumpPending || !CanJump || !Body2D) return;
 
         jumpPending = false;
+        coyoteTimer = 0f;
         Body2D.linearVelocity = new Vector2(Body2D.linearVelocity.x, 0f);
         Body2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         isAirborne = true;
@@ -715,6 +731,7 @@ public class PoptropicaController : MonoBehaviour
         if (IsPointerBlocked || activeDrag != null) return;
         if (!context.ClickedTarget)
         {
+            pendingAction = default;
             moveTargetX = cursorWorldPos.x;
             hasMoveTarget = true;
             return;
