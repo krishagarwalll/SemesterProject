@@ -105,7 +105,7 @@ public static class PauseService
     public static void Resume()  => Resume(FullGamePause);
     public static void Toggle()
     {
-        if ((activePauseTypes & FullGamePause) != 0) Resume(FullGamePause);
+        if ((activePauseTypes & (PauseType.Animation | PauseType.Particles | PauseType.Audio)) != 0) Resume(FullGamePause);
         else Pause(FullGamePause);
     }
 

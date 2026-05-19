@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public static class GameplayUiBootstrap
 {
     private const string MainMenuSceneName = "MainMenu";
-    private const string RuntimeRootName = "GameplayUIRuntime";
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Register()
@@ -31,26 +30,75 @@ public static class GameplayUiBootstrap
         RuntimeUiUtility.EnsureEventSystem();
         RuntimeUiUtility.EnsureCanvasRaycasters();
 
-        GameObject root = GameObject.Find(RuntimeRootName);
-        if (!root)
+        EnsureScenePauseInput();
+
+        EnsureAutoSaveIndicator();
+    }
+
+    private static void EnsureScenePauseInput()
+    {
+        PauseInputHandler[] pauseInputs = Object.FindObjectsByType<PauseInputHandler>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        if (pauseInputs.Length == 0)
         {
-            root = RuntimeUiUtility.CreateOverlayCanvas(RuntimeRootName, 850).gameObject;
+            Debug.LogWarning("No PauseInputHandler found in the loaded gameplay scene. Add one to the scene Services object.");
+            return;
         }
 
-        if (!Object.FindFirstObjectByType<PauseInputHandler>(FindObjectsInactive.Include))
+        PauseInputHandler enabledInput = null;
+        for (int i = 0; i < pauseInputs.Length; i++)
         {
-            root.GetOrAddComponent<PauseInputHandler>();
-        }
+            if (!pauseInputs[i]) continue;
 
-        if (!Object.FindFirstObjectByType<PauseMenuUI>(FindObjectsInactive.Include))
-        {
-            root.GetOrAddComponent<PauseMenuUI>();
-        }
-
-        if (!Object.FindFirstObjectByType<AutoSaveIndicator>(FindObjectsInactive.Include))
-        {
-            root.GetOrAddComponent<AutoSaveIndicator>();
+            if (!enabledInput)
+            {
+                enabledInput = pauseInputs[i];
+                enabledInput.enabled = true;
+            }
+            else
+            {
+                pauseInputs[i].enabled = false;
+            }
         }
     }
 
+    private static void EnsureAutoSaveIndicator()
+    {
+        if (Object.FindFirstObjectByType<AutoSaveIndicator>(FindObjectsInactive.Include))
+        {
+            return;
+        }
+
+        Canvas targetCanvas = FindGameplayCanvas();
+        if (!targetCanvas)
+        {
+            Debug.LogWarning("No gameplay Canvas found for AutoSaveIndicator. Add the indicator to an existing scene canvas.");
+            return;
+        }
+
+        targetCanvas.gameObject.GetOrAddComponent<AutoSaveIndicator>();
+    }
+
+    private static Canvas FindGameplayCanvas()
+    {
+        PauseMenuUI pauseMenu = Object.FindFirstObjectByType<PauseMenuUI>(FindObjectsInactive.Include);
+        if (pauseMenu)
+        {
+            Canvas pauseCanvas = pauseMenu.GetComponentInParent<Canvas>(true);
+            if (pauseCanvas)
+            {
+                return pauseCanvas;
+            }
+        }
+
+        Canvas[] canvases = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < canvases.Length; i++)
+        {
+            if (canvases[i] && canvases[i].isRootCanvas)
+            {
+                return canvases[i];
+            }
+        }
+
+        return canvases.Length > 0 ? canvases[0] : null;
+    }
 }
