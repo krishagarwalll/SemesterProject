@@ -66,7 +66,19 @@ public class PauseInputHandler : MonoBehaviour
         }
 
         Gamepad gamepad = Gamepad.current;
-        return gamepad != null
-            && (gamepad.startButton.wasPressedThisFrame || gamepad.selectButton.wasPressedThisFrame);
+        if (gamepad != null
+            && (gamepad.startButton.wasPressedThisFrame || gamepad.selectButton.wasPressedThisFrame))
+        {
+            return true;
+        }
+
+        try
+        {
+            return Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P);
+        }
+        catch (System.InvalidOperationException)
+        {
+            return false;
+        }
     }
 }

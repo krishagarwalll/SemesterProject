@@ -57,10 +57,8 @@ public class Outline2D : MonoBehaviour
     private void DelayedEditorRebuild()
     {
         UnityEditor.EditorApplication.delayCall -= DelayedEditorRebuild;
-        if (!this)
-        {
+        if (!this || UnityEditor.PrefabUtility.IsPartOfPrefabAsset(gameObject))
             return;
-        }
 
         Rebuild();
     }
@@ -237,10 +235,12 @@ public class Outline2D : MonoBehaviour
 
         private void EnsureProxyRenderers()
         {
-            if (!source)
-            {
+            if (!source) return;
+
+#if UNITY_EDITOR
+            if (UnityEditor.PrefabUtility.IsPartOfPrefabAsset(source.gameObject))
                 return;
-            }
+#endif
 
             DisableLegacyProxyObject();
 

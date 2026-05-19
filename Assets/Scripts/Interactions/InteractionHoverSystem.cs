@@ -28,7 +28,7 @@ public class InteractionHoverSystem : MonoBehaviour
 
     private InteractionTarget FindTarget(Vector2 position)
     {
-        InteractionTarget[] targets = FindObjectsOfType<InteractionTarget>();
+        InteractionTarget[] targets = FindObjectsByType<InteractionTarget>(FindObjectsSortMode.None);
 
         InteractionTarget best = null;
         int bestPriority = int.MinValue;
