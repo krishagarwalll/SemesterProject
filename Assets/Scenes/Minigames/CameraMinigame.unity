@@ -1382,6 +1382,7 @@ GameObject:
   - component: {fileID: 219474066}
   - component: {fileID: 219474067}
   - component: {fileID: 219474068}
+  - component: {fileID: 219474069}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1684,6 +1685,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &219474069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219474060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d06f799e96d5047bf5c1ebe5be83af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFlipper
+  visualRoot: {fileID: 219474065}
+  spriteRenderers:
+  - {fileID: 219474064}
+  - {fileID: 1978726457}
+  includeInactiveChildren: 1
+  snapToCardinal: 1
+  flipX: 1
+  flipY: 0
+  deadzone: 0.01
+  mirrorVisualRoot: 1
+  useManualOffset: 0
+  mirroredOffset: {x: 0, y: 0}
 --- !u!1001 &222948709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10348,6 +10373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1736408728}
+  - component: {fileID: 1736408729}
   m_Layer: 0
   m_Name: GhostWaveInstructions
   m_TagString: Untagged
@@ -10372,6 +10398,20 @@ Transform:
   - {fileID: 896302582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1736408729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736408727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4911d1a806acb415b8c7d215cf212730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostWaveInstructionDismiss
+  leftClickInstruction: {fileID: 896302579}
+  rightClickInstruction: {fileID: 533642464}
 --- !u!1 &1774586240
 GameObject:
   m_ObjectHideFlags: 0
