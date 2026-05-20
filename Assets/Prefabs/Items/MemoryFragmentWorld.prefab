@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 700100005}
   - component: {fileID: 700100007}
   - component: {fileID: 700100008}
+  - component: {fileID: 5709487534734155352}
+  - component: {fileID: 6217266316220958508}
   m_Layer: 11
   m_Name: MemoryFragmentWorld
   m_TagString: Untagged
@@ -33,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -119,7 +121,7 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6962918065892611476, guid: 1d32dfddf1dad46b0890e19119557305, type: 3}
+  m_Sprite: {fileID: 2849924534559225763, guid: 4532e803166872045a761b173a843a58, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -256,7 +258,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.78, y: 1.1}
+    oldSize: {x: 1.0246154, y: 0.9}
     newSize: {x: 1.78, y: 1.1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -264,3 +266,45 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5709487534734155352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!95 &6217266316220958508
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700100000}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3cef9b876b76e1440b2db353ef60fc59, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

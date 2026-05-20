@@ -6605,7 +6605,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 401001002
   m_SortingLayer: 3
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1932683408, guid: af4c54242a43d0742bf8e9c101312242, type: 3}
   m_Color: {r: 0.1254902, g: 0, b: 0.2, a: 1}
@@ -12709,6 +12709,10 @@ GameObject:
   - component: {fileID: 238138068}
   - component: {fileID: 238138070}
   - component: {fileID: 238138069}
+  - component: {fileID: 238138074}
+  - component: {fileID: 238138073}
+  - component: {fileID: 238138072}
+  - component: {fileID: 238138071}
   m_Layer: 10
   m_Name: Closet
   m_TagString: Untagged
@@ -12798,6 +12802,119 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238138067}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &238138071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238138067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPC
+  talkLabel: Talk
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
+  dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
+  dialogueData: {fileID: 11400000, guid: e894181377093714ca85121d143d2b46, type: 2}
+--- !u!114 &238138072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238138067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &238138073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238138067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
+  interactionPoint: {fileID: 238138068}
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 2
+  selectionPriority: 0
+  room: {fileID: 0}
+  autoCreateOutline: 1
+  hoverCursorKind: 1
+  dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
+--- !u!61 &238138074
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238138067}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.859, y: 1.097}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.859, y: 1.097}
+  m_EdgeRadius: 0
 --- !u!1 &247874800
 GameObject:
   m_ObjectHideFlags: 0
@@ -13003,7 +13120,6 @@ GameObject:
   - component: {fileID: 249062301}
   - component: {fileID: 249062300}
   - component: {fileID: 249062299}
-  - component: {fileID: 249062302}
   - component: {fileID: 249062303}
   m_Layer: 10
   m_Name: Newspaper
@@ -13153,7 +13269,7 @@ MonoBehaviour:
   approachPoint: {fileID: 0}
   interactionDistancePreset: 1
   useInteractionRadiusOverride: 0
-  interactionRadiusOverride: 1.25
+  interactionRadiusOverride: 3
   selectionPriority: 0
   room: {fileID: 2009901047}
   autoCreateOutline: 1
@@ -13161,21 +13277,6 @@ MonoBehaviour:
   dragCursorKind: 4
   audioSource: {fileID: 963815830}
   hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
---- !u!114 &249062302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 249062295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
-  itemSprite: {fileID: 6879538022904502005, guid: 813d2f9fc0fd542699eb0ebe8da736e0, type: 3}
-  itemName: 
-  description: 
 --- !u!61 &249062303
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21124,7 +21225,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 401001002
   m_SortingLayer: 3
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1932683408, guid: af4c54242a43d0742bf8e9c101312242, type: 3}
   m_Color: {r: 0.12242953, g: 0, b: 0.1981132, a: 1}
@@ -24052,6 +24153,10 @@ GameObject:
   - component: {fileID: 430214704}
   - component: {fileID: 430214706}
   - component: {fileID: 430214705}
+  - component: {fileID: 430214707}
+  - component: {fileID: 430214710}
+  - component: {fileID: 430214709}
+  - component: {fileID: 430214708}
   m_Layer: 10
   m_Name: Window
   m_TagString: Untagged
@@ -24141,6 +24246,119 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430214703}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!61 &430214707
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430214703}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.008529872, y: 0.13031709}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.351, y: 0.9}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.271353, y: 0.62672865}
+  m_EdgeRadius: 0
+--- !u!114 &430214708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430214703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPC
+  talkLabel: Interact
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
+  dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
+  dialogueData: {fileID: 11400000, guid: dbb0db54e39ad3e4c81b148390c97b5c, type: 2}
+--- !u!114 &430214709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430214703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &430214710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430214703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
+  interactionPoint: {fileID: 430214704}
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 2
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 9
+  selectionPriority: 0
+  room: {fileID: 9331182}
+  autoCreateOutline: 1
+  hoverCursorKind: 1
+  dragCursorKind: 4
+  audioSource: {fileID: 963815830}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!1 &431715565
 GameObject:
   m_ObjectHideFlags: 0
@@ -25351,8 +25569,8 @@ MonoBehaviour:
   autoCreateOutline: 1
   hoverCursorKind: 1
   dragCursorKind: 4
-  audioSource: {fileID: 0}
-  hover: {fileID: 0}
+  audioSource: {fileID: 963815830}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!1 &451624544
 GameObject:
   m_ObjectHideFlags: 0
@@ -26602,6 +26820,10 @@ GameObject:
   - component: {fileID: 496125912}
   - component: {fileID: 496125914}
   - component: {fileID: 496125913}
+  - component: {fileID: 496125918}
+  - component: {fileID: 496125917}
+  - component: {fileID: 496125916}
+  - component: {fileID: 496125915}
   m_Layer: 10
   m_Name: Drawer
   m_TagString: Untagged
@@ -26691,6 +26913,119 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496125911}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!61 &496125915
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496125911}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.456, y: 0.674}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.456, y: 0.674}
+  m_EdgeRadius: 0
+--- !u!114 &496125916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496125911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPC
+  talkLabel: Talk
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
+  dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
+  dialogueData: {fileID: 11400000, guid: b88dbde903a5a2349a3fa4a2c3b89379, type: 2}
+--- !u!114 &496125917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496125911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &496125918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496125911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
+  interactionPoint: {fileID: 496125912}
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 4
+  selectionPriority: 0
+  room: {fileID: 9331182}
+  autoCreateOutline: 1
+  hoverCursorKind: 1
+  dragCursorKind: 4
+  audioSource: {fileID: 963815830}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
 --- !u!1 &499634736
 GameObject:
   m_ObjectHideFlags: 0
@@ -31671,7 +32006,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 401001002
   m_SortingLayer: 3
-  m_SortingOrder: -1
+  m_SortingOrder: -3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1932683408, guid: af4c54242a43d0742bf8e9c101312242, type: 3}
   m_Color: {r: 0.12242953, g: 0, b: 0.1981132, a: 1}
@@ -70891,7 +71226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: -8522433546947300881, guid: 939b129830cf64f1c853610d820aa2ee, type: 3}
-  itemName: photograph
+  itemName: 
   description: A picture of a boy and his brother. They seem happy.
 --- !u!1 &1313017733
 GameObject:
@@ -78071,7 +78406,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 401001002
   m_SortingLayer: 3
-  m_SortingOrder: -1
+  m_SortingOrder: -12
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1932683408, guid: af4c54242a43d0742bf8e9c101312242, type: 3}
   m_Color: {r: 0.1254902, g: 0, b: 0.2, a: 1}
@@ -87177,7 +87512,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 401001002
   m_SortingLayer: 3
-  m_SortingOrder: -1
+  m_SortingOrder: -3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1932683408, guid: af4c54242a43d0742bf8e9c101312242, type: 3}
   m_Color: {r: 0.5978542, g: 0, b: 0.9528302, a: 1}
@@ -90285,6 +90620,10 @@ GameObject:
   - component: {fileID: 1828462820}
   - component: {fileID: 1828462822}
   - component: {fileID: 1828462821}
+  - component: {fileID: 1828462826}
+  - component: {fileID: 1828462825}
+  - component: {fileID: 1828462824}
+  - component: {fileID: 1828462823}
   m_Layer: 10
   m_Name: Trash
   m_TagString: Untagged
@@ -90374,6 +90713,111 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828462819}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1828462823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828462819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
+  itemSprite: {fileID: -3726306262918629138, guid: daa13d6c0925041c1900c7fb9352f59f, type: 3}
+  itemName: Pop-up placeholder
+  description: Inside, there is a crumpled up note.
+--- !u!114 &1828462824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828462819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &1828462825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828462819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
+  interactionPoint: {fileID: 1828462820}
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
+  room: {fileID: 9331182}
+  autoCreateOutline: 1
+  hoverCursorKind: 1
+  dragCursorKind: 4
+  audioSource: {fileID: 963815830}
+  hover: {fileID: 8300000, guid: e7b88464b28de43dbbfa4f20b6bd936d, type: 3}
+--- !u!61 &1828462826
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828462819}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.3, y: 0.378}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.3, y: 0.378}
+  m_EdgeRadius: 0
 --- !u!1 &1830590763
 GameObject:
   m_ObjectHideFlags: 0
@@ -95861,7 +96305,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 401001002
   m_SortingLayer: 3
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1932683408, guid: af4c54242a43d0742bf8e9c101312242, type: 3}
   m_Color: {r: 0.5978542, g: 0, b: 0.9528302, a: 1}
@@ -96957,7 +97401,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: 5739897283171119737, guid: de78503862eb544a897f938592b1ed36, type: 3}
   itemName: 
-  description: Seems like its going bad...
+  description: Seems like its going bad... How long has this fridge been abandoned
+    for?
 --- !u!1 &1922566741
 GameObject:
   m_ObjectHideFlags: 0

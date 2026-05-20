@@ -10,14 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
-  m_Name: TutorialBookCase
+  m_Name: Window
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: You
   dialogueLines:
-  - '"Criminals in the late 1990s", "Introduction to Forensic and Criminal Psychology",
-    "Inside the Criminal Mind"...'
-  - ... there are so many notes on them too.
-  - Is it strange that they look familiar? I swear I read these before.
+  - Yikes. How did that window get so smashed?
   typingSpeed: 0.01
   autoProgressLines: 
   endDialogueLines: 
