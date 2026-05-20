@@ -1,0 +1,1064 @@
+fileFormatVersion: 2
+guid: 015b079d0e6394d47b7bcb133cdb0515
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 936918151985298219
+    second: Attack wave spritesheet_0
+  - first:
+      213: -3583901405249235885
+    second: Attack wave spritesheet_1
+  - first:
+      213: -3930800555850145275
+    second: Attack wave spritesheet_2
+  - first:
+      213: -3033924274676559990
+    second: Attack wave spritesheet_3
+  - first:
+      213: 7569696291462123207
+    second: Attack wave spritesheet_4
+  - first:
+      213: 2210739345994665891
+    second: Attack wave spritesheet_5
+  - first:
+      213: -1473656550018414695
+    second: Attack wave spritesheet_6
+  - first:
+      213: -2887408573332777663
+    second: Attack wave spritesheet_7
+  - first:
+      213: -5501659540261132758
+    second: Attack wave spritesheet_8
+  - first:
+      213: 2312199875658109494
+    second: Attack wave spritesheet_9
+  - first:
+      213: 7139014836894377143
+    second: Attack wave spritesheet_10
+  - first:
+      213: -3009171765817316398
+    second: Attack wave spritesheet_11
+  - first:
+      213: 9198482446958398075
+    second: Attack wave spritesheet_12
+  - first:
+      213: -8761786462784035935
+    second: Attack wave spritesheet_13
+  - first:
+      213: -8621516288231806009
+    second: Attack wave spritesheet_14
+  - first:
+      213: -8906882723581235720
+    second: Attack wave spritesheet_15
+  - first:
+      213: 2779572055674139576
+    second: Attack wave spritesheet_16
+  - first:
+      213: 7507372232814366925
+    second: Attack wave spritesheet_17
+  - first:
+      213: 1882602913366823798
+    second: Attack wave spritesheet_18
+  - first:
+      213: -2450749145432272320
+    second: Attack wave spritesheet_19
+  - first:
+      213: 4132868903796637352
+    second: Attack wave spritesheet_20
+  - first:
+      213: -7159339432432696282
+    second: Attack wave spritesheet_21
+  - first:
+      213: -274956915754469783
+    second: Attack wave spritesheet_22
+  - first:
+      213: -2881083812383176582
+    second: Attack wave spritesheet_23
+  - first:
+      213: -1403052050012491231
+    second: Attack wave spritesheet_24
+  - first:
+      213: 6990072135119267871
+    second: Attack wave spritesheet_25
+  - first:
+      213: 1061615281672367088
+    second: Attack wave spritesheet_26
+  - first:
+      213: 7523761168614161565
+    second: Attack wave spritesheet_27
+  - first:
+      213: 5688389920259342317
+    second: Attack wave spritesheet_28
+  - first:
+      213: -6824161580700609975
+    second: Attack wave spritesheet_29
+  - first:
+      213: -6379159226090860412
+    second: Attack wave spritesheet_30
+  - first:
+      213: 954876377468957935
+    second: Attack wave spritesheet_31
+  - first:
+      213: 7938924856352073559
+    second: Attack wave spritesheet_32
+  - first:
+      213: 228338107728135826
+    second: Attack wave spritesheet_33
+  - first:
+      213: 9064632650768145152
+    second: Attack wave spritesheet_34
+  - first:
+      213: 3453245194525158917
+    second: Attack wave spritesheet_35
+  - first:
+      213: -1023230893804182328
+    second: Attack wave spritesheet_36
+  - first:
+      213: -7445666096128811140
+    second: Attack wave spritesheet_37
+  - first:
+      213: 6053477072210814346
+    second: Attack wave spritesheet_38
+  - first:
+      213: 4750183018996311911
+    second: Attack wave spritesheet_39
+  - first:
+      213: 4734338055774706369
+    second: Attack wave spritesheet_40
+  - first:
+      213: -8816140044561450731
+    second: Attack wave spritesheet_41
+  - first:
+      213: 9080113120147759638
+    second: Attack wave spritesheet_42
+  - first:
+      213: 2618103146695944781
+    second: Attack wave spritesheet_43
+  - first:
+      213: 7534829773014686809
+    second: Attack wave spritesheet_44
+  - first:
+      213: 2693049135207699326
+    second: Attack wave spritesheet_45
+  - first:
+      213: 5576896523451458816
+    second: Attack wave spritesheet_46
+  - first:
+      213: -5369450934677108280
+    second: Attack wave spritesheet_47
+  - first:
+      213: 9048453509591897020
+    second: Attack wave spritesheet_48
+  - first:
+      213: 5323690704977328423
+    second: Attack wave spritesheet_49
+  - first:
+      213: 6556991623320969125
+    second: Attack wave spritesheet_50
+  - first:
+      213: 9125586537753873198
+    second: Attack wave spritesheet_51
+  - first:
+      213: 884872480800884245
+    second: Attack wave spritesheet_52
+  - first:
+      213: 4392292205251661602
+    second: Attack wave spritesheet_53
+  - first:
+      213: 3271224362857098018
+    second: Attack wave spritesheet_54
+  - first:
+      213: 7609841057706931686
+    second: Attack wave spritesheet_55
+  - first:
+      213: 4637690435607984603
+    second: Attack wave spritesheet_56
+  - first:
+      213: 8139248469165621075
+    second: Attack wave spritesheet_57
+  - first:
+      213: -4532148965544896232
+    second: Attack wave spritesheet_58
+  - first:
+      213: -765639509754610876
+    second: Attack wave spritesheet_59
+  - first:
+      213: -6599138338421639122
+    second: Attack wave spritesheet_60
+  - first:
+      213: 5851395723537592802
+    second: Attack wave spritesheet_61
+  - first:
+      213: 5110579522858098552
+    second: Attack wave spritesheet_62
+  - first:
+      213: 8830406178959890427
+    second: Attack wave spritesheet_63
+  - first:
+      213: 7503890247563064664
+    second: Attack wave spritesheet_64
+  - first:
+      213: 6617900246076684166
+    second: Attack wave spritesheet_65
+  - first:
+      213: -8246979803154984517
+    second: Attack wave spritesheet_66
+  - first:
+      213: -1865941946681241960
+    second: Attack wave spritesheet_67
+  - first:
+      213: 5696920933198774846
+    second: Attack wave spritesheet_68
+  - first:
+      213: 1046598653824220740
+    second: Attack wave spritesheet_69
+  - first:
+      213: 336473773620119274
+    second: Attack wave spritesheet_70
+  - first:
+      213: 2582026889250482651
+    second: Attack wave spritesheet_71
+  - first:
+      213: -4875196396067898148
+    second: Attack wave spritesheet_72
+  - first:
+      213: 6412949244205528130
+    second: Attack wave spritesheet_73
+  - first:
+      213: -8460777191435058238
+    second: Attack wave spritesheet_74
+  - first:
+      213: -4714397502200266690
+    second: Attack wave spritesheet_75
+  - first:
+      213: -8166318513792527109
+    second: Attack wave spritesheet_76
+  - first:
+      213: -8102840194841870284
+    second: Attack wave spritesheet_77
+  - first:
+      213: 908768308269854486
+    second: Attack wave spritesheet_78
+  - first:
+      213: -8200573953438075249
+    second: Attack wave spritesheet_79
+  - first:
+      213: 6798793303823259541
+    second: Attack wave spritesheet_80
+  - first:
+      213: 5179441908961867495
+    second: Attack wave spritesheet_81
+  - first:
+      213: 7378039090138322150
+    second: Attack wave spritesheet_82
+  - first:
+      213: -8887039992189132836
+    second: Attack wave spritesheet_83
+  - first:
+      213: -6037465789281795230
+    second: Attack wave spritesheet_84
+  - first:
+      213: -7846744284461999522
+    second: Attack wave spritesheet_85
+  - first:
+      213: 8453738111040890096
+    second: Attack wave spritesheet_86
+  - first:
+      213: 3957173194278170049
+    second: Attack wave spritesheet_87
+  - first:
+      213: 4225364252978335756
+    second: Attack wave spritesheet_88
+  - first:
+      213: -4971955325383904963
+    second: Attack wave spritesheet_89
+  - first:
+      213: 2284833307309909771
+    second: Attack wave spritesheet_90
+  - first:
+      213: 7363870123518721173
+    second: Attack wave spritesheet_91
+  - first:
+      213: 539663092557337947
+    second: Attack wave spritesheet_92
+  - first:
+      213: 4470897901113510132
+    second: Attack wave spritesheet_93
+  - first:
+      213: -7386914733423533306
+    second: Attack wave spritesheet_94
+  - first:
+      213: 6768029506423118155
+    second: Attack wave spritesheet_95
+  - first:
+      213: 5851445460101519167
+    second: Attack wave spritesheet_96
+  - first:
+      213: 3197164349984864735
+    second: Attack wave spritesheet_97
+  - first:
+      213: -4847077963816880291
+    second: Attack wave spritesheet_98
+  - first:
+      213: 2858170990555920295
+    second: Attack wave spritesheet_99
+  - first:
+      213: 3650589092212064041
+    second: Attack wave spritesheet_100
+  - first:
+      213: 7759942995484721099
+    second: Attack wave spritesheet_101
+  - first:
+      213: 1164461060921718977
+    second: Attack wave spritesheet_102
+  - first:
+      213: 5423708217394209393
+    second: Attack wave spritesheet_103
+  - first:
+      213: 3144542531724500071
+    second: Attack wave spritesheet_104
+  - first:
+      213: -7317581159084274664
+    second: Attack wave spritesheet_105
+  - first:
+      213: 7749917965870781188
+    second: Attack wave spritesheet_106
+  - first:
+      213: -8319211424891510860
+    second: Attack wave spritesheet_107
+  - first:
+      213: 8172205429058887770
+    second: Attack wave spritesheet_108
+  - first:
+      213: -3818471446736256346
+    second: Attack wave spritesheet_109
+  - first:
+      213: -5490010574232893859
+    second: Attack wave spritesheet_110
+  - first:
+      213: -4321069155531492149
+    second: Attack wave spritesheet_111
+  - first:
+      213: -766442969090209274
+    second: Attack wave spritesheet_112
+  - first:
+      213: -6382650718118543552
+    second: Attack wave spritesheet_113
+  - first:
+      213: 3278290012941247515
+    second: Attack wave spritesheet_114
+  - first:
+      213: 8727275055200292394
+    second: Attack wave spritesheet_115
+  - first:
+      213: -4341372246637098772
+    second: Attack wave spritesheet_116
+  - first:
+      213: 2522503722868621323
+    second: Attack wave spritesheet_117
+  - first:
+      213: 2439232640100540470
+    second: Attack wave spritesheet_118
+  - first:
+      213: -3838703678891174764
+    second: Attack wave spritesheet_119
+  - first:
+      213: -4099288328162540892
+    second: Attack wave spritesheet_120
+  - first:
+      213: -5005438295130208690
+    second: Attack wave spritesheet_121
+  - first:
+      213: 6707035205968725474
+    second: Attack wave spritesheet_122
+  - first:
+      213: -7098361247440215158
+    second: Attack wave spritesheet_123
+  - first:
+      213: 4401292675507352768
+    second: Attack wave spritesheet_124
+  - first:
+      213: -7618199391836614847
+    second: Attack wave spritesheet_125
+  - first:
+      213: 4971299541064427578
+    second: Attack wave spritesheet_126
+  - first:
+      213: -6235769463203103380
+    second: Attack wave spritesheet_127
+  - first:
+      213: 4260094746193302662
+    second: Attack wave spritesheet_128
+  - first:
+      213: -306137319404632861
+    second: Attack wave spritesheet_129
+  - first:
+      213: 2320926040390019209
+    second: Attack wave spritesheet_130
+  - first:
+      213: 9028073041257017148
+    second: Attack wave spritesheet_131
+  - first:
+      213: -1444597255408303263
+    second: Attack wave spritesheet_132
+  - first:
+      213: -3318351904683674279
+    second: Attack wave spritesheet_133
+  - first:
+      213: 5056110696313806868
+    second: Attack wave spritesheet_134
+  - first:
+      213: -507379165281314992
+    second: Attack wave spritesheet_135
+  - first:
+      213: -1065130993107353500
+    second: Attack wave spritesheet_136
+  - first:
+      213: -7128692461091990431
+    second: Attack wave spritesheet_137
+  - first:
+      213: 4384716239527581985
+    second: Attack wave spritesheet_138
+  - first:
+      213: -4582089635067115453
+    second: Attack wave spritesheet_139
+  - first:
+      213: -864450255532915532
+    second: Attack wave spritesheet_140
+  - first:
+      213: -8395544875904994187
+    second: Attack wave spritesheet_141
+  - first:
+      213: 6788165549346574
+    second: Attack wave spritesheet_142
+  - first:
+      213: 785848237242340175
+    second: Attack wave spritesheet_143
+  - first:
+      213: -3529015901500192731
+    second: Attack wave spritesheet_144
+  - first:
+      213: -1359874493403319596
+    second: Attack wave spritesheet_145
+  - first:
+      213: -5676259667641991259
+    second: Attack wave spritesheet_146
+  - first:
+      213: 997521279407634667
+    second: Attack wave spritesheet_147
+  - first:
+      213: -8050240611742680563
+    second: Attack wave spritesheet_148
+  - first:
+      213: 6742927374661871058
+    second: Attack wave spritesheet_149
+  - first:
+      213: -3089887850976701019
+    second: Attack wave spritesheet_150
+  - first:
+      213: 2001662599664686006
+    second: Attack wave spritesheet_151
+  - first:
+      213: -7958100752297093018
+    second: Attack wave spritesheet_152
+  - first:
+      213: -3923360571906303400
+    second: Attack wave spritesheet_153
+  - first:
+      213: -5839131877083728158
+    second: Attack wave spritesheet_154
+  - first:
+      213: -6829126985844069159
+    second: Attack wave spritesheet_155
+  - first:
+      213: 2334276268249056699
+    second: Attack wave spritesheet_156
+  - first:
+      213: -7915529763904236268
+    second: Attack wave spritesheet_157
+  - first:
+      213: 6277162265511560211
+    second: Attack wave spritesheet_158
+  - first:
+      213: -3024835933120874644
+    second: Attack wave spritesheet_159
+  - first:
+      213: -4183810147542949372
+    second: Attack wave spritesheet_160
+  - first:
+      213: -3993974565630205501
+    second: Attack wave spritesheet_161
+  - first:
+      213: 2456354973673066000
+    second: Attack wave spritesheet_162
+  - first:
+      213: 478071923629985476
+    second: Attack wave spritesheet_163
+  - first:
+      213: 7129966524925580890
+    second: Attack wave spritesheet_164
+  - first:
+      213: -4903720848415801633
+    second: Attack wave spritesheet_165
+  - first:
+      213: -5021693162045394841
+    second: Attack wave spritesheet_166
+  - first:
+      213: -500265552894292629
+    second: Attack wave spritesheet_167
+  - first:
+      213: -1326130665285449855
+    second: Attack wave spritesheet_168
+  - first:
+      213: 8040391697999375230
+    second: Attack wave spritesheet_169
+  - first:
+      213: -3129836803281500961
+    second: Attack wave spritesheet_170
+  - first:
+      213: 155358614796842571
+    second: Attack wave spritesheet_171
+  - first:
+      213: 5267833322150789911
+    second: Attack wave spritesheet_172
+  - first:
+      213: 5082813311584244739
+    second: Attack wave spritesheet_173
+  - first:
+      213: -4315666580667111326
+    second: Attack wave spritesheet_174
+  - first:
+      213: -8492243852887537703
+    second: Attack wave spritesheet_175
+  - first:
+      213: -807505606265703249
+    second: Attack wave spritesheet_176
+  - first:
+      213: 1391631540057560590
+    second: Attack wave spritesheet_177
+  - first:
+      213: -347841823221562669
+    second: Attack wave spritesheet_178
+  - first:
+      213: 4327794812504713182
+    second: Attack wave spritesheet_179
+  - first:
+      213: 3836410938373888952
+    second: Attack wave spritesheet_180
+  - first:
+      213: 2704613130776042808
+    second: Attack wave spritesheet_181
+  - first:
+      213: -8698336320809719631
+    second: Attack wave spritesheet_182
+  - first:
+      213: -1524395623248253276
+    second: Attack wave spritesheet_183
+  - first:
+      213: -9202175751019726933
+    second: Attack wave spritesheet_184
+  - first:
+      213: -1890766297983851201
+    second: Attack wave spritesheet_185
+  - first:
+      213: -2977203375027867495
+    second: Attack wave spritesheet_186
+  - first:
+      213: 4752347249576691130
+    second: Attack wave spritesheet_187
+  - first:
+      213: -7222556400647601989
+    second: Attack wave spritesheet_188
+  - first:
+      213: -2940282244435080140
+    second: Attack wave spritesheet_189
+  - first:
+      213: -7796133477226655350
+    second: Attack wave spritesheet_190
+  - first:
+      213: 1804997873207155598
+    second: Attack wave spritesheet_191
+  - first:
+      213: -8779573429337605535
+    second: Attack wave spritesheet_192
+  - first:
+      213: 1431683469340828584
+    second: Attack wave spritesheet_193
+  - first:
+      213: 2125896858950117386
+    second: Attack wave spritesheet_194
+  - first:
+      213: -2799811348909319535
+    second: Attack wave spritesheet_195
+  - first:
+      213: -5101903908344498972
+    second: Attack wave spritesheet_196
+  - first:
+      213: 8554357839611926712
+    second: Attack wave spritesheet_197
+  - first:
+      213: 5023705167704114996
+    second: Attack wave spritesheet_198
+  - first:
+      213: -5797348971941882058
+    second: Attack wave spritesheet_199
+  - first:
+      213: -9012747126004395821
+    second: Attack wave spritesheet_200
+  - first:
+      213: -4376158801750378506
+    second: Attack wave spritesheet_201
+  - first:
+      213: 2024040047810757674
+    second: Attack wave spritesheet_202
+  - first:
+      213: 8936471179098207346
+    second: Attack wave spritesheet_203
+  - first:
+      213: -1442494684890264666
+    second: Attack wave spritesheet_204
+  - first:
+      213: -1314290348228789393
+    second: Attack wave spritesheet_205
+  - first:
+      213: -1478455648512409970
+    second: Attack wave spritesheet_206
+  - first:
+      213: -534936112738401810
+    second: Attack wave spritesheet_207
+  - first:
+      213: -5531957663323966251
+    second: Attack wave spritesheet_208
+  - first:
+      213: 1223150361493869270
+    second: Attack wave spritesheet_209
+  - first:
+      213: -8013143392191280790
+    second: Attack wave spritesheet_210
+  - first:
+      213: 3903882404278647466
+    second: Attack wave spritesheet_211
+  - first:
+      213: 6407297408541563351
+    second: Attack wave spritesheet_212
+  - first:
+      213: -5539379310648480478
+    second: Attack wave spritesheet_213
+  - first:
+      213: 2455144088811116353
+    second: Attack wave spritesheet_214
+  - first:
+      213: -1967456009396824599
+    second: Attack wave spritesheet_215
+  - first:
+      213: -2002250885541775045
+    second: Attack wave spritesheet_216
+  - first:
+      213: 7274242037102812736
+    second: Attack wave spritesheet_217
+  - first:
+      213: 3545882321092461500
+    second: Attack wave spritesheet_218
+  - first:
+      213: -1808068939942196688
+    second: Attack wave spritesheet_219
+  - first:
+      213: -6920681850670912019
+    second: Attack wave spritesheet_220
+  - first:
+      213: -3393447597541942371
+    second: Attack wave spritesheet_221
+  - first:
+      213: -2346002286963938697
+    second: Attack wave spritesheet_222
+  - first:
+      213: 7107159429694434915
+    second: Attack wave spritesheet_223
+  - first:
+      213: -4184968985073206521
+    second: Attack wave spritesheet_224
+  - first:
+      213: -7178390415190932091
+    second: Attack wave spritesheet_225
+  - first:
+      213: -8475011430919695809
+    second: Attack wave spritesheet_226
+  - first:
+      213: 7612182281940658067
+    second: Attack wave spritesheet_227
+  - first:
+      213: 5803745824099775759
+    second: Attack wave spritesheet_228
+  - first:
+      213: 4922110534385233523
+    second: Attack wave spritesheet_229
+  - first:
+      213: 3178520289867738259
+    second: Attack wave spritesheet_230
+  - first:
+      213: 3983637293407809355
+    second: Attack wave spritesheet_231
+  - first:
+      213: -6970580176707102706
+    second: Attack wave spritesheet_232
+  - first:
+      213: 1648378979000755869
+    second: Attack wave spritesheet_233
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Attack wave spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2bf2b0681a900d00800000000000000
+      internalID: 936918151985298219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack wave spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 354981609ac634ec0800000000000000
+      internalID: -3583901405249235885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack wave spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 502e4a188bdf279c0800000000000000
+      internalID: -3930800555850145275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack wave spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 1851
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f087452f555e5d0800000000000000
+      internalID: -3033924274676559990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack wave spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 2468
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ce013ecba6fc0960800000000000000
+      internalID: 7569696291462123207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack wave spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 3085
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3afcdf0e8bf1eae10800000000000000
+      internalID: 2210739345994665891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack wave spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 3702
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 997893fec258c8be0800000000000000
+      internalID: -1473656550018414695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack wave spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 4319
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1451511633ddde7d0800000000000000
+      internalID: -2887408573332777663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack wave spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 4936
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a26a8931ccd26a3b0800000000000000
+      internalID: -5501659540261132758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Attack wave spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 5553
+        y: 0
+        width: 617
+        height: 818
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 632dd4e4985961020800000000000000
+      internalID: 2312199875658109494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 48055593bf2728a4bb60e0f5246f44c9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":617.0,"y":818.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Attack wave spritesheet_0: 936918151985298219
+      Attack wave spritesheet_1: -3583901405249235885
+      Attack wave spritesheet_2: -3930800555850145275
+      Attack wave spritesheet_3: -3033924274676559990
+      Attack wave spritesheet_4: 7569696291462123207
+      Attack wave spritesheet_5: 2210739345994665891
+      Attack wave spritesheet_6: -1473656550018414695
+      Attack wave spritesheet_7: -2887408573332777663
+      Attack wave spritesheet_8: -5501659540261132758
+      Attack wave spritesheet_9: 2312199875658109494
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
