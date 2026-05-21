@@ -72864,9 +72864,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
   interactionPoint: {fileID: 1341337820}
   approachPoint: {fileID: 1341337820}
-  interactionDistancePreset: 1
+  interactionDistancePreset: 2
   useInteractionRadiusOverride: 0
-  interactionRadiusOverride: 1.25
+  interactionRadiusOverride: 10
   selectionPriority: 0
   room: {fileID: 9331182}
   autoCreateOutline: 1
@@ -72896,7 +72896,7 @@ MonoBehaviour:
   fallbackAdvanceKeys: 0100000002000000
   fallbackFastForwardKey: 1
   fastForwardMultiplier: 4
-  dialogueData: {fileID: 11400000, guid: b87177e7069a28940904983963e42cea, type: 2}
+  dialogueData: {fileID: 11400000, guid: 23125b7bfdf5fd94fb2de58488a5c33d, type: 2}
 --- !u!212 &1341337825
 SpriteRenderer:
   serializedVersion: 2
@@ -75170,9 +75170,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
   interactionPoint: {fileID: 1420993635}
   approachPoint: {fileID: 1420993635}
-  interactionDistancePreset: 1
-  useInteractionRadiusOverride: 0
-  interactionRadiusOverride: 1.25
+  interactionDistancePreset: 2
+  useInteractionRadiusOverride: 1
+  interactionRadiusOverride: 1.4
   selectionPriority: 0
   room: {fileID: 9331182}
   autoCreateOutline: 1
@@ -75202,7 +75202,7 @@ MonoBehaviour:
   fallbackAdvanceKeys: 0100000002000000
   fallbackFastForwardKey: 1
   fastForwardMultiplier: 4
-  dialogueData: {fileID: 11400000, guid: b87177e7069a28940904983963e42cea, type: 2}
+  dialogueData: {fileID: 11400000, guid: f2997027a3b143a4e94419e356b72716, type: 2}
 --- !u!212 &1420993640
 SpriteRenderer:
   serializedVersion: 2
@@ -75304,7 +75304,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.01704289, y: -0.013564408}
+  m_Offset: {x: -0.017042875, y: 0.025175273}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -75314,7 +75314,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8323759, y: 0.88843536}
+  m_Size: {x: 0.8323759, y: 0.810956}
   m_EdgeRadius: 0
 --- !u!1 &1427490411
 GameObject:
@@ -84984,7 +84984,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 401001002
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2225645817397188732, guid: cffba3b4ba3d4e449a18a33c6dc78333, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -104551,9 +104551,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
   interactionPoint: {fileID: 1980009558}
   approachPoint: {fileID: 1980009558}
-  interactionDistancePreset: 1
+  interactionDistancePreset: 2
   useInteractionRadiusOverride: 0
-  interactionRadiusOverride: 1.25
+  interactionRadiusOverride: 10
   selectionPriority: 0
   room: {fileID: 9331182}
   autoCreateOutline: 1
@@ -104583,7 +104583,7 @@ MonoBehaviour:
   fallbackAdvanceKeys: 0100000002000000
   fallbackFastForwardKey: 1
   fastForwardMultiplier: 4
-  dialogueData: {fileID: 11400000, guid: b87177e7069a28940904983963e42cea, type: 2}
+  dialogueData: {fileID: 11400000, guid: 0d597cc192204b045a10674861d2e963, type: 2}
 --- !u!212 &1980009563
 SpriteRenderer:
   serializedVersion: 2
@@ -106837,9 +106837,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
   interactionPoint: {fileID: 2064396054}
   approachPoint: {fileID: 2064396054}
-  interactionDistancePreset: 1
-  useInteractionRadiusOverride: 0
-  interactionRadiusOverride: 1.25
+  interactionDistancePreset: 2
+  useInteractionRadiusOverride: 1
+  interactionRadiusOverride: 1.4
   selectionPriority: 0
   room: {fileID: 9331182}
   autoCreateOutline: 1

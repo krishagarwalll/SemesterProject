@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
-  m_Name: Newspaper
+  m_Name: Board4
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
-  npcName: Newspaper Excerpt
+  npcName: NEWSPAPER 4
   dialogueLines:
-  - '"A 23-year old was found deceased on the shore of the Marigold National Forest...'
-  - Forensic experts found traces of the victim's brother's DNA on the victim's hair.
-  - A search for the brother has been ongoing-"
+  - '"26th December, XXXX...'
+  - MEMBER OF THE GRIM BROTHERHOOD LED OUT WITH PROBATION"
   typingSpeed: 0.01
   autoProgressLines: 
   endDialogueLines: 
