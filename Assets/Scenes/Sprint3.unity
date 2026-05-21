@@ -84267,7 +84267,7 @@ MonoBehaviour:
   slideSpeed: 1200
   slotSize: {x: 112, y: 112}
   slotColor: {r: 0.740566, g: 0.8280362, b: 1, a: 0.70980394}
-  emptySlotColor: {r: 0.06243324, g: 0.09253996, b: 0.21698111, a: 0.85882354}
+  emptySlotColor: {r: 0.07716268, g: 0.12713027, b: 0.3207547, a: 0.85882354}
 --- !u!1 &1613906659
 GameObject:
   m_ObjectHideFlags: 0
