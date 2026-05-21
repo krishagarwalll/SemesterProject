@@ -43088,7 +43088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.92}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -84266,8 +84266,8 @@ MonoBehaviour:
   collapsedOffset: 220
   slideSpeed: 1200
   slotSize: {x: 112, y: 112}
-  slotColor: {r: 0.14012992, g: 0.1982023, b: 0.4433962, a: 0.92}
-  emptySlotColor: {r: 0.9607843, g: 0.9607843, b: 1, a: 0.7647059}
+  slotColor: {r: 0.740566, g: 0.8280362, b: 1, a: 0.70980394}
+  emptySlotColor: {r: 0.06243324, g: 0.09253996, b: 0.21698111, a: 0.85882354}
 --- !u!1 &1613906659
 GameObject:
   m_ObjectHideFlags: 0
