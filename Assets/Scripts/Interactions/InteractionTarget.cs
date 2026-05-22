@@ -414,7 +414,7 @@ public class InteractionTarget : MonoBehaviour
         {
             InteractionDistancePreset.Touch => 0.4f,
             InteractionDistancePreset.Standard => 0.7f,
-            InteractionDistancePreset.Reach => 0.85f,
+            InteractionDistancePreset.Reach => 1.5f,
             InteractionDistancePreset.Portal => 1.2f,
             _ => 0.7f
         };

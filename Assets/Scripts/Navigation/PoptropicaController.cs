@@ -259,6 +259,7 @@ public class PoptropicaController : MonoBehaviour
         if (action.Mode == InteractionMode.Drag && target.TryGetDraggable(out IWorldDraggable draggable))
         {
             if (!Pointer) return false;
+            if (!target.IsInRange(Position)) return false;
             Cancel();
             draggable.BeginDrag(Pointer);
             if (!draggable.IsDragging) return false;
@@ -767,6 +768,7 @@ public class PoptropicaController : MonoBehaviour
         InteractionTarget target = context.DragTarget;
         if (!target && context) context.TryGetWorldDragTarget(out target);
         if (!target || !target.TryGetDraggable(out IWorldDraggable draggable) || !Pointer) return;
+        if (!target.IsInRange(Position)) return;
         hasMoveTarget = false;
         Cancel();
         draggable.BeginDrag(Pointer);
