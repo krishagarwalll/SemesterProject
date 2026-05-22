@@ -71,7 +71,20 @@ public class PoptropicaController : MonoBehaviour
     private Vector3 Position => transform.position;
     private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi;
 
-    public bool HasActiveInteraction => activeDrag != null || pendingAction.IsValid;
+    private IWorldDraggable ActiveDrag
+    {
+        get
+        {
+            if (activeDrag is UnityEngine.Object dragObject && !dragObject)
+            {
+                activeDrag = null;
+            }
+
+            return activeDrag;
+        }
+    }
+
+    public bool HasActiveInteraction => ActiveDrag != null || pendingAction.IsValid;
     public bool IsGrounded => isGrounded;
     public bool IsAirborne => isAirborne;
     private bool CanJump => !isAirborne && (isGrounded || coyoteTimer > 0f);
@@ -146,7 +159,7 @@ public class PoptropicaController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (PauseService.IsGameplayInputPaused(this) || movementLocked || activeDrag != null)
+        if (PauseService.IsGameplayInputPaused(this) || movementLocked || ActiveDrag != null)
         {
             hasMoveTarget = false;
             StopHorizontalMovement();
@@ -324,7 +337,7 @@ public class PoptropicaController : MonoBehaviour
     {
         if (PauseService.IsGameplayInputPaused(this)
             || movementLocked
-            || activeDrag != null
+            || ActiveDrag != null
             || IsPointerBlocked
             || !IsMovementButtonHeld())
         {
@@ -684,7 +697,7 @@ public class PoptropicaController : MonoBehaviour
 
     private void HandleDragEnd()
     {
-        if (activeDrag == null || Pointer == null || !Pointer.DragEndedThisFrame) return;
+        if (ActiveDrag == null || Pointer == null || !Pointer.DragEndedThisFrame) return;
         activeDrag.EndDrag();
         activeDrag = null;
     }
@@ -701,7 +714,7 @@ public class PoptropicaController : MonoBehaviour
     {
         hasMoveTarget = false;
         pendingAction = default;
-        if (activeDrag == null) return;
+        if (ActiveDrag == null) return;
         activeDrag.EndDrag();
         activeDrag = null;
     }
@@ -728,7 +741,7 @@ public class PoptropicaController : MonoBehaviour
     private void HandlePrimaryClick(PointerContext context)
     {
         if (PauseService.IsGameplayInputPaused(this)) return;
-        if (IsPointerBlocked || activeDrag != null) return;
+        if (IsPointerBlocked || ActiveDrag != null) return;
         if (!context.ClickedTarget)
         {
             pendingAction = default;
@@ -760,7 +773,7 @@ public class PoptropicaController : MonoBehaviour
         if (draggable.IsDragging) activeDrag = draggable;
     }
 
-    private void HandleDragUpdated(PointerContext context) => activeDrag?.UpdateDrag(context);
+    private void HandleDragUpdated(PointerContext context) => ActiveDrag?.UpdateDrag(context);
 
     private void ResetPresentationState()
     {
