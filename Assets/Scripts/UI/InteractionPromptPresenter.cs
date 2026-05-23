@@ -55,28 +55,18 @@ public class InteractionPromptPresenter : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Controller && (Controller.HasActiveInteraction || Pointer && Pointer.IsDragging))
-        {
-            SetVisible(false);
-            return;
-        }
-
-        if (!Root || !currentTarget || !Pointer || !Pointer.WorldCamera)
-        {
-            return;
-        }
-
-        Vector2 screenPosition = RectTransformUtility.WorldToScreenPoint(Pointer.WorldCamera, currentTarget.InteractionPoint.position) + screenOffset;
-        Root.position = screenPosition;
+        Evaluate();
     }
 
     private void HandleHoverChanged(InteractionTarget previous, InteractionTarget current)
     {
         currentTarget = current;
-        Refresh();
+        Evaluate();
     }
 
-    private void Refresh()
+    private void Refresh() => Evaluate();
+
+    private void Evaluate()
     {
         if (!Root)
         {
@@ -89,20 +79,20 @@ public class InteractionPromptPresenter : MonoBehaviour
             return;
         }
 
-        if (Controller.HasActiveInteraction || Pointer && Pointer.IsDragging)
+        if (Controller.HasActiveInteraction || (Pointer && Pointer.IsDragging))
         {
             SetVisible(false);
             return;
         }
 
         InteractionContext context = new(Controller, Pointer, currentTarget, SceneInventory);
-        if (!currentTarget.TryGetPromptAction(context, out InteractionAction action))
+        if (!currentTarget.TryGetPromptAction(context, out InteractionAction action) || !action.Enabled)
         {
             SetVisible(false);
             return;
         }
 
-        if (!action.Enabled)
+        if (!action.RequiresApproach && !currentTarget.IsInRange(Controller.transform.position))
         {
             SetVisible(false);
             return;
@@ -116,6 +106,12 @@ public class InteractionPromptPresenter : MonoBehaviour
         }
 
         ApplyGlyph(action.GlyphId);
+
+        if (Pointer && Pointer.WorldCamera)
+        {
+            Vector2 screenPosition = RectTransformUtility.WorldToScreenPoint(Pointer.WorldCamera, currentTarget.InteractionPoint.position) + screenOffset;
+            Root.position = screenPosition;
+        }
     }
 
     private TextMeshProUGUI EnsureLabel()

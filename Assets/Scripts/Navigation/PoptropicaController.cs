@@ -743,7 +743,10 @@ public class PoptropicaController : MonoBehaviour
     {
         if (PauseService.IsGameplayInputPaused(this)) return;
         if (IsPointerBlocked || ActiveDrag != null) return;
-        if (!context.ClickedTarget)
+
+        InteractionTarget target = context.ClickedTarget;
+
+        if (!target || target.SupportsDrag)
         {
             pendingAction = default;
             moveTargetX = cursorWorldPos.x;
@@ -751,7 +754,6 @@ public class PoptropicaController : MonoBehaviour
             return;
         }
 
-        InteractionTarget target = context.ClickedTarget;
         if (!target.TryGetPrimaryAction(CreateContext(target), out InteractionAction action) || !action.Enabled)
         {
             hasMoveTarget = false;
