@@ -32377,7 +32377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caec83985c72749f59ea9a1154f2fd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MemoryFragmentCutscene
-  cutsceneClip: {fileID: 0}
+  cutsceneClip: {fileID: 32900000, guid: 637b324d5b9dfbf41aa7085fcc68bbcd, type: 3}
   playOnce: 1
   cutsceneSaveId: 
   pickupItem: {fileID: 592263095}
@@ -57058,7 +57058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caec83985c72749f59ea9a1154f2fd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MemoryFragmentCutscene
-  cutsceneClip: {fileID: 0}
+  cutsceneClip: {fileID: 32900000, guid: 16945899345be6c4eb79f12f67a2120b, type: 3}
   playOnce: 1
   cutsceneSaveId: 
   pickupItem: {fileID: 1016037045}
@@ -107193,7 +107193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caec83985c72749f59ea9a1154f2fd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MemoryFragmentCutscene
-  cutsceneClip: {fileID: 0}
+  cutsceneClip: {fileID: 32900000, guid: 6a9932640dfe2214ea1780ed70de1f9b, type: 3}
   playOnce: 1
   cutsceneSaveId: 
   pickupItem: {fileID: 2049538188}

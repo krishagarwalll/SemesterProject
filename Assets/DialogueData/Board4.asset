@@ -15,7 +15,7 @@ MonoBehaviour:
   npcName: NEWSPAPER 4
   dialogueLines:
   - '"26th December, XXXX...'
-  - MEMBER OF THE GRIM BROTHERHOOD LED OUT WITH PROBATION"
+  - MEMBER OF THE GRIM BROTHERHOOD LET OUT ON PAROLE"
   typingSpeed: 0.01
   autoProgressLines: 
   endDialogueLines: 
