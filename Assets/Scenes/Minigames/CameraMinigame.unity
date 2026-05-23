@@ -1383,6 +1383,7 @@ GameObject:
   - component: {fileID: 219474067}
   - component: {fileID: 219474068}
   - component: {fileID: 219474069}
+  - component: {fileID: 219474070}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1709,6 +1710,50 @@ MonoBehaviour:
   mirrorVisualRoot: 1
   useManualOffset: 0
   mirroredOffset: {x: 0, y: 0}
+--- !u!114 &219474070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219474060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2786364b314a41b1b04b995a4552120, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMinigameStagger
+  staggerDuration: 0.35
+  knockbackDistance: 1.1
+  invulnerabilityDuration: 0.6
+  knockbackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  vignetteVolume: {fileID: 1172672453}
+  overrideVignetteColor: 1
+  vignetteColor: {r: 1, g: 0.1, b: 0.1, a: 1}
+  vignetteMaxIntensity: 0.55
+  vignetteFadeOutDuration: 0.4
 --- !u!1001 &222948709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3887,7 +3932,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -7415,6 +7460,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5212902211536764691, guid: b906a6b0cbf12914bb469b866f4567ca, type: 3}
   m_PrefabInstance: {fileID: 1149408756}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1172672452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1172672454}
+  - component: {fileID: 1172672453}
+  m_Layer: 0
+  m_Name: StaggerVignetteVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1172672453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172672452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 100
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 15ad6ca23ffda47f19c2758fa78dd4df, type: 2}
+--- !u!4 &1172672454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172672452}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1184773274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12410,3 +12504,4 @@ SceneRoots:
   - {fileID: 951534108}
   - {fileID: 1520388809}
   - {fileID: 1736408728}
+  - {fileID: 1172672454}
