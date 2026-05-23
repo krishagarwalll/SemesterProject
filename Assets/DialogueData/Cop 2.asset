@@ -10,25 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
-  m_Name: Brother1st
+  m_Name: Cop 2
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
-  npcName: Brother
+  npcName: Police
   dialogueLines:
-  - ...
-  - I can't believe I let myself get so angry over something so stupid.
-  - It's been 2 years since I got a word from you...
-  - But now I'll never get it for sure.
-  - Pushing you in the lake... I don't know what I was thinking.
-  - I can't even find who did this to you.
-  - ...
-  - I'm a horrible brother.
-  - I know that they are all looking for me.
-  - Maybe I should just turn myself in.
-  - Or maybe I should just....
-  - ...
+  - 'COP 2: ... Hey, do you feel cold?'
+  - 'COP 1: No, why?'
+  - 'COP 2: It felt so chilly all of a sudden... Like something just flew near me.'
+  - 'COP 1: ...You''re weird.'
   typingSpeed: 0.01
   autoProgressLines: 
-  endDialogueLines: 000000000000000000000001
+  endDialogueLines: 
   autoProgressDelay: 1.5
   choices: []
   questInProgressIndex: 0

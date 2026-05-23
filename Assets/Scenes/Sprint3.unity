@@ -8302,8 +8302,8 @@ Transform:
   m_GameObject: {fileID: 133752577}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.7538, y: -0.9963, z: 0}
-  m_LocalScale: {x: 0.529547, y: 0.64037955, z: 1}
+  m_LocalPosition: {x: 4.809, y: -0.9963, z: 0}
+  m_LocalScale: {x: 0.53426, y: 0.64037955, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 417758800}
@@ -42603,6 +42603,9 @@ GameObject:
   - component: {fileID: 736517191}
   - component: {fileID: 736517190}
   - component: {fileID: 736517189}
+  - component: {fileID: 736517194}
+  - component: {fileID: 736517193}
+  - component: {fileID: 736517192}
   m_Layer: 10
   m_Name: Cop1
   m_TagString: Untagged
@@ -42619,8 +42622,8 @@ Transform:
   m_GameObject: {fileID: 736517187}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.196, y: -1.291, z: 0}
-  m_LocalScale: {x: 0.14001, y: 0.13385001, z: 0.1}
+  m_LocalPosition: {x: 8.222, y: -1.445, z: 0}
+  m_LocalScale: {x: 0.106134154, y: 0.10257461, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 159757790}
@@ -42726,7 +42729,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0002542585, y: 0.000624381}
+  m_Offset: {x: 0.08219832, y: 0.15957594}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -42736,8 +42739,75 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.28068617, y: 0.4880787}
+  m_Size: {x: 2.28792, y: 10.469844}
   m_EdgeRadius: 0
+--- !u!114 &736517192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736517187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPC
+  talkLabel: Talk
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
+  dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
+  dialogueData: {fileID: 11400000, guid: 26910eb5766b75241830e693bed7bdd7, type: 2}
+--- !u!114 &736517193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736517187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &736517194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736517187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
+  interactionPoint: {fileID: 736517188}
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
+  room: {fileID: 0}
+  autoCreateOutline: 1
+  hoverCursorKind: 1
+  dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!1 &744710916
 GameObject:
   m_ObjectHideFlags: 0
@@ -62749,8 +62819,11 @@ GameObject:
   - component: {fileID: 1174515864}
   - component: {fileID: 1174515863}
   - component: {fileID: 1174515862}
+  - component: {fileID: 1174515867}
+  - component: {fileID: 1174515866}
+  - component: {fileID: 1174515865}
   m_Layer: 10
-  m_Name: Cop1 (1)
+  m_Name: Cop 2 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62765,8 +62838,8 @@ Transform:
   m_GameObject: {fileID: 1174515860}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.025, y: -1.291, z: 0}
-  m_LocalScale: {x: 0.14001, y: 0.13385001, z: 0.1}
+  m_LocalPosition: {x: 8.993, y: -1.442, z: 0}
+  m_LocalScale: {x: 0.10553107, y: 0.10226088, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 159757790}
@@ -62872,7 +62945,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0002542585, y: 0.000624381}
+  m_Offset: {x: -0.030648172, y: 0.2663355}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -62882,8 +62955,75 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.28068617, y: 0.4880787}
+  m_Size: {x: 2.6495667, y: 10.28788}
   m_EdgeRadius: 0
+--- !u!114 &1174515865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174515860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPC
+  talkLabel: Talk
+  continueLabel: Continue
+  glyphId: Primary
+  actionPriority: 20
+  dismissDistance: 4
+  advanceAction: {fileID: 0}
+  fastForwardAction: {fileID: 0}
+  fallbackAdvanceKeys: 0100000002000000
+  fallbackFastForwardKey: 1
+  fastForwardMultiplier: 4
+  dialogueData: {fileID: 11400000, guid: 626fbdc47d3590544b2d28384e0a71b4, type: 2}
+--- !u!114 &1174515866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174515860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
+  outlineMode: 2
+  includeInactiveChildren: 1
+  autoCreateSpriteOutlines: 1
+  restrictToPrimarySortingLayer: 1
+  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
+  outlineThickness: 0.025
+  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
+  highlightStrength: 0.22
+--- !u!114 &1174515867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174515860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
+  interactionPoint: {fileID: 1174515861}
+  approachPoint: {fileID: 0}
+  interactionDistancePreset: 1
+  useInteractionRadiusOverride: 0
+  interactionRadiusOverride: 1.25
+  selectionPriority: 0
+  room: {fileID: 0}
+  autoCreateOutline: 1
+  hoverCursorKind: 1
+  dragCursorKind: 4
+  audioSource: {fileID: 0}
+  hover: {fileID: 0}
 --- !u!1 &1177118743
 GameObject:
   m_ObjectHideFlags: 0
