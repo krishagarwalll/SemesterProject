@@ -18,6 +18,7 @@ public class SpriteFlipper : MonoBehaviour
     [SerializeField] private Vector2 mirroredOffset = Vector2.zero;
 
     private Vector2 facing = Vector2.right;
+    private float facingX = 1f;
     private Vector3 baseLocalPosition;
 
     private SpriteRenderer[] Renderers => spriteRenderers is { Length: > 0 }
@@ -62,6 +63,13 @@ public class SpriteFlipper : MonoBehaviour
             return;
         }
 
+        // Only update horizontal facing when direction has a meaningful horizontal component.
+        // This prevents vertical movement (jumping/falling) from resetting the flip to the default.
+        if (Mathf.Abs(facing.x) > 0f)
+        {
+            facingX = facing.x;
+        }
+
         ApplyFacing();
     }
 
@@ -72,7 +80,7 @@ public class SpriteFlipper : MonoBehaviour
 
     private void ApplyFacing()
     {
-        bool mirrorX = flipX && facing.x < 0f;
+        bool mirrorX = flipX && facingX < 0f;
         bool mirrorY = flipY && facing.y < 0f;
 
         for (int i = 0; i < Renderers.Length; i++)
