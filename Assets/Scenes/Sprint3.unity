@@ -36458,7 +36458,7 @@ Transform:
   m_GameObject: {fileID: 710405235}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.0176, y: -1.4424, z: 0}
+  m_LocalPosition: {x: 5.978, y: -1.4424, z: 0}
   m_LocalScale: {x: 0.8633869, y: 0.8636405, z: 0.33}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -46042,7 +46042,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: 2920119731135636973, guid: 443b4296b38d04443bd1974de1f4c024, type: 3}
   itemName: Photo 3
-  description: Replace with photo of a woman's mugshot.
+  description: A woman's mugshot.
 --- !u!114 &843548988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46573,7 +46573,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.8039831, y: 0}
+  m_Offset: {x: -0.8039831, y: 11.641064}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -46583,7 +46583,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.6079657, y: 1}
+  m_Size: {x: 2.6079657, y: 1.6795797}
   m_EdgeRadius: 0
 --- !u!1 &858749592
 GameObject:
@@ -73752,7 +73752,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: 7504642281100431411, guid: 31961d5c73d994c198a718989b591f72, type: 3}
   itemName: 
-  description: Replace with a more realistic-looking photo
+  description: 
 --- !u!114 &1367663964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81440,8 +81440,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 690e7ea918ef94084a235b0634d00f4e, type: 2}
+  m_sharedMaterial: {fileID: 1933534589458066380, guid: 690e7ea918ef94084a235b0634d00f4e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -81465,8 +81465,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22
-  m_fontSizeBase: 22
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -86134,7 +86134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: 2335413334521252836, guid: 852fa0da2e3ef4292a2d32a40470d4cb, type: 3}
   itemName: Photo 2
-  description: Replace with photo of the dad.
+  description: A photo of a man in a forest.
 --- !u!114 &1671076300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89285,7 +89285,7 @@ Transform:
   m_GameObject: {fileID: 1759116288}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.707106, w: 0.7071076}
-  m_LocalPosition: {x: 11.28, y: -0.46, z: 0.5}
+  m_LocalPosition: {x: 11.84, y: -0.46, z: 0.5}
   m_LocalScale: {x: 4.59, y: 0.2, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -92093,7 +92093,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 401001002
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8779120818389705283, guid: cffba3b4ba3d4e449a18a33c6dc78333, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

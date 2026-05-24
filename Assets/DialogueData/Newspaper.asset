@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: Newspaper Excerpt
   dialogueLines:
-  - '"A 23-year old was found deceased on the shore of the Marigold National Forest...'
+  - '"A 20-year old was found deceased on the shore of the Marigold National Forest...'
   - Forensic experts found traces of the victim's brother's DNA on the victim's hair.
   - A search for the brother has been ongoing-"
   typingSpeed: 0.01
