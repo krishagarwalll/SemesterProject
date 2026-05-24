@@ -108,7 +108,16 @@ public class InteractionPromptPresenter : MonoBehaviour
         if (Pointer && Pointer.WorldCamera)
         {
             Vector2 screenPosition = RectTransformUtility.WorldToScreenPoint(Pointer.WorldCamera, currentTarget.InteractionPoint.position) + screenOffset;
-            Root.position = screenPosition;
+            RectTransform parentRect = Root.parent as RectTransform;
+            if (parentRect)
+            {
+                Canvas parentCanvas = parentRect.GetComponentInParent<Canvas>();
+                Camera uiCamera = parentCanvas && parentCanvas.renderMode != RenderMode.ScreenSpaceOverlay ? parentCanvas.worldCamera : null;
+                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPosition, uiCamera, out Vector2 localPoint))
+                {
+                    Root.anchoredPosition = localPoint;
+                }
+            }
         }
     }
 
