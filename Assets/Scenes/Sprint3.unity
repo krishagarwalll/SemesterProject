@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Bedroom
-  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
+  musicClip: {fileID: 8300000, guid: 03e3ae341796d394890c756d98f9d2c0, type: 3}
   boundsVolume: {fileID: 1759062162}
   defaultAnchor: {fileID: 804475891}
   contentRoot: {fileID: 9331183}
@@ -9241,7 +9241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
-  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
+  musicClip: {fileID: 8300000, guid: 03e3ae341796d394890c756d98f9d2c0, type: 3}
   boundsVolume: {fileID: 1682919939}
   defaultAnchor: {fileID: 617618378}
   contentRoot: {fileID: 159757790}
@@ -14506,7 +14506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
-  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
+  musicClip: {fileID: 8300000, guid: 03e3ae341796d394890c756d98f9d2c0, type: 3}
   boundsVolume: {fileID: 1821215627}
   defaultAnchor: {fileID: 1736577662}
   contentRoot: {fileID: 301832346}
@@ -15942,7 +15942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Kitchen
-  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
+  musicClip: {fileID: 8300000, guid: 03e3ae341796d394890c756d98f9d2c0, type: 3}
   boundsVolume: {fileID: 895931046}
   defaultAnchor: {fileID: 570977942}
   contentRoot: {fileID: 331021157}
@@ -21634,7 +21634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Garage
-  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
+  musicClip: {fileID: 8300000, guid: 03e3ae341796d394890c756d98f9d2c0, type: 3}
   boundsVolume: {fileID: 429523652}
   defaultAnchor: {fileID: 1416714064}
   contentRoot: {fileID: 368697164}
@@ -105970,7 +105970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
-  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
+  musicClip: {fileID: 8300000, guid: 03e3ae341796d394890c756d98f9d2c0, type: 3}
   boundsVolume: {fileID: 1357190432}
   defaultAnchor: {fileID: 1229854861}
   contentRoot: {fileID: 2009901048}
