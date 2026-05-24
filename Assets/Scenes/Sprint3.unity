@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Bedroom
-  musicClip: {fileID: 8300000, guid: d4335607b9d6d4ca2a22560a19eb3dd7, type: 3}
+  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
   boundsVolume: {fileID: 1759062162}
   defaultAnchor: {fileID: 804475891}
   contentRoot: {fileID: 9331183}
@@ -9241,7 +9241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
-  musicClip: {fileID: 8300000, guid: d4335607b9d6d4ca2a22560a19eb3dd7, type: 3}
+  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
   boundsVolume: {fileID: 1682919939}
   defaultAnchor: {fileID: 617618378}
   contentRoot: {fileID: 159757790}
@@ -14506,7 +14506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
-  musicClip: {fileID: 8300000, guid: d4335607b9d6d4ca2a22560a19eb3dd7, type: 3}
+  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
   boundsVolume: {fileID: 1821215627}
   defaultAnchor: {fileID: 1736577662}
   contentRoot: {fileID: 301832346}
@@ -15176,7 +15176,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62059b2e5e438e749919d81704afc172, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionPromptPresenter
   pointer: {fileID: 1809017517}
   controller: {fileID: 277298070}
@@ -15235,7 +15235,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -15942,7 +15942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Kitchen
-  musicClip: {fileID: 8300000, guid: d4335607b9d6d4ca2a22560a19eb3dd7, type: 3}
+  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
   boundsVolume: {fileID: 895931046}
   defaultAnchor: {fileID: 570977942}
   contentRoot: {fileID: 331021157}
@@ -21634,7 +21634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Garage
-  musicClip: {fileID: 8300000, guid: d4335607b9d6d4ca2a22560a19eb3dd7, type: 3}
+  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
   boundsVolume: {fileID: 429523652}
   defaultAnchor: {fileID: 1416714064}
   contentRoot: {fileID: 368697164}
@@ -47456,7 +47456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
-  musicClip: {fileID: 8300000, guid: d4335607b9d6d4ca2a22560a19eb3dd7, type: 3}
+  musicClip: {fileID: 8300000, guid: 717364009b14b431fa2fcaaaaeac1a81, type: 3}
   boundsVolume: {fileID: 1568578832}
   defaultAnchor: {fileID: 1822716158}
   contentRoot: {fileID: 869665203}
@@ -73580,7 +73580,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b820adf3ef044acabb2dc2a0f0e33af, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSaveIndicator
   visibleSeconds: 1.5
   fadeSeconds: 0.35
@@ -73634,8 +73634,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671e, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.05, g: 0.07, b: 0.08, a: 0.78}
   m_RaycastTarget: 0
@@ -73664,8 +73664,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671e, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
@@ -73725,7 +73725,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -74425,7 +74425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
-  musicClip: {fileID: 8300000, guid: d4335607b9d6d4ca2a22560a19eb3dd7, type: 3}
+  musicClip: {fileID: 8300000, guid: c35da9d7802f544328046e86339b299c, type: 3}
   boundsVolume: {fileID: 202035943}
   defaultAnchor: {fileID: 913372030}
   contentRoot: {fileID: 1369323096}
@@ -105970,7 +105970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
-  musicClip: {fileID: 8300000, guid: d4335607b9d6d4ca2a22560a19eb3dd7, type: 3}
+  musicClip: {fileID: 8300000, guid: 4ea6a7a13d324fc40b1839131109f404, type: 3}
   boundsVolume: {fileID: 1357190432}
   defaultAnchor: {fileID: 1229854861}
   contentRoot: {fileID: 2009901048}
