@@ -66,6 +66,9 @@ public class InteractionTarget : MonoBehaviour
         {
             activeTargets.Add(this);
         }
+
+        if (audioSource && AudioManager.Instance && AudioManager.Instance.SfxGroup)
+            audioSource.outputAudioMixerGroup = AudioManager.Instance.SfxGroup;
     }
 
     private void OnDisable()

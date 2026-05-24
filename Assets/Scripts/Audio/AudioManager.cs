@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 [DisallowMultipleComponent]
 public class AudioManager : MonoBehaviour
@@ -10,6 +11,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float defaultMasterVolume = 1f;
     [SerializeField, Range(0f, 1f)] private float defaultMusicVolume = 0.6f;
     [SerializeField, Range(0f, 1f)] private float defaultSfxVolume = 1f;
+    [SerializeField] private AudioMixerGroup musicGroup;
+    [SerializeField] private AudioMixerGroup sfxGroup;
 
     private AudioPlayer musicPlayer;
     private AudioPlayer sfxPlayer;
@@ -22,6 +25,8 @@ public class AudioManager : MonoBehaviour
     public float MasterVolume => masterVolume;
     public float MusicVolume => musicVolume;
     public float SfxVolume => sfxVolume;
+    public AudioMixerGroup MusicGroup => musicGroup;
+    public AudioMixerGroup SfxGroup => sfxGroup;
 
     private AudioPlayer MusicPlayer
     {
@@ -32,6 +37,7 @@ public class AudioManager : MonoBehaviour
             go.transform.SetParent(transform);
             musicPlayer = go.AddComponent<AudioPlayer>();
             musicPlayer.Source.loop = true;
+            musicPlayer.Source.outputAudioMixerGroup = musicGroup;
             return musicPlayer;
         }
     }
@@ -44,6 +50,7 @@ public class AudioManager : MonoBehaviour
             var go = new GameObject("SfxPlayer");
             go.transform.SetParent(transform);
             sfxPlayer = go.AddComponent<AudioPlayer>();
+            sfxPlayer.Source.outputAudioMixerGroup = sfxGroup;
             return sfxPlayer;
         }
     }
@@ -75,6 +82,7 @@ public class AudioManager : MonoBehaviour
     public void PlayMusic(AudioClip clip, bool loop = true)
     {
         if (!clip) return;
+        if (musicPlayer && musicPlayer.Source.clip == clip && musicPlayer.Source.isPlaying) return;
         MusicPlayer.PlayClip(clip, masterVolume * musicVolume, loop);
     }
 
