@@ -12824,7 +12824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  talkLabel: Talk
+  talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
@@ -26726,7 +26726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  talkLabel: Talk
+  talkLabel: Interact
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
@@ -42606,7 +42606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  talkLabel: Talk
+  talkLabel: Overhear
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
@@ -62511,7 +62511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b691dc509f2985408f01666ce4687c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
-  talkLabel: Talk
+  talkLabel: Overhear
   continueLabel: Continue
   glyphId: Primary
   actionPriority: 20
@@ -73751,7 +73751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: 7504642281100431411, guid: 31961d5c73d994c198a718989b591f72, type: 3}
-  itemName: 
+  itemName: A photo of a women with her children.
   description: 
 --- !u!114 &1367663964
 MonoBehaviour:
@@ -98801,8 +98801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
   itemSprite: {fileID: 5739897283171119737, guid: de78503862eb544a897f938592b1ed36, type: 3}
   itemName: 
-  description: Seems like its going bad... How long has this fridge been abandoned
-    for?
+  description: Seems like the food is going bad...
 --- !u!1 &1922566741
 GameObject:
   m_ObjectHideFlags: 0
