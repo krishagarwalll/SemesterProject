@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Minigames/CameraMinigame.unity
     guid: 93c18713119bc734dbf0aa1a13e30534
+  - enabled: 1
+    path: Assets/Scenes/Minigames/RippedUpLetterMiniGame.unity
+    guid: 7726f4471fe03804294e7ac1639bbd98
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

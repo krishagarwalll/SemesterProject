@@ -119,11 +119,18 @@ public class InteractionTarget : MonoBehaviour
 
         wasHovered = hovered;
     }
-
+    
         public void OnClicked()
-    {
-        Debug.Log("InteractionTarget clicked: " + name);
-    }
+        {
+            Debug.Log("InteractionTarget clicked: " + name);
+
+            OpenMiniGame miniGame = GetComponent<OpenMiniGame>();
+
+            if (miniGame != null)
+            {
+                miniGame.OpenScene();
+            }
+        }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)
     {
