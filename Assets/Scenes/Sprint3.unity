@@ -9350,7 +9350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
-  musicClip: {fileID: 8300000, guid: 03e3ae341796d394890c756d98f9d2c0, type: 3}
+  musicClip: {fileID: 8300000, guid: c35da9d7802f544328046e86339b299c, type: 3}
   boundsVolume: {fileID: 1682919939}
   defaultAnchor: {fileID: 617618378}
   contentRoot: {fileID: 159757790}
@@ -14615,7 +14615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   roomId: Hallway
-  musicClip: {fileID: 8300000, guid: 03e3ae341796d394890c756d98f9d2c0, type: 3}
+  musicClip: {fileID: 8300000, guid: c35da9d7802f544328046e86339b299c, type: 3}
   boundsVolume: {fileID: 1821215627}
   defaultAnchor: {fileID: 1736577662}
   contentRoot: {fileID: 301832346}
@@ -36012,8 +36012,6 @@ GameObject:
   - component: {fileID: 675055285}
   - component: {fileID: 675055284}
   - component: {fileID: 675055283}
-  - component: {fileID: 675055287}
-  - component: {fileID: 675055286}
   m_Layer: 10
   m_Name: grassbckng
   m_TagString: Untagged
@@ -36149,50 +36147,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.42671883, y: 0.59144604}
   m_EdgeRadius: 0
---- !u!114 &675055286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 675055281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da0ec168a07b4df4d844196d1e525d37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline2D
-  outlineMode: 2
-  includeInactiveChildren: 1
-  autoCreateSpriteOutlines: 1
-  restrictToPrimarySortingLayer: 1
-  outlineColor: {r: 1, g: 0.82, b: 0.28, a: 0.9}
-  outlineThickness: 0.025
-  highlightColor: {r: 1, g: 0.94, b: 0.68, a: 1}
-  highlightStrength: 0.22
---- !u!114 &675055287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 675055281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08acdd87c6a369a45b8988bd9290de28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionTarget
-  interactionPoint: {fileID: 675055282}
-  approachPoint: {fileID: 0}
-  interactionDistancePreset: 1
-  useInteractionRadiusOverride: 0
-  interactionRadiusOverride: 1.25
-  selectionPriority: 0
-  room: {fileID: 0}
-  autoCreateOutline: 1
-  hoverCursorKind: 1
-  dragCursorKind: 4
-  audioSource: {fileID: 0}
-  hover: {fileID: 0}
 --- !u!1 &676174544
 GameObject:
   m_ObjectHideFlags: 0
@@ -45031,7 +44985,7 @@ Transform:
   m_GameObject: {fileID: 826020562}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.75, y: -5.600001, z: -70}
+  m_LocalPosition: {x: 9.16, y: -0.88, z: -70}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
