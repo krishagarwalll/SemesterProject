@@ -92125,9 +92125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7126cbdae17a40f29a15a3e0d4973c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopUpInteraction
-  itemSprite: {fileID: -3726306262918629138, guid: daa13d6c0925041c1900c7fb9352f59f, type: 3}
-  itemName: Pop-up placeholder
-  description: Inside, there is a crumpled up note.
+  itemSprite: {fileID: 5301197606788580755, guid: 280780918bdeb044bb35d21b2e48b076, type: 3}
+  itemName: 
+  description: A crumpled-up note in the garbage can.
 --- !u!114 &1828462824
 MonoBehaviour:
   m_ObjectHideFlags: 0
