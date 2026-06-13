@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PoptropicaController : MonoBehaviour
 {
     private const float DirectionDeadzone = 0.0001f;
+    private const float GroundSnapDeadzone = 0.005f;
 
     [Header("Movement")]
     [SerializeField, Min(0.1f)] private float moveSpeed = 5f;
@@ -130,8 +131,6 @@ public class PoptropicaController : MonoBehaviour
     {
         UpdateCursorWorldPosition();
         RefreshGroundCheck();
-        ResolveGroundPenetration();
-        SnapToGroundIfNeeded();
         RefreshAirborneState();
         UpdateCoyoteTimer();
         RefreshJumpGesture();
@@ -159,6 +158,12 @@ public class PoptropicaController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Resolve ground penetration / snapping inside the physics step so
+        // Rigidbody2D interpolation can smooth the vertical correction. Done in
+        // Update it fought interpolation and made the sprite buzz while walking.
+        ResolveGroundPenetration();
+        SnapToGroundIfNeeded();
+
         if (PauseService.IsGameplayInputPaused(this) || movementLocked || ActiveDrag != null)
         {
             hasMoveTarget = false;
@@ -493,7 +498,7 @@ public class PoptropicaController : MonoBehaviour
         isGrounded = true;
         float desiredBottom = hit.PointY + 0.01f;
         float deltaY = desiredBottom - bounds.min.y;
-        if (deltaY <= 0f || deltaY > groundSnapDistance + 0.01f)
+        if (deltaY <= GroundSnapDeadzone || deltaY > groundSnapDistance + 0.01f)
         {
             return;
         }
@@ -543,7 +548,7 @@ public class PoptropicaController : MonoBehaviour
         }
 
         float deltaY = bestTop + 0.01f - bounds.min.y;
-        if (deltaY <= 0f || deltaY > groundResolveDistance + 0.01f)
+        if (deltaY <= GroundSnapDeadzone || deltaY > groundResolveDistance + 0.01f)
         {
             return;
         }

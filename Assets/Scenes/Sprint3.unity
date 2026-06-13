@@ -94652,8 +94652,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraZoomTrigger
   roomTransitions: {fileID: 247894403}
   playerTag: Player
-  zoomOutToMax: 1
-  zoomedOutSize: 3
+  zoomOutToMax: 0
+  zoomedOutSize: 3.5
   zoomedInSize: -1
   zoomDuration: 0.6
   zoomCurve:
