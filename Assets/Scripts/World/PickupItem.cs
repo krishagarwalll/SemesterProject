@@ -30,6 +30,8 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     [FieldHeader("Content")]
     [SerializeField, TextArea] private string inspectText;
 
+    public event Action StoredToInventory;
+
     public InventoryItemDefinition ItemDefinition => itemDefinition;
     public string SaveId => ResolveSaveId();
     public int Quantity => quantity;
@@ -182,6 +184,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
 
     public void CompleteStoreToInventory()
     {
+        StoredToInventory?.Invoke();
         DragBody.EndDrag(restoreInvalidPose: false);
         SetRootActive(false);
     }

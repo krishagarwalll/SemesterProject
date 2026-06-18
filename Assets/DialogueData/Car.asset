@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
-  m_Name: TutorialBoard
+  m_Name: Car
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: You
   dialogueLines:
-  - This looks complicated.
-  - Not sure how anyone is able to understand whats going on here.
+  - First the bedroom window, and now this?
+  - There is no way someone didn't destroy this car on purpose.
   typingSpeed: 0.01
   autoProgressLines: 
   endDialogueLines: 
@@ -25,3 +25,4 @@ MonoBehaviour:
   questCompletedIndex: 0
   quest: {fileID: 0}
   isQuestHandInNPC: 0
+  autoGiveQuestOnStart: 0

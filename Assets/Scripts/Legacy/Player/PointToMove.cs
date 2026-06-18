@@ -2,38 +2,27 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
 
-[System.Obsolete("Legacy Level1 movement. Sprint2 uses PointClickController.", false)]
 public class PointToMove : MonoBehaviour
 {
-
-    // delete // when added player animation
-    //Animator anim;
     Rigidbody2D rb;
     private DragDropHandler dragDropHandler;
+    private SpriteFlipper spriteFlipper;
+    private Camera cam;
 
-    [SerializeField] private Transform head; //position for head accessories - assign in inspector
-    //add other transforms for other decorations - body, feet, necklace, etc
+    [SerializeField] private Transform head;
 
     [Tooltip("Optional. If set, click targets are clamped to this collider's area so the player cannot walk outside of it. " +
              "Use a trigger Collider2D over the playable floor.")]
     [SerializeField] private Collider2D movementBounds;
 
-    //public AudioClip walking;
-    
-    //AudioSource audioSource;
-
-
     void Start()
     {
-       // audioSource = GetComponent<AudioSource>();
-
-        //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         dragDropHandler = FindFirstObjectByType<DragDropHandler>();
+        spriteFlipper = GetComponentInChildren<SpriteFlipper>();
+        cam = Camera.main;
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         if (PauseService.IsGameplayInputPaused(this))
@@ -55,7 +44,10 @@ public class PointToMove : MonoBehaviour
                 return;
             }
 
-            var pos = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 0));
+            if (!cam) cam = Camera.main;
+            if (!cam) return;
+
+            var pos = cam.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 0));
             pos.z = 0;
 
             if (movementBounds != null)
@@ -67,20 +59,14 @@ public class PointToMove : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(DoTheThing(pos));
         }
-        
-            //anim.SetBool("isWalking", true);
-            //audioSource.PlayOneShot(walking);
-        else
-        {
-            //anim.SetBool("isWalking", false);
-        }
-
-        
-        
     }
 
-    IEnumerator DoTheThing(Vector3 pos) 
+    IEnumerator DoTheThing(Vector3 pos)
     {
+        Vector2 direction = pos - transform.position;
+        if (spriteFlipper != null && direction.sqrMagnitude > 0.001f)
+            spriteFlipper.SetFacing(direction);
+
         while (Vector3.Distance(transform.position, pos) > 0.01f)
         {
             transform.position = Vector3.MoveTowards(
@@ -91,29 +77,23 @@ public class PointToMove : MonoBehaviour
 
             yield return null;
         }
-            transform.position = pos;
+        transform.position = pos;
     }
-
-
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("enemy"))
+        if (collision.CompareTag("enemy"))
         {
-            //when player collides with other tagged objects
-            //also go into dialog when collide
             Debug.Log("died");
         }
-        else if(collision.CompareTag("decoration"))
+        else if (collision.CompareTag("decoration"))
         {
             collision.transform.SetParent(head);
-            // Snap to head position
             collision.transform.localPosition = Vector3.zero;
         }
-        else if(collision.CompareTag("minigame"))
+        else if (collision.CompareTag("minigame"))
         {
             Debug.Log("enter minigame");
-            //minigame logic here
         }
     }
 }

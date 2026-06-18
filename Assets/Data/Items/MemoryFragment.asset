@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDefinition
   itemId: memory_fragment
   displayName: Memory Fragment
-  icon: {fileID: -6962918065892611476, guid: 1d32dfddf1dad46b0890e19119557305, type: 3}
+  icon: {fileID: 2849924534559225763, guid: 4532e803166872045a761b173a843a58, type: 3}
   description: The fragment of a memory...
   worldPrefab: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
   primaryLabel: Use

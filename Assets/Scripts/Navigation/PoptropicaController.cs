@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PoptropicaController : MonoBehaviour
 {
     private const float DirectionDeadzone = 0.0001f;
+    private const float GroundSnapDeadzone = 0.005f;
 
     [Header("Movement")]
     [SerializeField, Min(0.1f)] private float moveSpeed = 5f;
@@ -71,7 +72,20 @@ public class PoptropicaController : MonoBehaviour
     private Vector3 Position => transform.position;
     private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi;
 
-    public bool HasActiveInteraction => activeDrag != null || pendingAction.IsValid;
+    private IWorldDraggable ActiveDrag
+    {
+        get
+        {
+            if (activeDrag is UnityEngine.Object dragObject && !dragObject)
+            {
+                activeDrag = null;
+            }
+
+            return activeDrag;
+        }
+    }
+
+    public bool HasActiveInteraction => ActiveDrag != null || pendingAction.IsValid;
     public bool IsGrounded => isGrounded;
     public bool IsAirborne => isAirborne;
     private bool CanJump => !isAirborne && (isGrounded || coyoteTimer > 0f);
@@ -117,8 +131,6 @@ public class PoptropicaController : MonoBehaviour
     {
         UpdateCursorWorldPosition();
         RefreshGroundCheck();
-        ResolveGroundPenetration();
-        SnapToGroundIfNeeded();
         RefreshAirborneState();
         UpdateCoyoteTimer();
         RefreshJumpGesture();
@@ -146,7 +158,13 @@ public class PoptropicaController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (PauseService.IsGameplayInputPaused(this) || movementLocked || activeDrag != null)
+        // Resolve ground penetration / snapping inside the physics step so
+        // Rigidbody2D interpolation can smooth the vertical correction. Done in
+        // Update it fought interpolation and made the sprite buzz while walking.
+        ResolveGroundPenetration();
+        SnapToGroundIfNeeded();
+
+        if (PauseService.IsGameplayInputPaused(this) || movementLocked || ActiveDrag != null)
         {
             hasMoveTarget = false;
             StopHorizontalMovement();
@@ -246,6 +264,7 @@ public class PoptropicaController : MonoBehaviour
         if (action.Mode == InteractionMode.Drag && target.TryGetDraggable(out IWorldDraggable draggable))
         {
             if (!Pointer) return false;
+            if (!target.IsInRange(Position)) return false;
             Cancel();
             draggable.BeginDrag(Pointer);
             if (!draggable.IsDragging) return false;
@@ -324,7 +343,7 @@ public class PoptropicaController : MonoBehaviour
     {
         if (PauseService.IsGameplayInputPaused(this)
             || movementLocked
-            || activeDrag != null
+            || ActiveDrag != null
             || IsPointerBlocked
             || !IsMovementButtonHeld())
         {
@@ -479,7 +498,7 @@ public class PoptropicaController : MonoBehaviour
         isGrounded = true;
         float desiredBottom = hit.PointY + 0.01f;
         float deltaY = desiredBottom - bounds.min.y;
-        if (deltaY <= 0f || deltaY > groundSnapDistance + 0.01f)
+        if (deltaY <= GroundSnapDeadzone || deltaY > groundSnapDistance + 0.01f)
         {
             return;
         }
@@ -529,7 +548,7 @@ public class PoptropicaController : MonoBehaviour
         }
 
         float deltaY = bestTop + 0.01f - bounds.min.y;
-        if (deltaY <= 0f || deltaY > groundResolveDistance + 0.01f)
+        if (deltaY <= GroundSnapDeadzone || deltaY > groundResolveDistance + 0.01f)
         {
             return;
         }
@@ -684,7 +703,7 @@ public class PoptropicaController : MonoBehaviour
 
     private void HandleDragEnd()
     {
-        if (activeDrag == null || Pointer == null || !Pointer.DragEndedThisFrame) return;
+        if (ActiveDrag == null || Pointer == null || !Pointer.DragEndedThisFrame) return;
         activeDrag.EndDrag();
         activeDrag = null;
     }
@@ -701,7 +720,7 @@ public class PoptropicaController : MonoBehaviour
     {
         hasMoveTarget = false;
         pendingAction = default;
-        if (activeDrag == null) return;
+        if (ActiveDrag == null) return;
         activeDrag.EndDrag();
         activeDrag = null;
     }
@@ -728,8 +747,11 @@ public class PoptropicaController : MonoBehaviour
     private void HandlePrimaryClick(PointerContext context)
     {
         if (PauseService.IsGameplayInputPaused(this)) return;
-        if (IsPointerBlocked || activeDrag != null) return;
-        if (!context.ClickedTarget)
+        if (IsPointerBlocked || ActiveDrag != null) return;
+
+        InteractionTarget target = context.ClickedTarget;
+
+        if (!target || target.SupportsDrag)
         {
             pendingAction = default;
             moveTargetX = cursorWorldPos.x;
@@ -737,7 +759,6 @@ public class PoptropicaController : MonoBehaviour
             return;
         }
 
-        InteractionTarget target = context.ClickedTarget;
         if (!target.TryGetPrimaryAction(CreateContext(target), out InteractionAction action) || !action.Enabled)
         {
             hasMoveTarget = false;
@@ -754,13 +775,14 @@ public class PoptropicaController : MonoBehaviour
         InteractionTarget target = context.DragTarget;
         if (!target && context) context.TryGetWorldDragTarget(out target);
         if (!target || !target.TryGetDraggable(out IWorldDraggable draggable) || !Pointer) return;
+        if (!target.IsInRange(Position)) return;
         hasMoveTarget = false;
         Cancel();
         draggable.BeginDrag(Pointer);
         if (draggable.IsDragging) activeDrag = draggable;
     }
 
-    private void HandleDragUpdated(PointerContext context) => activeDrag?.UpdateDrag(context);
+    private void HandleDragUpdated(PointerContext context) => ActiveDrag?.UpdateDrag(context);
 
     private void ResetPresentationState()
     {

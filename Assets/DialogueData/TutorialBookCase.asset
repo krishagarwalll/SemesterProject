@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: You
   dialogueLines:
-  - 'Something about this feels familiar. '
-  - Like I remember looking through these from time to time but not as of recently
+  - '"Criminals in the late 1990s", "Introduction to Forensic and Criminal Psychology",
+    "Inside the Criminal Mind"...'
+  - ... there are so many notes on them too.
+  - Is it strange that they look familiar? I swear I read these before.
   typingSpeed: 0.01
   autoProgressLines: 
   endDialogueLines: 
@@ -25,3 +27,4 @@ MonoBehaviour:
   questCompletedIndex: 0
   quest: {fileID: 0}
   isQuestHandInNPC: 0
+  autoGiveQuestOnStart: 0

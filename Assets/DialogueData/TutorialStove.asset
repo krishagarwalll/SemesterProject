@@ -14,10 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: You
   dialogueLines:
-  - I never really understood why people have these
-  - Microwaves are a thing
-  - Imagine being able to cook
-  - Couldn't be me
+  - Imagine being able to cook.
+  - Couldn't be me...
   typingSpeed: 0.01
   autoProgressLines: 
   endDialogueLines: 
@@ -27,3 +25,4 @@ MonoBehaviour:
   questCompletedIndex: 0
   quest: {fileID: 0}
   isQuestHandInNPC: 0
+  autoGiveQuestOnStart: 0

@@ -14,7 +14,7 @@ public class InteractionPromptPresenter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI labelText;
     [SerializeField] private Image glyphImage;
     [SerializeField] private TextMeshProUGUI glyphFallbackText;
-    [SerializeField] private Vector2 screenOffset = new(0f, 48f);
+    [SerializeField] private Vector2 screenOffset = new(0f, 16f);
 
     private InteractionTarget currentTarget;
 
@@ -23,7 +23,6 @@ public class InteractionPromptPresenter : MonoBehaviour
     private Inventory SceneInventory => inventory ? inventory : inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
     private RectTransform Root => root ? root : root = transform as RectTransform;
     private CanvasGroup Group => canvasGroup ? canvasGroup : canvasGroup = gameObject.GetOrAddComponent<CanvasGroup>();
-    private TextMeshProUGUI Label => labelText ? labelText : labelText = EnsureLabel();
 
     private void OnEnable()
     {
@@ -55,28 +54,18 @@ public class InteractionPromptPresenter : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Controller && (Controller.HasActiveInteraction || Pointer && Pointer.IsDragging))
-        {
-            SetVisible(false);
-            return;
-        }
-
-        if (!Root || !currentTarget || !Pointer || !Pointer.WorldCamera)
-        {
-            return;
-        }
-
-        Vector2 screenPosition = RectTransformUtility.WorldToScreenPoint(Pointer.WorldCamera, currentTarget.InteractionPoint.position) + screenOffset;
-        Root.position = screenPosition;
+        Evaluate();
     }
 
     private void HandleHoverChanged(InteractionTarget previous, InteractionTarget current)
     {
         currentTarget = current;
-        Refresh();
+        Evaluate();
     }
 
-    private void Refresh()
+    private void Refresh() => Evaluate();
+
+    private void Evaluate()
     {
         if (!Root)
         {
@@ -89,57 +78,47 @@ public class InteractionPromptPresenter : MonoBehaviour
             return;
         }
 
-        if (Controller.HasActiveInteraction || Pointer && Pointer.IsDragging)
+        if (Controller.HasActiveInteraction || (Pointer && Pointer.IsDragging))
         {
             SetVisible(false);
             return;
         }
 
         InteractionContext context = new(Controller, Pointer, currentTarget, SceneInventory);
-        if (!currentTarget.TryGetPromptAction(context, out InteractionAction action))
+        if (!currentTarget.TryGetPromptAction(context, out InteractionAction action) || !action.Enabled)
         {
             SetVisible(false);
             return;
         }
 
-        if (!action.Enabled)
+        if (!action.RequiresApproach && !currentTarget.IsInRange(Controller.transform.position))
         {
             SetVisible(false);
             return;
         }
 
         SetVisible(true);
-        if (Label)
+        if (labelText)
         {
-            Label.font = glyphLibrary ? glyphLibrary.FontAsset : TMP_Settings.defaultFontAsset;
-            Label.text = action.Label;
+            labelText.text = action.Label;
         }
 
         ApplyGlyph(action.GlyphId);
-    }
 
-    private TextMeshProUGUI EnsureLabel()
-    {
-        TextMeshProUGUI label = GetComponentInChildren<TextMeshProUGUI>(true);
-        if (label)
+        if (Pointer && Pointer.WorldCamera)
         {
-            return label;
+            Vector2 screenPosition = RectTransformUtility.WorldToScreenPoint(Pointer.WorldCamera, currentTarget.InteractionPoint.position) + screenOffset;
+            RectTransform parentRect = Root.parent as RectTransform;
+            if (parentRect)
+            {
+                Canvas parentCanvas = parentRect.GetComponentInParent<Canvas>();
+                Camera uiCamera = parentCanvas && parentCanvas.renderMode != RenderMode.ScreenSpaceOverlay ? parentCanvas.worldCamera : null;
+                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPosition, uiCamera, out Vector2 localPoint))
+                {
+                    Root.anchoredPosition = localPoint;
+                }
+            }
         }
-
-        GameObject labelObject = new("PromptLabel", typeof(RectTransform), typeof(TextMeshProUGUI));
-        RectTransform labelRect = labelObject.GetComponent<RectTransform>();
-        labelRect.SetParent(transform, false);
-        labelRect.anchorMin = new Vector2(0.5f, 0.5f);
-        labelRect.anchorMax = new Vector2(0.5f, 0.5f);
-        labelRect.pivot = new Vector2(0.5f, 0.5f);
-        labelRect.sizeDelta = new Vector2(220f, 40f);
-
-        label = labelObject.GetComponent<TextMeshProUGUI>();
-        label.font = glyphLibrary ? glyphLibrary.FontAsset : TMP_Settings.defaultFontAsset;
-        label.fontSize = 22f;
-        label.alignment = TextAlignmentOptions.Center;
-        label.raycastTarget = false;
-        return label;
     }
 
     private void ApplyGlyph(string glyphId)

@@ -28,7 +28,10 @@ public class MinigameEX : MonoBehaviour, IInteractable
     {
         IsCompleted = true;
 
-        GetComponent<SpriteRenderer>().sprite = completedMinigameSprite;
+        if (TryGetComponent(out SpriteRenderer spriteRenderer))
+        {
+            spriteRenderer.sprite = completedMinigameSprite;
+        }
 
         minigameRoot.SetActive(false);
     }

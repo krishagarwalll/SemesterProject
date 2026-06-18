@@ -68,14 +68,7 @@ public static class GameplayUiBootstrap
             return;
         }
 
-        Canvas targetCanvas = FindGameplayCanvas();
-        if (!targetCanvas)
-        {
-            Debug.LogWarning("No gameplay Canvas found for AutoSaveIndicator. Add the indicator to an existing scene canvas.");
-            return;
-        }
-
-        targetCanvas.gameObject.GetOrAddComponent<AutoSaveIndicator>();
+        Debug.LogWarning("No AutoSaveIndicator found in the scene. Add the AutoSaveIndicator prefab to your UI canvas.");
     }
 
     private static Canvas FindGameplayCanvas()

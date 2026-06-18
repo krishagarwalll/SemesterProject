@@ -1,52 +1,82 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(WorldPuzzleDragObject))]
 public class PuzzlePiece : MonoBehaviour
 {
+    // Scene-unload destroys every piece (OnDestroy) before the next load's Awake runs,
+    // so this resets itself naturally on minigame replay.
+    private static readonly List<PuzzlePiece> allPieces = new();
+    private static readonly HashSet<Transform> occupiedSlots = new();
+
     private WorldPuzzleDragObject drag;
     private Camera cam;
+    private Collider2D pieceCollider;
 
     private bool isDragging;
-    private bool pointerIsOverThisPiece;
-    
+
+    [Header("Puzzle Settings")]
     [SerializeField] private Transform correctSlot;
     [SerializeField] private float snapDistance = 0.75f;
     [SerializeField] private bool lockIntoPlace = true;
 
-    void Awake()
+    private bool isLockedInPlace;
+    private Transform lockedSlot;
+
+    public bool IsLockedInPlace => isLockedInPlace;
+
+    public System.Action<PuzzlePiece> OnLockedInPlace;
+
+    private void Awake()
     {
         drag = GetComponent<WorldPuzzleDragObject>();
+        pieceCollider = GetComponent<Collider2D>();
         cam = Camera.main;
+        allPieces.Add(this);
     }
 
-    void Update()
+    private void OnDestroy()
+    {
+        allPieces.Remove(this);
+        if (lockedSlot != null)
+        {
+            occupiedSlots.Remove(lockedSlot);
+        }
+    }
+
+    private void Update()
     {
         if (Mouse.current == null) return;
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
             TryStartDrag();
+        }
 
         if (Mouse.current.leftButton.isPressed)
+        {
             ContinueDrag();
+        }
 
         if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
             EndDrag();
+        }
     }
 
-    void TryStartDrag()
+    private void TryStartDrag()
     {
+        if (isLockedInPlace) return;
         if (PauseService.IsGameplayInputPaused(this)) return;
         if (!drag.CanStartDrag()) return;
         if (!MouseIsOverThisPiece()) return;
-
-        Debug.Log("Clicked puzzle piece");
 
         isDragging = true;
         drag.BeginDrag(GetMouseWorld());
     }
 
-    void ContinueDrag()
+    private void ContinueDrag()
     {
         if (!isDragging) return;
 
@@ -59,7 +89,7 @@ public class PuzzlePiece : MonoBehaviour
         drag.UpdateDrag(GetMouseWorld());
     }
 
-    void EndDrag()
+    private void EndDrag()
     {
         if (!isDragging) return;
 
@@ -68,42 +98,58 @@ public class PuzzlePiece : MonoBehaviour
 
         TrySnap();
     }
-    
+
     private void TrySnap()
     {
-        if (correctSlot == null) return;
+        if (isLockedInPlace) return;
 
-        float distance = Vector2.Distance(transform.position, correctSlot.position);
+        Transform targetSlot = FindNearestAvailableSlot();
+        if (targetSlot == null) return;
 
-        if (distance <= snapDistance)
+        transform.position = targetSlot.position;
+
+        isLockedInPlace = true;
+        lockedSlot = targetSlot;
+        occupiedSlots.Add(targetSlot);
+
+        OnLockedInPlace?.Invoke(this);
+
+        if (lockIntoPlace)
         {
-            transform.position = correctSlot.position;
+            drag.enabled = false;
+            enabled = false;
 
-            if (lockIntoPlace)
+            // Locked pieces no longer need to receive clicks, and leaving their
+            // collider on lets it swallow clicks meant for whatever gets dropped
+            // on top of it later, which is what made pieces feel permanently stuck.
+            if (pieceCollider)
             {
-                drag.enabled = false;
-                enabled = false;
+                pieceCollider.enabled = false;
             }
-
-            Debug.Log($"{name} snapped into its correct slot!");
         }
     }
 
-   
-    
-    private void SnapToPoint(PuzzleSnapPoint myPoint, PuzzleSnapPoint targetPoint)
+    private Transform FindNearestAvailableSlot()
     {
-        Vector3 offset = targetPoint.transform.position - myPoint.transform.position;
+        Transform best = null;
+        float bestDistance = snapDistance;
 
-        transform.position += offset;
+        for (int i = 0; i < allPieces.Count; i++)
+        {
+            Transform slot = allPieces[i] ? allPieces[i].correctSlot : null;
+            if (slot == null || occupiedSlots.Contains(slot)) continue;
 
-        myPoint.isConnected = true;
-        targetPoint.isConnected = true;
+            float distance = Vector2.Distance(transform.position, slot.position);
+            if (distance <= bestDistance)
+            {
+                bestDistance = distance;
+                best = slot;
+            }
+        }
 
-        Debug.Log("Pieces snapped together!");
+        return best;
     }
-    
-    
+
     private void OnDisable()
     {
         CancelDrag();
@@ -121,16 +167,31 @@ public class PuzzlePiece : MonoBehaviour
     {
         Vector2 mouseWorld = GetMouseWorld();
 
-        Collider2D hit = Physics2D.OverlapPoint(mouseWorld);
+        // OverlapPoint only returns a single, arbitrarily-chosen collider, so when two
+        // unlocked pieces overlap it can keep resolving to the same one and make the
+        // other permanently unclickable. OverlapPointAll lets each piece check for
+        // itself regardless of which other piece is also under the pointer.
+        Collider2D[] hits = Physics2D.OverlapPointAll(mouseWorld);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].gameObject == gameObject)
+            {
+                return true;
+            }
+        }
 
-        return hit != null && hit.gameObject == gameObject;
+        return false;
     }
 
-    Vector3 GetMouseWorld()
+    private Vector3 GetMouseWorld()
     {
         Vector2 mouseScreen = Mouse.current.position.ReadValue();
 
-        Vector3 mouse = new Vector3(mouseScreen.x, mouseScreen.y, Mathf.Abs(cam.transform.position.z));
+        Vector3 mouse = new Vector3(
+            mouseScreen.x,
+            mouseScreen.y,
+            Mathf.Abs(cam.transform.position.z)
+        );
 
         return cam.ScreenToWorldPoint(mouse);
     }

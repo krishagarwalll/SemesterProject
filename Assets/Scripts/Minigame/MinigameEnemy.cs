@@ -14,6 +14,9 @@ public class MinigameEnemy : MonoBehaviour
     [SerializeField] private float bobAmplitude = 0.5f;
     [SerializeField] private float bobFrequency = 0.7f;
 
+    [Header("Contact")]
+    [SerializeField, Min(0f)] private float selfKnockbackImpulse = 7f;
+
     [Header("References")]
     [SerializeField] private Transform target;
 
@@ -34,9 +37,12 @@ public class MinigameEnemy : MonoBehaviour
 
     private void Start()
     {
-        if (target) return;
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player) target = player.transform;
+        GameObject player = target ? target.gameObject : GameObject.FindWithTag("Player");
+        if (player == null) return;
+        if (!target) target = player.transform;
+
+        if (player.GetComponentInParent<PlayerMinigameStagger>() == null)
+            player.transform.root.gameObject.AddComponent<PlayerMinigameStagger>();
     }
 
     private void FixedUpdate()
@@ -71,4 +77,23 @@ public class MinigameEnemy : MonoBehaviour
     }
 
     public void Die() => Destroy(gameObject);
+
+    private void OnTriggerEnter2D(Collider2D other) => HandleContact(other);
+    private void OnCollisionEnter2D(Collision2D collision) => HandleContact(collision.collider);
+
+    private void HandleContact(Collider2D other)
+    {
+        if (other == null) return;
+        var stagger = other.GetComponentInParent<PlayerMinigameStagger>();
+        if (stagger == null || stagger.IsInvulnerable) return;
+
+        stagger.Stagger(transform.position);
+
+        if (rb != null)
+        {
+            Vector2 away = (Vector2)transform.position - (Vector2)stagger.transform.position;
+            if (away.sqrMagnitude < 0.0001f) away = Vector2.left;
+            rb.AddForce(away.normalized * selfKnockbackImpulse, ForceMode2D.Impulse);
+        }
+    }
 }

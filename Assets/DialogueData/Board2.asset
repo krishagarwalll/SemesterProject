@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
+  m_Name: Board2
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  npcName: EXCERPT FROM DIARY
+  dialogueLines:
+  - '"19 JUNE XXXX... '
+  - ... These days I can't help but think but feel that there is someone watching
+    us. I'm trying to focus on taking care of the boys, but the thought has been
+    bothering me for months.
+  - Ever since George has moved away, I can't help but feel anxious for my safety.
+    I've been seeing a group of people in black hoodies around the neighbourhood
+    everywhere.
+  - I've tried to ask the police on advice on what to do, but they told me that the
+    evidence is not concrete enough to do something about it.
+  - I don't believe them... but as long as the boys remain okay, then I will be okay.
+  - Love, Victoria"
+  typingSpeed: 0.01
+  autoProgressLines: 
+  endDialogueLines: 
+  autoProgressDelay: 1.5
+  choices: []
+  questInProgressIndex: 0
+  questCompletedIndex: 0
+  quest: {fileID: 0}
+  isQuestHandInNPC: 0
+  autoGiveQuestOnStart: 0

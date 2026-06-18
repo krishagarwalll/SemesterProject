@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
   npcName: Newspaper Excerpt
   dialogueLines:
-  - '"A 23-year old detective was found deceased on the shore of the Marigold National
-    Forest...'
-  - ...There are no current leads to the investigation yet-"
+  - '"A 20-year old was found deceased on the shore of the Marigold National Forest...'
+  - Forensic experts found traces of the victim's brother's DNA on the victim's hair.
+  - A search for the brother has been ongoing-"
   typingSpeed: 0.01
   autoProgressLines: 
   endDialogueLines: 
@@ -26,3 +26,4 @@ MonoBehaviour:
   questCompletedIndex: 0
   quest: {fileID: 0}
   isQuestHandInNPC: 0
+  autoGiveQuestOnStart: 0

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fff06c7dd644304a960087e3ccb8012, type: 3}
+  m_Name: Cop 1
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  npcName: Police
+  dialogueLines:
+  - 'COP 1: Two murders from this house in the last 2 years...'
+  - 'COP 2: Do you think that kid was the one that murdered his own brother? Maybe
+    even...-'
+  - 'COP 1: Don''t jump to conclusions.'
+  - 'COP 1: I heard the neighbours here sayin'' that the dad that used to live there
+    was somehow involved with the Grim Brotherhood. They saw him talking to them.'
+  - 'COP 2: Was this before the mother''s death? '
+  - 'COP 1: Yeah... Apparently the last time they were seen speaking, he left running
+    away. He could have owed them some money or something, but that''s just me speculating.'
+  - 'COP 2: It''s a shame that they hold such power here. Not even the rest of the
+    office department want to do something about that gang.'
+  typingSpeed: 0.01
+  autoProgressLines: 00
+  endDialogueLines: 
+  autoProgressDelay: 1.5
+  choices: []
+  questInProgressIndex: 0
+  questCompletedIndex: 0
+  quest: {fileID: 0}
+  isQuestHandInNPC: 0
+  autoGiveQuestOnStart: 0

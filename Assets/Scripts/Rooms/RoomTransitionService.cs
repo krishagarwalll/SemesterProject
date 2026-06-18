@@ -53,6 +53,11 @@ public class RoomTransitionService : MonoBehaviour
         ApplyActiveRoom(activeRoom);
     }
 
+    private void Start()
+    {
+        PlayRoomMusic(activeRoom);
+    }
+
     private void OnValidate()
     {
         userOrthographicSize = Mathf.Max(0.5f, userOrthographicSize);
@@ -179,20 +184,23 @@ public class RoomTransitionService : MonoBehaviour
 
     private void ApplyActiveRoom(Room room)
     {
-        if (activeRoom == room)
+        bool roomChanged = activeRoom != room;
+        if (roomChanged)
         {
-            room?.SetCameraLive(true, desiredOrthographicSize: userOrthographicSize, minOrthographicSize: minOrthographicSize, maxOrthographicSize: maxOrthographicSize);
-            return;
+            activeRoom?.SetCameraLive(false, desiredOrthographicSize: userOrthographicSize, minOrthographicSize: minOrthographicSize, maxOrthographicSize: maxOrthographicSize);
+            activeRoom = room;
+            PlayRoomMusic(activeRoom);
         }
 
-        activeRoom?.SetCameraLive(false, desiredOrthographicSize: userOrthographicSize, minOrthographicSize: minOrthographicSize, maxOrthographicSize: maxOrthographicSize);
-        activeRoom = room;
         activeRoom?.SetCameraLive(true, desiredOrthographicSize: userOrthographicSize, minOrthographicSize: minOrthographicSize, maxOrthographicSize: maxOrthographicSize);
+    }
 
-        if (room && AudioManager.Instance)
-        {
-            if (room.MusicClip) AudioManager.Instance.PlayMusic(room.MusicClip);
-            else AudioManager.Instance.StopMusic();
-        }
+    private void PlayRoomMusic(Room room)
+    {
+        if (!AudioManager.Instance) return;
+        if (room && room.MusicClip)
+            AudioManager.Instance.PlayMusic(room.MusicClip);
+        else
+            AudioManager.Instance.StopMusic();
     }
 }

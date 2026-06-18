@@ -66,8 +66,21 @@ public class PointClickController : MonoBehaviour
     private SpriteRenderer[] SpriteRenderers => spriteRenderers ??= GetComponentsInChildren<SpriteRenderer>(true);
     private Vector3 Position => transform.position;
     private bool HasPendingAction => pendingAction.IsValid;
-    private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi && activeDrag == null;
-    public bool HasActiveInteraction => activeDrag != null || HasPendingAction;
+    private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi && ActiveDrag == null;
+    public bool HasActiveInteraction => ActiveDrag != null || HasPendingAction;
+
+    private IWorldDraggable ActiveDrag
+    {
+        get
+        {
+            if (activeDrag is UnityEngine.Object dragObject && !dragObject)
+            {
+                activeDrag = null;
+            }
+
+            return activeDrag;
+        }
+    }
 
     private void Awake()
     {
@@ -119,7 +132,7 @@ public class PointClickController : MonoBehaviour
     {
         RefreshPresentation();
 
-        if (activeDrag != null)
+        if (ActiveDrag != null)
         {
             if (Pointer && Pointer.DragEndedThisFrame)
             {
@@ -343,7 +356,7 @@ public class PointClickController : MonoBehaviour
 
     private void HandleDragUpdated(PointerContext context)
     {
-        activeDrag?.UpdateDrag(context);
+        ActiveDrag?.UpdateDrag(context);
     }
 
     private InteractionContext CreateContext(InteractionTarget target)
@@ -453,7 +466,7 @@ public class PointClickController : MonoBehaviour
 
     private void UpdateMovement()
     {
-        if (!hasDestination || activeDrag != null)
+        if (!hasDestination || ActiveDrag != null)
         {
             SyncNavAgentPosition();
             movementVelocity = Vector2.MoveTowards(movementVelocity, Vector2.zero, moveDeceleration * Time.fixedDeltaTime);
@@ -505,7 +518,7 @@ public class PointClickController : MonoBehaviour
     private void Cancel()
     {
         StopAndClear();
-        if (activeDrag != null)
+        if (ActiveDrag != null)
         {
             activeDrag.EndDrag();
             activeDrag = null;
