@@ -7,7 +7,6 @@ public class OpenMiniGame : MonoBehaviour
 
     public void OpenScene()
     {
-        Debug.Log("Opening mini-game scene: " + sceneName);
         SceneManager.LoadScene(sceneName);
     }
 }

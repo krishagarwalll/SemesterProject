@@ -7,6 +7,7 @@ public class PointToMove : MonoBehaviour
     Rigidbody2D rb;
     private DragDropHandler dragDropHandler;
     private SpriteFlipper spriteFlipper;
+    private Camera cam;
 
     [SerializeField] private Transform head;
 
@@ -19,6 +20,7 @@ public class PointToMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         dragDropHandler = FindFirstObjectByType<DragDropHandler>();
         spriteFlipper = GetComponentInChildren<SpriteFlipper>();
+        cam = Camera.main;
     }
 
     void Update()
@@ -42,7 +44,10 @@ public class PointToMove : MonoBehaviour
                 return;
             }
 
-            var pos = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 0));
+            if (!cam) cam = Camera.main;
+            if (!cam) return;
+
+            var pos = cam.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, 0));
             pos.z = 0;
 
             if (movementBounds != null)

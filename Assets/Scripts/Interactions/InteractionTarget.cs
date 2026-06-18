@@ -122,8 +122,6 @@ public class InteractionTarget : MonoBehaviour
     
         public void OnClicked()
         {
-            Debug.Log("InteractionTarget clicked: " + name);
-
             OpenMiniGame miniGame = GetComponent<OpenMiniGame>();
 
             if (miniGame != null)

@@ -32,8 +32,6 @@ public class FindKey : MonoBehaviour
 
     public void Open()
     {
-        Debug.Log("MINIGAME OPEN");
-
         if (InteractionLock.IsLocked) return;
         root.SetActive(true);
         InteractionLock.IsLocked = true;
@@ -51,8 +49,6 @@ public class FindKey : MonoBehaviour
 
     public void Close()
     {
-        Debug.Log("Minigame Close");
-
         // Resume all other audio
         AudioListener.pause = false;
         audioSource.Stop();
@@ -69,12 +65,9 @@ public class FindKey : MonoBehaviour
 
     public void OnKeyFound()
     {
-        Debug.Log("KEY FOUND");
-
         if (objectToEnable != null)
         {
             objectToEnable.SetActive(true);
-            Debug.Log("Activated: " + objectToEnable.name);
         }
         else
         {

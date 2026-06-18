@@ -4,13 +4,21 @@ using UnityEngine.InputSystem;
 public class InteractionHoverSystem : MonoBehaviour
 {
     private InteractionTarget currentHover;
+    private Camera cam;
+
+    void Awake()
+    {
+        cam = Camera.main;
+    }
 
     void Update()
     {
         if (Mouse.current == null) return;
+        if (!cam) cam = Camera.main;
+        if (!cam) return;
 
         Vector2 mouseScreen = Mouse.current.position.ReadValue();
-        Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
+        Vector2 mouseWorld = cam.ScreenToWorldPoint(mouseScreen);
 
         InteractionTarget newHover = FindTarget(mouseWorld);
 
@@ -28,13 +36,14 @@ public class InteractionHoverSystem : MonoBehaviour
 
     private InteractionTarget FindTarget(Vector2 position)
     {
-        InteractionTarget[] targets = FindObjectsByType<InteractionTarget>(FindObjectsSortMode.None);
+        var targets = InteractionTarget.ActiveTargets;
 
         InteractionTarget best = null;
         int bestPriority = int.MinValue;
 
-        foreach (var target in targets)
+        for (int i = 0; i < targets.Count; i++)
         {
+            InteractionTarget target = targets[i];
             if (!target.ContainsPoint(position))
                 continue;
 

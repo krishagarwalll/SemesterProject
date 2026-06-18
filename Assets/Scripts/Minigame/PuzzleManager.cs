@@ -19,14 +19,11 @@ public class Puzzlemanager : MonoBehaviour
     {
         puzzlePieces = FindObjectsByType<PuzzlePiece>(FindObjectsSortMode.None);
 
-        Debug.Log($"Puzzle manager found {puzzlePieces.Length} puzzle pieces.");
-
         foreach (PuzzlePiece piece in puzzlePieces)
         {
             if (piece != null)
             {
                 piece.OnLockedInPlace += HandlePieceLocked;
-                Debug.Log($"Subscribed to {piece.name}");
             }
         }
     }
@@ -50,15 +47,9 @@ public class Puzzlemanager : MonoBehaviour
 
     private void HandlePieceLocked(PuzzlePiece piece)
     {
-        Debug.Log($"{piece.name} locked. Checking puzzle completion...");
-
         if (AllPiecesLocked())
         {
             CompletePuzzle();
-        }
-        else
-        {
-            Debug.Log("Puzzle is not complete yet.");
         }
     }
 
@@ -67,8 +58,6 @@ public class Puzzlemanager : MonoBehaviour
         foreach (PuzzlePiece piece in puzzlePieces)
         {
             if (piece == null) continue;
-
-            Debug.Log($"{piece.name} locked state: {piece.IsLockedInPlace}");
 
             if (!piece.IsLockedInPlace)
             {
@@ -81,8 +70,6 @@ public class Puzzlemanager : MonoBehaviour
 
     private void CompletePuzzle()
     {
-        Debug.Log("Puzzle complete!");
-
         TornPhotoCutscenePlayer player = TornPhotoCutscenePlayer.Instance;
         if (cutsceneClip && player != null)
         {

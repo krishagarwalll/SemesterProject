@@ -1,11 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(WorldPuzzleDragObject))]
 public class PuzzlePiece : MonoBehaviour
 {
+    // Scene-unload destroys every piece (OnDestroy) before the next load's Awake runs,
+    // so this resets itself naturally on minigame replay.
+    private static readonly List<PuzzlePiece> allPieces = new();
+    private static readonly HashSet<Transform> occupiedSlots = new();
+
     private WorldPuzzleDragObject drag;
     private Camera cam;
+    private Collider2D pieceCollider;
 
     private bool isDragging;
 
@@ -15,6 +22,7 @@ public class PuzzlePiece : MonoBehaviour
     [SerializeField] private bool lockIntoPlace = true;
 
     private bool isLockedInPlace;
+    private Transform lockedSlot;
 
     public bool IsLockedInPlace => isLockedInPlace;
 
@@ -23,7 +31,18 @@ public class PuzzlePiece : MonoBehaviour
     private void Awake()
     {
         drag = GetComponent<WorldPuzzleDragObject>();
+        pieceCollider = GetComponent<Collider2D>();
         cam = Camera.main;
+        allPieces.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        allPieces.Remove(this);
+        if (lockedSlot != null)
+        {
+            occupiedSlots.Remove(lockedSlot);
+        }
     }
 
     private void Update()
@@ -52,8 +71,6 @@ public class PuzzlePiece : MonoBehaviour
         if (PauseService.IsGameplayInputPaused(this)) return;
         if (!drag.CanStartDrag()) return;
         if (!MouseIsOverThisPiece()) return;
-
-        Debug.Log($"Clicked puzzle piece: {name}");
 
         isDragging = true;
         drag.BeginDrag(GetMouseWorld());
@@ -84,27 +101,53 @@ public class PuzzlePiece : MonoBehaviour
 
     private void TrySnap()
     {
-        if (correctSlot == null) return;
         if (isLockedInPlace) return;
 
-        float distance = Vector2.Distance(transform.position, correctSlot.position);
+        Transform targetSlot = FindNearestAvailableSlot();
+        if (targetSlot == null) return;
 
-        if (distance <= snapDistance)
+        transform.position = targetSlot.position;
+
+        isLockedInPlace = true;
+        lockedSlot = targetSlot;
+        occupiedSlots.Add(targetSlot);
+
+        OnLockedInPlace?.Invoke(this);
+
+        if (lockIntoPlace)
         {
-            transform.position = correctSlot.position;
+            drag.enabled = false;
+            enabled = false;
 
-            isLockedInPlace = true;
-
-            Debug.Log($"{name} snapped into its correct slot!");
-
-            OnLockedInPlace?.Invoke(this);
-
-            if (lockIntoPlace)
+            // Locked pieces no longer need to receive clicks, and leaving their
+            // collider on lets it swallow clicks meant for whatever gets dropped
+            // on top of it later, which is what made pieces feel permanently stuck.
+            if (pieceCollider)
             {
-                drag.enabled = false;
-                enabled = false;
+                pieceCollider.enabled = false;
             }
         }
+    }
+
+    private Transform FindNearestAvailableSlot()
+    {
+        Transform best = null;
+        float bestDistance = snapDistance;
+
+        for (int i = 0; i < allPieces.Count; i++)
+        {
+            Transform slot = allPieces[i] ? allPieces[i].correctSlot : null;
+            if (slot == null || occupiedSlots.Contains(slot)) continue;
+
+            float distance = Vector2.Distance(transform.position, slot.position);
+            if (distance <= bestDistance)
+            {
+                bestDistance = distance;
+                best = slot;
+            }
+        }
+
+        return best;
     }
 
     private void OnDisable()
@@ -124,9 +167,20 @@ public class PuzzlePiece : MonoBehaviour
     {
         Vector2 mouseWorld = GetMouseWorld();
 
-        Collider2D hit = Physics2D.OverlapPoint(mouseWorld);
+        // OverlapPoint only returns a single, arbitrarily-chosen collider, so when two
+        // unlocked pieces overlap it can keep resolving to the same one and make the
+        // other permanently unclickable. OverlapPointAll lets each piece check for
+        // itself regardless of which other piece is also under the pointer.
+        Collider2D[] hits = Physics2D.OverlapPointAll(mouseWorld);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            if (hits[i].gameObject == gameObject)
+            {
+                return true;
+            }
+        }
 
-        return hit != null && hit.gameObject == gameObject;
+        return false;
     }
 
     private Vector3 GetMouseWorld()
