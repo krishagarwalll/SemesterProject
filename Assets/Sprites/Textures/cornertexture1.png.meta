@@ -1,0 +1,6864 @@
+fileFormatVersion: 2
+guid: 5e7e44129d243a24bbf122faded8b008
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8890629723436679261
+    second: cornertexture1_0
+  - first:
+      213: 1004373781480432705
+    second: cornertexture1_1
+  - first:
+      213: -1101708419055713316
+    second: cornertexture1_2
+  - first:
+      213: 6626086055612781104
+    second: cornertexture1_3
+  - first:
+      213: 5146517703753500848
+    second: cornertexture1_4
+  - first:
+      213: -3860116473996458134
+    second: cornertexture1_5
+  - first:
+      213: -989032533815498962
+    second: cornertexture1_6
+  - first:
+      213: -1817467586984289012
+    second: cornertexture1_7
+  - first:
+      213: -1654853217587987742
+    second: cornertexture1_8
+  - first:
+      213: -2912759485735106912
+    second: cornertexture1_9
+  - first:
+      213: 8254868777558560036
+    second: cornertexture1_10
+  - first:
+      213: -7703268574113924999
+    second: cornertexture1_11
+  - first:
+      213: -2739131272572246492
+    second: cornertexture1_12
+  - first:
+      213: -348053718214622000
+    second: cornertexture1_13
+  - first:
+      213: -1857857245927096578
+    second: cornertexture1_14
+  - first:
+      213: -2887997848478425939
+    second: cornertexture1_15
+  - first:
+      213: -4810198894872408197
+    second: cornertexture1_16
+  - first:
+      213: 2876451077068489548
+    second: cornertexture1_17
+  - first:
+      213: 7300945748782224153
+    second: cornertexture1_18
+  - first:
+      213: 5024477690411693874
+    second: cornertexture1_19
+  - first:
+      213: 7998988805632293737
+    second: cornertexture1_20
+  - first:
+      213: -370223832642525940
+    second: cornertexture1_21
+  - first:
+      213: 3040114663526084823
+    second: cornertexture1_22
+  - first:
+      213: -2390531582836959937
+    second: cornertexture1_23
+  - first:
+      213: 3577353365366261986
+    second: cornertexture1_24
+  - first:
+      213: 4516432328997775768
+    second: cornertexture1_25
+  - first:
+      213: -8584436367329274373
+    second: cornertexture1_26
+  - first:
+      213: -3506465430267818762
+    second: cornertexture1_27
+  - first:
+      213: 7065944494748711976
+    second: cornertexture1_28
+  - first:
+      213: -8557468762775052596
+    second: cornertexture1_29
+  - first:
+      213: -6193581588818683733
+    second: cornertexture1_30
+  - first:
+      213: 4960969505662418232
+    second: cornertexture1_31
+  - first:
+      213: -9034098198268588189
+    second: cornertexture1_32
+  - first:
+      213: -5956102771866258269
+    second: cornertexture1_33
+  - first:
+      213: -8939961741943440939
+    second: cornertexture1_34
+  - first:
+      213: 4969015350813365930
+    second: cornertexture1_35
+  - first:
+      213: 1848039701166735436
+    second: cornertexture1_36
+  - first:
+      213: 4471112343443258018
+    second: cornertexture1_37
+  - first:
+      213: 278483584695541242
+    second: cornertexture1_38
+  - first:
+      213: -5931401894062080655
+    second: cornertexture1_39
+  - first:
+      213: -3173630815539001018
+    second: cornertexture1_40
+  - first:
+      213: -3431572525228125444
+    second: cornertexture1_41
+  - first:
+      213: -5830738808897298499
+    second: cornertexture1_42
+  - first:
+      213: 1524091789273470947
+    second: cornertexture1_43
+  - first:
+      213: 2306375189080906183
+    second: cornertexture1_44
+  - first:
+      213: 1515289037186683478
+    second: cornertexture1_45
+  - first:
+      213: -5274282465066187990
+    second: cornertexture1_46
+  - first:
+      213: -1398842088674119349
+    second: cornertexture1_47
+  - first:
+      213: 3196490970281282114
+    second: cornertexture1_48
+  - first:
+      213: 7067150926628957318
+    second: cornertexture1_49
+  - first:
+      213: -2861615603571769595
+    second: cornertexture1_50
+  - first:
+      213: 4618813918766551109
+    second: cornertexture1_51
+  - first:
+      213: -2401522725314545228
+    second: cornertexture1_52
+  - first:
+      213: -8132660202149957601
+    second: cornertexture1_53
+  - first:
+      213: -6669292513378543866
+    second: cornertexture1_54
+  - first:
+      213: -7159839358670497486
+    second: cornertexture1_55
+  - first:
+      213: -6531803540016903511
+    second: cornertexture1_56
+  - first:
+      213: 3058999843595543989
+    second: cornertexture1_57
+  - first:
+      213: 5895907943365755857
+    second: cornertexture1_58
+  - first:
+      213: 5362388610925633107
+    second: cornertexture1_59
+  - first:
+      213: 3674141064348568198
+    second: cornertexture1_60
+  - first:
+      213: -557024654126153039
+    second: cornertexture1_61
+  - first:
+      213: 2166639224131112348
+    second: cornertexture1_62
+  - first:
+      213: -2338446138509385355
+    second: cornertexture1_63
+  - first:
+      213: -6225403498619400515
+    second: cornertexture1_64
+  - first:
+      213: -4166500195642687434
+    second: cornertexture1_65
+  - first:
+      213: -3142538108876335125
+    second: cornertexture1_66
+  - first:
+      213: 1624167564290361811
+    second: cornertexture1_67
+  - first:
+      213: 8658909689554785928
+    second: cornertexture1_68
+  - first:
+      213: -833271860187945248
+    second: cornertexture1_69
+  - first:
+      213: -4997176565005837139
+    second: cornertexture1_70
+  - first:
+      213: -7576925225592731339
+    second: cornertexture1_71
+  - first:
+      213: -1490068304498474885
+    second: cornertexture1_72
+  - first:
+      213: 1195331179162230531
+    second: cornertexture1_73
+  - first:
+      213: -8728256526639004466
+    second: cornertexture1_74
+  - first:
+      213: -3196006554315541800
+    second: cornertexture1_75
+  - first:
+      213: -1944337507261171751
+    second: cornertexture1_76
+  - first:
+      213: 9223293129045442869
+    second: cornertexture1_77
+  - first:
+      213: 5187625006043237036
+    second: cornertexture1_78
+  - first:
+      213: 1408499367926267102
+    second: cornertexture1_79
+  - first:
+      213: -2958921099729143911
+    second: cornertexture1_80
+  - first:
+      213: -1229112802676465497
+    second: cornertexture1_81
+  - first:
+      213: 90112134544165092
+    second: cornertexture1_82
+  - first:
+      213: 3929567236904549947
+    second: cornertexture1_83
+  - first:
+      213: -1779057626848266367
+    second: cornertexture1_84
+  - first:
+      213: -5541526987955447548
+    second: cornertexture1_85
+  - first:
+      213: 7494732845248855963
+    second: cornertexture1_86
+  - first:
+      213: -7866723730929876326
+    second: cornertexture1_87
+  - first:
+      213: -4633348245278595397
+    second: cornertexture1_88
+  - first:
+      213: 7210735214398940867
+    second: cornertexture1_89
+  - first:
+      213: -622886693590549021
+    second: cornertexture1_90
+  - first:
+      213: 5885681138024622874
+    second: cornertexture1_91
+  - first:
+      213: -417424311110854440
+    second: cornertexture1_92
+  - first:
+      213: -2308684968359196498
+    second: cornertexture1_93
+  - first:
+      213: 5331917326649021050
+    second: cornertexture1_94
+  - first:
+      213: -7768988543399065021
+    second: cornertexture1_95
+  - first:
+      213: -1061547758929421077
+    second: cornertexture1_96
+  - first:
+      213: -6887077708694425465
+    second: cornertexture1_97
+  - first:
+      213: 1505585677231157450
+    second: cornertexture1_98
+  - first:
+      213: -5197942011919434160
+    second: cornertexture1_99
+  - first:
+      213: -1683201939476701628
+    second: cornertexture1_100
+  - first:
+      213: -6816410927797677036
+    second: cornertexture1_101
+  - first:
+      213: -8140681937253441995
+    second: cornertexture1_102
+  - first:
+      213: -273144445280209215
+    second: cornertexture1_103
+  - first:
+      213: 1675831853639134562
+    second: cornertexture1_104
+  - first:
+      213: 9053229647843772908
+    second: cornertexture1_105
+  - first:
+      213: -852797480132449102
+    second: cornertexture1_106
+  - first:
+      213: -4406013306854720249
+    second: cornertexture1_107
+  - first:
+      213: -7061805244344864303
+    second: cornertexture1_108
+  - first:
+      213: -7565573689141535221
+    second: cornertexture1_109
+  - first:
+      213: -5722469158464563467
+    second: cornertexture1_110
+  - first:
+      213: -6455504806507511295
+    second: cornertexture1_111
+  - first:
+      213: -920262125286372619
+    second: cornertexture1_112
+  - first:
+      213: 3094946239978015553
+    second: cornertexture1_113
+  - first:
+      213: 3333733367116205482
+    second: cornertexture1_114
+  - first:
+      213: 1906894256473044211
+    second: cornertexture1_115
+  - first:
+      213: -8797442852050054474
+    second: cornertexture1_116
+  - first:
+      213: -2749489997912762955
+    second: cornertexture1_117
+  - first:
+      213: -7416629572853685199
+    second: cornertexture1_118
+  - first:
+      213: -2570207552689897661
+    second: cornertexture1_119
+  - first:
+      213: 8039473282756449068
+    second: cornertexture1_120
+  - first:
+      213: 8719439492380167456
+    second: cornertexture1_121
+  - first:
+      213: -68401538693450851
+    second: cornertexture1_122
+  - first:
+      213: 2484552843303431393
+    second: cornertexture1_123
+  - first:
+      213: 4698164493067120825
+    second: cornertexture1_124
+  - first:
+      213: 5154053949420825611
+    second: cornertexture1_125
+  - first:
+      213: 7285687889735694482
+    second: cornertexture1_126
+  - first:
+      213: 4070066785775831038
+    second: cornertexture1_127
+  - first:
+      213: 3749148009992684890
+    second: cornertexture1_128
+  - first:
+      213: -1590825823931045655
+    second: cornertexture1_129
+  - first:
+      213: 7995094026797284847
+    second: cornertexture1_130
+  - first:
+      213: 8867540447696518961
+    second: cornertexture1_131
+  - first:
+      213: -532430713929104113
+    second: cornertexture1_132
+  - first:
+      213: 5067404179814754662
+    second: cornertexture1_133
+  - first:
+      213: -6243373629888490835
+    second: cornertexture1_134
+  - first:
+      213: 7035796356286598069
+    second: cornertexture1_135
+  - first:
+      213: 2279914610754160656
+    second: cornertexture1_136
+  - first:
+      213: 3534850770534813436
+    second: cornertexture1_137
+  - first:
+      213: -6492704545635772664
+    second: cornertexture1_138
+  - first:
+      213: 8594018885583298111
+    second: cornertexture1_139
+  - first:
+      213: -7507230933254287715
+    second: cornertexture1_140
+  - first:
+      213: -7637473219575945017
+    second: cornertexture1_141
+  - first:
+      213: 6493568465902404473
+    second: cornertexture1_142
+  - first:
+      213: 4670242790207613259
+    second: cornertexture1_143
+  - first:
+      213: -1523318381818736982
+    second: cornertexture1_144
+  - first:
+      213: -1387652722347691717
+    second: cornertexture1_145
+  - first:
+      213: 7939230258962602609
+    second: cornertexture1_146
+  - first:
+      213: -6375883810712790
+    second: cornertexture1_147
+  - first:
+      213: 2381838235386822410
+    second: cornertexture1_148
+  - first:
+      213: -1277496891807776617
+    second: cornertexture1_149
+  - first:
+      213: 8968866754993358159
+    second: cornertexture1_150
+  - first:
+      213: 3691790439983103026
+    second: cornertexture1_151
+  - first:
+      213: 4366979571700536267
+    second: cornertexture1_152
+  - first:
+      213: -1985528969064398827
+    second: cornertexture1_153
+  - first:
+      213: 1826999318885784450
+    second: cornertexture1_154
+  - first:
+      213: 5766589888133722653
+    second: cornertexture1_155
+  - first:
+      213: -7004951734402521919
+    second: cornertexture1_156
+  - first:
+      213: 888626774824501664
+    second: cornertexture1_157
+  - first:
+      213: -1566613137120116592
+    second: cornertexture1_158
+  - first:
+      213: -4128536384618226887
+    second: cornertexture1_159
+  - first:
+      213: 8777817853593980658
+    second: cornertexture1_160
+  - first:
+      213: -8298525262170331680
+    second: cornertexture1_161
+  - first:
+      213: 756542039245416219
+    second: cornertexture1_162
+  - first:
+      213: -6938453299959184539
+    second: cornertexture1_163
+  - first:
+      213: 2918106935031130169
+    second: cornertexture1_164
+  - first:
+      213: 7011790127659952072
+    second: cornertexture1_165
+  - first:
+      213: 2955754727397566904
+    second: cornertexture1_166
+  - first:
+      213: 8547175837224684716
+    second: cornertexture1_167
+  - first:
+      213: 6479844456415013879
+    second: cornertexture1_168
+  - first:
+      213: -4600828056994531076
+    second: cornertexture1_169
+  - first:
+      213: 256110193371961110
+    second: cornertexture1_170
+  - first:
+      213: -9083381973512915790
+    second: cornertexture1_171
+  - first:
+      213: 6856431521321435081
+    second: cornertexture1_172
+  - first:
+      213: -7712841140439401560
+    second: cornertexture1_173
+  - first:
+      213: -3484937361615544233
+    second: cornertexture1_174
+  - first:
+      213: -4273254954208587935
+    second: cornertexture1_175
+  - first:
+      213: 464326797286221852
+    second: cornertexture1_176
+  - first:
+      213: -8033619112144127170
+    second: cornertexture1_177
+  - first:
+      213: 2469015812957592307
+    second: cornertexture1_178
+  - first:
+      213: 762699712983080617
+    second: cornertexture1_179
+  - first:
+      213: -2391573087472035068
+    second: cornertexture1_180
+  - first:
+      213: 1484505356160820162
+    second: cornertexture1_181
+  - first:
+      213: 4585583384156709507
+    second: cornertexture1_182
+  - first:
+      213: -8364769391127082534
+    second: cornertexture1_183
+  - first:
+      213: 1722018887713045827
+    second: cornertexture1_184
+  - first:
+      213: -7440747799564748361
+    second: cornertexture1_185
+  - first:
+      213: -3605299085474018876
+    second: cornertexture1_186
+  - first:
+      213: -724698708410342142
+    second: cornertexture1_187
+  - first:
+      213: -6251172138116123279
+    second: cornertexture1_188
+  - first:
+      213: 731339053945792964
+    second: cornertexture1_189
+  - first:
+      213: 7003688751761879016
+    second: cornertexture1_190
+  - first:
+      213: 5130921512025395116
+    second: cornertexture1_191
+  - first:
+      213: -8814067392188007463
+    second: cornertexture1_192
+  - first:
+      213: -4472990853911266515
+    second: cornertexture1_193
+  - first:
+      213: 8972446119591631154
+    second: cornertexture1_194
+  - first:
+      213: -6361979231814212425
+    second: cornertexture1_195
+  - first:
+      213: -9118888199226422899
+    second: cornertexture1_196
+  - first:
+      213: 891952843654256671
+    second: cornertexture1_197
+  - first:
+      213: -2172083085127561408
+    second: cornertexture1_198
+  - first:
+      213: 5335348388825950755
+    second: cornertexture1_199
+  - first:
+      213: -8798900312064718454
+    second: cornertexture1_200
+  - first:
+      213: -7134567791026081386
+    second: cornertexture1_201
+  - first:
+      213: 2065339349161752117
+    second: cornertexture1_202
+  - first:
+      213: -5254790362582547410
+    second: cornertexture1_203
+  - first:
+      213: 1056224782700146320
+    second: cornertexture1_204
+  - first:
+      213: 1141553943620789973
+    second: cornertexture1_205
+  - first:
+      213: 359914340440421952
+    second: cornertexture1_206
+  - first:
+      213: -6792977719829108283
+    second: cornertexture1_207
+  - first:
+      213: -946141539255231371
+    second: cornertexture1_208
+  - first:
+      213: 8321689779345876398
+    second: cornertexture1_209
+  - first:
+      213: -4055618251386443356
+    second: cornertexture1_210
+  - first:
+      213: 1344122218812558921
+    second: cornertexture1_211
+  - first:
+      213: -6611756552962348641
+    second: cornertexture1_212
+  - first:
+      213: -1841487814432826093
+    second: cornertexture1_213
+  - first:
+      213: -3074982201876824829
+    second: cornertexture1_214
+  - first:
+      213: -8403873055953809879
+    second: cornertexture1_215
+  - first:
+      213: -7449906563440850818
+    second: cornertexture1_216
+  - first:
+      213: -4264742309767278963
+    second: cornertexture1_217
+  - first:
+      213: -4268193939381307012
+    second: cornertexture1_218
+  - first:
+      213: -2719659032395743367
+    second: cornertexture1_219
+  - first:
+      213: 1565184173332563428
+    second: cornertexture1_220
+  - first:
+      213: -6769509938588859826
+    second: cornertexture1_221
+  - first:
+      213: -3941794211578986335
+    second: cornertexture1_222
+  - first:
+      213: 3987590582778732446
+    second: cornertexture1_223
+  - first:
+      213: 4024951127692320298
+    second: cornertexture1_224
+  - first:
+      213: -8317225908923694414
+    second: cornertexture1_225
+  - first:
+      213: 7657195356937306941
+    second: cornertexture1_226
+  - first:
+      213: 4436429764769637453
+    second: cornertexture1_227
+  - first:
+      213: 3170658094158457100
+    second: cornertexture1_228
+  - first:
+      213: -2805939801668507839
+    second: cornertexture1_229
+  - first:
+      213: 8463313168866272534
+    second: cornertexture1_230
+  - first:
+      213: 9197984039682503911
+    second: cornertexture1_231
+  - first:
+      213: 77977012282182675
+    second: cornertexture1_232
+  - first:
+      213: -905228835392453591
+    second: cornertexture1_233
+  - first:
+      213: -2555055794035372426
+    second: cornertexture1_234
+  - first:
+      213: -4017641952985711874
+    second: cornertexture1_235
+  - first:
+      213: 2102663567432411853
+    second: cornertexture1_236
+  - first:
+      213: 5912295897695724227
+    second: cornertexture1_237
+  - first:
+      213: -1690987714842842618
+    second: cornertexture1_238
+  - first:
+      213: 35597693058295915
+    second: cornertexture1_239
+  - first:
+      213: -4385681187718230142
+    second: cornertexture1_240
+  - first:
+      213: 8773825689897570637
+    second: cornertexture1_241
+  - first:
+      213: 1149149767765890101
+    second: cornertexture1_242
+  - first:
+      213: 201391415415318207
+    second: cornertexture1_243
+  - first:
+      213: 7253250814527255037
+    second: cornertexture1_244
+  - first:
+      213: 3314355522410575798
+    second: cornertexture1_245
+  - first:
+      213: 1480989594758237582
+    second: cornertexture1_246
+  - first:
+      213: 636792993244946155
+    second: cornertexture1_247
+  - first:
+      213: -3581489260819127466
+    second: cornertexture1_248
+  - first:
+      213: -4136836061446762301
+    second: cornertexture1_249
+  - first:
+      213: -7265789434664488079
+    second: cornertexture1_250
+  - first:
+      213: -397173139739115655
+    second: cornertexture1_251
+  - first:
+      213: -1917949261411497664
+    second: cornertexture1_252
+  - first:
+      213: -2980428103935904302
+    second: cornertexture1_253
+  - first:
+      213: 3243313410026042547
+    second: cornertexture1_254
+  - first:
+      213: 1722232508549964530
+    second: cornertexture1_255
+  - first:
+      213: 2445779289293320293
+    second: cornertexture1_256
+  - first:
+      213: 969829952084715040
+    second: cornertexture1_257
+  - first:
+      213: 2157747853436524996
+    second: cornertexture1_258
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cornertexture1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 663
+        width: 2746
+        height: 2390
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3aff6010f532e9480800000000000000
+      internalID: -8890629723436679261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_1
+      rect:
+        serializedVersion: 2
+        x: 2650
+        y: 2937
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1446bd202a040fd00800000000000000
+      internalID: 1004373781480432705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_2
+      rect:
+        serializedVersion: 2
+        x: 2657
+        y: 2932
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd3802ca702f5b0f0800000000000000
+      internalID: -1101708419055713316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_3
+      rect:
+        serializedVersion: 2
+        x: 2653
+        y: 2716
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03218fb392694fb50800000000000000
+      internalID: 6626086055612781104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_4
+      rect:
+        serializedVersion: 2
+        x: 2661
+        y: 2703
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b88c7a859a1c6740800000000000000
+      internalID: 5146517703753500848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_5
+      rect:
+        serializedVersion: 2
+        x: 2666
+        y: 2711
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a67cec7c48c1e6ac0800000000000000
+      internalID: -3860116473996458134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_6
+      rect:
+        serializedVersion: 2
+        x: 2673
+        y: 2696
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e276f9e86204642f0800000000000000
+      internalID: -989032533815498962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_7
+      rect:
+        serializedVersion: 2
+        x: 2674
+        y: 2701
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0dd307ebde07c6e0800000000000000
+      internalID: -1817467586984289012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_8
+      rect:
+        serializedVersion: 2
+        x: 2686
+        y: 2699
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ea714234c7c809e0800000000000000
+      internalID: -1654853217587987742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_9
+      rect:
+        serializedVersion: 2
+        x: 2635
+        y: 2681
+        width: 22
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a60c902eacc397d0800000000000000
+      internalID: -2912759485735106912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_10
+      rect:
+        serializedVersion: 2
+        x: 2661
+        y: 2688
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42d47d1ca6f2f8270800000000000000
+      internalID: 8254868777558560036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_11
+      rect:
+        serializedVersion: 2
+        x: 2648
+        y: 2633
+        width: 31
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9787286ab0e781590800000000000000
+      internalID: -7703268574113924999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_12
+      rect:
+        serializedVersion: 2
+        x: 2655
+        y: 2621
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 426ea21ce96acf9d0800000000000000
+      internalID: -2739131272572246492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_13
+      rect:
+        serializedVersion: 2
+        x: 2663
+        y: 2611
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d44013ccf67b2bf0800000000000000
+      internalID: -348053718214622000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_14
+      rect:
+        serializedVersion: 2
+        x: 2662
+        y: 2583
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efe312d9da09736e0800000000000000
+      internalID: -1857857245927096578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_15
+      rect:
+        serializedVersion: 2
+        x: 2670
+        y: 2597
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dacd9511245cbe7d0800000000000000
+      internalID: -2887997848478425939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_16
+      rect:
+        serializedVersion: 2
+        x: 2672
+        y: 2587
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7f4724379dbe3db0800000000000000
+      internalID: -4810198894872408197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_17
+      rect:
+        serializedVersion: 2
+        x: 2680
+        y: 2568
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c430576b3053be720800000000000000
+      internalID: 2876451077068489548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_18
+      rect:
+        serializedVersion: 2
+        x: 2695
+        y: 2571
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9131098f97b225560800000000000000
+      internalID: 7300945748782224153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_19
+      rect:
+        serializedVersion: 2
+        x: 2662
+        y: 2554
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2373ddea6d78ab540800000000000000
+      internalID: 5024477690411693874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_20
+      rect:
+        serializedVersion: 2
+        x: 2680
+        y: 2561
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96bf90230fd120f60800000000000000
+      internalID: 7998988805632293737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_21
+      rect:
+        serializedVersion: 2
+        x: 2645
+        y: 2527
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0565ffb263bcdaf0800000000000000
+      internalID: -370223832642525940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_22
+      rect:
+        serializedVersion: 2
+        x: 2650
+        y: 2546
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d0bde3ed28a03a20800000000000000
+      internalID: 3040114663526084823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_23
+      rect:
+        serializedVersion: 2
+        x: 2665
+        y: 2525
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3596a4e03023ded0800000000000000
+      internalID: -2390531582836959937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_24
+      rect:
+        serializedVersion: 2
+        x: 2688
+        y: 2478
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e844b2aeef45a130800000000000000
+      internalID: 3577353365366261986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_25
+      rect:
+        serializedVersion: 2
+        x: 2657
+        y: 2450
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 899a00e26479dae30800000000000000
+      internalID: 4516432328997775768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_26
+      rect:
+        serializedVersion: 2
+        x: 2660
+        y: 2442
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf5d4603b94fdd880800000000000000
+      internalID: -8584436367329274373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 850
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fc03bbe448865fc0800000000000000
+      internalID: -3506465430267818762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_28
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 847
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82cbf1cb4174f0260800000000000000
+      internalID: 7065944494748711976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_29
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 851
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cce9a4aef73cd3980800000000000000
+      internalID: -8557468762775052596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_30
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 850
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba810172c5afb0aa0800000000000000
+      internalID: -6193581588818683733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_31
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 846
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83dbd862b77e8d440800000000000000
+      internalID: 4960969505662418232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_32
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 846
+        width: 58
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f443aad8f60a280800000000000000
+      internalID: -9034098198268588189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_33
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 843
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a43135f51ca75da0800000000000000
+      internalID: -5956102771866258269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_34
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 850
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d9f0e16920eee380800000000000000
+      internalID: -8939961741943440939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_35
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 853
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa691b4722d75f440800000000000000
+      internalID: 4969015350813365930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_36
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 811
+        width: 49
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c40ccde115e85a910800000000000000
+      internalID: 1848039701166735436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_37
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 836
+        width: 29
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aabcc5ccf49c0e30800000000000000
+      internalID: 4471112343443258018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_38
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 852
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afd1e85485f5dd300800000000000000
+      internalID: 278483584695541242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_39
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 845
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17db95c376d6fada0800000000000000
+      internalID: -5931401894062080655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_40
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 851
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 649809f769ff4f3d0800000000000000
+      internalID: -3173630815539001018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_41
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 846
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf299c438fa9060d0800000000000000
+      internalID: -3431572525228125444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_42
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 838
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbf979522fd051fa0800000000000000
+      internalID: -5830738808897298499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_43
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 854
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e71cb84869a62510800000000000000
+      internalID: 1524091789273470947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_44
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 854
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c911f7c304e10020800000000000000
+      internalID: 2306375189080906183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_45
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 840
+        width: 19
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6525e89d953670510800000000000000
+      internalID: 1515289037186683478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_46
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 834
+        width: 35
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2388a8da0cfdc6b0800000000000000
+      internalID: -5274282465066187990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_47
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 800
+        width: 101
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b41b6bf1880569ce0800000000000000
+      internalID: -1398842088674119349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_48
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 834
+        width: 14
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24a0c5b0a973c5c20800000000000000
+      internalID: 3196490970281282114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_49
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 831
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68caacb0350931260800000000000000
+      internalID: 7067150926628957318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_50
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 855
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50fb36125cf7948d0800000000000000
+      internalID: -2861615603571769595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_51
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 844
+        width: 10
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 540d5bf99c2591040800000000000000
+      internalID: 4618813918766551109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_52
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 850
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b9399d1ec31caed0800000000000000
+      internalID: -2401522725314545228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_53
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 841
+        width: 39
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1035e382acf22f80800000000000000
+      internalID: -8132660202149957601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_54
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 849
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60756e46bc9e173a0800000000000000
+      internalID: -6669292513378543866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_55
+      rect:
+        serializedVersion: 2
+        x: 813
+        y: 850
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2399599a90423ac90800000000000000
+      internalID: -7159839358670497486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_56
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 850
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aa47ae894f5a55a0800000000000000
+      internalID: -6531803540016903511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_57
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 847
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b5ec758620c37a20800000000000000
+      internalID: 3058999843595543989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_58
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 844
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d348b0690972d150800000000000000
+      internalID: 5895907943365755857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_59
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 841
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35e92ddc7080b6a40800000000000000
+      internalID: 5362388610925633107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_60
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 829
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68a0c23e4db2df230800000000000000
+      internalID: 3674141064348568198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_61
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 816
+        width: 31
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b20daf370d0548f0800000000000000
+      internalID: -557024654126153039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_62
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 843
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9d43ce15e2711e10800000000000000
+      internalID: 2166639224131112348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_63
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 839
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 571a3cb60ab2c8fd0800000000000000
+      internalID: -2338446138509385355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_64
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 848
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbe0159608cea99a0800000000000000
+      internalID: -6225403498619400515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_65
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 837
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6304f1aa52e9d26c0800000000000000
+      internalID: -4166500195642687434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_66
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 838
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be75c476d367364d0800000000000000
+      internalID: -3142538108876335125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_67
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 821
+        width: 14
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d90d356bc33a8610800000000000000
+      internalID: 1624167564290361811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_68
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 830
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 886d91c5c70aa2870800000000000000
+      internalID: 8658909689554785928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_69
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 841
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e62b2478af9f64f0800000000000000
+      internalID: -833271860187945248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_70
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 841
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dac9beae36676aab0800000000000000
+      internalID: -4997176565005837139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_71
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 826
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53949dec6aa59d690800000000000000
+      internalID: -7576925225592731339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_72
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 834
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b70cc4395c6325be0800000000000000
+      internalID: -1490068304498474885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_73
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 814
+        width: 31
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30fd9e2df5ba69010800000000000000
+      internalID: 1195331179162230531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_74
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 837
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec4823deee00fd680800000000000000
+      internalID: -8728256526639004466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_75
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 816
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d2b336d8f085a3d0800000000000000
+      internalID: -3196006554315541800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_76
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 825
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d7ba34b6535405e0800000000000000
+      internalID: -1944337507261171751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_77
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 829
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5310e08db38bfff70800000000000000
+      internalID: 9223293129045442869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_78
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 828
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caa042135752ef740800000000000000
+      internalID: 5187625006043237036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_79
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 805
+        width: 43
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edc7b9b66befb8310800000000000000
+      internalID: 1408499367926267102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_80
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 827
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9977c34dfeccfe6d0800000000000000
+      internalID: -2958921099729143911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_81
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 827
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a0a5970b6051fee0800000000000000
+      internalID: -1229112802676465497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_82
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 834
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e805794284204100800000000000000
+      internalID: 90112134544165092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_83
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 816
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3e75bc0590a88630800000000000000
+      internalID: 3929567236904549947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_84
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 813
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18772c4a3848f47e0800000000000000
+      internalID: -1779057626848266367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_85
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 824
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 409dca1909a8813b0800000000000000
+      internalID: -5541526987955447548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_86
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 825
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9fb28f50d3a20860800000000000000
+      internalID: 7494732845248855963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_87
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 826
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a920ac74278c3d290800000000000000
+      internalID: -7866723730929876326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_88
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 824
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb66d77c15a03bfb0800000000000000
+      internalID: -4633348245278595397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_89
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 820
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c626af297da11460800000000000000
+      internalID: 7210735214398940867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_90
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 824
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3edb7353adf0b57f0800000000000000
+      internalID: -622886693590549021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_91
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 810
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1bac25bfc32ea150800000000000000
+      internalID: 5885681138024622874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_92
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 820
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d810a7fcc2053af0800000000000000
+      internalID: -417424311110854440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_93
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 805
+        width: 23
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea88aa2d047e5ffd0800000000000000
+      internalID: -2308684968359196498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_94
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 815
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a725aa21f86cef940800000000000000
+      internalID: 5331917326649021050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_95
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 807
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34a8e96e4120f2490800000000000000
+      internalID: -7768988543399065021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_96
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 798
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bec56e400ff9441f0800000000000000
+      internalID: -1061547758929421077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_97
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 811
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 780f1c0305f2c60a0800000000000000
+      internalID: -6887077708694425465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_98
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 812
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac0774e423ae4e410800000000000000
+      internalID: 1505585677231157450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_99
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 805
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05e7670b7433dd7b0800000000000000
+      internalID: -5197942011919434160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_100
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 807
+        width: 15
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44e1e3801c014a8e0800000000000000
+      internalID: -1683201939476701628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_101
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 801
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4145785406e3761a0800000000000000
+      internalID: -6816410927797677036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_102
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 800
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53ed194c8ec760f80800000000000000
+      internalID: -8140681937253441995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_103
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 794
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c6b3bef298953cf0800000000000000
+      internalID: -273144445280209215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_104
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 796
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26de1732130c14710800000000000000
+      internalID: 1675831853639134562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_105
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 802
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce943cd066883ad70800000000000000
+      internalID: 9053229647843772908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_106
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 803
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bc6b5bc5314a24f0800000000000000
+      internalID: -852797480132449102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_107
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 796
+        width: 31
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70db741dd32bad2c0800000000000000
+      internalID: -4406013306854720249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_108
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 815
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d175d99b8d6ffd90800000000000000
+      internalID: -7061805244344864303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_109
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 814
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0e5da850dea10790800000000000000
+      internalID: -7565573689141535221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_110
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 801
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f6579b8e94b590b0800000000000000
+      internalID: -5722469158464563467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_111
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 800
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1020b4ac4907966a0800000000000000
+      internalID: -6455504806507511295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_112
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 808
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fa4f0a09729a33f0800000000000000
+      internalID: -920262125286372619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_113
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 806
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14b02d0253573fa20800000000000000
+      internalID: 3094946239978015553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_114
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 798
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aad04d2a5dcc34e20800000000000000
+      internalID: 3333733367116205482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_115
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 767
+        width: 51
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f4fe4d1936a67a10800000000000000
+      internalID: 1906894256473044211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_116
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 800
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b2d1cf365439e580800000000000000
+      internalID: -8797442852050054474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_117
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 765
+        width: 26
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b59be01a69d7d9d0800000000000000
+      internalID: -2749489997912762955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_118
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 797
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 134266fc2b6d21990800000000000000
+      internalID: -7416629572853685199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_119
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 798
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34f74ee29d9c45cd0800000000000000
+      internalID: -2570207552689897661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_120
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 793
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2311ff0b52f19f60800000000000000
+      internalID: 8039473282756449068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_121
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 770
+        width: 52
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02d05df450ca10970800000000000000
+      internalID: 8719439492380167456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_122
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 796
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d933618b92dfc0ff0800000000000000
+      internalID: -68401538693450851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_123
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 794
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1eca9c2b5a7ea7220800000000000000
+      internalID: 2484552843303431393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_124
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 792
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b07e99e6bb333140800000000000000
+      internalID: 4698164493067120825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_125
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 790
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0c6d6872c0e68740800000000000000
+      internalID: 5154053949420825611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_126
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 793
+        width: 23
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 298bf04d886fb1560800000000000000
+      internalID: 7285687889735694482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_127
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 790
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef7c8427d28cb7830800000000000000
+      internalID: 4070066785775831038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_128
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 793
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a550af15046a70430800000000000000
+      internalID: 3749148009992684890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_129
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 795
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e8621977504ce9e0800000000000000
+      internalID: -1590825823931045655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_130
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 791
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fed791558a744fe60800000000000000
+      internalID: 7995094026797284847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_131
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 784
+        width: 24
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13ffb501e05df0b70800000000000000
+      internalID: 8867540447696518961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_132
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 792
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f058fbc261d6c98f0800000000000000
+      internalID: -532430713929104113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_133
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 795
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6692037d049035640800000000000000
+      internalID: 5067404179814754662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_134
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 795
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da2947e23c41b59a0800000000000000
+      internalID: -6243373629888490835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_135
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 787
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bb4370428b24a160800000000000000
+      internalID: 7035796356286598069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_136
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 785
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 018893c4242e3af10800000000000000
+      internalID: 2279914610754160656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_137
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 779
+        width: 21
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfe4ebf1c005e0130800000000000000
+      internalID: 3534850770534813436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_138
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 785
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 807d0d59d9745e5a0800000000000000
+      internalID: -6492704545635772664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_139
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 766
+        width: 24
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3ed034b4a6144770800000000000000
+      internalID: 8594018885583298111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_140
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 785
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9ecd80cd35f0d790800000000000000
+      internalID: -7507230933254287715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_141
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 782
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c8ed95629e320690800000000000000
+      internalID: -7637473219575945017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_142
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 765
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9738ac68d1acd1a50800000000000000
+      internalID: 6493568465902404473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_143
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 778
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b49672dd21900d040800000000000000
+      internalID: 4670242790207613259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_144
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 779
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aae0fdba0061cdae0800000000000000
+      internalID: -1523318381818736982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_145
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 781
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b31bcdc73311ebce0800000000000000
+      internalID: -1387652722347691717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_146
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 789
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17a9f7f4bdfcd2e60800000000000000
+      internalID: 7939230258962602609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_147
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 782
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a23555eda2959eff0800000000000000
+      internalID: -6375883810712790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_148
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 788
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0fbcac614dfd0120800000000000000
+      internalID: 2381838235386822410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_149
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 782
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 790c12a685b654ee0800000000000000
+      internalID: -1277496891807776617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_150
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 773
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4580396bc0d77c70800000000000000
+      internalID: 8968866754993358159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_151
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 776
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23c306068dfdb3330800000000000000
+      internalID: 3691790439983103026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_152
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 774
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc3199088c0aa9c30800000000000000
+      internalID: 4366979571700536267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_153
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 776
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5104ba32cebf174e0800000000000000
+      internalID: -1985528969064398827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_154
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 776
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28b511f533eca5910800000000000000
+      internalID: 1826999318885784450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_155
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 744
+        width: 40
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d12f19753fa070050800000000000000
+      internalID: 5766589888133722653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_156
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 772
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c46e2ae28969ce90800000000000000
+      internalID: -7004951734402521919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_157
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 776
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a1c053f759055c00800000000000000
+      internalID: 888626774824501664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_158
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 771
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 090ce7de6a5424ae0800000000000000
+      internalID: -1566613137120116592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_159
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 771
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93b1e88380e74b6c0800000000000000
+      internalID: -4128536384618226887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_160
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 779
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fe0d8ab4d211d970800000000000000
+      internalID: 8777817853593980658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_161
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 776
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e56bb4dd37b5dc80800000000000000
+      internalID: -8298525262170331680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_162
+      rect:
+        serializedVersion: 2
+        x: 652
+        y: 771
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b176fd2f9f6cf7a00800000000000000
+      internalID: 756542039245416219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_163
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 769
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 563cb453c79a5bf90800000000000000
+      internalID: -6938453299959184539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_164
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 770
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 938622febc23f7820800000000000000
+      internalID: 2918106935031130169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_165
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 761
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c723c698f1ee4160800000000000000
+      internalID: 7011790127659952072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_166
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 755
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b9a6b9a343f40920800000000000000
+      internalID: 2955754727397566904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_167
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 754
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cac449a932bad9670800000000000000
+      internalID: 8547175837224684716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_168
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 767
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fba66093380de950800000000000000
+      internalID: 6479844456415013879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_169
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 768
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf8b03622439620c0800000000000000
+      internalID: -4600828056994531076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_170
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 766
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 617da4b2dd2ed8300800000000000000
+      internalID: 256110193371961110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_171
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 766
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b4739d883851f180800000000000000
+      internalID: -9083381973512915790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_172
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 755
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cfb7274420f62f50800000000000000
+      internalID: 6856431521321435081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_173
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 758
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ab371fd8db76f490800000000000000
+      internalID: -7712841140439401560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_174
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 748
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7502b600fe303afc0800000000000000
+      internalID: -3484937361615544233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_175
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 762
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16f08b3824952b4c0800000000000000
+      internalID: -4273254954208587935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_176
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 754
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c18a0f313ce917600800000000000000
+      internalID: 464326797286221852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_177
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 754
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3b3cdf3bf9d28090800000000000000
+      internalID: -8033619112144127170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_178
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 751
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fad82cecc4b34220800000000000000
+      internalID: 2469015812957592307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_179
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 718
+        width: 40
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ae16a61957a59a00800000000000000
+      internalID: 762699712983080617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_180
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 751
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40b58d2b2fc6fced0800000000000000
+      internalID: -2391573087472035068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_181
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 737
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c3612591c50a9410800000000000000
+      internalID: 1484505356160820162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_182
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 750
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 382289cdac343af30800000000000000
+      internalID: 4585583384156709507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_183
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 748
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad94fc5ae8e5aeb80800000000000000
+      internalID: -8364769391127082534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_184
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 750
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34d36a20e07d5e710800000000000000
+      internalID: 1722018887713045827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_185
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 746
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b97caf8c472db890800000000000000
+      internalID: -7440747799564748361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_186
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 741
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c9c74d559767fdc0800000000000000
+      internalID: -3605299085474018876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_187
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 744
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20564044d5a51f5f0800000000000000
+      internalID: -724698708410342142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_188
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 745
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 175f4cd7f006f39a0800000000000000
+      internalID: -6251172138116123279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_189
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 745
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c92fc8aefc362a00800000000000000
+      internalID: 731339053945792964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_190
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 746
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ef6a2600d9123160800000000000000
+      internalID: 7003688751761879016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_191
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 719
+        width: 31
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caf0fae2ee1b43740800000000000000
+      internalID: 5130921512025395116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_192
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 737
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dbb74ed7642ea580800000000000000
+      internalID: -8814067392188007463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_193
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 743
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2b3c0d648ebce1c0800000000000000
+      internalID: -4472990853911266515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_194
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 718
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 239579c2538848c70800000000000000
+      internalID: 8972446119591631154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_195
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 727
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b42d4b8895b5b7a0800000000000000
+      internalID: -6361979231814212425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_196
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 729
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d898b9a2f73337180800000000000000
+      internalID: -9118888199226422899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_197
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 735
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f185962b26ad06c00800000000000000
+      internalID: 891952843654256671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_198
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 505
+        width: 155
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04f465831f53bd1e0800000000000000
+      internalID: -2172083085127561408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_199
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 718
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32a6cec7717fa0a40800000000000000
+      internalID: 5335348388825950755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_200
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 660
+        width: 78
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a890f45e8c604e580800000000000000
+      internalID: -8798900312064718454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_201
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 708
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69172f5056cecfc90800000000000000
+      internalID: -7134567791026081386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_202
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 712
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5363c67023f89ac10800000000000000
+      internalID: 2065339349161752117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_203
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 699
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e240f1d910c3317b0800000000000000
+      internalID: -5254790362582547410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_204
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 684
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09e6ecff7d678ae00800000000000000
+      internalID: 1056224782700146320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_205
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 705
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d6a675734d97df00800000000000000
+      internalID: 1141553943620789973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_206
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 681
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 046358b8f2caef400800000000000000
+      internalID: 359914340440421952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_207
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 648
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c9617a21ce7ab1a0800000000000000
+      internalID: -6792977719829108283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_208
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 560
+        width: 37
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57c537d6841aed2f0800000000000000
+      internalID: -946141539255231371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_209
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 657
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea5e8ec93c49c7370800000000000000
+      internalID: 8321689779345876398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_210
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 645
+        width: 16
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a9258d10bc87b7c0800000000000000
+      internalID: -4055618251386443356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_211
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 663
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94e480b590847a210800000000000000
+      internalID: 1344122218812558921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_212
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 639
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f99615712725e34a0800000000000000
+      internalID: -6611756552962348641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_213
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 644
+        width: 13
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31d5582e698b176e0800000000000000
+      internalID: -1841487814432826093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_214
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 645
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30dbb76baf77355d0800000000000000
+      internalID: -3074982201876824829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_215
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 628
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92e85623bf17f5b80800000000000000
+      internalID: -8403873055953809879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_216
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 628
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e78c14ca37d9c9890800000000000000
+      internalID: -7449906563440850818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_217
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 631
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8e0ebff67790d4c0800000000000000
+      internalID: -4264742309767278963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_218
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 627
+        width: 30
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c79b3bad93454c4c0800000000000000
+      internalID: -4268193939381307012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_219
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 622
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97f7ed7f484d14ad0800000000000000
+      internalID: -2719659032395743367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_220
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 635
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e50d8386b6a8b510800000000000000
+      internalID: 1565184173332563428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_221
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 627
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e424fe6c39edd02a0800000000000000
+      internalID: -6769509938588859826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_222
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 636
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a0c4219c0feb49c0800000000000000
+      internalID: -3941794211578986335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_223
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 636
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9f18340284c65730800000000000000
+      internalID: 3987590582778732446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_224
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 635
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2e986cb9bf7bd730800000000000000
+      internalID: 4024951127692320298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_225
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 620
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b28de53a17439c80800000000000000
+      internalID: -8317225908923694414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_226
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 618
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d33c40a8b92d34a60800000000000000
+      internalID: 7657195356937306941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_227
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 601
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d446018ad5d519d30800000000000000
+      internalID: 4436429764769637453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_228
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 613
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c09288edcb0700c20800000000000000
+      internalID: 3170658094158457100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_229
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 592
+        width: 35
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1472b6ced9c4f09d0800000000000000
+      internalID: -2805939801668507839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_230
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 561
+        width: 41
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 615e82d8c7ab37570800000000000000
+      internalID: 8463313168866272534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_231
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 624
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e4fcf640cdc5af70800000000000000
+      internalID: 9197984039682503911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_232
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 621
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31cc9b5fda7051100800000000000000
+      internalID: 77977012282182675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_233
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 585
+        width: 36
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9240ef99b2bff63f0800000000000000
+      internalID: -905228835392453591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_234
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 609
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67ec737ea4e9a8cd0800000000000000
+      internalID: -2555055794035372426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_235
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 592
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efa749d1ee77e38c0800000000000000
+      internalID: -4017641952985711874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_236
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 590
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcae6facf592e2d10800000000000000
+      internalID: 2102663567432411853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_237
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 589
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c227255bc1bc0250800000000000000
+      internalID: 5912295897695724227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_238
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 591
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60a2e31f1a76888e0800000000000000
+      internalID: -1690987714842842618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_239
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 586
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b682099c9e77e7000800000000000000
+      internalID: 35597693058295915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_240
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 541
+        width: 31
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28f01f3323ee223c0800000000000000
+      internalID: -4385681187718230142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_241
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 594
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d419a8faaf3e2c970800000000000000
+      internalID: 8773825689897570637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_242
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 597
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 534986510a992ff00800000000000000
+      internalID: 1149149767765890101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_243
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 589
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb6a4a0ec6c7bc200800000000000000
+      internalID: 201391415415318207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_244
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 581
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df1b5babf29b8a460800000000000000
+      internalID: 7253250814527255037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_245
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 576
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b7f2a499c4fefd20800000000000000
+      internalID: 3314355522410575798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_246
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 578
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8d4d9790388d8410800000000000000
+      internalID: 1480989594758237582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_247
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 583
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bee92dd7ad756d800800000000000000
+      internalID: 636792993244946155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_248
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 559
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 653eff92e7efb4ec0800000000000000
+      internalID: -3581489260819127466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_249
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 568
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c0907f15810796c0800000000000000
+      internalID: -4136836061446762301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_250
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 571
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1737906410bba2b90800000000000000
+      internalID: -7265789434664488079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_251
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 556
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97ff58b3225fc7af0800000000000000
+      internalID: -397173139739115655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_252
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 557
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0494858fe431265e0800000000000000
+      internalID: -1917949261411497664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_253
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 562
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d53f423e6463a6d0800000000000000
+      internalID: -2980428103935904302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_254
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 552
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b4fcd3dc50920d20800000000000000
+      internalID: 3243313410026042547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_255
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 546
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f220cc775996e710800000000000000
+      internalID: 1722232508549964530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_256
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 549
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 560f5592e4721f120800000000000000
+      internalID: 2445779289293320293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_257
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 542
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0262b8af337857d00800000000000000
+      internalID: 969829952084715040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cornertexture1_258
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 544
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c912fe8d3cd1fd10800000000000000
+      internalID: 2157747853436524996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      cornertexture1_0: -8890629723436679261
+      cornertexture1_1: 1004373781480432705
+      cornertexture1_10: 8254868777558560036
+      cornertexture1_100: -1683201939476701628
+      cornertexture1_101: -6816410927797677036
+      cornertexture1_102: -8140681937253441995
+      cornertexture1_103: -273144445280209215
+      cornertexture1_104: 1675831853639134562
+      cornertexture1_105: 9053229647843772908
+      cornertexture1_106: -852797480132449102
+      cornertexture1_107: -4406013306854720249
+      cornertexture1_108: -7061805244344864303
+      cornertexture1_109: -7565573689141535221
+      cornertexture1_11: -7703268574113924999
+      cornertexture1_110: -5722469158464563467
+      cornertexture1_111: -6455504806507511295
+      cornertexture1_112: -920262125286372619
+      cornertexture1_113: 3094946239978015553
+      cornertexture1_114: 3333733367116205482
+      cornertexture1_115: 1906894256473044211
+      cornertexture1_116: -8797442852050054474
+      cornertexture1_117: -2749489997912762955
+      cornertexture1_118: -7416629572853685199
+      cornertexture1_119: -2570207552689897661
+      cornertexture1_12: -2739131272572246492
+      cornertexture1_120: 8039473282756449068
+      cornertexture1_121: 8719439492380167456
+      cornertexture1_122: -68401538693450851
+      cornertexture1_123: 2484552843303431393
+      cornertexture1_124: 4698164493067120825
+      cornertexture1_125: 5154053949420825611
+      cornertexture1_126: 7285687889735694482
+      cornertexture1_127: 4070066785775831038
+      cornertexture1_128: 3749148009992684890
+      cornertexture1_129: -1590825823931045655
+      cornertexture1_13: -348053718214622000
+      cornertexture1_130: 7995094026797284847
+      cornertexture1_131: 8867540447696518961
+      cornertexture1_132: -532430713929104113
+      cornertexture1_133: 5067404179814754662
+      cornertexture1_134: -6243373629888490835
+      cornertexture1_135: 7035796356286598069
+      cornertexture1_136: 2279914610754160656
+      cornertexture1_137: 3534850770534813436
+      cornertexture1_138: -6492704545635772664
+      cornertexture1_139: 8594018885583298111
+      cornertexture1_14: -1857857245927096578
+      cornertexture1_140: -7507230933254287715
+      cornertexture1_141: -7637473219575945017
+      cornertexture1_142: 6493568465902404473
+      cornertexture1_143: 4670242790207613259
+      cornertexture1_144: -1523318381818736982
+      cornertexture1_145: -1387652722347691717
+      cornertexture1_146: 7939230258962602609
+      cornertexture1_147: -6375883810712790
+      cornertexture1_148: 2381838235386822410
+      cornertexture1_149: -1277496891807776617
+      cornertexture1_15: -2887997848478425939
+      cornertexture1_150: 8968866754993358159
+      cornertexture1_151: 3691790439983103026
+      cornertexture1_152: 4366979571700536267
+      cornertexture1_153: -1985528969064398827
+      cornertexture1_154: 1826999318885784450
+      cornertexture1_155: 5766589888133722653
+      cornertexture1_156: -7004951734402521919
+      cornertexture1_157: 888626774824501664
+      cornertexture1_158: -1566613137120116592
+      cornertexture1_159: -4128536384618226887
+      cornertexture1_16: -4810198894872408197
+      cornertexture1_160: 8777817853593980658
+      cornertexture1_161: -8298525262170331680
+      cornertexture1_162: 756542039245416219
+      cornertexture1_163: -6938453299959184539
+      cornertexture1_164: 2918106935031130169
+      cornertexture1_165: 7011790127659952072
+      cornertexture1_166: 2955754727397566904
+      cornertexture1_167: 8547175837224684716
+      cornertexture1_168: 6479844456415013879
+      cornertexture1_169: -4600828056994531076
+      cornertexture1_17: 2876451077068489548
+      cornertexture1_170: 256110193371961110
+      cornertexture1_171: -9083381973512915790
+      cornertexture1_172: 6856431521321435081
+      cornertexture1_173: -7712841140439401560
+      cornertexture1_174: -3484937361615544233
+      cornertexture1_175: -4273254954208587935
+      cornertexture1_176: 464326797286221852
+      cornertexture1_177: -8033619112144127170
+      cornertexture1_178: 2469015812957592307
+      cornertexture1_179: 762699712983080617
+      cornertexture1_18: 7300945748782224153
+      cornertexture1_180: -2391573087472035068
+      cornertexture1_181: 1484505356160820162
+      cornertexture1_182: 4585583384156709507
+      cornertexture1_183: -8364769391127082534
+      cornertexture1_184: 1722018887713045827
+      cornertexture1_185: -7440747799564748361
+      cornertexture1_186: -3605299085474018876
+      cornertexture1_187: -724698708410342142
+      cornertexture1_188: -6251172138116123279
+      cornertexture1_189: 731339053945792964
+      cornertexture1_19: 5024477690411693874
+      cornertexture1_190: 7003688751761879016
+      cornertexture1_191: 5130921512025395116
+      cornertexture1_192: -8814067392188007463
+      cornertexture1_193: -4472990853911266515
+      cornertexture1_194: 8972446119591631154
+      cornertexture1_195: -6361979231814212425
+      cornertexture1_196: -9118888199226422899
+      cornertexture1_197: 891952843654256671
+      cornertexture1_198: -2172083085127561408
+      cornertexture1_199: 5335348388825950755
+      cornertexture1_2: -1101708419055713316
+      cornertexture1_20: 7998988805632293737
+      cornertexture1_200: -8798900312064718454
+      cornertexture1_201: -7134567791026081386
+      cornertexture1_202: 2065339349161752117
+      cornertexture1_203: -5254790362582547410
+      cornertexture1_204: 1056224782700146320
+      cornertexture1_205: 1141553943620789973
+      cornertexture1_206: 359914340440421952
+      cornertexture1_207: -6792977719829108283
+      cornertexture1_208: -946141539255231371
+      cornertexture1_209: 8321689779345876398
+      cornertexture1_21: -370223832642525940
+      cornertexture1_210: -4055618251386443356
+      cornertexture1_211: 1344122218812558921
+      cornertexture1_212: -6611756552962348641
+      cornertexture1_213: -1841487814432826093
+      cornertexture1_214: -3074982201876824829
+      cornertexture1_215: -8403873055953809879
+      cornertexture1_216: -7449906563440850818
+      cornertexture1_217: -4264742309767278963
+      cornertexture1_218: -4268193939381307012
+      cornertexture1_219: -2719659032395743367
+      cornertexture1_22: 3040114663526084823
+      cornertexture1_220: 1565184173332563428
+      cornertexture1_221: -6769509938588859826
+      cornertexture1_222: -3941794211578986335
+      cornertexture1_223: 3987590582778732446
+      cornertexture1_224: 4024951127692320298
+      cornertexture1_225: -8317225908923694414
+      cornertexture1_226: 7657195356937306941
+      cornertexture1_227: 4436429764769637453
+      cornertexture1_228: 3170658094158457100
+      cornertexture1_229: -2805939801668507839
+      cornertexture1_23: -2390531582836959937
+      cornertexture1_230: 8463313168866272534
+      cornertexture1_231: 9197984039682503911
+      cornertexture1_232: 77977012282182675
+      cornertexture1_233: -905228835392453591
+      cornertexture1_234: -2555055794035372426
+      cornertexture1_235: -4017641952985711874
+      cornertexture1_236: 2102663567432411853
+      cornertexture1_237: 5912295897695724227
+      cornertexture1_238: -1690987714842842618
+      cornertexture1_239: 35597693058295915
+      cornertexture1_24: 3577353365366261986
+      cornertexture1_240: -4385681187718230142
+      cornertexture1_241: 8773825689897570637
+      cornertexture1_242: 1149149767765890101
+      cornertexture1_243: 201391415415318207
+      cornertexture1_244: 7253250814527255037
+      cornertexture1_245: 3314355522410575798
+      cornertexture1_246: 1480989594758237582
+      cornertexture1_247: 636792993244946155
+      cornertexture1_248: -3581489260819127466
+      cornertexture1_249: -4136836061446762301
+      cornertexture1_25: 4516432328997775768
+      cornertexture1_250: -7265789434664488079
+      cornertexture1_251: -397173139739115655
+      cornertexture1_252: -1917949261411497664
+      cornertexture1_253: -2980428103935904302
+      cornertexture1_254: 3243313410026042547
+      cornertexture1_255: 1722232508549964530
+      cornertexture1_256: 2445779289293320293
+      cornertexture1_257: 969829952084715040
+      cornertexture1_258: 2157747853436524996
+      cornertexture1_26: -8584436367329274373
+      cornertexture1_27: -3506465430267818762
+      cornertexture1_28: 7065944494748711976
+      cornertexture1_29: -8557468762775052596
+      cornertexture1_3: 6626086055612781104
+      cornertexture1_30: -6193581588818683733
+      cornertexture1_31: 4960969505662418232
+      cornertexture1_32: -9034098198268588189
+      cornertexture1_33: -5956102771866258269
+      cornertexture1_34: -8939961741943440939
+      cornertexture1_35: 4969015350813365930
+      cornertexture1_36: 1848039701166735436
+      cornertexture1_37: 4471112343443258018
+      cornertexture1_38: 278483584695541242
+      cornertexture1_39: -5931401894062080655
+      cornertexture1_4: 5146517703753500848
+      cornertexture1_40: -3173630815539001018
+      cornertexture1_41: -3431572525228125444
+      cornertexture1_42: -5830738808897298499
+      cornertexture1_43: 1524091789273470947
+      cornertexture1_44: 2306375189080906183
+      cornertexture1_45: 1515289037186683478
+      cornertexture1_46: -5274282465066187990
+      cornertexture1_47: -1398842088674119349
+      cornertexture1_48: 3196490970281282114
+      cornertexture1_49: 7067150926628957318
+      cornertexture1_5: -3860116473996458134
+      cornertexture1_50: -2861615603571769595
+      cornertexture1_51: 4618813918766551109
+      cornertexture1_52: -2401522725314545228
+      cornertexture1_53: -8132660202149957601
+      cornertexture1_54: -6669292513378543866
+      cornertexture1_55: -7159839358670497486
+      cornertexture1_56: -6531803540016903511
+      cornertexture1_57: 3058999843595543989
+      cornertexture1_58: 5895907943365755857
+      cornertexture1_59: 5362388610925633107
+      cornertexture1_6: -989032533815498962
+      cornertexture1_60: 3674141064348568198
+      cornertexture1_61: -557024654126153039
+      cornertexture1_62: 2166639224131112348
+      cornertexture1_63: -2338446138509385355
+      cornertexture1_64: -6225403498619400515
+      cornertexture1_65: -4166500195642687434
+      cornertexture1_66: -3142538108876335125
+      cornertexture1_67: 1624167564290361811
+      cornertexture1_68: 8658909689554785928
+      cornertexture1_69: -833271860187945248
+      cornertexture1_7: -1817467586984289012
+      cornertexture1_70: -4997176565005837139
+      cornertexture1_71: -7576925225592731339
+      cornertexture1_72: -1490068304498474885
+      cornertexture1_73: 1195331179162230531
+      cornertexture1_74: -8728256526639004466
+      cornertexture1_75: -3196006554315541800
+      cornertexture1_76: -1944337507261171751
+      cornertexture1_77: 9223293129045442869
+      cornertexture1_78: 5187625006043237036
+      cornertexture1_79: 1408499367926267102
+      cornertexture1_8: -1654853217587987742
+      cornertexture1_80: -2958921099729143911
+      cornertexture1_81: -1229112802676465497
+      cornertexture1_82: 90112134544165092
+      cornertexture1_83: 3929567236904549947
+      cornertexture1_84: -1779057626848266367
+      cornertexture1_85: -5541526987955447548
+      cornertexture1_86: 7494732845248855963
+      cornertexture1_87: -7866723730929876326
+      cornertexture1_88: -4633348245278595397
+      cornertexture1_89: 7210735214398940867
+      cornertexture1_9: -2912759485735106912
+      cornertexture1_90: -622886693590549021
+      cornertexture1_91: 5885681138024622874
+      cornertexture1_92: -417424311110854440
+      cornertexture1_93: -2308684968359196498
+      cornertexture1_94: 5331917326649021050
+      cornertexture1_95: -7768988543399065021
+      cornertexture1_96: -1061547758929421077
+      cornertexture1_97: -6887077708694425465
+      cornertexture1_98: 1505585677231157450
+      cornertexture1_99: -5197942011919434160
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
