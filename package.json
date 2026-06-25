@@ -5,6 +5,7 @@
   "description": "Build and itch.io push automation for How to Get to Heaven.",
   "scripts": {
     "test": "node --test \"scripts/**/*.test.js\"",
+    "setup:butler": "node scripts/setup-butler.js",
     "build:windows": "node scripts/build.js windows",
     "build:mac": "node scripts/build.js mac",
     "build:webgl": "node scripts/build.js webgl",
