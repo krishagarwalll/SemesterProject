@@ -25,7 +25,7 @@ test('buildOutputRelPath returns just the build dir for webgl (no suffix)', () =
 test('buildUnityArgs produces the expected argv array', () => {
   const args = buildUnityArgs({
     repoRoot: 'C:\\repo',
-    buildProfileAbsPath: 'C:\\repo\\Assets\\Settings\\Build Profiles\\Windows.asset',
+    buildProfileRelPath: 'Assets/Settings/Build Profiles/Windows.asset',
     outputAbsPath: 'C:\\repo\\Build\\Windows\\Game.exe',
     logFileAbsPath: 'C:\\repo\\build-windows.log',
   });
@@ -34,7 +34,7 @@ test('buildUnityArgs produces the expected argv array', () => {
     '-quit',
     '-nographics',
     '-projectPath', 'C:\\repo',
-    '-activeBuildProfile', 'C:\\repo\\Assets\\Settings\\Build Profiles\\Windows.asset',
+    '-activeBuildProfile', 'Assets/Settings/Build Profiles/Windows.asset',
     '-build', 'C:\\repo\\Build\\Windows\\Game.exe',
     '-logFile', 'C:\\repo\\build-windows.log',
   ]);

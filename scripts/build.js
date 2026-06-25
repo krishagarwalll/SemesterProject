@@ -55,7 +55,12 @@ function main(argv) {
   const outputAbsPath = path.join(REPO_ROOT, buildOutputRelPath(platformCfg, productName));
   const logFileAbsPath = path.join(REPO_ROOT, `build-${platformKey}.log`);
 
-  const args = buildUnityArgs({ repoRoot: REPO_ROOT, buildProfileAbsPath, outputAbsPath, logFileAbsPath });
+  const args = buildUnityArgs({
+    repoRoot: REPO_ROOT,
+    buildProfileRelPath: platformCfg.buildProfile,
+    outputAbsPath,
+    logFileAbsPath,
+  });
 
   console.log(`Building "${platformKey}" -> ${outputAbsPath}`);
   console.log(`Unity:   ${unityExe}`);
