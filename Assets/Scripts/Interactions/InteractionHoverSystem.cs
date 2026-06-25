@@ -8,6 +8,14 @@ public class InteractionHoverSystem : MonoBehaviour
 
     void Awake()
     {
+        // PointerContext owns hover selection and feedback in current gameplay scenes.
+        // Keeping both active causes duplicate hover changes and audio on disabled targets.
+        if (FindFirstObjectByType<PointerContext>(FindObjectsInactive.Include))
+        {
+            enabled = false;
+            return;
+        }
+
         cam = Camera.main;
     }
 
@@ -28,7 +36,7 @@ public class InteractionHoverSystem : MonoBehaviour
                 currentHover.SetHovered(false);
 
             if (newHover != null)
-                newHover.SetHovered(true);
+                newHover.SetHovered(true, HasEnabledAction(newHover));
 
             currentHover = newHover;
         }
@@ -55,5 +63,14 @@ public class InteractionHoverSystem : MonoBehaviour
         }
 
         return best;
+    }
+
+    private static bool HasEnabledAction(InteractionTarget target)
+    {
+        if (!target) return false;
+        PoptropicaController actor = FindFirstObjectByType<PoptropicaController>(FindObjectsInactive.Include);
+        Inventory inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
+        InteractionContext context = new(actor, null, target, inventory);
+        return target.HasAnyEnabledAction(context);
     }
 }

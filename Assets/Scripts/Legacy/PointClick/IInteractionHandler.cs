@@ -1,7 +1,0 @@
-[System.Obsolete("Legacy interaction handler contract retained for older scenes.", false)]
-public interface IInteractionHandler
-{
-    bool Supports(InteractionMode mode);
-    bool CanInteract(in InteractionRequest request);
-    void Interact(in InteractionRequest request);
-}

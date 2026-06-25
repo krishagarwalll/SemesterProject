@@ -17,8 +17,10 @@ public enum PauseType
 
 public static class PauseService
 {
-    // Gameplay pause keeps UI alive and leaves 2D physics running so grounded bodies keep settling normally.
-    private const PauseType FullGamePause = PauseType.Input | PauseType.Animation | PauseType.Particles | PauseType.Audio;
+    // UI remains responsive while all gameplay simulation is paused.
+    private const PauseType FullGamePause = PauseType.Physics | PauseType.Input | PauseType.Animation | PauseType.Particles | PauseType.Audio;
+    private const float PauseTransitionSeconds = 0.22f;
+    private const float MinimumFixedDeltaTime = 0.001f;
 
     private static int physicsLocks;
     private static int inputLocks;
@@ -27,6 +29,14 @@ public static class PauseService
     private static int uiLocks;
     private static int audioLocks;
     private static PauseType activePauseTypes;
+    private static float timeScaleBeforePhysicsPause = 1f;
+    private static float fixedDeltaTimeBeforePhysicsPause = 0.02f;
+    private static float audioVolumeBeforePause = 1f;
+    private static bool physicsTransitionActive;
+    private static bool audioTransitionActive;
+    private static bool physicsPauseTarget;
+    private static bool audioPauseTarget;
+    private static PauseTransitionDriver transitionDriver;
 
     private static readonly Dictionary<int, PauseType> pauseBypassById = new();
     private static readonly Dictionary<int, Animator> pausedAnimatorsById = new();
@@ -105,7 +115,7 @@ public static class PauseService
     public static void Resume()  => Resume(FullGamePause);
     public static void Toggle()
     {
-        if ((activePauseTypes & (PauseType.Animation | PauseType.Particles | PauseType.Audio)) != 0) Resume(FullGamePause);
+        if ((activePauseTypes & PauseType.Physics) != 0) Resume(FullGamePause);
         else Pause(FullGamePause);
     }
 
@@ -121,6 +131,17 @@ public static class PauseService
         pausedAnimatorSpeedsById.Clear();
         pausedParticlesById.Clear();
         pausedEventSystemsById.Clear();
+        timeScaleBeforePhysicsPause = 1f;
+        fixedDeltaTimeBeforePhysicsPause = Time.fixedDeltaTime > 0f ? Time.fixedDeltaTime : 0.02f;
+        audioVolumeBeforePause = 1f;
+        physicsTransitionActive = false;
+        audioTransitionActive = false;
+        physicsPauseTarget = false;
+        audioPauseTarget = false;
+        transitionDriver = null;
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = fixedDeltaTimeBeforePhysicsPause;
+        AudioListener.volume = 1f;
         AudioListener.pause = false;
     }
 
@@ -144,6 +165,10 @@ public static class PauseService
 
     private static void ApplyPauseState(PauseType previousPauseTypes, PauseType nextPauseTypes)
     {
+        ApplyPhysicsPause(
+            (previousPauseTypes & PauseType.Physics) != 0,
+            (nextPauseTypes & PauseType.Physics) != 0);
+
         ApplyAnimationPause(
             (previousPauseTypes & PauseType.Animation) != 0,
             (nextPauseTypes & PauseType.Animation) != 0);
@@ -156,7 +181,133 @@ public static class PauseService
             (previousPauseTypes & PauseType.UI) != 0,
             (nextPauseTypes & PauseType.UI) != 0);
 
-        AudioListener.pause = (nextPauseTypes & PauseType.Audio) != 0;
+        ApplyAudioPause(
+            (previousPauseTypes & PauseType.Audio) != 0,
+            (nextPauseTypes & PauseType.Audio) != 0);
+    }
+
+    private static void ApplyPhysicsPause(bool wasPaused, bool isPaused)
+    {
+        if (wasPaused == isPaused) return;
+
+        if (isPaused)
+        {
+            if (Time.timeScale > 0f)
+            {
+                timeScaleBeforePhysicsPause = Time.timeScale;
+            }
+
+            if (!physicsTransitionActive)
+            {
+                fixedDeltaTimeBeforePhysicsPause = Time.fixedDeltaTime > 0f
+                    ? Time.fixedDeltaTime
+                    : 0.02f;
+            }
+
+            physicsPauseTarget = true;
+            physicsTransitionActive = true;
+            EnsureTransitionDriver();
+            return;
+        }
+
+        physicsPauseTarget = false;
+        physicsTransitionActive = true;
+        EnsureTransitionDriver();
+    }
+
+    private static void ApplyAudioPause(bool wasPaused, bool isPaused)
+    {
+        if (wasPaused == isPaused) return;
+
+        if (isPaused)
+        {
+            if (!AudioListener.pause && AudioListener.volume > 0f)
+            {
+                audioVolumeBeforePause = AudioListener.volume;
+            }
+
+            audioPauseTarget = true;
+            audioTransitionActive = true;
+            EnsureTransitionDriver();
+            return;
+        }
+
+        AudioListener.pause = false;
+        audioPauseTarget = false;
+        if (AudioManager.Instance && AudioManager.Instance.IsMuted)
+        {
+            AudioListener.volume = 0f;
+            audioTransitionActive = false;
+            return;
+        }
+
+        audioTransitionActive = true;
+        EnsureTransitionDriver();
+    }
+
+    private static void EnsureTransitionDriver()
+    {
+        if (transitionDriver) return;
+
+        GameObject driverObject = new("PauseTransitionDriver");
+        UnityEngine.Object.DontDestroyOnLoad(driverObject);
+        transitionDriver = driverObject.AddComponent<PauseTransitionDriver>();
+    }
+
+    internal static void TickTransitions(float unscaledDeltaTime)
+    {
+        float duration = Mathf.Max(0.01f, PauseTransitionSeconds);
+
+        if (physicsTransitionActive)
+        {
+            float resumeScale = timeScaleBeforePhysicsPause > 0f ? timeScaleBeforePhysicsPause : 1f;
+            float targetScale = physicsPauseTarget ? 0f : resumeScale;
+            Time.timeScale = Mathf.MoveTowards(
+                Time.timeScale,
+                targetScale,
+                resumeScale * unscaledDeltaTime / duration);
+
+            if (Time.timeScale > 0f)
+            {
+                float normalizedScale = Mathf.Clamp01(Time.timeScale / resumeScale);
+                Time.fixedDeltaTime = Mathf.Max(
+                    MinimumFixedDeltaTime,
+                    fixedDeltaTimeBeforePhysicsPause * normalizedScale);
+            }
+            else
+            {
+                // Unity requires a positive fixed timestep even though no physics
+                // steps are scheduled while timeScale is zero.
+                Time.fixedDeltaTime = fixedDeltaTimeBeforePhysicsPause;
+            }
+
+            if (Mathf.Approximately(Time.timeScale, targetScale))
+            {
+                Time.timeScale = targetScale;
+                Time.fixedDeltaTime = fixedDeltaTimeBeforePhysicsPause;
+                physicsTransitionActive = false;
+            }
+        }
+
+        if (audioTransitionActive)
+        {
+            float resumeVolume = AudioManager.Instance
+                ? AudioManager.Instance.MasterVolume
+                : audioVolumeBeforePause;
+            float targetVolume = audioPauseTarget ? 0f : resumeVolume;
+            float fadeRange = Mathf.Max(0.01f, Mathf.Max(audioVolumeBeforePause, resumeVolume));
+            AudioListener.volume = Mathf.MoveTowards(
+                AudioListener.volume,
+                targetVolume,
+                fadeRange * unscaledDeltaTime / duration);
+
+            if (Mathf.Approximately(AudioListener.volume, targetVolume))
+            {
+                AudioListener.volume = targetVolume;
+                AudioListener.pause = audioPauseTarget;
+                audioTransitionActive = false;
+            }
+        }
     }
 
     private static void ApplyAnimationPause(bool wasPaused, bool isPaused)

@@ -20,6 +20,7 @@ public class MainMenuUI : MonoBehaviour
         RuntimeUiUtility.EnsureCanvasRaycasters();
 
         AutoDiscoverPanels();
+        WebGLPauseQuickActions.EnsureCreated(menuPanel);
 
         if (menuPanel) menuPanel.SetActive(true);
         if (settingsPanelRoot) settingsPanelRoot.SetActive(false);
@@ -61,9 +62,8 @@ public class MainMenuUI : MonoBehaviour
 
     private void OnDisable()
     {
-        if (!menuPanel) return;
-        foreach (var btn in menuPanel.GetComponentsInChildren<Button>(true))
-            btn.onClick.RemoveAllListeners();
+        if (settingsPanel)
+            settingsPanel.BackRequested -= ShowMain;
     }
 
     public void ShowMain()
@@ -121,6 +121,12 @@ public class MainMenuUI : MonoBehaviour
         Button exitBtn = FindButton("Exit", "ExitButton", "Quit", "QuitButton");
         if (exitBtn)
         {
+            exitBtn.gameObject.SetActive(RuntimeUiUtility.CanQuitApplication);
+            if (!RuntimeUiUtility.CanQuitApplication)
+            {
+                return;
+            }
+
             exitBtn.onClick.RemoveListener(RuntimeUiUtility.QuitApplication);
             exitBtn.onClick.AddListener(RuntimeUiUtility.QuitApplication);
         }

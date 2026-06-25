@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Video;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PickupItem))]
 public class MemoryFragmentCutscene : MonoBehaviour
 {
     [Header("Cutscene")]
-    [SerializeField] private VideoClip cutsceneClip;
+    [SerializeField] private string cutsceneFileName;
     [SerializeField] private bool playOnce = true;
     [SerializeField] private string cutsceneSaveId;
     [SerializeField] private PickupItem pickupItem;
@@ -37,16 +36,22 @@ public class MemoryFragmentCutscene : MonoBehaviour
 
     private void HandleStoredToInventory()
     {
-        if (!cutsceneClip)
+        if (string.IsNullOrWhiteSpace(cutsceneFileName))
         {
+            Debug.LogWarning($"[{nameof(MemoryFragmentCutscene)}] '{name}' has no cutscene file name.", this);
             return;
         }
 
         MemoryFragmentCutscenePlayer player = MemoryFragmentCutscenePlayer.Instance;
-        if (player)
+        if (!player)
         {
-            player.Play(cutsceneClip, ResolveSaveId(), playOnce);
+            Debug.LogError(
+                $"[{nameof(MemoryFragmentCutscene)}] No {nameof(MemoryFragmentCutscenePlayer)} is available for '{name}'.",
+                this);
+            return;
         }
+
+        player.Play(cutsceneFileName, ResolveSaveId(), playOnce);
     }
 
     private string ResolveSaveId()

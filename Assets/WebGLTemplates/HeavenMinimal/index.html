@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#0d0b12">
+  <title>{{{ PRODUCT_NAME }}}</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #11110f;
+      color: #e7e3d8;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    #unity-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: {{{ BACKGROUND_COLOR }}};
+      outline: none;
+    }
+    #loading {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      background: #11110f;
+      transition: opacity .2s linear, visibility .2s linear;
+    }
+    #loading.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loading-card {
+      width: 100%;
+      padding: clamp(24px, 5vw, 72px);
+    }
+    h1 {
+      margin: 0 0 28px;
+      font-size: clamp(15px, 1.8vw, 22px);
+      font-weight: 400;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .loading-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      max-width: 680px;
+    }
+    .track {
+      flex: 1;
+      height: 1px;
+      overflow: hidden;
+      background: #3d3c38;
+    }
+    .bar {
+      width: 0;
+      height: 100%;
+      background: #e7e3d8;
+      transition: width .1s linear;
+    }
+    .percent {
+      width: 36px;
+      color: #918e86;
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="unity-canvas" width="{{{ WIDTH }}}" height="{{{ HEIGHT }}}" tabindex="-1"></canvas>
+  <div id="loading">
+    <div class="loading-card">
+      <h1>HOW TO GET TO HEAVEN</h1>
+      <div class="loading-row">
+        <div class="track"><div class="bar" id="bar"></div></div>
+        <div class="percent" id="percent">0</div>
+      </div>
+    </div>
+  </div>
+  <script src="Build/{{{ LOADER_FILENAME }}}"></script>
+  <script>
+    const canvas = document.getElementById("unity-canvas");
+    const loading = document.getElementById("loading");
+    const bar = document.getElementById("bar");
+    const percent = document.getElementById("percent");
+
+    createUnityInstance(canvas, {
+      arguments: [],
+      dataUrl: "Build/{{{ DATA_FILENAME }}}",
+      frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_THREADS
+      workerUrl: "Build/{{{ WORKER_FILENAME }}}",
+#endif
+#if USE_WASM
+      codeUrl: "Build/{{{ CODE_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+      symbolsUrl: "Build/{{{ SYMBOLS_FILENAME }}}",
+#endif
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+      productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+      productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}}
+    }, progress => {
+      const value = Math.round(progress * 100);
+      bar.style.width = value + "%";
+      percent.textContent = value;
+    }).then(instance => {
+      window.unityInstance = instance;
+      loading.classList.add("hidden");
+      canvas.focus();
+    }).catch(message => {
+      percent.textContent = "!";
+      loading.title = message;
+      console.error(message);
+    });
+  </script>
+</body>
+</html>

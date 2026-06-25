@@ -40,7 +40,8 @@ public static class GameplayUiBootstrap
         PauseInputHandler[] pauseInputs = Object.FindObjectsByType<PauseInputHandler>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         if (pauseInputs.Length == 0)
         {
-            Debug.LogWarning("No PauseInputHandler found in the loaded gameplay scene. Add one to the scene Services object.");
+            GameObject pauseInputRoot = new("PauseInputRuntime");
+            pauseInputRoot.AddComponent<PauseInputHandler>();
             return;
         }
 

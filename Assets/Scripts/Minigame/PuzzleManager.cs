@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Video;
 
 public class Puzzlemanager : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class Puzzlemanager : MonoBehaviour
     [SerializeField] private string sceneToLoadOnCompletion = "MainMenu";
 
     [Header("Completion Cutscene (optional)")]
-    [SerializeField] private VideoClip cutsceneClip;
+    [SerializeField] private string cutsceneFileName = "ending-cutscene.mp4";
     [SerializeField] private string cutsceneSaveId = "TornPhotoCutscene";
     [SerializeField] private bool playOnce = true;
 
@@ -71,10 +70,10 @@ public class Puzzlemanager : MonoBehaviour
     private void CompletePuzzle()
     {
         TornPhotoCutscenePlayer player = TornPhotoCutscenePlayer.Instance;
-        if (cutsceneClip && player != null)
+        if (!string.IsNullOrWhiteSpace(cutsceneFileName) && player != null)
         {
             player.Finished += HandleCutsceneFinished;
-            if (player.Play(cutsceneClip, cutsceneSaveId, playOnce))
+            if (player.Play(cutsceneFileName, cutsceneSaveId, playOnce))
             {
                 return;
             }

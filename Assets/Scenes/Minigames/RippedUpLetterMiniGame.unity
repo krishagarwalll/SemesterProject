@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Puzzlemanager
   sceneToLoadOnCompletion: MainMenu
-  cutsceneClip: {fileID: 32900000, guid: f5550c793eab0464bb4bac4fe983d944, type: 3}
+  cutsceneFileName: ending-cutscene.mp4
   cutsceneSaveId: TornPhotoCutscene
   playOnce: 1
 --- !u!4 &39710558

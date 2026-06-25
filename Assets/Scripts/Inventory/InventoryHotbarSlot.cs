@@ -106,7 +106,9 @@ public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDr
 
         Sprite displaySprite = entryPresent ? InventoryItemVisualResolver.GetSprite(entry.Definition) : null;
         bool showIcon = displaySprite;
-        Background.color = entryPresent ? slotColor : emptySlotColor;
+        // Keep the Image as an invisible raycast surface, but do not draw a
+        // colored tile behind inventory item artwork.
+        Background.color = Color.clear;
         Icon.enabled = showIcon;
         Icon.sprite = displaySprite;
         if (LabelText)

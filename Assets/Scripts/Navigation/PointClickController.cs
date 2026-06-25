@@ -299,6 +299,11 @@ public class PointClickController : MonoBehaviour
             return;
         }
 
+        if (!context.PressStartedOnValidWorld)
+        {
+            return;
+        }
+
         if (IsPointerBlocked)
         {
             return;
@@ -331,6 +336,11 @@ public class PointClickController : MonoBehaviour
     private void HandleDragStarted(PointerContext context)
     {
         if (PauseService.IsGameplayInputPaused(this))
+        {
+            return;
+        }
+
+        if (!context.PressStartedOnValidWorld)
         {
             return;
         }

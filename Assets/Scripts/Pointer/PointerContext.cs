@@ -37,6 +37,7 @@ public class PointerContext : MonoBehaviour
     private bool dragEndedThisFrame;
     private bool isPrimaryPressed;
     private bool pressStartedOverUi;
+    private bool pressStartedOnValidWorld;
     private bool isDragging;
     private bool isPointerOverUi;
     private bool isPointerOverClickableUi;
@@ -73,6 +74,8 @@ public class PointerContext : MonoBehaviour
     public bool DragStartedThisFrame => dragStartedThisFrame;
     public bool DragEndedThisFrame => dragEndedThisFrame;
     public bool IsPrimaryPressed => isPrimaryPressed;
+    public bool IsPrimaryMovementPressValid => isPrimaryPressed && pressStartedOnValidWorld;
+    public bool PressStartedOnValidWorld => pressStartedOnValidWorld;
     public bool IsPointerOverUi => isPointerOverUi;
     public bool IsPointerOverClickableUi => isPointerOverClickableUi;
     public bool HasWorldPoint => hasWorldPoint;
@@ -178,6 +181,7 @@ public class PointerContext : MonoBehaviour
         isPointerOverUi = false;
         isPointerOverClickableUi = false;
         pressStartedOverUi = false;
+        pressStartedOnValidWorld = false;
     }
 
     private void ResetFrameState()
@@ -316,7 +320,8 @@ public class PointerContext : MonoBehaviour
             primaryPressedThisFrame = true;
             pressScreenPosition = screenPosition;
             pressedTarget = hoveredTarget;
-            pressStartedOverUi = isPointerOverUi;
+            pressStartedOverUi = IsBlockingUi(pressScreenPosition);
+            pressStartedOnValidWorld = !pressStartedOverUi && hasWorldPoint && !isWorldBlocked;
             TryGetWorldDragTarget(pressScreenPosition, out pressedWorldDragTarget);
             if (!pressedTarget && hasWorldPoint)
             {
@@ -333,7 +338,8 @@ public class PointerContext : MonoBehaviour
         }
 
         isPrimaryPressed = IsPrimaryCurrentlyPressed();
-        if (isPrimaryPressed
+        if (pressStartedOnValidWorld
+            && isPrimaryPressed
             && !isDragging
             && (screenPosition - pressScreenPosition).sqrMagnitude >= dragThresholdPixels * dragThresholdPixels)
         {
@@ -365,7 +371,7 @@ public class PointerContext : MonoBehaviour
             dragEndedThisFrame = true;
             DragEnded?.Invoke(this);
         }
-        else if (!pressStartedOverUi)
+        else if (pressStartedOnValidWorld)
         {
             primaryClickedThisFrame = true;
             clickedTarget = pressedTarget;
@@ -374,6 +380,7 @@ public class PointerContext : MonoBehaviour
 
         isDragging = false;
         isPrimaryPressed = false;
+        pressStartedOnValidWorld = false;
         pressedTarget = null;
         pressedWorldDragTarget = null;
         dragTarget = null;
@@ -382,6 +389,11 @@ public class PointerContext : MonoBehaviour
     private void UpdateSecondaryState()
     {
         if (!WasSecondaryPressedThisFrame())
+        {
+            return;
+        }
+
+        if (IsBlockingUi(screenPosition) || !hasWorldPoint || isWorldBlocked)
         {
             return;
         }
@@ -694,7 +706,11 @@ public class PointerContext : MonoBehaviour
         InteractionTarget previous = hoveredTarget;
         previous?.SetHovered(false);
         hoveredTarget = target;
-        hoveredTarget?.SetHovered(true);
+        if (hoveredTarget)
+        {
+            InteractionContext context = CreateInteractionContext(hoveredTarget);
+            hoveredTarget.SetHovered(true, hoveredTarget.HasAnyEnabledAction(context));
+        }
         HoverChanged?.Invoke(previous, hoveredTarget);
     }
 

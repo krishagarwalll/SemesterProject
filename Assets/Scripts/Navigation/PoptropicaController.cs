@@ -16,7 +16,7 @@ public class PoptropicaController : MonoBehaviour
     [SerializeField, Min(0.01f)] private float moveEaseDistance = 1.25f;
     [SerializeField, Range(0.05f, 1f)] private float minimumEaseSpeedFactor = 0.18f;
     [SerializeField, Min(1f)] private float jumpForce = 14f;
-    [SerializeField, Range(0.01f, 0.3f)] private float jumpGestureThreshold = 0.05f;
+    [SerializeField, Range(0.01f, 0.3f)] private float jumpGestureThreshold = 0.12f;
     [SerializeField, Range(0f, 0.3f)] private float coyoteTime = 0.12f;
     [SerializeField, Min(0.01f)] private float clickMoveStopDistance = 0.12f;
     [SerializeField] private bool ignorePointerOverUi = true;
@@ -212,7 +212,7 @@ public class PoptropicaController : MonoBehaviour
 
     private bool IsMovementButtonHeld()
     {
-        if (Pointer) return Pointer.IsPrimaryPressed;
+        if (Pointer) return Pointer.IsPrimaryMovementPressValid;
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed) return true;
         return Mouse.current != null && Mouse.current.leftButton.isPressed;
     }
@@ -345,6 +345,7 @@ public class PoptropicaController : MonoBehaviour
             || movementLocked
             || ActiveDrag != null
             || IsPointerBlocked
+            || !CanJump
             || !IsMovementButtonHeld())
         {
             ResetJumpGesture();
@@ -748,6 +749,7 @@ public class PoptropicaController : MonoBehaviour
     {
         if (PauseService.IsGameplayInputPaused(this)) return;
         if (IsPointerBlocked || ActiveDrag != null) return;
+        if (!context.PressStartedOnValidWorld) return;
 
         InteractionTarget target = context.ClickedTarget;
 
@@ -771,6 +773,7 @@ public class PoptropicaController : MonoBehaviour
     private void HandleDragStarted(PointerContext context)
     {
         if (PauseService.IsGameplayInputPaused(this)) return;
+        if (!context.PressStartedOnValidWorld) return;
         if (IsPointerBlocked && !context.TryGetWorldDragTarget(out _)) return;
         InteractionTarget target = context.DragTarget;
         if (!target && context) context.TryGetWorldDragTarget(out target);

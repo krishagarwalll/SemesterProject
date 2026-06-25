@@ -56,10 +56,17 @@
     padding-inline: var(--bleed-padding);
 }
 
-#wrapper .columns {
+#wrapper .view_html_game_page {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     width: 100%;
+
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+#wrapper .view_html_game_page > .columns {
+    display: contents;
 }
 
 #wrapper .column {
@@ -69,10 +76,14 @@
 }
 
 #wrapper .left_col {
-    order: 1;
+    order: 3;
 }
 
 #wrapper .right_col {
+    order: 1;
+}
+
+#wrapper .view_html_game_page > .html_embed_widget {
     order: 2;
 }
 
@@ -250,17 +261,16 @@
     }
 }
 
+/* Stop user select on header */
+#wrapper .header img {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
 /* Remove background from more information section and move to page bottom */
 #wrapper .inner_column {
     background: transparent;
     padding-bottom: 25px;
-}
-
-#wrapper .columns {
-    margin: 0;
-
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
 }
 
 #wrapper .left_col {
@@ -273,6 +283,12 @@
 }
 
 #wrapper .right_col {
+    background: var(--itchio_bg2_color);
+}
+
+#wrapper .html_embed_widget {
+    margin: 0;
+    padding: 20px 0;
     background: var(--itchio_bg2_color);
 }
 
@@ -353,6 +369,11 @@
             hsla(61.67, 16.07%, 56.08%, 0.013) 91.9%,
             hsla(61.67, 16.07%, 56.08%, 0) 100%
         );
+}
+
+/* Move html embed widget below video embed and screenshot carousel */
+#wrapper .html_embed_widget > div {
+    width: unset !important;
 }
 
 /* Restyle more information section to look more like a footer */
@@ -468,7 +489,7 @@
     right: anchor(right);
     z-index: 1000;
 
-    height: 38px;
+    height: 39px;
     margin-top: 0;
     margin-right: 10px;
     align-items: center;
@@ -871,7 +892,7 @@
 #wrapper .custom-link {
     width: 2rem;
     filter: grayscale(50%);
-    padding: 0 0.2em;
+    padding: 0 0.2rem;
 
     transition:
         filter 250ms ease,

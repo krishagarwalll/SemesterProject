@@ -5,6 +5,18 @@ using UnityEngine.UI;
 
 public static class RuntimeUiUtility
 {
+    public static bool CanQuitApplication
+    {
+        get
+        {
+#if UNITY_WEBGL && !UNITY_EDITOR
+            return false;
+#else
+            return true;
+#endif
+        }
+    }
+
     public static void ResetRuntimeState()
     {
         PauseService.ClearAll();
@@ -101,6 +113,8 @@ public static class RuntimeUiUtility
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_WEBGL
+        Debug.Log("Quit is not available in WebGL.");
 #else
         Application.Quit();
 #endif

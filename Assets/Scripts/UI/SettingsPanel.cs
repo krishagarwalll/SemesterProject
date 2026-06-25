@@ -137,6 +137,9 @@ public class SettingsPanel : MonoBehaviour
 
     private static void OnWindowMode(int index)
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        WebGLDisplay.SetFullscreen(index != 0);
+#else
         FullScreenMode mode = index switch
         {
             1 => FullScreenMode.ExclusiveFullScreen,
@@ -145,15 +148,23 @@ public class SettingsPanel : MonoBehaviour
         };
         Screen.fullScreenMode = mode;
         Screen.fullScreen = mode != FullScreenMode.Windowed;
+#endif
         PlayerPrefs.SetInt("Settings_WindowMode", index);
         PlayerPrefs.Save();
     }
 
-    private static int CurrentWindowModeIndex() => Screen.fullScreenMode switch
+    private static int CurrentWindowModeIndex()
     {
-        FullScreenMode.Windowed            => 0,
-        FullScreenMode.ExclusiveFullScreen => 1,
-        FullScreenMode.FullScreenWindow    => 2,
-        _ => Screen.fullScreen ? 2 : 0
-    };
+#if UNITY_WEBGL && !UNITY_EDITOR
+        return WebGLDisplay.IsFullscreen ? 2 : 0;
+#else
+        return Screen.fullScreenMode switch
+        {
+            FullScreenMode.Windowed            => 0,
+            FullScreenMode.ExclusiveFullScreen => 1,
+            FullScreenMode.FullScreenWindow    => 2,
+            _ => Screen.fullScreen ? 2 : 0
+        };
+#endif
+    }
 }

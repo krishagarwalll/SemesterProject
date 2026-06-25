@@ -6,25 +6,34 @@ public class PauseInputHandler : MonoBehaviour
 {
     [SerializeField] private InputActionReference pauseAction;
 
+    private InputAction runtimePauseAction;
+    private InputAction activePauseAction;
+    private int lastToggleFrame = -1;
+
     private void OnEnable()
     {
         PauseService.SetPauseBypass(this, PauseType.Input, true);
-        pauseAction.SetEnabled(true);
+        activePauseAction = GetOrCreatePauseAction();
+        activePauseAction.performed += HandlePausePerformed;
+        activePauseAction.Enable();
     }
 
     private void OnDisable()
     {
-        pauseAction.SetEnabled(false);
+        if (activePauseAction != null)
+        {
+            activePauseAction.performed -= HandlePausePerformed;
+            activePauseAction.Disable();
+            activePauseAction = null;
+        }
+
         PauseService.SetPauseBypass(this, PauseType.Input, false);
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        if (IsCutscenePlaying()) return;
-        if (WasPausePressed())
-        {
-            PauseService.Toggle();
-        }
+        runtimePauseAction?.Dispose();
+        runtimePauseAction = null;
     }
 
     public void OnResumePressed()
@@ -37,7 +46,26 @@ public class PauseInputHandler : MonoBehaviour
         RuntimeUiUtility.QuitApplication();
     }
 
-    private static bool IsCutscenePlaying()
+    private void Update()
+    {
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null) return;
+
+        if (keyboard.escapeKey.wasPressedThisFrame || keyboard.pKey.wasPressedThisFrame)
+        {
+            TryTogglePause();
+        }
+    }
+
+    public static void RequestPause()
+    {
+        if (!IsCutscenePlaying() && !PauseService.IsPaused(PauseType.Physics))
+        {
+            PauseService.Pause();
+        }
+    }
+
+    public static bool IsCutscenePlaying()
     {
         CutsceneController[] cutscenes = FindObjectsByType<CutsceneController>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         for (int i = 0; i < cutscenes.Length; i++)
@@ -51,34 +79,36 @@ public class PauseInputHandler : MonoBehaviour
         return false;
     }
 
-    private bool WasPausePressed()
+    private InputAction GetOrCreatePauseAction()
     {
-        if (pauseAction.WasPressedThisFrame())
+        if (pauseAction.IsAssigned())
         {
-            return true;
+            return pauseAction.action;
         }
 
-        Keyboard keyboard = Keyboard.current;
-        if (keyboard != null
-            && (keyboard.escapeKey.wasPressedThisFrame || keyboard.pKey.wasPressedThisFrame))
+        runtimePauseAction ??= new InputAction(
+            name: "Pause",
+            type: InputActionType.Button);
+        if (runtimePauseAction.bindings.Count == 0)
         {
-            return true;
+            runtimePauseAction.AddBinding("<Keyboard>/escape");
+            runtimePauseAction.AddBinding("<Keyboard>/p");
+            runtimePauseAction.AddBinding("<Gamepad>/start");
+            runtimePauseAction.AddBinding("<Gamepad>/select");
         }
 
-        Gamepad gamepad = Gamepad.current;
-        if (gamepad != null
-            && (gamepad.startButton.wasPressedThisFrame || gamepad.selectButton.wasPressedThisFrame))
-        {
-            return true;
-        }
+        return runtimePauseAction;
+    }
 
-        try
-        {
-            return Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P);
-        }
-        catch (System.InvalidOperationException)
-        {
-            return false;
-        }
+    private void HandlePausePerformed(InputAction.CallbackContext context)
+    {
+        TryTogglePause();
+    }
+
+    private void TryTogglePause()
+    {
+        if (lastToggleFrame == Time.frameCount || IsCutscenePlaying()) return;
+        lastToggleFrame = Time.frameCount;
+        PauseService.Toggle();
     }
 }

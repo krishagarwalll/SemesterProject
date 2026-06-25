@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(WorldPuzzleDragObject))]
@@ -69,6 +70,7 @@ public class PuzzlePiece : MonoBehaviour
     {
         if (isLockedInPlace) return;
         if (PauseService.IsGameplayInputPaused(this)) return;
+        if (EventSystem.current && EventSystem.current.IsPointerOverGameObject()) return;
         if (!drag.CanStartDrag()) return;
         if (!MouseIsOverThisPiece()) return;
 

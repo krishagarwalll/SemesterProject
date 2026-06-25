@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -9,14 +11,23 @@ public class PauseMenuUI : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject settingsPanelRoot;
     [SerializeField] private Button resumeButton;
+    [SerializeField] private Button pauseButton;
+    [SerializeField, Min(0.01f)] private float fadeDuration = 0.2f;
 
     private SettingsPanel settingsPanel;
+    private CanvasGroup pauseMenuGroup;
+    private bool waitingForPauseButtonRelease;
+    private bool pauseMenuFadeTarget;
 
     private void Awake()
     {
         EnsureMenuExists();
+        EnsurePauseButton();
+        EnsurePauseMenuCanvasGroup();
+        WebGLPauseQuickActions.EnsureCreated(pauseMenu);
         if (pauseMenu) pauseMenu.SetActive(false);
         if (settingsPanelRoot) settingsPanelRoot.SetActive(false);
+        SetPauseButtonVisible(true);
     }
 
     private void OnEnable()
@@ -37,16 +48,51 @@ public class PauseMenuUI : MonoBehaviour
         PauseService.PauseChanged -= HandlePauseChanged;
     }
 
+    private void Update()
+    {
+        UpdatePauseMenuFade();
+
+        bool paused = PauseService.IsPaused(PauseType.Physics);
+        if (paused)
+        {
+            waitingForPauseButtonRelease = false;
+            SetPauseButtonVisible(false);
+            return;
+        }
+
+        if (waitingForPauseButtonRelease)
+        {
+            SetPauseButtonVisible(false);
+            if (IsPrimaryPointerPressed()) return;
+
+            waitingForPauseButtonRelease = false;
+            if (EventSystem.current)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+
+            if (pauseButton) pauseButton.interactable = true;
+        }
+
+        SetPauseButtonVisible(true);
+    }
+
+    private void OnPauseClicked()
+    {
+        if (PauseInputHandler.IsCutscenePlaying()) return;
+        PauseService.Pause();
+    }
+
     public void ShowSettings()
     {
-        if (pauseMenu) pauseMenu.SetActive(false);
+        HidePauseMenuImmediately();
         if (settingsPanelRoot) settingsPanelRoot.SetActive(true);
     }
 
     public void ShowMain()
     {
         if (settingsPanelRoot) settingsPanelRoot.SetActive(false);
-        if (pauseMenu) pauseMenu.SetActive(true);
+        ShowPauseMenuImmediately();
     }
 
     private void WireSettingsPanel()
@@ -105,6 +151,8 @@ public class PauseMenuUI : MonoBehaviour
     {
         Button button = FindButton("Quit", "QuitButton", "Exit", "ExitButton");
         if (!button) return;
+        button.gameObject.SetActive(RuntimeUiUtility.CanQuitApplication);
+        if (!RuntimeUiUtility.CanQuitApplication) return;
         button.onClick.RemoveListener(OnQuitClicked);
         button.onClick.AddListener(OnQuitClicked);
     }
@@ -124,7 +172,11 @@ public class PauseMenuUI : MonoBehaviour
         return null;
     }
 
-    private void OnResumeClicked() => PauseService.Resume();
+    private void OnResumeClicked()
+    {
+        BeginPauseButtonReactivation();
+        PauseService.Resume();
+    }
 
     private void OnSaveClicked()
     {
@@ -180,20 +232,22 @@ public class PauseMenuUI : MonoBehaviour
 
     private void HandlePauseChanged(PauseType pauseTypes)
     {
-        bool paused = (pauseTypes & (PauseType.Animation | PauseType.Particles | PauseType.Audio)) != 0;
+        bool paused = (pauseTypes & PauseType.Physics) != 0;
         SetInventoryVisible(!paused);
 
         if (!paused)
         {
-            if (pauseMenu) pauseMenu.SetActive(false);
+            SetPauseMenuVisible(false);
             if (settingsPanelRoot) settingsPanelRoot.SetActive(false);
+            BeginPauseButtonReactivation();
             return;
         }
 
+        SetPauseButtonVisible(false);
         WireSaveButtons();
         AllowPausedUiInput();
         if (settingsPanelRoot && settingsPanelRoot.activeSelf) return;
-        if (pauseMenu) pauseMenu.SetActive(true);
+        SetPauseMenuVisible(true);
     }
 
     private static void SetInventoryVisible(bool visible)
@@ -215,6 +269,158 @@ public class PauseMenuUI : MonoBehaviour
         {
             Debug.LogWarning($"{nameof(PauseMenuUI)} on {name} is missing a settings panel reference.", this);
         }
+    }
+
+    private void EnsurePauseButton()
+    {
+        Canvas canvas = GetComponentInParent<Canvas>(true);
+        if (!canvas) return;
+
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = Mathf.Max(canvas.sortingOrder, 5000);
+
+        if (!pauseButton)
+        {
+            Transform existing = canvas.transform.Find("PauseButton");
+            if (existing) pauseButton = existing.GetComponent<Button>();
+        }
+
+        if (!pauseButton)
+        {
+            GameObject buttonObject = new(
+                "PauseButton",
+                typeof(RectTransform),
+                typeof(Image),
+                typeof(Button));
+            buttonObject.layer = LayerMask.NameToLayer("UI");
+            buttonObject.transform.SetParent(canvas.transform, false);
+
+            RectTransform rect = buttonObject.GetComponent<RectTransform>();
+            rect.anchorMin = rect.anchorMax = new Vector2(1f, 1f);
+            rect.pivot = new Vector2(1f, 1f);
+            rect.anchoredPosition = new Vector2(-28f, -28f);
+            rect.sizeDelta = new Vector2(126f, 54f);
+
+            Image image = buttonObject.GetComponent<Image>();
+            image.color = new Color(0.055f, 0.047f, 0.07f, 0.96f);
+
+            pauseButton = buttonObject.GetComponent<Button>();
+            ColorBlock colors = pauseButton.colors;
+            colors.normalColor = Color.white;
+            colors.highlightedColor = new Color(1.15f, 1.15f, 1.15f, 1f);
+            colors.pressedColor = new Color(0.72f, 0.72f, 0.72f, 1f);
+            pauseButton.colors = colors;
+
+            GameObject labelObject = new(
+                "Label",
+                typeof(RectTransform),
+                typeof(TextMeshProUGUI));
+            labelObject.layer = buttonObject.layer;
+            labelObject.transform.SetParent(buttonObject.transform, false);
+
+            RectTransform labelRect = labelObject.GetComponent<RectTransform>();
+            labelRect.anchorMin = Vector2.zero;
+            labelRect.anchorMax = Vector2.one;
+            labelRect.offsetMin = Vector2.zero;
+            labelRect.offsetMax = Vector2.zero;
+
+            TextMeshProUGUI label = labelObject.GetComponent<TextMeshProUGUI>();
+            label.text = "PAUSE";
+            label.alignment = TextAlignmentOptions.Center;
+            label.fontSize = 21f;
+            label.fontStyle = FontStyles.Bold;
+            label.color = new Color(0.96f, 0.93f, 0.86f, 1f);
+            label.raycastTarget = false;
+        }
+
+        pauseButton.onClick.RemoveListener(OnPauseClicked);
+        pauseButton.onClick.AddListener(OnPauseClicked);
+    }
+
+    private void EnsurePauseMenuCanvasGroup()
+    {
+        if (!pauseMenu) return;
+        pauseMenuGroup = pauseMenu.GetComponent<CanvasGroup>();
+        if (!pauseMenuGroup)
+        {
+            pauseMenuGroup = pauseMenu.AddComponent<CanvasGroup>();
+        }
+
+        pauseMenuGroup.alpha = 0f;
+        pauseMenuGroup.interactable = false;
+        pauseMenuGroup.blocksRaycasts = false;
+    }
+
+    private void SetPauseMenuVisible(bool visible)
+    {
+        if (!pauseMenu || !pauseMenuGroup) return;
+
+        pauseMenuFadeTarget = visible;
+        if (visible)
+        {
+            pauseMenu.SetActive(true);
+            pauseMenuGroup.interactable = true;
+            pauseMenuGroup.blocksRaycasts = true;
+        }
+        else
+        {
+            pauseMenuGroup.interactable = false;
+            pauseMenuGroup.blocksRaycasts = false;
+        }
+    }
+
+    private void UpdatePauseMenuFade()
+    {
+        if (!pauseMenu || !pauseMenuGroup || !pauseMenu.activeSelf) return;
+
+        float target = pauseMenuFadeTarget ? 1f : 0f;
+        pauseMenuGroup.alpha = Mathf.MoveTowards(
+            pauseMenuGroup.alpha,
+            target,
+            Time.unscaledDeltaTime / Mathf.Max(0.01f, fadeDuration));
+
+        if (!pauseMenuFadeTarget && pauseMenuGroup.alpha <= 0f)
+        {
+            pauseMenu.SetActive(false);
+        }
+    }
+
+    private void HidePauseMenuImmediately()
+    {
+        if (!pauseMenu || !pauseMenuGroup) return;
+        pauseMenuFadeTarget = false;
+        pauseMenuGroup.alpha = 0f;
+        pauseMenuGroup.interactable = false;
+        pauseMenuGroup.blocksRaycasts = false;
+        pauseMenu.SetActive(false);
+    }
+
+    private void ShowPauseMenuImmediately()
+    {
+        if (!pauseMenu || !pauseMenuGroup) return;
+        pauseMenuFadeTarget = true;
+        pauseMenu.SetActive(true);
+        pauseMenuGroup.alpha = 1f;
+        pauseMenuGroup.interactable = true;
+        pauseMenuGroup.blocksRaycasts = true;
+    }
+
+    private void SetPauseButtonVisible(bool visible)
+    {
+        if (!pauseButton) return;
+        pauseButton.gameObject.SetActive(visible && !PauseInputHandler.IsCutscenePlaying());
+    }
+
+    private void BeginPauseButtonReactivation()
+    {
+        waitingForPauseButtonRelease = true;
+        SetPauseButtonVisible(false);
+    }
+
+    private static bool IsPrimaryPointerPressed()
+    {
+        if (Mouse.current != null && Mouse.current.leftButton.isPressed) return true;
+        return Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed;
     }
 
     private void AutoDiscoverPanels()

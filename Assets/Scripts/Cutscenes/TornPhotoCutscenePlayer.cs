@@ -30,12 +30,21 @@ public class TornPhotoCutscenePlayer : MonoBehaviour
     private bool activePlayOnce;
     private bool isPlaying;
     private bool inputPaused;
+    private bool shuttingDown;
+    private RenderTexture playbackTexture;
 
     public bool IsPlaying => isPlaying;
     public event Action Finished;
 
     private void Awake()
     {
+        if (Instance && Instance != this)
+        {
+            Debug.LogWarning($"Duplicate {nameof(TornPhotoCutscenePlayer)} disabled on '{name}'.", this);
+            enabled = false;
+            return;
+        }
+
         Instance = this;
 
         if (!cutsceneRoot)
@@ -51,6 +60,8 @@ public class TornPhotoCutscenePlayer : MonoBehaviour
         if (videoPlayer)
         {
             videoPlayer.playOnAwake = false;
+            videoPlayer.waitForFirstFrame = true;
+            playbackTexture = videoPlayer.targetTexture;
         }
 
         if (cutsceneRoot)
@@ -61,10 +72,7 @@ public class TornPhotoCutscenePlayer : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (isPlaying)
-        {
-            FinishPlayback(markComplete: false);
-        }
+        Shutdown();
 
         if (Instance == this)
         {
@@ -86,25 +94,39 @@ public class TornPhotoCutscenePlayer : MonoBehaviour
         }
 
         bool fastForwardHeld = input.IsFastForwardHeld();
-        playback.SetFastForward(fastForwardHeld, fastForwardSpeed);
-        skipButtonPresenter.Tick(fastForwardHeld);
+        playback?.SetFastForward(fastForwardHeld, fastForwardSpeed);
+        skipButtonPresenter?.Tick(fastForwardHeld);
     }
 
-    public bool Play(VideoClip clip, string saveId, bool playOnce)
+    public bool Play(string fileName, string saveId, bool playOnce)
     {
-        if (isPlaying || !clip || !videoPlayer)
+        if (isPlaying)
         {
+            Debug.LogWarning($"[{nameof(TornPhotoCutscenePlayer)}] Ignored '{fileName}' because another cutscene is playing.", this);
+            return false;
+        }
+
+        if (!videoPlayer)
+        {
+            Debug.LogError($"[{nameof(TornPhotoCutscenePlayer)}] No VideoPlayer is assigned.", this);
+            return false;
+        }
+
+        if (!StreamingAssetsVideoUrl.TryBuild(fileName, out string url))
+        {
+            Debug.LogError($"[{nameof(TornPhotoCutscenePlayer)}] Invalid cutscene file name '{fileName}'.", this);
             return false;
         }
 
         if (playOnce && SaveManager.Instance != null && SaveManager.Instance.IsCutsceneCompleted(saveId))
         {
+            Debug.Log($"[{nameof(TornPhotoCutscenePlayer)}] '{fileName}' was already completed.", this);
             return false;
         }
 
         activeSaveId = saveId;
         activePlayOnce = playOnce;
-        StartCoroutine(PlayRoutine(clip));
+        BeginPlayback(fileName, url);
         return true;
     }
 
@@ -116,16 +138,24 @@ public class TornPhotoCutscenePlayer : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayRoutine(VideoClip clip)
+    private void BeginPlayback(string fileName, string url)
     {
         isPlaying = true;
 
-        videoPlayer.source = VideoSource.VideoClip;
-        videoPlayer.clip = clip;
+        videoPlayer.enabled = true;
+        if (!videoPlayer.targetTexture && playbackTexture)
+        {
+            videoPlayer.targetTexture = playbackTexture;
+        }
+
+        videoPlayer.Stop();
+        videoPlayer.source = VideoSource.Url;
+        videoPlayer.clip = null;
+        videoPlayer.url = url;
         videoPlayer.isLooping = false;
         videoPlayer.playbackSpeed = 1f;
 
-        playback = new CutscenePlaybackDriver(videoPlayer, null, this, $"{name}:{clip.name}");
+        playback = new CutscenePlaybackDriver(videoPlayer, null, this, $"{name}:{fileName}");
         playback.Bind(OnPlaybackCompleted, OnPlaybackFailed);
 
         skipButtonPresenter = new CutsceneSkipButtonPresenter(
@@ -150,14 +180,16 @@ public class TornPhotoCutscenePlayer : MonoBehaviour
             cutsceneRoot.SetActive(true);
         }
 
-        yield return null;
-        if (!isPlaying)
-        {
-            yield break;
-        }
-
+        // Keep both calls in the initiating UI/pointer gesture for WebGL.
         videoPlayer.Prepare();
-        float timeout = 15f;
+        videoPlayer.Play();
+        Debug.Log($"[{nameof(TornPhotoCutscenePlayer)}] Starting '{fileName}' from '{url}'.", this);
+        StartCoroutine(WatchPlaybackStart(fileName));
+    }
+
+    private IEnumerator WatchPlaybackStart(string fileName)
+    {
+        float timeout = 30f;
         while (!videoPlayer.isPrepared && isPlaying && timeout > 0f)
         {
             timeout -= Time.unscaledDeltaTime;
@@ -171,11 +203,11 @@ public class TornPhotoCutscenePlayer : MonoBehaviour
 
         if (!videoPlayer.isPrepared)
         {
+            Debug.LogError(
+                $"[{nameof(TornPhotoCutscenePlayer)}] Timed out preparing '{fileName}' from '{videoPlayer.url}'.",
+                this);
             FinishPlayback(markComplete: false);
-            yield break;
         }
-
-        videoPlayer.Play();
     }
 
     private void OnPlaybackCompleted() => FinishPlayback(markComplete: true);
@@ -190,6 +222,7 @@ public class TornPhotoCutscenePlayer : MonoBehaviour
         }
 
         isPlaying = false;
+        StopAllCoroutines();
 
         playback?.Stop();
         playback?.Unbind();
@@ -207,7 +240,6 @@ public class TornPhotoCutscenePlayer : MonoBehaviour
 
         if (inputPaused)
         {
-            inputPaused = false;
             StartCoroutine(ResumeInputNextFrame());
         }
         else if (cutsceneRoot)
@@ -221,10 +253,65 @@ public class TornPhotoCutscenePlayer : MonoBehaviour
     private IEnumerator ResumeInputNextFrame()
     {
         yield return null;
-        PauseService.Resume(CutscenePause);
+        if (inputPaused)
+        {
+            PauseService.Resume(CutscenePause);
+            inputPaused = false;
+        }
+
         if (cutsceneRoot)
         {
             cutsceneRoot.SetActive(false);
         }
     }
+
+    private void Shutdown()
+    {
+        if (shuttingDown)
+        {
+            return;
+        }
+
+        shuttingDown = true;
+        StopAllCoroutines();
+        playback?.Unbind();
+        playback = null;
+
+        if (skipButton)
+        {
+            skipButton.onClick.RemoveListener(Skip);
+        }
+
+        if (inputPaused)
+        {
+            PauseService.Resume(CutscenePause);
+            inputPaused = false;
+        }
+
+        if (videoPlayer)
+        {
+            videoPlayer.targetTexture = null;
+            videoPlayer.Stop();
+            videoPlayer.enabled = false;
+        }
+
+        if (cutsceneRoot)
+        {
+            cutsceneRoot.SetActive(false);
+        }
+
+        isPlaying = false;
+    }
+
+    private void OnApplicationQuit() => Shutdown();
+
+#if UNITY_EDITOR
+    private void OnDisable()
+    {
+        if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+        {
+            Shutdown();
+        }
+    }
+#endif
 }

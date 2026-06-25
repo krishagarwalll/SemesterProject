@@ -100,7 +100,7 @@ public class InteractionTarget : MonoBehaviour
     //     audioSource.PlayOneShot(hover);
     // }
 
-        public void SetHovered(bool hovered)
+    public void SetHovered(bool hovered, bool playAudio = false)
     {
         //if (InteractionLock.IsLocked) return; 
 
@@ -112,7 +112,7 @@ public class InteractionTarget : MonoBehaviour
             simpleOutline.SetOutline(hovered);
         }
 
-        if (hovered && !wasHovered && hover != null && audioSource != null)
+        if (hovered && !wasHovered && playAudio && hover != null && audioSource != null)
         {
             audioSource.PlayOneShot(hover);
         }
@@ -120,15 +120,15 @@ public class InteractionTarget : MonoBehaviour
         wasHovered = hovered;
     }
     
-        public void OnClicked()
-        {
-            OpenMiniGame miniGame = GetComponent<OpenMiniGame>();
+    public void OnClicked()
+    {
+        OpenMiniGame miniGame = GetComponent<OpenMiniGame>();
 
-            if (miniGame != null)
-            {
-                miniGame.OpenScene();
-            }
+        if (miniGame != null)
+        {
+            miniGame.OpenScene();
         }
+    }
 
     public Vector3 GetApproachPoint(Vector3 actorPosition)
     {

@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     private const string PrefMusicVolume = "Vol_Music";
     private const string PrefSfxVolume = "Vol_Sfx";
     private const string PrefMasterVolume = "Vol_Master";
+    private const string PrefLastAudibleMasterVolume = "Vol_Master_LastAudible";
 
     [SerializeField, Range(0f, 1f)] private float defaultMasterVolume = 1f;
     [SerializeField, Range(0f, 1f)] private float defaultMusicVolume = 0.6f;
@@ -19,12 +20,14 @@ public class AudioManager : MonoBehaviour
     private float masterVolume;
     private float musicVolume;
     private float sfxVolume;
+    private float lastAudibleMasterVolume = 1f;
 
     public static AudioManager Instance { get; private set; }
 
     public float MasterVolume => masterVolume;
     public float MusicVolume => musicVolume;
     public float SfxVolume => sfxVolume;
+    public bool IsMuted => masterVolume <= 0.0001f;
     public AudioMixerGroup MusicGroup => musicGroup;
     public AudioMixerGroup SfxGroup => sfxGroup;
 
@@ -76,14 +79,14 @@ public class AudioManager : MonoBehaviour
     public void PlaySfx(AudioClip clip, float volume = 1f)
     {
         if (!clip) return;
-        SfxPlayer.PlayOneShot(clip, masterVolume * sfxVolume * volume);
+        SfxPlayer.PlayOneShot(clip, sfxVolume * volume);
     }
 
     public void PlayMusic(AudioClip clip, bool loop = true)
     {
         if (!clip) return;
         if (musicPlayer && musicPlayer.Source.clip == clip && musicPlayer.Source.isPlaying) return;
-        MusicPlayer.PlayClip(clip, masterVolume * musicVolume, loop);
+        MusicPlayer.PlayClip(clip, musicVolume, loop);
     }
 
     public void StopMusic()
@@ -97,9 +100,21 @@ public class AudioManager : MonoBehaviour
     public void SetMasterVolume(float volume)
     {
         masterVolume = Mathf.Clamp01(volume);
+        if (masterVolume > 0.0001f)
+        {
+            lastAudibleMasterVolume = masterVolume;
+            PlayerPrefs.SetFloat(PrefLastAudibleMasterVolume, lastAudibleMasterVolume);
+        }
+
         PlayerPrefs.SetFloat(PrefMasterVolume, masterVolume);
         PlayerPrefs.Save();
+        ApplyMasterOutput();
         ApplyMusicVolume();
+    }
+
+    public void ToggleMute()
+    {
+        SetMasterVolume(IsMuted ? Mathf.Max(0.01f, lastAudibleMasterVolume) : 0f);
     }
 
     public void SetMusicVolume(float volume)
@@ -122,6 +137,10 @@ public class AudioManager : MonoBehaviour
         masterVolume = PlayerPrefs.GetFloat(PrefMasterVolume, defaultMasterVolume);
         musicVolume = PlayerPrefs.GetFloat(PrefMusicVolume, defaultMusicVolume);
         sfxVolume = PlayerPrefs.GetFloat(PrefSfxVolume, defaultSfxVolume);
+        lastAudibleMasterVolume = PlayerPrefs.GetFloat(
+            PrefLastAudibleMasterVolume,
+            masterVolume > 0.0001f ? masterVolume : defaultMasterVolume);
+        ApplyMasterOutput();
         ApplyMusicVolume();
     }
 
@@ -129,7 +148,23 @@ public class AudioManager : MonoBehaviour
     {
         if (musicPlayer && musicPlayer.Source.isPlaying)
         {
-            musicPlayer.Source.volume = masterVolume * musicVolume;
+            musicPlayer.Source.volume = musicVolume;
+        }
+    }
+
+    private void ApplyMasterOutput()
+    {
+        // PauseService owns the temporary fade while paused. It reads MasterVolume
+        // again when resuming, so mute/unmute changes made in the pause menu persist.
+        if (IsMuted)
+        {
+            AudioListener.volume = 0f;
+            return;
+        }
+
+        if (!PauseService.IsPaused(PauseType.Audio))
+        {
+            AudioListener.volume = masterVolume;
         }
     }
 }

@@ -40,6 +40,8 @@ public class CutsceneController : MonoBehaviour
 
     private CutscenePlaybackDriver playback;
     private CutsceneSkipButtonPresenter skipButtonPresenter;
+    private GameObject firstFrameCurtain;
+    private bool shuttingDown;
     private bool hasEnded;
     private bool inputPausedByThisCutscene;
 
@@ -50,6 +52,7 @@ public class CutsceneController : MonoBehaviour
     {
         ResolveReferences();
         NormalizeVideoSourceForBuild();
+        CreateFirstFrameCurtain();
         input.ApplyLegacyFields(
             skipAction,
             fastForwardAction,
@@ -64,6 +67,13 @@ public class CutsceneController : MonoBehaviour
             skipButtonFadeDuration);
         skipButtonPresenter.Prepare();
         skipButton = skipButtonPresenter.Button;
+
+        if (videoPlayer)
+        {
+            videoPlayer.waitForFirstFrame = true;
+            videoPlayer.sendFrameReadyEvents = true;
+            videoPlayer.frameReady += HandleFirstVideoFrame;
+        }
     }
 
     protected virtual void Start()
@@ -90,6 +100,7 @@ public class CutsceneController : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
+        ShutdownVideoForTeardown();
         playback?.Unbind();
         if (skipButton) skipButton.onClick.RemoveListener(Skip);
 
@@ -99,6 +110,21 @@ public class CutsceneController : MonoBehaviour
             inputPausedByThisCutscene = false;
         }
     }
+
+    protected virtual void OnApplicationQuit()
+    {
+        ShutdownVideoForTeardown();
+    }
+
+#if UNITY_EDITOR
+    protected virtual void OnDisable()
+    {
+        // Cutscene objects can be toggled during normal startup. Only tear down the
+        // native video resources when the Editor is actually leaving Play Mode.
+        if (!UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+            ShutdownVideoForTeardown();
+    }
+#endif
 
     protected virtual void Update()
     {
@@ -111,8 +137,8 @@ public class CutsceneController : MonoBehaviour
         }
 
         bool fastForwardHeld = input.IsFastForwardHeld();
-        playback.SetFastForward(fastForwardHeld, fastForwardSpeed);
-        skipButtonPresenter.Tick(fastForwardHeld);
+        playback?.SetFastForward(fastForwardHeld, fastForwardSpeed);
+        skipButtonPresenter?.Tick(fastForwardHeld);
     }
 
     public void Skip() => End(markComplete: true);
@@ -126,6 +152,7 @@ public class CutsceneController : MonoBehaviour
 
         playback?.Stop();
         playback?.Unbind();
+        RemoveFirstFrameCurtain();
 
         if (markComplete && playOnce && SaveManager.Instance != null)
             SaveManager.Instance.MarkCutsceneCompleted(SaveId, saveCompletionImmediately);
@@ -156,41 +183,32 @@ public class CutsceneController : MonoBehaviour
         if (cutsceneRoot) cutsceneRoot.SetActive(false);
     }
 
-    // Ensures the VideoPlayer/PlayableDirector actually starts, which is unreliable
-    // in Windows builds when relying solely on "Play On Awake".
     private IEnumerator EnsurePlayback()
     {
-        yield return null; // allow Play On Awake one frame to kick in
-
         if (hasEnded) yield break;
 
         if (videoPlayer)
         {
-            if (!videoPlayer.isPlaying)
+            if (!videoPlayer.isPrepared)
             {
-                if (!videoPlayer.isPrepared)
+                videoPlayer.Prepare();
+                float timeout = 15f;
+                while (!videoPlayer.isPrepared && !hasEnded && timeout > 0f)
                 {
-                    videoPlayer.Prepare();
-                    float timeout = 10f;
-                    while (!videoPlayer.isPrepared && !hasEnded && timeout > 0f)
-                    {
-                        timeout -= Time.unscaledDeltaTime;
-                        yield return null;
-                    }
-
-                    if (hasEnded) yield break;
-
-                    if (!videoPlayer.isPrepared)
-                    {
-                        // Timed out — fail gracefully and let the game continue.
-                        FailOpen();
-                        yield break;
-                    }
+                    timeout -= Time.unscaledDeltaTime;
+                    yield return null;
                 }
 
-                if (!hasEnded) videoPlayer.Play();
+                if (hasEnded) yield break;
+
+                if (!videoPlayer.isPrepared)
+                {
+                    FailOpen();
+                    yield break;
+                }
             }
 
+            videoPlayer.Play();
             yield break;
         }
 
@@ -211,7 +229,18 @@ public class CutsceneController : MonoBehaviour
 
     private void NormalizeVideoSourceForBuild()
     {
-        if (!videoPlayer || !videoPlayer.clip || videoPlayer.source != VideoSource.Url)
+        if (!videoPlayer)
+        {
+            return;
+        }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        videoPlayer.Stop();
+        videoPlayer.clip = null;
+        videoPlayer.source = VideoSource.Url;
+        videoPlayer.url = $"{Application.streamingAssetsPath}/Cutscenes/beginning-cutscene.mp4";
+#else
+        if (!videoPlayer.clip || videoPlayer.source != VideoSource.Url)
         {
             return;
         }
@@ -224,6 +253,58 @@ public class CutsceneController : MonoBehaviour
 
         videoPlayer.source = VideoSource.VideoClip;
         videoPlayer.url = string.Empty;
+#endif
+    }
+
+    private void CreateFirstFrameCurtain()
+    {
+        if (!cutsceneRoot || firstFrameCurtain) return;
+
+        firstFrameCurtain = new GameObject(
+            "FirstFrameCurtain",
+            typeof(RectTransform),
+            typeof(CanvasRenderer),
+            typeof(Image));
+        firstFrameCurtain.transform.SetParent(cutsceneRoot.transform, false);
+        firstFrameCurtain.transform.SetAsFirstSibling();
+
+        RectTransform rect = firstFrameCurtain.GetComponent<RectTransform>();
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+
+        Image image = firstFrameCurtain.GetComponent<Image>();
+        image.color = Color.black;
+        image.raycastTarget = false;
+    }
+
+    private void HandleFirstVideoFrame(VideoPlayer player, long frameIndex)
+    {
+        if (shuttingDown) return;
+        RemoveFirstFrameCurtain();
+        player.frameReady -= HandleFirstVideoFrame;
+        player.sendFrameReadyEvents = false;
+    }
+
+    private void RemoveFirstFrameCurtain()
+    {
+        if (!firstFrameCurtain) return;
+        Destroy(firstFrameCurtain);
+        firstFrameCurtain = null;
+    }
+
+    private void ShutdownVideoForTeardown()
+    {
+        if (shuttingDown || !videoPlayer) return;
+        shuttingDown = true;
+
+        StopAllCoroutines();
+        videoPlayer.frameReady -= HandleFirstVideoFrame;
+        videoPlayer.sendFrameReadyEvents = false;
+        videoPlayer.targetTexture = null;
+        videoPlayer.Stop();
+        videoPlayer.enabled = false;
     }
 
     private void Reset()
