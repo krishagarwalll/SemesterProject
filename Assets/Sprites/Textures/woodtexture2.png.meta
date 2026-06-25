@@ -1,0 +1,1222 @@
+fileFormatVersion: 2
+guid: 424467ffe4df37d4ab2b3d23d0ff63a5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8238911872421010960
+    second: woodtexture2_0
+  - first:
+      213: 5984130503190216788
+    second: woodtexture2_1
+  - first:
+      213: 6627460572470329497
+    second: woodtexture2_2
+  - first:
+      213: -7442757637340803432
+    second: woodtexture2_3
+  - first:
+      213: 676722628234917757
+    second: woodtexture2_4
+  - first:
+      213: 673268646440357295
+    second: woodtexture2_5
+  - first:
+      213: 5913964735685697544
+    second: woodtexture2_6
+  - first:
+      213: -2769812233018704889
+    second: woodtexture2_7
+  - first:
+      213: -2759691470389455469
+    second: woodtexture2_8
+  - first:
+      213: 4272705025190207200
+    second: woodtexture2_9
+  - first:
+      213: -6678934086962900926
+    second: woodtexture2_10
+  - first:
+      213: -3845061287993912009
+    second: woodtexture2_11
+  - first:
+      213: 489245127503843439
+    second: woodtexture2_12
+  - first:
+      213: 9194296328978863294
+    second: woodtexture2_13
+  - first:
+      213: 6989355199264328198
+    second: woodtexture2_14
+  - first:
+      213: 1894451907437276221
+    second: woodtexture2_15
+  - first:
+      213: -2609582595052273560
+    second: woodtexture2_16
+  - first:
+      213: 5079408158557127505
+    second: woodtexture2_17
+  - first:
+      213: 6015201691146794796
+    second: woodtexture2_18
+  - first:
+      213: -6301450926898257408
+    second: woodtexture2_19
+  - first:
+      213: -7039381901406215429
+    second: woodtexture2_20
+  - first:
+      213: 7676476550279442788
+    second: woodtexture2_21
+  - first:
+      213: 3635189581175289651
+    second: woodtexture2_22
+  - first:
+      213: 1362707825746172294
+    second: woodtexture2_23
+  - first:
+      213: 3174002265439621776
+    second: woodtexture2_24
+  - first:
+      213: -8613435499987239016
+    second: woodtexture2_25
+  - first:
+      213: -9012295319500822359
+    second: woodtexture2_26
+  - first:
+      213: 8461990964693975392
+    second: woodtexture2_27
+  - first:
+      213: 1172812929024087278
+    second: woodtexture2_28
+  - first:
+      213: -221791961103332106
+    second: woodtexture2_29
+  - first:
+      213: 4289193412258190087
+    second: woodtexture2_30
+  - first:
+      213: -748937706544600797
+    second: woodtexture2_31
+  - first:
+      213: 3562198512634708175
+    second: woodtexture2_32
+  - first:
+      213: 590837383809062712
+    second: woodtexture2_33
+  - first:
+      213: -1589929670998401633
+    second: woodtexture2_34
+  - first:
+      213: 4610652553619393386
+    second: woodtexture2_35
+  - first:
+      213: -1740242507608868910
+    second: woodtexture2_36
+  - first:
+      213: -5326230797054084486
+    second: woodtexture2_37
+  - first:
+      213: -7671674618413261540
+    second: woodtexture2_38
+  - first:
+      213: 1618432586192116728
+    second: woodtexture2_39
+  - first:
+      213: -6020528651958836116
+    second: woodtexture2_40
+  - first:
+      213: -1320639813839886739
+    second: woodtexture2_41
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1000
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: woodtexture2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1132
+        width: 3007
+        height: 1921
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01e176342be765270800000000000000
+      internalID: 8238911872421010960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_1
+      rect:
+        serializedVersion: 2
+        x: 1832
+        y: 1142
+        width: 197
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4508b34ccf6eb0350800000000000000
+      internalID: 5984130503190216788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_2
+      rect:
+        serializedVersion: 2
+        x: 1891
+        y: 1127
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9904001e64879fb50800000000000000
+      internalID: 6627460572470329497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_3
+      rect:
+        serializedVersion: 2
+        x: 1914
+        y: 1101
+        width: 50
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89ec9fcbc5306b890800000000000000
+      internalID: -7442757637340803432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_4
+      rect:
+        serializedVersion: 2
+        x: 1993
+        y: 1141
+        width: 36
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d77396b15a3346900800000000000000
+      internalID: 676722628234917757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_5
+      rect:
+        serializedVersion: 2
+        x: 1997
+        y: 1121
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fad4c7d444ee75900800000000000000
+      internalID: 673268646440357295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_6
+      rect:
+        serializedVersion: 2
+        x: 2004
+        y: 1129
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 800abb4f79f921250800000000000000
+      internalID: 5913964735685697544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_7
+      rect:
+        serializedVersion: 2
+        x: 2031
+        y: 1158
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70c736cf276af89d0800000000000000
+      internalID: -2769812233018704889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_8
+      rect:
+        serializedVersion: 2
+        x: 2044
+        y: 1134
+        width: 28
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 395d2c9aa3b93b9d0800000000000000
+      internalID: -2759691470389455469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_9
+      rect:
+        serializedVersion: 2
+        x: 2054
+        y: 1158
+        width: 25
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ee1d782592bb4b30800000000000000
+      internalID: 4272705025190207200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_10
+      rect:
+        serializedVersion: 2
+        x: 2058
+        y: 1146
+        width: 21
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 240145c95d8af43a0800000000000000
+      internalID: -6678934086962900926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_11
+      rect:
+        serializedVersion: 2
+        x: 2088
+        y: 1149
+        width: 17
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 735548d612993aac0800000000000000
+      internalID: -3845061287993912009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_12
+      rect:
+        serializedVersion: 2
+        x: 2101
+        y: 1143
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6015f0f9d52ac600800000000000000
+      internalID: 489245127503843439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_13
+      rect:
+        serializedVersion: 2
+        x: 2115
+        y: 1160
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb496783cc3b89f70800000000000000
+      internalID: 9194296328978863294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_14
+      rect:
+        serializedVersion: 2
+        x: 2119
+        y: 1149
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60a0e25c58d2ff060800000000000000
+      internalID: 6989355199264328198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_15
+      rect:
+        serializedVersion: 2
+        x: 2122
+        y: 1168
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3c2cdaf8f17a4a10800000000000000
+      internalID: 1894451907437276221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_16
+      rect:
+        serializedVersion: 2
+        x: 2165
+        y: 1153
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8600ed9b476e8cbd0800000000000000
+      internalID: -2609582595052273560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_17
+      rect:
+        serializedVersion: 2
+        x: 2184
+        y: 1165
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 153c400fecead7640800000000000000
+      internalID: 5079408158557127505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_18
+      rect:
+        serializedVersion: 2
+        x: 2184
+        y: 1161
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c273225711a4a7350800000000000000
+      internalID: 6015201691146794796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_19
+      rect:
+        serializedVersion: 2
+        x: 2199
+        y: 1136
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0026cacb4cfbc88a0800000000000000
+      internalID: -6301450926898257408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_20
+      rect:
+        serializedVersion: 2
+        x: 2209
+        y: 1160
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf26e58f4771f4e90800000000000000
+      internalID: -7039381901406215429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_21
+      rect:
+        serializedVersion: 2
+        x: 2217
+        y: 1124
+        width: 10
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 461b50230c2588a60800000000000000
+      internalID: 7676476550279442788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_22
+      rect:
+        serializedVersion: 2
+        x: 2219
+        y: 1143
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 337772df9a9c27230800000000000000
+      internalID: 3635189581175289651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_23
+      rect:
+        serializedVersion: 2
+        x: 2230
+        y: 1144
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 689de3e2c8f49e210800000000000000
+      internalID: 1362707825746172294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_24
+      rect:
+        serializedVersion: 2
+        x: 2238
+        y: 1167
+        width: 17
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09250db6e325c0c20800000000000000
+      internalID: 3174002265439621776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_25
+      rect:
+        serializedVersion: 2
+        x: 2264
+        y: 1144
+        width: 33
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89f75877c0ee67880800000000000000
+      internalID: -8613435499987239016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_26
+      rect:
+        serializedVersion: 2
+        x: 2266
+        y: 1169
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a8ec36f725ede280800000000000000
+      internalID: -9012295319500822359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_27
+      rect:
+        serializedVersion: 2
+        x: 2268
+        y: 1128
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0614627e2f70f6570800000000000000
+      internalID: 8461990964693975392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_28
+      rect:
+        serializedVersion: 2
+        x: 2292
+        y: 1169
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee45776252ba64010800000000000000
+      internalID: 1172812929024087278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_29
+      rect:
+        serializedVersion: 2
+        x: 2320
+        y: 1166
+        width: 50
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fc0660f2690cecf0800000000000000
+      internalID: -221791961103332106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_30
+      rect:
+        serializedVersion: 2
+        x: 2323
+        y: 1157
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 703589eeea6468b30800000000000000
+      internalID: 4289193412258190087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_31
+      rect:
+        serializedVersion: 2
+        x: 2332
+        y: 1145
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 329638abf1d3b95f0800000000000000
+      internalID: -748937706544600797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_32
+      rect:
+        serializedVersion: 2
+        x: 2383
+        y: 1151
+        width: 32
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc044058ca87f6130800000000000000
+      internalID: 3562198512634708175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_33
+      rect:
+        serializedVersion: 2
+        x: 2425
+        y: 1134
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 837d5fd5873133800800000000000000
+      internalID: 590837383809062712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_34
+      rect:
+        serializedVersion: 2
+        x: 2435
+        y: 1154
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9d5946536f6fe9e0800000000000000
+      internalID: -1589929670998401633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_35
+      rect:
+        serializedVersion: 2
+        x: 2436
+        y: 1145
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6b4b39b1145cff30800000000000000
+      internalID: 4610652553619393386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_36
+      rect:
+        serializedVersion: 2
+        x: 2505
+        y: 1167
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d730f6d8aa69d7e0800000000000000
+      internalID: -1740242507608868910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_37
+      rect:
+        serializedVersion: 2
+        x: 1873
+        y: 1089
+        width: 15
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7a78d54f4d6516b0800000000000000
+      internalID: -5326230797054084486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_38
+      rect:
+        serializedVersion: 2
+        x: 2004
+        y: 1116
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1dd811b49cb88590800000000000000
+      internalID: -7671674618413261540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_39
+      rect:
+        serializedVersion: 2
+        x: 2011
+        y: 1118
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fbd5e0ccd3d57610800000000000000
+      internalID: 1618432586192116728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_40
+      rect:
+        serializedVersion: 2
+        x: 2302
+        y: 1101
+        width: 27
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c64aee3d619c27ca0800000000000000
+      internalID: -6020528651958836116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: woodtexture2_41
+      rect:
+        serializedVersion: 2
+        x: 2359
+        y: 1108
+        width: 16
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d66e5db16152cade0800000000000000
+      internalID: -1320639813839886739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      woodtexture2_0: 8238911872421010960
+      woodtexture2_1: 5984130503190216788
+      woodtexture2_10: -6678934086962900926
+      woodtexture2_11: -3845061287993912009
+      woodtexture2_12: 489245127503843439
+      woodtexture2_13: 9194296328978863294
+      woodtexture2_14: 6989355199264328198
+      woodtexture2_15: 1894451907437276221
+      woodtexture2_16: -2609582595052273560
+      woodtexture2_17: 5079408158557127505
+      woodtexture2_18: 6015201691146794796
+      woodtexture2_19: -6301450926898257408
+      woodtexture2_2: 6627460572470329497
+      woodtexture2_20: -7039381901406215429
+      woodtexture2_21: 7676476550279442788
+      woodtexture2_22: 3635189581175289651
+      woodtexture2_23: 1362707825746172294
+      woodtexture2_24: 3174002265439621776
+      woodtexture2_25: -8613435499987239016
+      woodtexture2_26: -9012295319500822359
+      woodtexture2_27: 8461990964693975392
+      woodtexture2_28: 1172812929024087278
+      woodtexture2_29: -221791961103332106
+      woodtexture2_3: -7442757637340803432
+      woodtexture2_30: 4289193412258190087
+      woodtexture2_31: -748937706544600797
+      woodtexture2_32: 3562198512634708175
+      woodtexture2_33: 590837383809062712
+      woodtexture2_34: -1589929670998401633
+      woodtexture2_35: 4610652553619393386
+      woodtexture2_36: -1740242507608868910
+      woodtexture2_37: -5326230797054084486
+      woodtexture2_38: -7671674618413261540
+      woodtexture2_39: 1618432586192116728
+      woodtexture2_4: 676722628234917757
+      woodtexture2_40: -6020528651958836116
+      woodtexture2_41: -1320639813839886739
+      woodtexture2_5: 673268646440357295
+      woodtexture2_6: 5913964735685697544
+      woodtexture2_7: -2769812233018704889
+      woodtexture2_8: -2759691470389455469
+      woodtexture2_9: 4272705025190207200
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
