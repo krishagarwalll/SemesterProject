@@ -1,0 +1,9 @@
+{
+  "name": "how-to-get-to-heaven-tooling",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build and itch.io push automation for How to Get to Heaven.",
+  "scripts": {
+    "test": "node --test 'scripts/**/*.test.js'"
+  }
+}
