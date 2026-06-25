@@ -5,7 +5,7 @@
   "description": "Style the itchio page with the description html and custom css",
   "scripts": {
     "minify-css": "cleancss -o minify/description.min.css description.css",
-    "minify-html": "html-minifier-terser --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype -o minify/description.min.html description.html",
+    "minify-html": "html-minifier-terser --collapse-whitespace --remove-comments --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype -o minify/description.min.html description.html",
     "prettify": "prettier --write ."
   },
   "devDependencies": {

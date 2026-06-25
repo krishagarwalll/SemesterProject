@@ -831,7 +831,6 @@
     display: inline-flex;
     vertical-align: text-bottom;
     place-items: center;
-    gap: 0.5rem;
 }
 
 @media (hover: hover) {
@@ -872,6 +871,7 @@
 #wrapper .custom-link {
     width: 2rem;
     filter: grayscale(50%);
+    padding: 0 0.2em;
 
     transition:
         filter 250ms ease,
@@ -912,12 +912,14 @@
 }
 
 #wrapper a,
-#wrapper button {
+#wrapper button,
+#wrapper .screenshot_list::scroll-button(*) {
     cursor: var(--cursor-hover);
 }
 
 @media (hover: hover) {
-    #wrapper :active {
+    #wrapper :active,
+    #wrapper .screenshot_list::scroll-button(*):active {
         cursor: var(--cursor-click);
     }
 }
