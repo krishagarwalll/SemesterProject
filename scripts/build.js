@@ -28,6 +28,20 @@ function main(argv) {
     return;
   }
 
+  const lockFilePath = path.join(REPO_ROOT, 'Temp', 'UnityLockfile');
+  if (fs.existsSync(lockFilePath)) {
+    try {
+      fs.closeSync(fs.openSync(lockFilePath, 'r+'));
+    } catch (err) {
+      console.error(
+        `This project is already open in another Unity Editor instance (${lockFilePath} is locked).\n` +
+        `Close it before running a headless build, or this will hang waiting on an invisible dialog.`
+      );
+      process.exit(1);
+      return;
+    }
+  }
+
   let unityExe;
   try {
     unityExe = resolveUnityExePath({ editorVersion: getEditorVersion(REPO_ROOT) });
