@@ -1,0 +1,19 @@
+{
+  "name": "how-to-get-to-heaven-tooling",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build and itch.io push automation for How to Get to Heaven.",
+  "scripts": {
+    "test": "node --test \"scripts/**/*.test.js\"",
+    "setup:butler": "node scripts/setup-butler.js",
+    "build:windows": "node scripts/build.js windows",
+    "build:mac": "node scripts/build.js mac",
+    "build:webgl": "node scripts/build.js webgl",
+    "push:windows": "node scripts/push.js windows",
+    "push:mac": "node scripts/push.js mac",
+    "push:webgl": "node scripts/push.js webgl",
+    "release:windows": "npm run build:windows && npm run push:windows",
+    "release:mac": "npm run build:mac && npm run push:mac",
+    "release:webgl": "npm run build:webgl && npm run push:webgl"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "how-to-get-to-heaven-itchio-page",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Style the itchio page with the description html and custom css",
+  "scripts": {
+    "minify-css": "cleancss -o minify/description.min.css description.css",
+    "minify-html": "html-minifier-terser --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype -o minify/description.min.html description.html",
+    "prettify": "prettier --write ."
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "html-minifier-terser": "^7.2.0",
+    "prettier": "^3.8.4"
+  }
+}
