@@ -39,25 +39,32 @@ public static class GameplayUiBootstrap
 
     private static void EnsureScenePauseInput()
     {
+        const string runtimeInputName = "PauseInputRuntime";
         PauseInputHandler[] pauseInputs = Object.FindObjectsByType<PauseInputHandler>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-        if (pauseInputs.Length == 0)
+
+        PauseInputHandler runtimeInput = null;
+        for (int i = 0; i < pauseInputs.Length; i++)
         {
-            GameObject pauseInputRoot = new("PauseInputRuntime");
-            pauseInputRoot.AddComponent<PauseInputHandler>();
-            return;
+            if (pauseInputs[i] && pauseInputs[i].gameObject.name == runtimeInputName)
+            {
+                runtimeInput = pauseInputs[i];
+                break;
+            }
         }
 
-        PauseInputHandler enabledInput = null;
+        if (!runtimeInput)
+        {
+            GameObject pauseInputRoot = new(runtimeInputName);
+            runtimeInput = pauseInputRoot.AddComponent<PauseInputHandler>();
+        }
+
+        runtimeInput.gameObject.SetActive(true);
+        runtimeInput.enabled = true;
+
         for (int i = 0; i < pauseInputs.Length; i++)
         {
             if (!pauseInputs[i]) continue;
-
-            if (!enabledInput)
-            {
-                enabledInput = pauseInputs[i];
-                enabledInput.enabled = true;
-            }
-            else
+            if (pauseInputs[i] != runtimeInput)
             {
                 pauseInputs[i].enabled = false;
             }

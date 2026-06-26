@@ -33,6 +33,9 @@ public static class MenuSceneBuilder
     const float BtnH      = 58f;    // standard menu button height
     const float BtnFontSz = 26f;    // button label size
     const float TitleSz   = 32f;    // panel title size
+    const float SettingsPanelW = 700f;
+    const float SettingsPanelH = 780f;
+    const float SettingsInnerW = 620f;
 
     // ── Main Menu ────────────────────────────────────────────────────────────
 
@@ -155,7 +158,7 @@ public static class MenuSceneBuilder
         var spRoot  = Child(parent, "SettingsPanelRoot",
             typeof(SettingsPanel), typeof(CanvasGroup), typeof(Image), typeof(VerticalLayoutGroup));
         var spRect  = (RectTransform)spRoot.transform;
-        Centre(spRect, new Vector2(480f, 600f));
+        Centre(spRect, new Vector2(SettingsPanelW, SettingsPanelH));
 
         spRoot.GetComponent<Image>().color = PanelBg;
         var grp = spRoot.GetComponent<CanvasGroup>();
@@ -190,20 +193,21 @@ public static class MenuSceneBuilder
         // ── Display ──
         SectionHeader(spRect, "Display", font);
         var windowDropdown = DropdownRow(spRect, "WindowModeRow", "Window Mode", font);
+        var vSyncToggle = ToggleRow(spRect, "VSyncRow", "VSync", font);
 
         HairLine(spRect);
 
         // ── Save data ──
         var saveStatus = StatusLabel(spRect, font);
-        var saveRow    = RowContainer(spRect, "SaveActionsRow", 50f);
-        var saveBtn    = DarkButton(saveRow, "SaveButton",       "Save",        128f, 44f, font);
-        var loadBtn    = DarkButton(saveRow, "LoadButton",       "Load",        128f, 44f, font);
-        var deleteBtn  = DarkButton(saveRow, "DeleteSaveButton", "Delete Save", 168f, 44f, font);
+        var saveRow    = RowContainer(spRect, "SaveActionsRow", 58f);
+        var saveBtn    = DarkButton(saveRow, "SaveButton",       "Save",        150f, 52f, font);
+        var loadBtn    = DarkButton(saveRow, "LoadButton",       "Load",        150f, 52f, font);
+        var deleteBtn  = DarkButton(saveRow, "DeleteSaveButton", "Delete Save", 200f, 52f, font);
 
         HairLine(spRect);
 
         // ── Back button — full-width to match the panel style ──
-        var backBtn = DarkButton(spRect, "BackButton", "Back", 408f, 52f, font);
+        var backBtn = DarkButton(spRect, "BackButton", "Back", SettingsInnerW, 60f, font);
 
         // Wire all [SerializeField] references on SettingsPanel
         var so = new SerializedObject(sp);
@@ -211,6 +215,7 @@ public static class MenuSceneBuilder
         so.FindProperty("musicSlider").objectReferenceValue        = musicSlider;
         so.FindProperty("sfxSlider").objectReferenceValue          = sfxSlider;
         so.FindProperty("windowModeDropdown").objectReferenceValue = windowDropdown;
+        so.FindProperty("vSyncToggle").objectReferenceValue        = vSyncToggle;
         so.FindProperty("saveButton").objectReferenceValue         = saveBtn;
         so.FindProperty("loadButton").objectReferenceValue         = loadBtn;
         so.FindProperty("deleteSaveButton").objectReferenceValue   = deleteBtn;
@@ -280,13 +285,13 @@ public static class MenuSceneBuilder
         var go  = Child(parent, text + "Header", typeof(TextMeshProUGUI), typeof(LayoutElement));
         var tmp = go.GetComponent<TextMeshProUGUI>();
         tmp.text      = text.ToUpper();
-        tmp.fontSize  = 13f;
+        tmp.fontSize  = 16f;
         tmp.fontStyle = FontStyles.Bold;
         tmp.color     = MutedLabel;
         tmp.alignment = TextAlignmentOptions.Left;
         if (font) tmp.font = font;
         // Give it some extra top spacing by using a taller LayoutElement
-        go.GetComponent<LayoutElement>().preferredHeight = 22f;
+        go.GetComponent<LayoutElement>().preferredHeight = 28f;
     }
 
     // 1-px divider line
@@ -295,7 +300,7 @@ public static class MenuSceneBuilder
         var go = Child(parent, "Divider", typeof(Image), typeof(LayoutElement));
         go.GetComponent<Image>().color = SubDivider;
         var le = go.GetComponent<LayoutElement>();
-        le.preferredWidth  = 408f;   // matches panel inner width (480 - 36*2)
+        le.preferredWidth  = SettingsInnerW;
         le.preferredHeight = 1f;
     }
 
@@ -318,30 +323,30 @@ public static class MenuSceneBuilder
     static Slider SliderRow(RectTransform parent, string rowName, string labelText,
         TMP_FontAsset font)
     {
-        var rowRect = RowContainer(parent, rowName, 40f);
+        var rowRect = RowContainer(parent, rowName, 50f);
         // Override HLG child sizing so the slider can flex
         var hl = rowRect.GetComponent<HorizontalLayoutGroup>();
         hl.childControlWidth  = true;
         hl.childForceExpandWidth = false;
         // Make the whole row 408px wide
-        rowRect.GetComponent<LayoutElement>().preferredWidth = 408f;
+        rowRect.GetComponent<LayoutElement>().preferredWidth = SettingsInnerW;
 
         // Left label — fixed width
         var lGo = Child(rowRect, "Label", typeof(TextMeshProUGUI), typeof(LayoutElement));
         var tmp = lGo.GetComponent<TextMeshProUGUI>();
         tmp.text      = labelText;
-        tmp.fontSize  = 19f;
+        tmp.fontSize  = 23f;
         tmp.alignment = TextAlignmentOptions.MidlineLeft;
         tmp.color     = Color.white;
         if (font) tmp.font = font;
         var lLe = lGo.GetComponent<LayoutElement>();
-        lLe.minWidth = 170f; lLe.preferredWidth = 170f; lLe.flexibleWidth = 0f;
+        lLe.minWidth = 210f; lLe.preferredWidth = 210f; lLe.flexibleWidth = 0f;
 
         // Right slider — takes remaining space
         var slGo   = Child(rowRect, "Slider", typeof(Slider), typeof(LayoutElement));
         var slLe   = slGo.GetComponent<LayoutElement>();
         slLe.flexibleWidth   = 1f;
-        slLe.preferredHeight = 40f;
+        slLe.preferredHeight = 48f;
         var slRect = (RectTransform)slGo.transform;
 
         // Track
@@ -384,22 +389,22 @@ public static class MenuSceneBuilder
     static TMP_Dropdown DropdownRow(RectTransform parent, string rowName,
         string labelText, TMP_FontAsset font)
     {
-        var rowRect = RowContainer(parent, rowName, 40f);
+        var rowRect = RowContainer(parent, rowName, 50f);
         var hl = rowRect.GetComponent<HorizontalLayoutGroup>();
         hl.childControlWidth     = true;
         hl.childForceExpandWidth = false;
-        rowRect.GetComponent<LayoutElement>().preferredWidth = 408f;
+        rowRect.GetComponent<LayoutElement>().preferredWidth = SettingsInnerW;
 
         // Left label
         var lGo = Child(rowRect, "Label", typeof(TextMeshProUGUI), typeof(LayoutElement));
         var tmp = lGo.GetComponent<TextMeshProUGUI>();
         tmp.text      = labelText;
-        tmp.fontSize  = 19f;
+        tmp.fontSize  = 23f;
         tmp.alignment = TextAlignmentOptions.MidlineLeft;
         tmp.color     = Color.white;
         if (font) tmp.font = font;
         var lLe = lGo.GetComponent<LayoutElement>();
-        lLe.minWidth = 170f; lLe.preferredWidth = 170f; lLe.flexibleWidth = 0f;
+        lLe.minWidth = 210f; lLe.preferredWidth = 210f; lLe.flexibleWidth = 0f;
 
         // Right dropdown
         var ddGo  = Child(rowRect, "Dropdown",
@@ -414,13 +419,13 @@ public static class MenuSceneBuilder
         dc.pressedColor     = BtnPressed;
         dd.colors = dc;
         var ddLe = ddGo.GetComponent<LayoutElement>();
-        ddLe.flexibleWidth = 1f; ddLe.preferredHeight = 38f;
+        ddLe.flexibleWidth = 1f; ddLe.preferredHeight = 48f;
 
         // Caption text
         var capGo  = Child((RectTransform)ddGo.transform, "Label", typeof(TextMeshProUGUI));
         Stretch((RectTransform)capGo.transform);
         var capTmp       = capGo.GetComponent<TextMeshProUGUI>();
-        capTmp.fontSize  = 17f;
+        capTmp.fontSize  = 21f;
         capTmp.alignment = TextAlignmentOptions.MidlineLeft;
         capTmp.color     = Color.white;
         capTmp.margin    = new Vector4(8f, 0, 0, 0);
@@ -457,11 +462,11 @@ public static class MenuSceneBuilder
         var itemGo = new GameObject("Item",
             typeof(RectTransform), typeof(Toggle), typeof(LayoutElement));
         itemGo.transform.SetParent(listRect, false);
-        itemGo.GetComponent<LayoutElement>().preferredHeight = 34f;
+        itemGo.GetComponent<LayoutElement>().preferredHeight = 42f;
         var itemRect = (RectTransform)itemGo.transform;
         itemRect.anchorMin = new Vector2(0f, 0.5f);
         itemRect.anchorMax = new Vector2(1f, 0.5f);
-        itemRect.sizeDelta = new Vector2(0f, 34f);
+        itemRect.sizeDelta = new Vector2(0f, 42f);
 
         var itemBgGo  = Child(itemRect, "Item Background", typeof(Image));
         Stretch((RectTransform)itemBgGo.transform);
@@ -479,7 +484,7 @@ public static class MenuSceneBuilder
         var itemLGo = Child(itemRect, "Item Label", typeof(TextMeshProUGUI));
         Stretch((RectTransform)itemLGo.transform);
         var itemTmp         = itemLGo.GetComponent<TextMeshProUGUI>();
-        itemTmp.fontSize    = 16f;
+        itemTmp.fontSize    = 20f;
         itemTmp.alignment   = TextAlignmentOptions.MidlineLeft;
         itemTmp.color       = Color.white;
         itemTmp.margin      = new Vector4(26f, 0, 0, 0);
@@ -502,17 +507,63 @@ public static class MenuSceneBuilder
         return dd;
     }
 
+    // Label + toggle row
+    static Toggle ToggleRow(RectTransform parent, string rowName,
+        string labelText, TMP_FontAsset font)
+    {
+        var rowRect = RowContainer(parent, rowName, 42f);
+        var hl = rowRect.GetComponent<HorizontalLayoutGroup>();
+        hl.childControlWidth = true;
+        hl.childForceExpandWidth = false;
+        rowRect.GetComponent<LayoutElement>().preferredWidth = SettingsInnerW;
+
+        var lGo = Child(rowRect, "Label", typeof(TextMeshProUGUI), typeof(LayoutElement));
+        var tmp = lGo.GetComponent<TextMeshProUGUI>();
+        tmp.text = labelText;
+        tmp.fontSize = 23f;
+        tmp.alignment = TextAlignmentOptions.MidlineLeft;
+        tmp.color = Color.white;
+        if (font) tmp.font = font;
+        var lLe = lGo.GetComponent<LayoutElement>();
+        lLe.minWidth = 210f;
+        lLe.preferredWidth = 210f;
+        lLe.flexibleWidth = 0f;
+
+        var toggleGo = Child(rowRect, "VSyncToggle", typeof(Image), typeof(Toggle), typeof(LayoutElement));
+        var toggleLe = toggleGo.GetComponent<LayoutElement>();
+        toggleLe.preferredWidth = 36f;
+        toggleLe.preferredHeight = 36f;
+        toggleLe.flexibleWidth = 0f;
+
+        var background = toggleGo.GetComponent<Image>();
+        background.color = BtnNormal;
+
+        var checkmarkGo = Child((RectTransform)toggleGo.transform, "Checkmark", typeof(Image));
+        var checkmarkRect = (RectTransform)checkmarkGo.transform;
+        checkmarkRect.anchorMin = new Vector2(0.22f, 0.22f);
+        checkmarkRect.anchorMax = new Vector2(0.78f, 0.78f);
+        checkmarkRect.offsetMin = checkmarkRect.offsetMax = Vector2.zero;
+        var checkmark = checkmarkGo.GetComponent<Image>();
+        checkmark.color = SliderFill;
+
+        var toggle = toggleGo.GetComponent<Toggle>();
+        toggle.targetGraphic = background;
+        toggle.graphic = checkmark;
+        toggle.isOn = true;
+        return toggle;
+    }
+
     // Small italic status text (e.g. "Save data found")
     static TextMeshProUGUI StatusLabel(RectTransform parent, TMP_FontAsset font)
     {
         var go  = Child(parent, "SaveStatus", typeof(TextMeshProUGUI), typeof(LayoutElement));
         var tmp = go.GetComponent<TextMeshProUGUI>();
-        tmp.fontSize  = 15f;
+        tmp.fontSize  = 18f;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.color     = MutedLabel;
         tmp.fontStyle = FontStyles.Italic;
         if (font) tmp.font = font;
-        go.GetComponent<LayoutElement>().preferredHeight = 22f;
+        go.GetComponent<LayoutElement>().preferredHeight = 28f;
         return tmp;
     }
 

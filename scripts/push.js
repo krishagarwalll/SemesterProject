@@ -30,7 +30,7 @@ function main(argv) {
 
   const butlerExe = resolveButlerExePath({ repoRoot: REPO_ROOT });
   if (!fs.existsSync(butlerExe)) {
-    console.error(`butler.exe not found at "${butlerExe}". Run "npm run setup:butler" first.`);
+    console.error(`butler not found at "${butlerExe}". Run "npm run setup:butler" first.`);
     process.exit(1);
     return;
   }

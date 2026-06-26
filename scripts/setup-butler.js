@@ -3,11 +3,29 @@ const fs = require('node:fs');
 const path = require('node:path');
 const https = require('node:https');
 const { spawnSync } = require('node:child_process');
+const { resolveButlerExePath } = require('./lib/find-butler');
 
-const BUTLER_DOWNLOAD_URL = 'https://broth.itch.zone/butler/windows-amd64/LATEST/archive/default';
+const BROTH_BASE_URL = 'https://broth.itch.zone/butler';
 const REPO_ROOT = path.resolve(__dirname, '..');
 const TOOLS_DIR = path.join(REPO_ROOT, 'tools', 'butler');
 const ZIP_PATH = path.join(REPO_ROOT, 'tools', 'butler.zip');
+
+function resolveButlerChannel({ platform = process.platform, arch = process.arch } = {}) {
+  if (platform === 'win32') {
+    return 'windows-amd64';
+  }
+
+  const brothArch = arch === 'x64' ? 'amd64' : arch;
+  if ((platform === 'darwin' || platform === 'linux') && (brothArch === 'amd64' || brothArch === 'arm64')) {
+    return `${platform}-${brothArch}`;
+  }
+
+  throw new Error(`Unsupported butler platform "${platform}" with architecture "${arch}".`);
+}
+
+function resolveButlerDownloadUrl(options = {}) {
+  return `${BROTH_BASE_URL}/${resolveButlerChannel(options)}/LATEST/archive/default`;
+}
 
 function download(url, destPath) {
   return new Promise((resolve, reject) => {
@@ -30,18 +48,27 @@ function download(url, destPath) {
   });
 }
 
-async function main() {
+function extractButler({ zipPath = ZIP_PATH, toolsDir = TOOLS_DIR, platform = process.platform } = {}) {
+  if (platform === 'win32') {
+    return spawnSync(
+      'powershell.exe',
+      ['-NoProfile', '-Command', `Expand-Archive -Path "${zipPath}" -DestinationPath "${toolsDir}" -Force`],
+      { stdio: 'inherit' }
+    );
+  }
+
+  return spawnSync('unzip', ['-o', zipPath, '-d', toolsDir], { stdio: 'inherit' });
+}
+
+async function main({ platform = process.platform, arch = process.arch } = {}) {
   fs.mkdirSync(TOOLS_DIR, { recursive: true });
 
-  console.log(`Downloading butler from ${BUTLER_DOWNLOAD_URL} ...`);
-  await download(BUTLER_DOWNLOAD_URL, ZIP_PATH);
+  const downloadUrl = resolveButlerDownloadUrl({ platform, arch });
+  console.log(`Downloading butler from ${downloadUrl} ...`);
+  await download(downloadUrl, ZIP_PATH);
 
   console.log('Extracting butler...');
-  const extract = spawnSync(
-    'powershell.exe',
-    ['-NoProfile', '-Command', `Expand-Archive -Path "${ZIP_PATH}" -DestinationPath "${TOOLS_DIR}" -Force`],
-    { stdio: 'inherit' }
-  );
+  const extract = extractButler({ platform });
   if (extract.status !== 0) {
     console.error('Extraction failed.');
     process.exit(1);
@@ -49,8 +76,13 @@ async function main() {
   }
   fs.unlinkSync(ZIP_PATH);
 
+  const butlerExe = resolveButlerExePath({ repoRoot: REPO_ROOT, platform });
+  if (platform !== 'win32') {
+    fs.chmodSync(butlerExe, 0o755);
+  }
+
   console.log('Logging in to itch.io (a browser window will open to authorize)...');
-  const login = spawnSync(path.join(TOOLS_DIR, 'butler.exe'), ['login'], { stdio: 'inherit' });
+  const login = spawnSync(butlerExe, ['login'], { stdio: 'inherit' });
   process.exit(login.status === null ? 1 : login.status);
 }
 
@@ -58,4 +90,9 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { main, BUTLER_DOWNLOAD_URL };
+module.exports = {
+  main,
+  resolveButlerChannel,
+  resolveButlerDownloadUrl,
+  BROTH_BASE_URL,
+};
