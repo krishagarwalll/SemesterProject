@@ -23,8 +23,8 @@ public class InventoryHotbar : MonoBehaviour
     [SerializeField, Min(0f)] private float slideSpeed = 1200f;
 
     [SerializeField] private Vector2 slotSize = new(112f, 112f);
-    [SerializeField] private Color slotColor = new(0.14f, 0.14f, 0.16f, 0.92f);
-    [SerializeField] private Color emptySlotColor = new(0.08f, 0.08f, 0.09f, 0.7f);
+    [SerializeField] private Color slotColor = new(0.740566f, 0.8280362f, 1f, 0.70980394f);
+    [SerializeField] private Color emptySlotColor = new(0.07716268f, 0.12713027f, 0.3207547f, 0.85882354f);
 
     private readonly List<InventoryHotbarSlot> slots = new();
     private Vector2 targetAnchoredPosition;

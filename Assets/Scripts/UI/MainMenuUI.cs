@@ -21,7 +21,7 @@ public class MainMenuUI : MonoBehaviour
         RuntimeUiUtility.EnsureCanvasRaycasters();
 
         AutoDiscoverPanels();
-        WebGLPauseQuickActions.EnsureCreated(menuPanel);
+        WebGLPauseQuickActions.RemoveFrom(menuPanel);
 
         if (menuPanel) menuPanel.SetActive(true);
         if (settingsPanelRoot) settingsPanelRoot.SetActive(false);

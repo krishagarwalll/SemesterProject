@@ -26,10 +26,6 @@ public class TargetSlot : MonoBehaviour
     void SnapPiece(PuzzlePiece piece)
     {
         piece.transform.position = transform.position;
-
-        var drag = piece.GetComponent<WorldPuzzleDragObject>();
-        if (drag != null)
-            drag.enabled = false;
     }
 
     void Complete()

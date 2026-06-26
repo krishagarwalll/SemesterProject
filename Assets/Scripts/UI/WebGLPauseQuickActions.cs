@@ -43,6 +43,23 @@ public sealed class WebGLPauseQuickActions : MonoBehaviour
 #endif
     }
 
+    public static void RemoveFrom(GameObject root)
+    {
+        if (!root) return;
+
+        Transform quickActions = root.transform.Find(RootName);
+        if (!quickActions) return;
+
+        if (Application.isPlaying)
+        {
+            Destroy(quickActions.gameObject);
+        }
+        else
+        {
+            DestroyImmediate(quickActions.gameObject);
+        }
+    }
+
     private void Update()
     {
         refreshTimer -= Time.unscaledDeltaTime;

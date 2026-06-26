@@ -68,12 +68,12 @@ public class PuzzlePiece : MonoBehaviour
 
     private void TryStartDrag()
     {
-        if (isLockedInPlace) return;
         if (PauseService.IsGameplayInputPaused(this)) return;
         if (EventSystem.current && EventSystem.current.IsPointerOverGameObject()) return;
         if (!drag.CanStartDrag()) return;
         if (!MouseIsOverThisPiece()) return;
 
+        ReleaseLockedSlot();
         isDragging = true;
         drag.BeginDrag(GetMouseWorld());
     }
@@ -118,17 +118,23 @@ public class PuzzlePiece : MonoBehaviour
 
         if (lockIntoPlace)
         {
-            drag.enabled = false;
-            enabled = false;
-
-            // Locked pieces no longer need to receive clicks, and leaving their
-            // collider on lets it swallow clicks meant for whatever gets dropped
-            // on top of it later, which is what made pieces feel permanently stuck.
-            if (pieceCollider)
-            {
-                pieceCollider.enabled = false;
-            }
+            drag.enabled = true;
+            enabled = true;
+            if (pieceCollider) pieceCollider.enabled = true;
         }
+    }
+
+    private void ReleaseLockedSlot()
+    {
+        if (!isLockedInPlace) return;
+
+        if (lockedSlot != null)
+        {
+            occupiedSlots.Remove(lockedSlot);
+        }
+
+        lockedSlot = null;
+        isLockedInPlace = false;
     }
 
     private Transform FindNearestAvailableSlot()
