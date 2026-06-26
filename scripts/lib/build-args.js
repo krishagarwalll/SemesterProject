@@ -7,13 +7,13 @@ function buildOutputRelPath(platformCfg, productName) {
   return path.join(platformCfg.buildDir, `${productName}${platformCfg.exeSuffix}`);
 }
 
-function buildUnityArgs({ repoRoot, buildProfileRelPath, outputAbsPath, logFileAbsPath }) {
+function buildUnityArgs({ repoRoot, buildProfilePath, outputAbsPath, logFileAbsPath }) {
   return [
     '-batchmode',
     '-quit',
     '-nographics',
     '-projectPath', repoRoot,
-    '-activeBuildProfile', buildProfileRelPath,
+    '-activeBuildProfile', buildProfilePath,
     '-build', outputAbsPath,
     '-logFile', logFileAbsPath,
   ];

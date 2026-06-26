@@ -57,7 +57,7 @@ function main(argv) {
 
   const args = buildUnityArgs({
     repoRoot: REPO_ROOT,
-    buildProfileRelPath: platformCfg.buildProfile,
+    buildProfilePath: platformCfg.buildProfile,
     outputAbsPath,
     logFileAbsPath,
   });
