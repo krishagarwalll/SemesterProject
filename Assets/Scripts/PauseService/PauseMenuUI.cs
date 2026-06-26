@@ -95,6 +95,19 @@ public class PauseMenuUI : MonoBehaviour
         ShowPauseMenuImmediately();
     }
 
+    public void RefreshRuntimeBindings()
+    {
+        AutoDiscoverPanels();
+        EnsurePauseMenuCanvasGroup();
+        WireSettingsPanel();
+        WireSettingsButton();
+        WireResumeButton();
+        WireSaveButtons();
+        WireMainMenuButton();
+        WireQuitButton();
+        HandlePauseChanged(PauseService.ActivePauseTypes);
+    }
+
     private void WireSettingsPanel()
     {
         if (!settingsPanelRoot) return;

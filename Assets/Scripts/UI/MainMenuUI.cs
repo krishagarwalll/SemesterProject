@@ -16,6 +16,7 @@ public class MainMenuUI : MonoBehaviour
     {
         RuntimeUiUtility.ResetRuntimeState();
         RuntimeUiUtility.EnsureCoreSystems();
+        RuntimeUiUtility.ApplyDisplaySettings();
         RuntimeUiUtility.EnsureEventSystem();
         RuntimeUiUtility.EnsureCanvasRaycasters();
 
@@ -100,11 +101,11 @@ public class MainMenuUI : MonoBehaviour
             continueBtn.onClick.AddListener(OnContinueClicked);
         }
 
-        // Start — only when no save data
+        // Start always begins a fresh game.
         Button startBtn = FindButton("Start", "StartButton");
         if (startBtn)
         {
-            startBtn.gameObject.SetActive(!hasSave);
+            startBtn.gameObject.SetActive(true);
             startBtn.onClick.RemoveListener(OnStartClicked);
             startBtn.onClick.AddListener(OnStartClicked);
         }
@@ -141,6 +142,7 @@ public class MainMenuUI : MonoBehaviour
     private void OnStartClicked()
     {
         PauseService.ClearAll();
+        SaveManager.Instance?.DeleteSave();
         SceneManager.LoadScene(GameSceneName);
     }
 

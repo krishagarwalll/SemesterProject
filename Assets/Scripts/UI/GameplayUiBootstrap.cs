@@ -29,6 +29,8 @@ public static class GameplayUiBootstrap
         RuntimeUiUtility.EnsureCoreSystems();
         RuntimeUiUtility.EnsureEventSystem();
         RuntimeUiUtility.EnsureCanvasRaycasters();
+        RuntimeUiUtility.EnsureGameplayInventoryUi();
+        RuntimeUiUtility.EnsureGameplayPauseUi();
 
         EnsureScenePauseInput();
 

@@ -22,6 +22,7 @@ public class CutsceneController : MonoBehaviour
     [SerializeField] private PlayableDirector playableDirector;
     [FormerlySerializedAs("cutsceneCanvas")]
     [SerializeField] private GameObject cutsceneRoot;
+    [SerializeField] private string streamingAssetsFileName = "beginning-cutscene.mp4";
     [SerializeField] private bool pausePlayerInput = true;
     [SerializeField, Min(1f)] private float fastForwardSpeed = 4f;
 
@@ -234,11 +235,19 @@ public class CutsceneController : MonoBehaviour
             return;
         }
 
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if !UNITY_EDITOR
+        if (!StreamingAssetsVideoUrl.TryBuild(streamingAssetsFileName, out string url))
+        {
+            Debug.LogWarning(
+                $"[CutsceneController] Invalid StreamingAssets cutscene file name '{streamingAssetsFileName}' on '{name}'.",
+                this);
+            return;
+        }
+
         videoPlayer.Stop();
         videoPlayer.clip = null;
         videoPlayer.source = VideoSource.Url;
-        videoPlayer.url = $"{Application.streamingAssetsPath}/Cutscenes/beginning-cutscene.mp4";
+        videoPlayer.url = url;
 #else
         if (!videoPlayer.clip || videoPlayer.source != VideoSource.Url)
         {
@@ -319,6 +328,8 @@ public class CutsceneController : MonoBehaviour
     private void OnValidate()
     {
         if (!cutsceneRoot) cutsceneRoot = gameObject;
+        if (string.IsNullOrWhiteSpace(streamingAssetsFileName))
+            streamingAssetsFileName = "beginning-cutscene.mp4";
         EnsureSerializedSaveId();
     }
 

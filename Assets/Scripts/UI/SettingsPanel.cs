@@ -6,10 +6,14 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CanvasGroup))]
 public class SettingsPanel : MonoBehaviour
 {
+    private const string PrefWindowMode = "Settings_WindowMode";
+    private const string PrefVSync = "Settings_VSync";
+
     [SerializeField] private Slider masterSlider;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private TMP_Dropdown windowModeDropdown;
+    [SerializeField] private Toggle vSyncToggle;
     [SerializeField] private Button saveButton;
     [SerializeField] private Button loadButton;
     [SerializeField] private Button deleteSaveButton;
@@ -21,6 +25,8 @@ public class SettingsPanel : MonoBehaviour
     private void Awake()
     {
         AutoDiscover();
+        EnsureVSyncToggle();
+        ConfigureWindowModeDropdownOptions();
         var group = GetComponent<CanvasGroup>();
         group.alpha = 1f;
         group.interactable = group.blocksRaycasts = true;
@@ -34,6 +40,19 @@ public class SettingsPanel : MonoBehaviour
         if (!sfxSlider    && sliders.Length > 2) sfxSlider    = sliders[2];
 
         if (!windowModeDropdown) windowModeDropdown = GetComponentInChildren<TMP_Dropdown>(true);
+        if (!vSyncToggle)
+        {
+            Toggle[] toggles = GetComponentsInChildren<Toggle>(true);
+            for (int i = 0; i < toggles.Length; i++)
+            {
+                string n = toggles[i].name.ToLowerInvariant();
+                if (n.Contains("vsync") || n.Contains("v-sync"))
+                {
+                    vSyncToggle = toggles[i];
+                    break;
+                }
+            }
+        }
 
         foreach (Button btn in GetComponentsInChildren<Button>(true))
         {
@@ -87,8 +106,14 @@ public class SettingsPanel : MonoBehaviour
 
         if (windowModeDropdown)
         {
+            ConfigureWindowModeDropdownOptions();
             windowModeDropdown.SetValueWithoutNotify(CurrentWindowModeIndex());
             windowModeDropdown.RefreshShownValue();
+        }
+
+        if (vSyncToggle)
+        {
+            vSyncToggle.SetIsOnWithoutNotify(QualitySettings.vSyncCount > 0);
         }
 
         RefreshSaveStatus();
@@ -100,6 +125,7 @@ public class SettingsPanel : MonoBehaviour
         if (musicSlider)        { musicSlider.onValueChanged.RemoveListener(OnMusic);        musicSlider.onValueChanged.AddListener(OnMusic); }
         if (sfxSlider)          { sfxSlider.onValueChanged.RemoveListener(OnSfx);            sfxSlider.onValueChanged.AddListener(OnSfx); }
         if (windowModeDropdown) { windowModeDropdown.onValueChanged.RemoveListener(OnWindowMode); windowModeDropdown.onValueChanged.AddListener(OnWindowMode); }
+        if (vSyncToggle)        { vSyncToggle.onValueChanged.RemoveListener(OnVSync);        vSyncToggle.onValueChanged.AddListener(OnVSync); }
         if (saveButton)         { saveButton.onClick.RemoveListener(OnSave);                 saveButton.onClick.AddListener(OnSave); }
         if (loadButton)         { loadButton.onClick.RemoveListener(OnLoad);                 loadButton.onClick.AddListener(OnLoad); }
         if (deleteSaveButton)   { deleteSaveButton.onClick.RemoveListener(OnDeleteSave);     deleteSaveButton.onClick.AddListener(OnDeleteSave); }
@@ -112,6 +138,7 @@ public class SettingsPanel : MonoBehaviour
         if (musicSlider)        musicSlider.onValueChanged.RemoveListener(OnMusic);
         if (sfxSlider)          sfxSlider.onValueChanged.RemoveListener(OnSfx);
         if (windowModeDropdown) windowModeDropdown.onValueChanged.RemoveListener(OnWindowMode);
+        if (vSyncToggle)        vSyncToggle.onValueChanged.RemoveListener(OnVSync);
         if (saveButton)         saveButton.onClick.RemoveListener(OnSave);
         if (loadButton)         loadButton.onClick.RemoveListener(OnLoad);
         if (deleteSaveButton)   deleteSaveButton.onClick.RemoveListener(OnDeleteSave);
@@ -121,6 +148,12 @@ public class SettingsPanel : MonoBehaviour
     private void OnMaster(float v)  => AudioManager.Instance?.SetMasterVolume(v);
     private void OnMusic(float v)   => AudioManager.Instance?.SetMusicVolume(v);
     private void OnSfx(float v)     => AudioManager.Instance?.SetSfxVolume(v);
+    private void OnVSync(bool enabled)
+    {
+        QualitySettings.vSyncCount = enabled ? 1 : 0;
+        PlayerPrefs.SetInt(PrefVSync, enabled ? 1 : 0);
+        PlayerPrefs.Save();
+    }
     private void OnBack()           => BackRequested?.Invoke();
 
     private void OnSave()       { SaveManager.Instance?.Save();         RefreshSaveStatus(); }
@@ -139,6 +172,12 @@ public class SettingsPanel : MonoBehaviour
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         WebGLDisplay.SetFullscreen(index != 0);
+#elif UNITY_STANDALONE_OSX && !UNITY_EDITOR
+        FullScreenMode mode = index == 1
+            ? FullScreenMode.ExclusiveFullScreen
+            : FullScreenMode.Windowed;
+        Screen.fullScreenMode = mode;
+        Screen.fullScreen = mode != FullScreenMode.Windowed;
 #else
         FullScreenMode mode = index switch
         {
@@ -149,14 +188,16 @@ public class SettingsPanel : MonoBehaviour
         Screen.fullScreenMode = mode;
         Screen.fullScreen = mode != FullScreenMode.Windowed;
 #endif
-        PlayerPrefs.SetInt("Settings_WindowMode", index);
+        PlayerPrefs.SetInt(PrefWindowMode, index);
         PlayerPrefs.Save();
     }
 
     private static int CurrentWindowModeIndex()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        return WebGLDisplay.IsFullscreen ? 2 : 0;
+        return WebGLDisplay.IsFullscreen ? 1 : 0;
+#elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+        return Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen || Screen.fullScreen ? 1 : 0;
 #else
         return Screen.fullScreenMode switch
         {
@@ -166,5 +207,94 @@ public class SettingsPanel : MonoBehaviour
             _ => Screen.fullScreen ? 2 : 0
         };
 #endif
+    }
+
+    private void ConfigureWindowModeDropdownOptions()
+    {
+        if (!windowModeDropdown) return;
+
+        string[] labels = WindowModeLabels();
+        bool needsUpdate = windowModeDropdown.options.Count != labels.Length;
+        if (!needsUpdate)
+        {
+            for (int i = 0; i < labels.Length; i++)
+            {
+                if (windowModeDropdown.options[i].text != labels[i])
+                {
+                    needsUpdate = true;
+                    break;
+                }
+            }
+        }
+
+        if (!needsUpdate) return;
+
+        windowModeDropdown.ClearOptions();
+        windowModeDropdown.AddOptions(new System.Collections.Generic.List<string>(labels));
+    }
+
+    private static string[] WindowModeLabels()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        return new[] { "Windowed", "Fullscreen" };
+#elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+        return new[] { "Windowed", "Fullscreen" };
+#else
+        return new[] { "Windowed", "Fullscreen", "Borderless" };
+#endif
+    }
+
+    private void EnsureVSyncToggle()
+    {
+        if (vSyncToggle) return;
+
+        Transform displayAnchor = windowModeDropdown ? windowModeDropdown.transform.parent : transform;
+        Transform parent = displayAnchor && displayAnchor.parent ? displayAnchor.parent : transform;
+
+        GameObject row = new("VSyncRow", typeof(RectTransform), typeof(HorizontalLayoutGroup), typeof(LayoutElement));
+        RectTransform rowRect = row.GetComponent<RectTransform>();
+        rowRect.SetParent(parent, false);
+        LayoutElement rowLayout = row.GetComponent<LayoutElement>();
+        rowLayout.preferredWidth = 400f;
+        rowLayout.preferredHeight = 42f;
+        HorizontalLayoutGroup rowGroup = row.GetComponent<HorizontalLayoutGroup>();
+        rowGroup.spacing = 16f;
+        rowGroup.childAlignment = TextAnchor.MiddleCenter;
+        rowGroup.childControlWidth = false;
+        rowGroup.childControlHeight = false;
+        rowGroup.childForceExpandWidth = false;
+        rowGroup.childForceExpandHeight = false;
+
+        GameObject labelObject = new("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
+        RectTransform labelRect = labelObject.GetComponent<RectTransform>();
+        labelRect.SetParent(rowRect, false);
+        labelRect.sizeDelta = new Vector2(160f, 32f);
+        TextMeshProUGUI label = labelObject.GetComponent<TextMeshProUGUI>();
+        label.text = "VSync";
+        label.fontSize = 17f;
+        label.alignment = TextAlignmentOptions.MidlineLeft;
+        label.color = Color.white;
+        label.raycastTarget = false;
+        if (TMP_Settings.defaultFontAsset) label.font = TMP_Settings.defaultFontAsset;
+
+        GameObject toggleObject = new("VSyncToggle", typeof(RectTransform), typeof(Toggle), typeof(Image));
+        RectTransform toggleRect = toggleObject.GetComponent<RectTransform>();
+        toggleRect.SetParent(rowRect, false);
+        toggleRect.sizeDelta = new Vector2(32f, 32f);
+        Image background = toggleObject.GetComponent<Image>();
+        background.color = new Color(0.12f, 0.11f, 0.15f, 1f);
+        vSyncToggle = toggleObject.GetComponent<Toggle>();
+        vSyncToggle.targetGraphic = background;
+
+        GameObject checkmarkObject = new("Checkmark", typeof(RectTransform), typeof(Image));
+        RectTransform checkmarkRect = checkmarkObject.GetComponent<RectTransform>();
+        checkmarkRect.SetParent(toggleRect, false);
+        checkmarkRect.anchorMin = new Vector2(0.2f, 0.2f);
+        checkmarkRect.anchorMax = new Vector2(0.8f, 0.8f);
+        checkmarkRect.offsetMin = Vector2.zero;
+        checkmarkRect.offsetMax = Vector2.zero;
+        Image checkmark = checkmarkObject.GetComponent<Image>();
+        checkmark.color = new Color(0.96f, 0.93f, 0.86f, 1f);
+        vSyncToggle.graphic = checkmark;
     }
 }
