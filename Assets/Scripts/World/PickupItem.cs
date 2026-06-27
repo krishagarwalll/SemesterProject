@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,6 +27,7 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     [SerializeField] private string dragGlyphId = "Primary";
     [SerializeField] private string storeGlyphId = "Primary";
     [SerializeField] private string inspectGlyphId = "Context";
+    [SerializeField, Min(0.01f)] private float autoStoreTravelTime = 0.28f;
 
     [FieldHeader("Content")]
     [SerializeField, TextArea] private string inspectText;
@@ -42,6 +44,8 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     public Transform PlacementAnchor => placementAnchor ? placementAnchor : RootTransform;
     public Vector3 RootPosition => RootTransform.position;
     public Quaternion RootRotation => RootTransform.rotation;
+
+    private bool storeInProgress;
 
     private DragBody2D DragBody => dragBody ? dragBody : dragBody = GetComponent<DragBody2D>() ?? gameObject.GetOrAddComponent<DragBody2D>();
     private InventoryTransferController TransferController => transferController ? transferController : transferController = FindFirstObjectByType<InventoryTransferController>(FindObjectsInactive.Include);
@@ -71,7 +75,9 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
         actions.Add(new InteractionAction(this, InteractionMode.Drag, dragLabel, dragGlyphId, SupportsDrag, requiresApproach: false));
         if (itemDefinition)
         {
-            bool canStore = context.Inventory && (!context.Inventory.IsFull || context.Inventory.Contains(itemDefinition));
+            bool canStore = context.Inventory
+                && (!context.Inventory.IsFull || itemDefinition.CollectibleOnly && context.Inventory.Contains(itemDefinition));
+            actions.Add(new InteractionAction(this, InteractionMode.Primary, storeLabel, storeGlyphId, canStore, requiresApproach: false, priority: 20));
             actions.Add(new InteractionAction(this, InteractionMode.Store, storeLabel, storeGlyphId, canStore, requiresApproach: false, priority: -5));
         }
 
@@ -85,8 +91,9 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
     {
         switch (action.Mode)
         {
+            case InteractionMode.Primary:
             case InteractionMode.Store:
-                return TryStoreDirect(context.Inventory);
+                return TryStoreWithAnimation(context.Inventory);
 
             case InteractionMode.Drag:
                 if (context.Pointer == null)
@@ -234,8 +241,9 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
         DragBody.EndDrag(restoreInvalidPose: !commit);
     }
 
-    private bool TryStoreDirect(Inventory inventory)
+    public bool TryStoreDirect(Inventory inventory)
     {
+        storeInProgress = false;
         if (!inventory || !itemDefinition || !inventory.TryStoreAnywhere(itemDefinition, quantity))
         {
             return false;
@@ -243,6 +251,64 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
 
         CompleteStoreToInventory();
         return true;
+    }
+
+    public bool TryStoreWithAnimation(Inventory inventory)
+    {
+        if (storeInProgress
+            || !inventory
+            || !itemDefinition
+            || inventory.IsFull && !(itemDefinition.CollectibleOnly && inventory.Contains(itemDefinition)))
+        {
+            return false;
+        }
+
+        storeInProgress = true;
+        StartCoroutine(StoreWithAnimationRoutine(inventory));
+        return true;
+    }
+
+    private IEnumerator StoreWithAnimationRoutine(Inventory inventory)
+    {
+        if (!inventory || !itemDefinition)
+        {
+            storeInProgress = false;
+            yield break;
+        }
+
+        DragBody.EndDrag(restoreInvalidPose: false);
+        Vector3 start = RootPosition;
+        Vector3 target = ResolveInventoryTargetPosition(start);
+        float elapsed = 0f;
+        while (elapsed < autoStoreTravelTime)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / autoStoreTravelTime));
+            RootTransform.position = Vector3.Lerp(start, target, t);
+            yield return null;
+        }
+
+        if (!TryStoreDirect(inventory))
+        {
+            storeInProgress = false;
+        }
+    }
+
+    private Vector3 ResolveInventoryTargetPosition(Vector3 fallback)
+    {
+        InventoryHotbar hotbar = FindFirstObjectByType<InventoryHotbar>(FindObjectsInactive.Include);
+        if (!hotbar) return fallback + Vector3.up * 1.5f;
+
+        Canvas canvas = hotbar.GetComponentInParent<Canvas>(true);
+        Camera camera = Camera.main;
+        RectTransform rect = hotbar.transform as RectTransform;
+        if (!canvas || !rect || !camera) return fallback + Vector3.up * 1.5f;
+
+        Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera, rect.position);
+        float depth = Mathf.Abs(camera.transform.position.z - fallback.z);
+        Vector3 world = camera.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, depth));
+        world.z = fallback.z;
+        return world;
     }
 
     private string GetInspectText()

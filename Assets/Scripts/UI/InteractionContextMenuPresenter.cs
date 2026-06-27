@@ -61,20 +61,7 @@ public class InteractionContextMenuPresenter : MonoBehaviour
 
     private void HandleSecondaryPressed(PointerContext context)
     {
-        if (!Controller || !context)
-        {
-            Hide();
-            return;
-        }
-
-        BuildMenuActions(context);
-        if (menuActions.Count == 0)
-        {
-            Hide();
-            return;
-        }
-
-        Show(context.ScreenPosition);
+        Hide();
     }
 
     private void HandlePrimaryPressed(PointerContext context)

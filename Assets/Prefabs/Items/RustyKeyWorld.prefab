@@ -153,6 +153,7 @@ MonoBehaviour:
   dragGlyphId: Primary
   storeGlyphId: Primary
   inspectGlyphId: Context
+  autoStoreTravelTime: 0.28
   inspectText: A rusty key. It feels cold in your hand.
 --- !u!114 &5240479637446034099
 MonoBehaviour:

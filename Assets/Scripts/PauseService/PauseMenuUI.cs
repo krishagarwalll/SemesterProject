@@ -39,7 +39,8 @@ public class PauseMenuUI : MonoBehaviour
         WireResumeButton();
         WireSaveButtons();
         WireMainMenuButton();
-        WireQuitButton();
+        HideQuitButtons();
+        OrderPauseButtons();
         HandlePauseChanged(PauseService.ActivePauseTypes);
     }
 
@@ -104,7 +105,8 @@ public class PauseMenuUI : MonoBehaviour
         WireResumeButton();
         WireSaveButtons();
         WireMainMenuButton();
-        WireQuitButton();
+        HideQuitButtons();
+        OrderPauseButtons();
         HandlePauseChanged(PauseService.ActivePauseTypes);
     }
 
@@ -160,14 +162,31 @@ public class PauseMenuUI : MonoBehaviour
         button.onClick.AddListener(OnMainMenuClicked);
     }
 
-    private void WireQuitButton()
+    private void HideQuitButtons()
     {
         Button button = FindButton("Quit", "QuitButton", "Exit", "ExitButton");
         if (!button) return;
-        button.gameObject.SetActive(RuntimeUiUtility.CanQuitApplication);
-        if (!RuntimeUiUtility.CanQuitApplication) return;
-        button.onClick.RemoveListener(OnQuitClicked);
-        button.onClick.AddListener(OnQuitClicked);
+        button.onClick.RemoveAllListeners();
+        button.gameObject.SetActive(false);
+    }
+
+    private void OrderPauseButtons()
+    {
+        SetButtonSibling("Resume", "ResumeButton", "Continue", "ContinueButton", 1);
+        SetButtonSibling("Options", "OptionsButton", "Settings", "SettingsButton", 2);
+        SetButtonSibling("Main Menu", "Main MenuButton", "MainMenu", "MainMenuButton", "Menu", "MenuButton", 3);
+    }
+
+    private void SetButtonSibling(string nameA, string nameB, string nameC, string nameD, int siblingIndex)
+    {
+        Button button = FindButton(nameA, nameB, nameC, nameD);
+        if (button) button.transform.SetSiblingIndex(Mathf.Min(siblingIndex, button.transform.parent.childCount - 1));
+    }
+
+    private void SetButtonSibling(string nameA, string nameB, string nameC, string nameD, string nameE, string nameF, int siblingIndex)
+    {
+        Button button = FindButton(nameA, nameB, nameC, nameD, nameE, nameF);
+        if (button) button.transform.SetSiblingIndex(Mathf.Min(siblingIndex, button.transform.parent.childCount - 1));
     }
 
     private Button FindButton(params string[] names)
@@ -207,12 +226,19 @@ public class PauseMenuUI : MonoBehaviour
 
     private void OnMainMenuClicked()
     {
+        SaveManager.Instance?.Save();
         PauseService.ClearAll();
         Time.timeScale = 1f;
         AudioListener.pause = false;
+        AudioSource[] sources = FindObjectsByType<AudioSource>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < sources.Length; i++)
+        {
+            if (sources[i]) sources[i].Stop();
+        }
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(ScreenFade.FadeOutThenLoad(this, "MainMenu"));
     }
 
     private void OnQuitClicked() => RuntimeUiUtility.QuitApplication();

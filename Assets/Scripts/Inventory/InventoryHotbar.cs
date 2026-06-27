@@ -17,6 +17,7 @@ public class InventoryHotbar : MonoBehaviour
     [SerializeField] private RectTransform panel;
     [SerializeField] private RectTransform slotContainer;
     [SerializeField] private Button backpackButton;
+    [SerializeField] private InventoryHotbarSlot collectibleSlot;
 
     [SerializeField] private bool collapsed;
     [SerializeField, Min(0f)] private float collapsedOffset = 220f;
@@ -27,6 +28,7 @@ public class InventoryHotbar : MonoBehaviour
     [SerializeField] private Color emptySlotColor = new(0.07716268f, 0.12713027f, 0.3207547f, 0.85882354f);
 
     private readonly List<InventoryHotbarSlot> slots = new();
+    private readonly List<int> slotInventoryIndexes = new();
     private Vector2 targetAnchoredPosition;
     private Canvas rootCanvas;
     private RectTransform dragPreviewRoot;
@@ -65,6 +67,7 @@ public class InventoryHotbar : MonoBehaviour
         // field is already set from scene data, which skips layout group cleanup.
         slotContainer = EnsureSlotContainer();
         backpackButton = EnsureBackpackButton();
+        collectibleSlot = EnsureCollectibleSlot();
         RebuildSlotCache();
         EnsureSlots();
         Refresh();
@@ -80,6 +83,11 @@ public class InventoryHotbar : MonoBehaviour
 
     private void OnEnable()
     {
+        slotContainer = EnsureSlotContainer();
+        backpackButton = EnsureBackpackButton();
+        collectibleSlot = EnsureCollectibleSlot();
+        RebuildSlotCache();
+
         if (SceneInventory)
             SceneInventory.Changed += Refresh;
 
@@ -114,8 +122,7 @@ public class InventoryHotbar : MonoBehaviour
 
     public void HandleSlotClick(int slotIndex)
     {
-        if (!SceneInventory || !SceneInventory.TryGetEntry(slotIndex, out _)) return;
-        HandleSlotSecondaryClick(slotIndex, GetSlotScreenCenter(slotIndex));
+        HideContextMenu();
     }
 
     private Vector2 GetSlotScreenCenter(int slotIndex)
@@ -132,16 +139,7 @@ public class InventoryHotbar : MonoBehaviour
 
     public void HandleSlotSecondaryClick(int slotIndex, Vector2 screenPosition)
     {
-        if (!SceneInventory || !SceneInventory.TryGetEntry(slotIndex, out Inventory.Entry entry))
-        {
-            HideContextMenu();
-            return;
-        }
-
-        contextSlotIndex = slotIndex;
-        EnsureContextMenu();
-        ConfigureContextMenu(entry);
-        ShowContextMenu(screenPosition);
+        HideContextMenu();
     }
 
     public void HandleSlotSecondaryClick(InventoryHotbarSecondaryClickRequest request)
@@ -151,18 +149,23 @@ public class InventoryHotbar : MonoBehaviour
 
     public bool CanBeginSlotDrag(int slotIndex)
     {
+        int inventoryIndex = GetInventoryIndexForSlot(slotIndex);
         return !collapsed
             && !worldPlacementActive
             && (!TransferController || !TransferController.IsActive)
             && SceneInventory
-            && SceneInventory.TryGetEntry(slotIndex, out _);
+            && inventoryIndex >= 0
+            && SceneInventory.TryGetEntry(inventoryIndex, out Inventory.Entry entry)
+            && entry.Definition
+            && !entry.Definition.CollectibleOnly;
     }
 
     public void BeginSlotDrag(int slotIndex, Vector2 screenPosition)
     {
-        if (!SceneInventory || !SceneInventory.TryGetEntry(slotIndex, out Inventory.Entry entry)) return;
+        int inventoryIndex = GetInventoryIndexForSlot(slotIndex);
+        if (!SceneInventory || inventoryIndex < 0 || !SceneInventory.TryGetEntry(inventoryIndex, out Inventory.Entry entry)) return;
 
-        dragSourceIndex = slotIndex;
+        dragSourceIndex = inventoryIndex;
         lastDragScreenPosition = screenPosition;
         worldPlacementActive = false;
         EnsureDragPreview();
@@ -229,6 +232,19 @@ public class InventoryHotbar : MonoBehaviour
             if (commitPlacement) return;
         }
 
+        if (!cancelled
+            && !worldPlacementActive
+            && !overInventory
+            && TransferController
+            && TransferController.TryUseEntryOnWorldTarget(dragSourceIndex, screenPosition))
+        {
+            dragSourceIndex = -1;
+            lastDragScreenPosition = Vector2.zero;
+            worldPlacementActive = false;
+            HideDragPreview();
+            return;
+        }
+
         if (!cancelled && !worldPlacementActive && canWorldPreview
             && TransferController
             && TransferController.TryBeginPlacementTransfer(dragSourceIndex, screenPosition))
@@ -245,8 +261,9 @@ public class InventoryHotbar : MonoBehaviour
         {
             if (TryGetInventoryDropTarget(screenPosition, out int slotIndex, out _))
             {
-                if (slotIndex >= 0 && slotIndex != dragSourceIndex)
-                    SceneInventory.Move(dragSourceIndex, slotIndex);
+                int targetInventoryIndex = GetInventoryIndexForSlot(slotIndex);
+                if (targetInventoryIndex >= 0 && targetInventoryIndex != dragSourceIndex)
+                    SceneInventory.Move(dragSourceIndex, targetInventoryIndex);
             }
         }
 
@@ -345,11 +362,64 @@ public class InventoryHotbar : MonoBehaviour
     {
         EnsureSlots();
         Inventory currentInventory = SceneInventory;
-        for (int i = 0; i < slots.Count; i++)
+        slotInventoryIndexes.Clear();
+
+        int visibleSlot = 0;
+        Inventory.Entry collectibleEntry = default;
+        bool hasCollectible = false;
+
+        if (currentInventory)
         {
-            Inventory.Entry entry = default;
-            bool hasEntry = currentInventory && currentInventory.TryGetEntry(i, out entry);
-            slots[i].Bind(this, i, entry, hasEntry, slotColor, emptySlotColor);
+            for (int inventoryIndex = 0; inventoryIndex < currentInventory.Entries.Count && visibleSlot < slots.Count; inventoryIndex++)
+            {
+                Inventory.Entry entry = currentInventory.Entries[inventoryIndex];
+                if (!entry.IsOccupied)
+                {
+                    continue;
+                }
+
+                if (entry.Definition && entry.Definition.CollectibleOnly)
+                {
+                    collectibleEntry = hasCollectible && collectibleEntry.Definition == entry.Definition
+                        ? new Inventory.Entry(entry.Definition, collectibleEntry.Quantity + entry.Quantity)
+                        : entry;
+                    hasCollectible = true;
+                    continue;
+                }
+
+                slotInventoryIndexes.Add(inventoryIndex);
+                slots[visibleSlot].Bind(this, visibleSlot, entry, true, slotColor, emptySlotColor);
+                visibleSlot++;
+            }
+
+            for (int inventoryIndex = 0; inventoryIndex < currentInventory.Entries.Count && visibleSlot < slots.Count; inventoryIndex++)
+            {
+                Inventory.Entry entry = currentInventory.Entries[inventoryIndex];
+                if (entry.IsOccupied)
+                {
+                    continue;
+                }
+
+                slotInventoryIndexes.Add(inventoryIndex);
+                slots[visibleSlot].Bind(this, visibleSlot, default, false, slotColor, emptySlotColor);
+                visibleSlot++;
+            }
+        }
+
+        while (slotInventoryIndexes.Count < slots.Count)
+        {
+            slotInventoryIndexes.Add(-1);
+        }
+
+        for (int i = visibleSlot; i < slots.Count; i++)
+        {
+            slots[i].Bind(this, i, default, false, slotColor, emptySlotColor);
+        }
+
+        if (collectibleSlot)
+        {
+            collectibleSlot.Bind(this, -1, collectibleEntry, hasCollectible, slotColor, emptySlotColor);
+            collectibleSlot.gameObject.SetActive(hasCollectible);
         }
     }
 
@@ -704,6 +774,29 @@ public class InventoryHotbar : MonoBehaviour
         return button;
     }
 
+    private InventoryHotbarSlot EnsureCollectibleSlot()
+    {
+        Transform child = transform.Find("MemoryFragmentSlot");
+        InventoryHotbarSlot slot = child ? child.GetComponent<InventoryHotbarSlot>() : null;
+        if (!slot)
+        {
+            slot = InventoryHotbarSlot.Create(transform as RectTransform, slotSize);
+            slot.name = "MemoryFragmentSlot";
+        }
+
+        RectTransform rect = slot.transform as RectTransform;
+        if (rect)
+        {
+            rect.anchorMin = new Vector2(0f, 0.5f);
+            rect.anchorMax = new Vector2(0f, 0.5f);
+            rect.pivot = new Vector2(0f, 0.5f);
+            rect.sizeDelta = slotSize;
+            rect.anchoredPosition = new Vector2(12f, 0f);
+        }
+
+        return slot;
+    }
+
     private void ApplySlotLayout(InventoryHotbarSlot slot)
     {
         if (!slot) return;
@@ -766,5 +859,10 @@ public class InventoryHotbar : MonoBehaviour
     private Camera GetEventCamera()
     {
         return RootCanvas && RootCanvas.renderMode != RenderMode.ScreenSpaceOverlay ? RootCanvas.worldCamera : null;
+    }
+
+    private int GetInventoryIndexForSlot(int slotIndex)
+    {
+        return slotIndex >= 0 && slotIndex < slotInventoryIndexes.Count ? slotInventoryIndexes[slotIndex] : -1;
     }
 }

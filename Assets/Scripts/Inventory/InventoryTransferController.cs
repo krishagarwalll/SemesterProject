@@ -286,6 +286,21 @@ public class InventoryTransferController : MonoBehaviour
         return true;
     }
 
+    public bool TryUseEntryOnWorldTarget(int inventoryIndex, Vector2 screenPosition)
+    {
+        if (IsActive
+            || !SceneInventory
+            || !SceneInventory.TryGetEntry(inventoryIndex, out Inventory.Entry entry)
+            || !entry.Definition
+            || entry.Definition.CollectibleOnly
+            || !TryFindRoomPortal(screenPosition, out RoomPortal portal))
+        {
+            return false;
+        }
+
+        return portal.TryUseInventoryItem(SceneInventory, entry.Definition, entry.Quantity);
+    }
+
     public void EndPlacementDrag(Vector2 screenPosition, bool cancelled = false)
     {
         EndPlacementTransfer(screenPosition, cancelled);
@@ -395,5 +410,46 @@ public class InventoryTransferController : MonoBehaviour
     {
         item.SeedPlacementPose(position, item.RootRotation);
         return item.CanPlaceInRoom();
+    }
+
+    private bool TryFindRoomPortal(Vector2 screenPosition, out RoomPortal portal)
+    {
+        portal = null;
+        if (!Pointer)
+        {
+            return false;
+        }
+
+        Camera camera = Pointer.WorldCamera ? Pointer.WorldCamera : Camera.main;
+        float depth = 0f;
+        if (camera)
+        {
+            depth = Mathf.Abs(camera.transform.position.z);
+        }
+
+        Vector3 worldPoint = camera
+            ? camera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, depth))
+            : (Vector3)screenPosition;
+
+        Collider2D[] hits = Physics2D.OverlapPointAll(worldPoint);
+        int bestPriority = int.MinValue;
+        for (int i = 0; i < hits.Length; i++)
+        {
+            RoomPortal candidate = hits[i] ? hits[i].GetComponentInParent<RoomPortal>() : null;
+            if (!candidate)
+            {
+                continue;
+            }
+
+            InteractionTarget target = candidate.GetComponent<InteractionTarget>();
+            int priority = target ? target.SelectionPriority : 0;
+            if (!portal || priority >= bestPriority)
+            {
+                portal = candidate;
+                bestPriority = priority;
+            }
+        }
+
+        return portal;
     }
 }

@@ -45,7 +45,7 @@ public class CountdownTimer : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene(nextSceneName);
+                StartCoroutine(ScreenFade.FadeOutThenLoad(this, nextSceneName));
             }
             return;
         }

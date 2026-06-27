@@ -143,7 +143,7 @@ public class MainMenuUI : MonoBehaviour
     {
         PauseService.ClearAll();
         SaveManager.Instance?.DeleteSave();
-        SceneManager.LoadScene(GameSceneName);
+        StartCoroutine(ScreenFade.FadeOutThenLoad(this, GameSceneName));
     }
 
     private Button FindButton(params string[] names)

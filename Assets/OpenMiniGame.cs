@@ -46,6 +46,6 @@ public class OpenMiniGame : MonoBehaviour, IInteractionActionProvider
         AudioListener.pause = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(ScreenFade.FadeOutThenLoad(this, sceneName));
     }
 }

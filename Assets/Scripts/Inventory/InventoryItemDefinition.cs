@@ -11,6 +11,8 @@ public class InventoryItemDefinition : ScriptableObject
     [SerializeField] private string primaryLabel = "Use";
     [SerializeField] private string inspectLabel = "Inspect";
     [SerializeField] private bool canPlaceBackIntoWorld = true;
+    [SerializeField] private bool collectibleOnly;
+    [SerializeField] private string collectibleSlotLabel;
 
     public string ItemId => string.IsNullOrWhiteSpace(itemId) ? name : itemId;
     public string DisplayName => string.IsNullOrWhiteSpace(displayName) ? name : displayName;
@@ -19,5 +21,7 @@ public class InventoryItemDefinition : ScriptableObject
     public GameObject WorldPrefab => worldPrefab;
     public string PrimaryLabel => string.IsNullOrWhiteSpace(primaryLabel) ? "Use" : primaryLabel;
     public string InspectLabel => string.IsNullOrWhiteSpace(inspectLabel) ? "Inspect" : inspectLabel;
-    public bool CanPlaceBackIntoWorld => canPlaceBackIntoWorld && worldPrefab;
+    public bool CanPlaceBackIntoWorld => !collectibleOnly && canPlaceBackIntoWorld && worldPrefab;
+    public bool CollectibleOnly => collectibleOnly;
+    public string CollectibleSlotLabel => string.IsNullOrWhiteSpace(collectibleSlotLabel) ? DisplayName : collectibleSlotLabel;
 }

@@ -190,6 +190,7 @@ MonoBehaviour:
   dragGlyphId: Primary
   storeGlyphId: Primary
   inspectGlyphId: Context
+  autoStoreTravelTime: 0.28
   inspectText: 'The headline is dated tomorrow.
 
     Something is wrong with time

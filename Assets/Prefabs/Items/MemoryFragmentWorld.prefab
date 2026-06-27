@@ -155,6 +155,7 @@ MonoBehaviour:
   dragGlyphId: Primary
   storeGlyphId: Primary
   inspectGlyphId: Context
+  autoStoreTravelTime: 0.28
   inspectText: A fragment of a memory.
 --- !u!114 &700100005
 MonoBehaviour:

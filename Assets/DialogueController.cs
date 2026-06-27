@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class DialogueController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class DialogueController : MonoBehaviour
     public GameObject choiceButtonPrefab;
     [SerializeField] private CanvasGroup dialogueCanvasGroup;
     [SerializeField] private Button dismissButton;
+    [SerializeField, Min(1f)] private float dialogueUiScaleMultiplier = 1.45f;
     
     public static DialogueController Instance { get; private set;  }
     public event System.Action DismissRequested;
@@ -24,6 +26,7 @@ public class DialogueController : MonoBehaviour
         {
             dialogueCanvasGroup = dialogueCanvasGroup ? dialogueCanvasGroup : dialogueBox.GetOrAddComponent<CanvasGroup>();
             EnsureDismissButton();
+            ApplyDialogueScale();
             ShowDialogue(false);
         }
     }
@@ -97,6 +100,7 @@ public class DialogueController : MonoBehaviour
     {
         if (dismissButton)
         {
+            PositionDismissButton(dismissButton.transform as RectTransform);
             dismissButton.onClick.RemoveListener(RequestDismiss);
             dismissButton.onClick.AddListener(RequestDismiss);
             return;
@@ -108,11 +112,7 @@ public class DialogueController : MonoBehaviour
         GameObject buttonObject = new("DismissButton", typeof(RectTransform), typeof(Image), typeof(Button));
         RectTransform rect = buttonObject.GetComponent<RectTransform>();
         rect.SetParent(parent, false);
-        rect.anchorMin = new Vector2(1f, 1f);
-        rect.anchorMax = new Vector2(1f, 1f);
-        rect.pivot = new Vector2(1f, 1f);
-        rect.anchoredPosition = new Vector2(-12f, -12f);
-        rect.sizeDelta = new Vector2(44f, 44f);
+        PositionDismissButton(rect);
 
         Image image = buttonObject.GetComponent<Image>();
         image.color = new Color(0.18f, 0.22f, 0.25f, 0.95f);
@@ -135,6 +135,51 @@ public class DialogueController : MonoBehaviour
         label.alignment = TextAlignmentOptions.Center;
         label.color = Color.white;
         label.raycastTarget = false;
+    }
+
+    private static void PositionDismissButton(RectTransform rect)
+    {
+        if (!rect) return;
+
+        rect.anchorMin = new Vector2(1f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(1f, 1f);
+        rect.anchoredPosition = new Vector2(-12f, -12f);
+        rect.sizeDelta = new Vector2(54f, 54f);
+        rect.SetAsLastSibling();
+    }
+
+    private void ApplyDialogueScale()
+    {
+        if (dialogueText) dialogueText.fontSize *= dialogueUiScaleMultiplier;
+        if (nameText) nameText.fontSize *= dialogueUiScaleMultiplier;
+
+        if (choiceButtonPrefab)
+        {
+            TMP_Text[] labels = choiceButtonPrefab.GetComponentsInChildren<TMP_Text>(true);
+            for (int i = 0; i < labels.Length; i++)
+            {
+                labels[i].fontSize *= dialogueUiScaleMultiplier;
+            }
+        }
+    }
+
+    public bool IsPointerOverDialogueBox()
+    {
+        if (!dialogueBox || !dialogueBox.activeInHierarchy || Mouse.current == null)
+        {
+            return false;
+        }
+
+        RectTransform rect = dialogueBox.transform as RectTransform;
+        if (!rect)
+        {
+            return false;
+        }
+
+        Canvas canvas = dialogueBox.GetComponentInParent<Canvas>();
+        Camera eventCamera = canvas && canvas.renderMode != RenderMode.ScreenSpaceOverlay ? canvas.worldCamera : null;
+        return RectTransformUtility.RectangleContainsScreenPoint(rect, Mouse.current.position.ReadValue(), eventCamera);
     }
 
     private void RequestDismiss()

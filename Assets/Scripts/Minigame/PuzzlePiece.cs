@@ -10,6 +10,7 @@ public class PuzzlePiece : MonoBehaviour
     // so this resets itself naturally on minigame replay.
     private static readonly List<PuzzlePiece> allPieces = new();
     private static readonly HashSet<Transform> occupiedSlots = new();
+    private static PuzzlePiece activePiece;
 
     private WorldPuzzleDragObject drag;
     private Camera cam;
@@ -24,8 +25,11 @@ public class PuzzlePiece : MonoBehaviour
 
     private bool isLockedInPlace;
     private Transform lockedSlot;
+    private Outline2D outline;
 
     public bool IsLockedInPlace => isLockedInPlace;
+    public bool IsCorrectlyPlaced => isLockedInPlace && lockedSlot == correctSlot;
+    public Transform CorrectSlot => correctSlot;
 
     public System.Action<PuzzlePiece> OnLockedInPlace;
 
@@ -33,6 +37,7 @@ public class PuzzlePiece : MonoBehaviour
     {
         drag = GetComponent<WorldPuzzleDragObject>();
         pieceCollider = GetComponent<Collider2D>();
+        outline = GetComponent<Outline2D>() ?? gameObject.AddComponent<Outline2D>();
         cam = Camera.main;
         allPieces.Add(this);
     }
@@ -40,6 +45,11 @@ public class PuzzlePiece : MonoBehaviour
     private void OnDestroy()
     {
         allPieces.Remove(this);
+        if (activePiece == this)
+        {
+            activePiece = null;
+        }
+
         if (lockedSlot != null)
         {
             occupiedSlots.Remove(lockedSlot);
@@ -70,11 +80,14 @@ public class PuzzlePiece : MonoBehaviour
     {
         if (PauseService.IsGameplayInputPaused(this)) return;
         if (EventSystem.current && EventSystem.current.IsPointerOverGameObject()) return;
+        if (activePiece != null && activePiece != this) return;
         if (!drag.CanStartDrag()) return;
         if (!MouseIsOverThisPiece()) return;
 
         ReleaseLockedSlot();
         isDragging = true;
+        activePiece = this;
+        outline?.SetHighlighted(true);
         drag.BeginDrag(GetMouseWorld());
     }
 
@@ -88,6 +101,8 @@ public class PuzzlePiece : MonoBehaviour
             return;
         }
 
+        if (activePiece != this) return;
+
         drag.UpdateDrag(GetMouseWorld());
     }
 
@@ -96,6 +111,8 @@ public class PuzzlePiece : MonoBehaviour
         if (!isDragging) return;
 
         isDragging = false;
+        activePiece = null;
+        outline?.SetHighlighted(false);
         drag.CompleteDrag();
 
         TrySnap();
@@ -122,6 +139,13 @@ public class PuzzlePiece : MonoBehaviour
             enabled = true;
             if (pieceCollider) pieceCollider.enabled = true;
         }
+    }
+
+    public void PlaceInSlotAsUnlocked(Transform slot)
+    {
+        ReleaseLockedSlot();
+        if (!slot) return;
+        transform.position = slot.position;
     }
 
     private void ReleaseLockedSlot()
@@ -168,6 +192,12 @@ public class PuzzlePiece : MonoBehaviour
         if (!isDragging) return;
 
         isDragging = false;
+        if (activePiece == this)
+        {
+            activePiece = null;
+        }
+
+        outline?.SetHighlighted(false);
         drag.CancelDrag();
     }
 
@@ -180,15 +210,23 @@ public class PuzzlePiece : MonoBehaviour
         // other permanently unclickable. OverlapPointAll lets each piece check for
         // itself regardless of which other piece is also under the pointer.
         Collider2D[] hits = Physics2D.OverlapPointAll(mouseWorld);
+        int bestOrder = int.MinValue;
+        PuzzlePiece bestPiece = null;
         for (int i = 0; i < hits.Length; i++)
         {
-            if (hits[i].gameObject == gameObject)
+            PuzzlePiece piece = hits[i].GetComponentInParent<PuzzlePiece>();
+            if (!piece) continue;
+
+            SpriteRenderer renderer = piece.GetComponentInChildren<SpriteRenderer>();
+            int order = renderer ? renderer.sortingOrder : piece.transform.GetSiblingIndex();
+            if (bestPiece == null || order >= bestOrder)
             {
-                return true;
+                bestOrder = order;
+                bestPiece = piece;
             }
         }
 
-        return false;
+        return bestPiece == this;
     }
 
     private Vector3 GetMouseWorld()

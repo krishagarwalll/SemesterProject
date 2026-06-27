@@ -15,7 +15,7 @@ public class PoptropicaController : MonoBehaviour
     [SerializeField, Min(0f)] private float moveDeceleration = 55f;
     [SerializeField, Min(0.01f)] private float moveEaseDistance = 1.25f;
     [SerializeField, Range(0.05f, 1f)] private float minimumEaseSpeedFactor = 0.18f;
-    [SerializeField, Min(1f)] private float jumpForce = 14f;
+    [SerializeField, Min(1f)] private float jumpForce = 16.5f;
     [SerializeField, Range(0.01f, 0.3f)] private float jumpGestureThreshold = 0.12f;
     [SerializeField, Range(0f, 0.3f)] private float coyoteTime = 0.12f;
     [SerializeField, Min(0.01f)] private float clickMoveStopDistance = 0.12f;
@@ -71,6 +71,7 @@ public class PoptropicaController : MonoBehaviour
     private Collider[] Colliders3D => colliders3D ??= GetComponentsInChildren<Collider>(true);
     private Vector3 Position => transform.position;
     private bool IsPointerBlocked => ignorePointerOverUi && Pointer && Pointer.IsPointerOverUi;
+    private bool IsPointerBlockedForMovement => IsPointerBlocked && !IsPointerOverInventoryUi();
 
     private IWorldDraggable ActiveDrag
     {
@@ -180,8 +181,23 @@ public class PoptropicaController : MonoBehaviour
             return;
         }
 
+        float keyboardInput = GetKeyboardHorizontalInput();
+        if (Mathf.Abs(keyboardInput) > 0.01f)
+        {
+            hasMoveTarget = false;
+            pendingAction = default;
+            ApplyKeyboardHorizontalMovement(keyboardInput);
+            if (IsKeyboardJumpPressed())
+            {
+                jumpPending = true;
+            }
+
+            TryJump();
+            return;
+        }
+
         bool buttonHeld = IsMovementButtonHeld();
-        bool blockedByUi = IsPointerBlocked;
+        bool blockedByUi = IsPointerBlockedForMovement;
         if (buttonHeld && !blockedByUi)
         {
             hasMoveTarget = false;
@@ -344,7 +360,7 @@ public class PoptropicaController : MonoBehaviour
         if (PauseService.IsGameplayInputPaused(this)
             || movementLocked
             || ActiveDrag != null
-            || IsPointerBlocked
+            || IsPointerBlockedForMovement
             || !CanJump
             || !IsMovementButtonHeld())
         {
@@ -665,10 +681,60 @@ public class PoptropicaController : MonoBehaviour
 
         if (Body2D)
         {
+            float direction = Mathf.Sign(targetVelocity);
+            if (Mathf.Abs(targetVelocity) > 0.01f && IsWallBlocked(direction))
+            {
+                targetVelocity = 0f;
+                if (!isGrounded && Body2D.linearVelocity.y > 0f)
+                {
+                    Body2D.linearVelocity = new Vector2(Body2D.linearVelocity.x, 0f);
+                }
+            }
+
             float acceleration = Mathf.Abs(targetVelocity) > 0.001f ? moveAcceleration : moveDeceleration;
             float velocity = Mathf.MoveTowards(Body2D.linearVelocity.x, targetVelocity, acceleration * Time.fixedDeltaTime);
             Body2D.linearVelocity = new Vector2(velocity, Body2D.linearVelocity.y);
         }
+    }
+
+    private void ApplyKeyboardHorizontalMovement(float input)
+    {
+        if (!Body2D) return;
+
+        float targetVelocity = Mathf.Clamp(input, -1f, 1f) * moveSpeed;
+        float direction = Mathf.Sign(targetVelocity);
+        if (Mathf.Abs(targetVelocity) > 0.01f && IsWallBlocked(direction))
+        {
+            targetVelocity = 0f;
+            if (!isGrounded && Body2D.linearVelocity.y > 0f)
+            {
+                Body2D.linearVelocity = new Vector2(Body2D.linearVelocity.x, 0f);
+            }
+        }
+
+        float velocity = Mathf.MoveTowards(Body2D.linearVelocity.x, targetVelocity, moveAcceleration * Time.fixedDeltaTime);
+        Body2D.linearVelocity = new Vector2(velocity, Body2D.linearVelocity.y);
+    }
+
+    private bool IsWallBlocked(float direction)
+    {
+        if (Mathf.Abs(direction) < 0.01f) return false;
+
+        Bounds bounds = GetGroundProbeBounds();
+        Vector2 size = new(Mathf.Max(0.08f, bounds.size.x * 0.82f), Mathf.Max(0.12f, bounds.size.y * 0.86f));
+        Vector2 origin = bounds.center;
+        float distance = Mathf.Max(0.06f, bounds.extents.x * 0.18f);
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(origin, size, 0f, new Vector2(Mathf.Sign(direction), 0f), distance, ResolveGroundMask());
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D hit = hits[i].collider;
+            if (hit && !hit.isTrigger && !IsOwnCollider(hit))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void StopHorizontalMovement()
@@ -692,6 +758,30 @@ public class PoptropicaController : MonoBehaviour
         // Clear click target so the character continues on trajectory rather than
         // stopping horizontal movement at moveTargetX mid-air
         hasMoveTarget = false;
+    }
+
+    private float GetKeyboardHorizontalInput()
+    {
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null) return 0f;
+
+        float input = 0f;
+        if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed) input -= 1f;
+        if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed) input += 1f;
+        return Mathf.Clamp(input, -1f, 1f);
+    }
+
+    private bool IsKeyboardJumpPressed()
+    {
+        Keyboard keyboard = Keyboard.current;
+        return keyboard != null
+            && (keyboard.wKey.wasPressedThisFrame || keyboard.upArrowKey.wasPressedThisFrame || keyboard.spaceKey.wasPressedThisFrame);
+    }
+
+    private bool IsPointerOverInventoryUi()
+    {
+        InventoryHotbar hotbar = FindFirstObjectByType<InventoryHotbar>(FindObjectsInactive.Include);
+        return hotbar && hotbar.IsInventoryArea(GetPointerScreenPosition());
     }
 
     private void ExecutePendingAction()
@@ -864,7 +954,7 @@ public class PoptropicaController : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
-        if (!isGrounded || !IsMovementButtonHeld() || IsPointerBlocked) return;
+        if (!isGrounded || !IsMovementButtonHeld() || IsPointerBlockedForMovement) return;
 
         Gizmos.color = new Color(0.2f, 1f, 0.4f, 0.5f);
         Vector3 startPos = transform.position;

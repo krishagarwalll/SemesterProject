@@ -106,7 +106,7 @@ public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDr
 
         Sprite displaySprite = entryPresent ? InventoryItemVisualResolver.GetSprite(entry.Definition) : null;
         bool showIcon = displaySprite;
-        Background.color = entryPresent ? slotColor : emptySlotColor;
+        Background.color = entryPresent ? new Color(emptySlotColor.r, emptySlotColor.g, emptySlotColor.b, 0.18f) : emptySlotColor;
         Icon.enabled = showIcon;
         Icon.sprite = displaySprite;
         if (LabelText)
@@ -128,10 +128,7 @@ public class InventoryHotbarSlot : MonoBehaviour, IPointerClickHandler, IBeginDr
 
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            owner?.SendMessage(
-                nameof(InventoryHotbar.HandleSlotSecondaryClick),
-                new InventoryHotbarSecondaryClickRequest(slotIndex, eventData.position),
-                SendMessageOptions.DontRequireReceiver);
+            return;
         }
     }
 

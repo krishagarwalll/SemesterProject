@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
@@ -69,5 +70,52 @@ public class ScreenFade : MonoBehaviour
             FadeGraphic.color = color;
             FadeGraphic.raycastTarget = blocksRaycastsWhileVisible && alpha > 0.001f;
         }
+    }
+
+    public static IEnumerator FadeOutThenLoad(MonoBehaviour runner, string sceneName, float duration = 0.25f)
+    {
+        ScreenFade fade = FindFirstObjectByType<ScreenFade>(FindObjectsInactive.Include) ?? CreateRuntimeFade();
+        if (fade)
+        {
+            yield return fade.FadeOut(duration);
+        }
+
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private static ScreenFade CreateRuntimeFade()
+    {
+        GameObject canvasObject = new("RuntimeScreenFadeCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+        Canvas canvas = canvasObject.GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = 9000;
+
+        CanvasScaler scaler = canvasObject.GetComponent<CanvasScaler>();
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920f, 1080f);
+        scaler.matchWidthOrHeight = 0.5f;
+
+        GameObject fadeObject = new("ScreenFade", typeof(RectTransform), typeof(CanvasGroup), typeof(Image), typeof(ScreenFade));
+        RectTransform rect = fadeObject.GetComponent<RectTransform>();
+        rect.SetParent(canvasObject.transform, false);
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+
+        Image image = fadeObject.GetComponent<Image>();
+        image.color = Color.black;
+        image.raycastTarget = true;
+
+        CanvasGroup group = fadeObject.GetComponent<CanvasGroup>();
+        group.alpha = 0f;
+        group.interactable = false;
+        group.blocksRaycasts = false;
+
+        ScreenFade fade = fadeObject.GetComponent<ScreenFade>();
+        fade.canvasGroup = group;
+        fade.fadeGraphic = image;
+        return fade;
     }
 }

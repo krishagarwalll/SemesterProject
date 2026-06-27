@@ -161,6 +161,7 @@ public class RoomTransitionService : MonoBehaviour
 
         ApplyActiveRoom(room);
         Player.TryWarp(destinationPosition);
+        SaveManager.Instance?.Save();
 
         if (Fade)
         {

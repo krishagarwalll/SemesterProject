@@ -29,12 +29,31 @@ public static class GameplayUiBootstrap
         RuntimeUiUtility.EnsureCoreSystems();
         RuntimeUiUtility.EnsureEventSystem();
         RuntimeUiUtility.EnsureCanvasRaycasters();
-        RuntimeUiUtility.EnsureGameplayInventoryUi();
+        if (IsMinigameScene(scene))
+        {
+            RuntimeUiUtility.HideGameplayInventoryUi();
+        }
+        else
+        {
+            RuntimeUiUtility.EnsureGameplayInventoryUi();
+        }
+
         RuntimeUiUtility.EnsureGameplayPauseUi();
 
         EnsureScenePauseInput();
 
         EnsureAutoSaveIndicator();
+    }
+
+    private static bool IsMinigameScene(Scene scene)
+    {
+        if (scene.path.Contains("/Minigames/"))
+        {
+            return true;
+        }
+
+        return scene.name.Contains("Minigame", System.StringComparison.OrdinalIgnoreCase)
+            || scene.name.Contains("MiniGame", System.StringComparison.OrdinalIgnoreCase);
     }
 
     private static void EnsureScenePauseInput()

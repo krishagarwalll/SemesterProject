@@ -80,13 +80,16 @@ public class Inventory : MonoBehaviour
             return false;
         }
 
-        int stackIndex = FindEntryIndex(definition);
-        if (stackIndex >= 0)
+        if (definition.CollectibleOnly)
         {
-            entries[stackIndex] = entries[stackIndex].Add(quantity);
-            NotifyChanged();
-            AnyItemAdded?.Invoke(definition, quantity);
-            return true;
+            int collectibleIndex = FindEntryIndex(definition);
+            if (collectibleIndex >= 0)
+            {
+                entries[collectibleIndex] = entries[collectibleIndex].Add(quantity);
+                NotifyChanged();
+                AnyItemAdded?.Invoke(definition, quantity);
+                return true;
+            }
         }
 
         int emptyIndex = FindEmptyIndex();
@@ -116,15 +119,7 @@ public class Inventory : MonoBehaviour
             return true;
         }
 
-        if (entries[index].Definition != definition)
-        {
-            return false;
-        }
-
-        entries[index] = entries[index].Add(quantity);
-        NotifyChanged();
-        AnyItemAdded?.Invoke(definition, quantity);
-        return true;
+        return false;
     }
 
     public bool TryStoreAnywhere(InventoryItemDefinition definition, int quantity = 1)
@@ -148,14 +143,6 @@ public class Inventory : MonoBehaviour
         if (!definition || quantity <= 0 || !IsValidSlotIndex(index))
         {
             return false;
-        }
-
-        if (IsOccupiedIndex(index) && entries[index].Definition == definition)
-        {
-            entries[index] = entries[index].Add(quantity);
-            NotifyChanged();
-            AnyItemAdded?.Invoke(definition, quantity);
-            return true;
         }
 
         int targetIndex = IsOccupiedIndex(index) ? FindNearestEmptyIndex(index) : index;
@@ -323,6 +310,10 @@ public class Inventory : MonoBehaviour
     {
         Changed?.Invoke();
         AnyInventoryChanged?.Invoke();
+        if (Application.isPlaying && SaveManager.Instance && !SaveManager.Instance.IsApplyingSave)
+        {
+            SaveManager.Instance.Save();
+        }
     }
 
     // ── Developer query API ──────────────────────────────────────

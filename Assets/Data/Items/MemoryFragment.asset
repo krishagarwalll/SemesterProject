@@ -19,4 +19,6 @@ MonoBehaviour:
   worldPrefab: {fileID: 700100000, guid: 28d3b4998840da64293047161186f078, type: 3}
   primaryLabel: Use
   inspectLabel: Inspect
-  canPlaceBackIntoWorld: 1
+  canPlaceBackIntoWorld: 0
+  collectibleOnly: 1
+  collectibleSlotLabel: Memories

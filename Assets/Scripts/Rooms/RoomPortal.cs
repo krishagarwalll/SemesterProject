@@ -34,6 +34,9 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     [ConditionalField("lockMode", (int)PortalLockMode.RequiredItem)]
     [Tooltip("Skip the item check — portal starts pre-unlocked. Useful for testing or one-time events.")]
     [SerializeField] private bool startUnlocked;
+    [ConditionalField("lockMode", (int)PortalLockMode.RequiredItem)]
+    [Tooltip("If true, the required item must be dragged from inventory onto this portal. Clicking the portal while the item is in inventory only shows guidance.")]
+    [SerializeField] private bool requireDraggedRequiredItemToUnlock;
     [ConditionalField("lockMode", (int)PortalLockMode.None, invertEnumMatch: true)]
     [SerializeField, TextArea] private string lockedInspectText;
 
@@ -55,6 +58,7 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     private RoomStateFlags stateFlags;
     private bool unlockedByItem;
     private int RequiredItemQuantity => Mathf.Max(1, requiredItemQuantity);
+    private bool RequiresDraggedRequiredItem => requireDraggedRequiredItemToUnlock || IsGarageKeyRequirement();
 
     public RoomPortal LinkedPortal => linkedPortal;
     public Room OwnerRoom => GetComponentInParent<Room>(true);
@@ -86,7 +90,7 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     {
         bool unlocked = IsUnlocked();
         bool canUnlockFromInventory = !unlocked && HasRequiredItemInInventory(context);
-        bool effectivelyUnlocked = unlocked || canUnlockFromInventory;
+        bool effectivelyUnlocked = unlocked || canUnlockFromInventory && !RequiresDraggedRequiredItem;
         bool canTraverse = CanTraverseFromThisSide && linkedPortal && linkedPortal.OwnerRoom && linkedPortal.CanReceiveTraversal;
 
         string label = effectivelyUnlocked ? enterLabel : lockedLabel;
@@ -111,21 +115,15 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
             case InteractionMode.Primary:
                 if (!IsUnlocked())
                 {
-                    if (HasRequiredItemInInventory(context))
+                    if (HasRequiredItemInInventory(context) && !RequiresDraggedRequiredItem)
                     {
-                        if (consumeRequiredItem)
-                        {
-                            context.Inventory.TryRemove(requiredItem, RequiredItemQuantity);
-                        }
-                        unlockedByItem = true;
-                        TryHandInUnlockQuest();
-                        SaveManager.Instance?.MarkRoomPortalUnlocked(SaveId);
+                        UnlockWithRequiredItem(context.Inventory);
                     }
                     else
                     {
                         TryStartLockedQuest();
                         PlayLockedSound();
-                        InteractionFeedback.Show(GetInspectText(unlocked: false), this);
+                        InteractionFeedback.Show(GetLockedFeedback(context), this);
                         return false;
                     }
                 }
@@ -163,6 +161,25 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
     public bool CanReceiveTraversal => traversalMode != PortalTraversalMode.EntryOnly;
     public bool IsCurrentlyUnlocked => IsUnlocked();
 
+    public bool TryUseInventoryItem(Inventory inventory, InventoryItemDefinition definition, int quantity)
+    {
+        if (IsUnlocked()
+            || lockMode != PortalLockMode.RequiredItem
+            || !requiredItem
+            || definition != requiredItem
+            || quantity < RequiredItemQuantity
+            || !CanTraverseFromThisSide
+            || !linkedPortal
+            || !linkedPortal.CanReceiveTraversal)
+        {
+            return false;
+        }
+
+        UnlockWithRequiredItem(inventory);
+        PlayEnterSound();
+        return TransitionService && TransitionService.TryTraverse(this, fadeDuration);
+    }
+
     private bool HasRequiredItemInInventory(in InteractionContext context)
     {
         return lockMode == PortalLockMode.RequiredItem
@@ -173,7 +190,7 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
 
     private bool IsEffectivelyUnlocked(in InteractionContext context)
     {
-        return IsUnlocked() || HasRequiredItemInInventory(context);
+        return IsUnlocked() || HasRequiredItemInInventory(context) && !RequiresDraggedRequiredItem;
     }
 
     private bool IsUnlocked()
@@ -237,6 +254,35 @@ public class RoomPortal : MonoBehaviour, IInteractionActionProvider
             return lockedInspectText;
         }
         return inspectText;
+    }
+
+    private string GetLockedFeedback(in InteractionContext context)
+    {
+        if (RequiresDraggedRequiredItem && HasRequiredItemInInventory(context))
+        {
+            return "The garage key might fit. Drag it from your inventory onto the locked door.";
+        }
+
+        return GetInspectText(unlocked: false);
+    }
+
+    private void UnlockWithRequiredItem(Inventory inventory)
+    {
+        if (consumeRequiredItem && inventory)
+        {
+            inventory.TryRemove(requiredItem, RequiredItemQuantity);
+        }
+
+        unlockedByItem = true;
+        TryHandInUnlockQuest();
+        SaveManager.Instance?.MarkRoomPortalUnlocked(SaveId);
+    }
+
+    private bool IsGarageKeyRequirement()
+    {
+        return lockMode == PortalLockMode.RequiredItem
+            && requiredItem
+            && requiredItem.ItemId == "rusty_key";
     }
 
     private void TryHandInUnlockQuest()

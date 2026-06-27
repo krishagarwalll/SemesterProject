@@ -16030,7 +16030,7 @@ MonoBehaviour:
   requiredItemQuantity: 1
   consumeRequiredItem: 1
   startUnlocked: 0
-  lockedInspectText: You must find a key to the garage.
+  lockedInspectText: The garage key might fit. Drag it from your inventory onto the locked door.
   fadeDuration: 0.2
   questToStartWhenLocked: {fileID: 0}
   questToCompleteOnUnlock: {fileID: 11400000, guid: 96b6e146039af96418f1aae9f04dad84, type: 2}

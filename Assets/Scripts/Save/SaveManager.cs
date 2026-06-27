@@ -13,6 +13,7 @@ public class SaveManager : MonoBehaviour
 
     public static SaveManager Instance { get; private set; }
     public static event Action SaveWritten;
+    public bool IsApplyingSave { get; private set; }
 
     private ISaveStorage storage;
     private SaveData pendingSceneLoadData;
@@ -237,16 +238,24 @@ public class SaveManager : MonoBehaviour
     // Call this after a scene has been loaded if the scene was different from the save
     public void ApplySaveData(SaveData data)
     {
-        EnsureLists(data);
-        RestoreCutscenes(data);
-        RestorePlayerPosition(data);
-        RestoreProgression(data);
-        RestoreInventory(data);
-        RestoreQuests(data);
-        RestoreRoomState(data);
-        RestoreDialogueLineStates(data);
-        RestoreSceneEvents(data);
-        RestoreWorldItems(data);
+        IsApplyingSave = true;
+        try
+        {
+            EnsureLists(data);
+            RestoreCutscenes(data);
+            RestorePlayerPosition(data);
+            RestoreProgression(data);
+            RestoreInventory(data);
+            RestoreQuests(data);
+            RestoreRoomState(data);
+            RestoreDialogueLineStates(data);
+            RestoreSceneEvents(data);
+            RestoreWorldItems(data);
+        }
+        finally
+        {
+            IsApplyingSave = false;
+        }
     }
 
     // ── Gathering ────────────────────────────────────────────────

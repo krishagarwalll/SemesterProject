@@ -54,6 +54,21 @@ public class MemoryFragmentCutscene : MonoBehaviour
         player.Play(cutsceneFileName, ResolveSaveId(), playOnce);
     }
 
+    private void OnTriggerEnter2D(Collider2D other) => TryAutoStoreFromContact(other);
+
+    private void OnCollisionEnter2D(Collision2D collision) => TryAutoStoreFromContact(collision.collider);
+
+    private void TryAutoStoreFromContact(Collider2D other)
+    {
+        if (!other || !other.GetComponentInParent<PoptropicaController>())
+        {
+            return;
+        }
+
+        Inventory inventory = FindFirstObjectByType<Inventory>(FindObjectsInactive.Include);
+        PickupItem?.TryStoreWithAnimation(inventory);
+    }
+
     private string ResolveSaveId()
     {
         if (!string.IsNullOrWhiteSpace(cutsceneSaveId))

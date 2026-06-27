@@ -15,6 +15,7 @@ public class FindKey : MonoBehaviour
 
     [Header("Reward")]
     [SerializeField] private GameObject objectToEnable;
+    private bool completed;
 
     private void Awake()
     {
@@ -22,6 +23,9 @@ public class FindKey : MonoBehaviour
 
         if (root != null)
             root.SetActive(false);
+
+        if (objectToEnable != null)
+            objectToEnable.SetActive(false);
 
         if (audioSource == null)
             audioSource = gameObject.AddComponent<AudioSource>();
@@ -33,6 +37,9 @@ public class FindKey : MonoBehaviour
     public void Open()
     {
         if (InteractionLock.IsLocked) return;
+        if (completed) return;
+        if (!root) return;
+
         root.SetActive(true);
         InteractionLock.IsLocked = true;
 
@@ -60,11 +67,13 @@ public class FindKey : MonoBehaviour
         if (!InteractionLock.IsLocked) return;
 
         InteractionLock.IsLocked = false;
-        root.SetActive(false);
+        if (root) root.SetActive(false);
     }
 
     public void OnKeyFound()
     {
+        completed = true;
+
         if (objectToEnable != null)
         {
             objectToEnable.SetActive(true);
@@ -75,5 +84,6 @@ public class FindKey : MonoBehaviour
         }
 
         Close();
+        SaveManager.Instance?.Save();
     }
 }

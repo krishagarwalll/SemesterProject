@@ -7,8 +7,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform playerCenter;
     [SerializeField] private float spawnRadius = 8f;
-    [SerializeField] private float spawnInterval = 2f;
-    [SerializeField] private int maxEnemies = 10;
+    [SerializeField] private float spawnInterval = 1.35f;
+    [SerializeField] private int maxEnemies = 14;
 
     [Tooltip("Optional. If set, spawn points are clamped into this collider's area so enemies never appear outside the floor.")]
     [SerializeField] private Collider2D spawnBounds;

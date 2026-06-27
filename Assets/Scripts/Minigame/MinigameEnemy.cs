@@ -5,8 +5,8 @@ using UnityEngine;
 public class MinigameEnemy : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float chaseForce = 6f;
-    [SerializeField] private float maxSpeed = 3.5f;
+    [SerializeField] private float chaseForce = 8.5f;
+    [SerializeField] private float maxSpeed = 4.4f;
     [SerializeField] private float drag = 1.2f;
 
     [Header("Floaty Feel")]

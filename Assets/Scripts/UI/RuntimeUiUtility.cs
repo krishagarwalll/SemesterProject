@@ -8,6 +8,8 @@ public static class RuntimeUiUtility
 {
     private const string PrefWindowMode = "Settings_WindowMode";
     private const string PrefVSync = "Settings_VSync";
+    private const string InventoryPrefabResourcePath = "UI/GameplayInventoryCanvas";
+    private const string PausePrefabResourcePath = "UI/GameplayPauseCanvas";
 
     public static bool CanQuitApplication
     {
@@ -171,12 +173,35 @@ public static class RuntimeUiUtility
             return hotbar;
         }
 
+        InventoryHotbar prefabHotbar = InstantiateInventoryPrefab();
+        if (prefabHotbar)
+        {
+            return prefabHotbar;
+        }
+
         RectTransform canvasRect = CreateOverlayCanvas("GameplayInventoryCanvas", 20);
         GameObject hotbarObject = new("HotbarRoot", typeof(RectTransform), typeof(InventoryHotbar));
         RectTransform hotbarRect = hotbarObject.GetComponent<RectTransform>();
         hotbarRect.SetParent(canvasRect, false);
 
         return hotbarObject.GetComponent<InventoryHotbar>();
+    }
+
+    public static void HideGameplayInventoryUi()
+    {
+        InventoryHotbar hotbar = Object.FindFirstObjectByType<InventoryHotbar>(FindObjectsInactive.Include);
+        if (hotbar)
+        {
+            Canvas canvas = hotbar.GetComponentInParent<Canvas>(true);
+            if (canvas)
+            {
+                canvas.gameObject.SetActive(false);
+            }
+            else
+            {
+                hotbar.gameObject.SetActive(false);
+            }
+        }
     }
 
     public static PauseMenuUI EnsureGameplayPauseUi()
@@ -226,6 +251,25 @@ public static class RuntimeUiUtility
             return pauseMenu;
         }
 
+        PauseMenuUI prefabPauseMenu = InstantiatePausePrefab();
+        if (prefabPauseMenu)
+        {
+            if (!Object.FindFirstObjectByType<SettingsPanel>(FindObjectsInactive.Include))
+            {
+                Canvas prefabCanvas = prefabPauseMenu.GetComponentInParent<Canvas>(true);
+                RectTransform settingsParent = prefabCanvas
+                    ? prefabCanvas.transform as RectTransform
+                    : prefabPauseMenu.transform as RectTransform;
+                if (settingsParent)
+                {
+                    CreateSettingsPanel(settingsParent);
+                }
+            }
+
+            prefabPauseMenu.RefreshRuntimeBindings();
+            return prefabPauseMenu;
+        }
+
         RectTransform canvasRect = CreateOverlayCanvas("GameplayPauseCanvas", 5000);
         Canvas canvas = canvasRect.GetComponent<Canvas>();
         canvas.overrideSorting = true;
@@ -243,6 +287,64 @@ public static class RuntimeUiUtility
         return runtimePauseMenu;
     }
 
+    private static InventoryHotbar InstantiateInventoryPrefab()
+    {
+        GameObject prefab = Resources.Load<GameObject>(InventoryPrefabResourcePath);
+        if (!prefab) return null;
+
+        GameObject instance = Object.Instantiate(prefab);
+        instance.name = prefab.name;
+        instance.SetActive(true);
+
+        Canvas canvas = instance.GetComponentInChildren<Canvas>(true);
+        if (canvas)
+        {
+            canvas.gameObject.SetActive(true);
+            canvas.enabled = true;
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = Mathf.Max(canvas.sortingOrder, 20);
+            canvas.GetOrAddComponent<GraphicRaycaster>().enabled = true;
+        }
+
+        InventoryHotbar hotbar = instance.GetComponentInChildren<InventoryHotbar>(true);
+        if (hotbar)
+        {
+            hotbar.gameObject.SetActive(true);
+            hotbar.enabled = true;
+        }
+
+        return hotbar;
+    }
+
+    private static PauseMenuUI InstantiatePausePrefab()
+    {
+        GameObject prefab = Resources.Load<GameObject>(PausePrefabResourcePath);
+        if (!prefab) return null;
+
+        GameObject instance = Object.Instantiate(prefab);
+        instance.name = prefab.name;
+        instance.SetActive(true);
+
+        Canvas canvas = instance.GetComponentInChildren<Canvas>(true);
+        if (canvas)
+        {
+            canvas.gameObject.SetActive(true);
+            canvas.enabled = true;
+            canvas.overrideSorting = true;
+            canvas.sortingOrder = Mathf.Max(canvas.sortingOrder, 5000);
+            canvas.GetOrAddComponent<GraphicRaycaster>().enabled = true;
+        }
+
+        PauseMenuUI pauseMenu = instance.GetComponentInChildren<PauseMenuUI>(true);
+        if (pauseMenu)
+        {
+            pauseMenu.gameObject.SetActive(true);
+            pauseMenu.enabled = true;
+        }
+
+        return pauseMenu;
+    }
+
     private static void CreatePauseMenuPanel(RectTransform parent)
     {
         GameObject panel = new("PauseMenu", typeof(RectTransform), typeof(Image), typeof(CanvasGroup), typeof(VerticalLayoutGroup));
@@ -251,7 +353,7 @@ public static class RuntimeUiUtility
         rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
         rect.pivot = new Vector2(0.5f, 0.5f);
         rect.anchoredPosition = Vector2.zero;
-        rect.sizeDelta = new Vector2(420f, 520f);
+        rect.sizeDelta = new Vector2(420f, 360f);
 
         panel.GetComponent<Image>().color = new Color(0.055f, 0.047f, 0.07f, 0.96f);
 
@@ -267,11 +369,7 @@ public static class RuntimeUiUtility
         CreateLabel(rect, "Title", "Paused", 34f, 56f);
         CreateButton(rect, "ResumeButton", "Resume", 300f, 48f);
         CreateButton(rect, "SettingsButton", "Settings", 300f, 48f);
-        CreateButton(rect, "SaveButton", "Save", 300f, 48f);
-        CreateButton(rect, "LoadButton", "Load", 300f, 48f);
-        CreateButton(rect, "DeleteSaveButton", "Delete Save", 300f, 48f);
         CreateButton(rect, "MainMenuButton", "Main Menu", 300f, 48f);
-        CreateButton(rect, "QuitButton", "Quit", 300f, 48f);
     }
 
     private static void CreateSettingsPanel(RectTransform parent)

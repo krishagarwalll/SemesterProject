@@ -302,6 +302,13 @@ public class NPC : MonoBehaviour, INPCInteractable, IInteractionActionProvider
 
     private bool WasAdvancePressed()
     {
+        if (dialogueUI && dialogueUI.IsPointerOverDialogueBox()
+            && Mouse.current != null
+            && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            return true;
+        }
+
         if (advanceAction && advanceAction.action != null && advanceAction.action.WasPressedThisFrame())
         {
             return true;

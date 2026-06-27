@@ -22,7 +22,7 @@ public class CameraPickupItem : MonoBehaviour, IInteractionActionProvider
         AudioListener.pause = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        SceneManager.LoadScene(cameraMinigameSceneName);
+        StartCoroutine(ScreenFade.FadeOutThenLoad(this, cameraMinigameSceneName));
         return true;
     }
 }

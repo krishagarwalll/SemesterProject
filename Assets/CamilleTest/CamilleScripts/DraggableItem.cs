@@ -14,6 +14,7 @@ public class DraggableItem : MonoBehaviour,
 
     private float soundCooldown = 0.1f;
     private float lastSoundTime;
+    private Vector2 dragOffset;
 
     private void Awake()
     {
@@ -22,22 +23,39 @@ public class DraggableItem : MonoBehaviour,
         canvasGroup = gameObject.AddComponent<CanvasGroup>();
 
         if (audioSource == null)
+        {
             audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.ignoreListenerPause = true;
+        }
+
+        audioSource.ignoreListenerPause = true;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = false;
         transform.SetAsLastSibling();
+        if (canvas && RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rect.parent as RectTransform,
+                eventData.position,
+                eventData.pressEventCamera,
+                out Vector2 localPoint))
+        {
+            dragOffset = rect.anchoredPosition - localPoint;
+        }
 
         PlayDragSound();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        float dragSensitivity = 0.5f; // try 0.3–0.7
-        rect.anchoredPosition += (eventData.delta / canvas.scaleFactor) * dragSensitivity;
+        if (canvas && RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rect.parent as RectTransform,
+                eventData.position,
+                eventData.pressEventCamera,
+                out Vector2 localPoint))
+        {
+            rect.anchoredPosition = localPoint + dragOffset;
+        }
         
         // play sound repeatedly but controlled
         if (Time.time - lastSoundTime > soundCooldown)
