@@ -72,18 +72,23 @@ public class PickupItem : MonoBehaviour, IInteractionActionProvider, IWorldDragg
 
     public void GetActions(in InteractionContext context, List<InteractionAction> actions)
     {
-        actions.Add(new InteractionAction(this, InteractionMode.Drag, dragLabel, dragGlyphId, SupportsDrag, requiresApproach: false));
+        string resolvedDragLabel = !string.IsNullOrWhiteSpace(dragLabel) ? dragLabel : "Drag";
+        actions.Add(new InteractionAction(this, InteractionMode.Drag, resolvedDragLabel, dragGlyphId, SupportsDrag, requiresApproach: false));
         if (itemDefinition)
         {
             bool canStore = context.Inventory
                 && (!context.Inventory.IsFull || itemDefinition.CollectibleOnly && context.Inventory.Contains(itemDefinition));
-            actions.Add(new InteractionAction(this, InteractionMode.Primary, storeLabel, storeGlyphId, canStore, requiresApproach: false, priority: 20));
-            actions.Add(new InteractionAction(this, InteractionMode.Store, storeLabel, storeGlyphId, canStore, requiresApproach: false, priority: -5));
+            string resolvedStoreLabel = !string.IsNullOrWhiteSpace(storeLabel)
+                ? storeLabel
+                : $"Pick up {itemDefinition.DisplayName}";
+            actions.Add(new InteractionAction(this, InteractionMode.Primary, resolvedStoreLabel, storeGlyphId, canStore, requiresApproach: false, priority: 20));
+            actions.Add(new InteractionAction(this, InteractionMode.Store, resolvedStoreLabel, storeGlyphId, canStore, requiresApproach: false, priority: -5));
         }
 
         if (!string.IsNullOrWhiteSpace(GetInspectText()))
         {
-            actions.Add(new InteractionAction(this, InteractionMode.Inspect, inspectLabel, inspectGlyphId, requiresApproach: false, priority: -10));
+            string resolvedInspectLabel = !string.IsNullOrWhiteSpace(inspectLabel) ? inspectLabel : "Inspect";
+            actions.Add(new InteractionAction(this, InteractionMode.Inspect, resolvedInspectLabel, inspectGlyphId, requiresApproach: false, priority: -10));
         }
     }
 

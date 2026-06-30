@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private int sceneIndex;
+    [SerializeField, Min(0f)] private float musicFadeDuration = 0.5f;
 
     public void LoadScene()
     {
@@ -19,7 +21,7 @@ public class SceneLoader : MonoBehaviour
         }
 
         ResetRuntimeStateBeforeSceneChange();
-        SceneManager.LoadScene(index);
+        StartCoroutine(FadeAudioAndLoad(() => SceneManager.LoadScene(index)));
     }
 
     public void LoadScene(string sceneName)
@@ -31,12 +33,19 @@ public class SceneLoader : MonoBehaviour
         }
 
         ResetRuntimeStateBeforeSceneChange();
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(FadeAudioAndLoad(() => SceneManager.LoadScene(sceneName)));
     }
 
     public void QuitGame()
     {
         RuntimeUiUtility.QuitApplication();
+    }
+
+    private IEnumerator FadeAudioAndLoad(System.Action load)
+    {
+        if (AudioManager.Instance)
+            yield return AudioManager.Instance.FadeOutMusic(musicFadeDuration);
+        load();
     }
 
     private static void ResetRuntimeStateBeforeSceneChange()

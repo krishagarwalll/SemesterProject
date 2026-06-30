@@ -55,7 +55,7 @@ public class RoomTransitionService : MonoBehaviour
 
     private void Start()
     {
-        PlayRoomMusic(activeRoom);
+        PlayRoomMusic(activeRoom, fadeDuration: 0.5f);
     }
 
     private void OnValidate()
@@ -154,6 +154,8 @@ public class RoomTransitionService : MonoBehaviour
         PauseService.Pause(PauseType.Input);
         transitionInputPaused = true;
 
+        AudioManager.Instance?.StopMusicFaded(fadeDuration);
+
         if (Fade)
         {
             yield return Fade.FadeOut(fadeDuration);
@@ -196,12 +198,12 @@ public class RoomTransitionService : MonoBehaviour
         activeRoom?.SetCameraLive(true, desiredOrthographicSize: userOrthographicSize, minOrthographicSize: minOrthographicSize, maxOrthographicSize: maxOrthographicSize);
     }
 
-    private void PlayRoomMusic(Room room)
+    private void PlayRoomMusic(Room room, float fadeDuration = 0f)
     {
         if (!AudioManager.Instance) return;
         if (room && room.MusicClip)
-            AudioManager.Instance.PlayMusic(room.MusicClip);
+            AudioManager.Instance.PlayMusicFaded(room.MusicClip, fadeDuration > 0f ? fadeDuration : 0.3f);
         else
-            AudioManager.Instance.StopMusic();
+            AudioManager.Instance.StopMusicFaded(fadeDuration > 0f ? fadeDuration : 0.3f);
     }
 }

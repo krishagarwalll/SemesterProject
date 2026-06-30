@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -17,6 +18,7 @@ public class AudioManager : MonoBehaviour
 
     private AudioPlayer musicPlayer;
     private AudioPlayer sfxPlayer;
+    private Coroutine musicFadeCoroutine;
     private float masterVolume;
     private float musicVolume;
     private float sfxVolume;
@@ -95,6 +97,65 @@ public class AudioManager : MonoBehaviour
         {
             musicPlayer.Stop();
         }
+    }
+
+    public void PlayMusicFaded(AudioClip clip, float duration = 0.5f, bool loop = true)
+    {
+        if (!clip) { StopMusicFaded(duration); return; }
+        if (musicPlayer && musicPlayer.Source.clip == clip && musicPlayer.Source.isPlaying) return;
+        if (musicFadeCoroutine != null) StopCoroutine(musicFadeCoroutine);
+        musicFadeCoroutine = StartCoroutine(CrossfadeRoutine(clip, duration, loop));
+    }
+
+    public void StopMusicFaded(float duration = 0.5f)
+    {
+        if (!musicPlayer || !musicPlayer.Source.isPlaying) return;
+        if (musicFadeCoroutine != null) StopCoroutine(musicFadeCoroutine);
+        musicFadeCoroutine = StartCoroutine(FadeOutRoutine(duration));
+    }
+
+    public IEnumerator FadeOutMusic(float duration = 0.5f)
+    {
+        if (!musicPlayer || !musicPlayer.Source.isPlaying) yield break;
+        if (musicFadeCoroutine != null) StopCoroutine(musicFadeCoroutine);
+        musicFadeCoroutine = null;
+        yield return FadeOutRoutine(duration);
+    }
+
+    private IEnumerator CrossfadeRoutine(AudioClip clip, float duration, bool loop)
+    {
+        float fadeDur = musicPlayer && musicPlayer.Source.isPlaying ? duration * 0.5f : duration;
+        if (musicPlayer && musicPlayer.Source.isPlaying)
+            yield return FadeOutRoutine(duration * 0.5f);
+        MusicPlayer.PlayClip(clip, 0f, loop);
+        yield return FadeInRoutine(fadeDur);
+        musicFadeCoroutine = null;
+    }
+
+    private IEnumerator FadeOutRoutine(float duration)
+    {
+        if (!musicPlayer) yield break;
+        float start = musicPlayer.Source.volume;
+        for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+        {
+            if (!musicPlayer) yield break;
+            musicPlayer.Source.volume = Mathf.Lerp(start, 0f, t / duration);
+            yield return null;
+        }
+        StopMusic();
+        musicFadeCoroutine = null;
+    }
+
+    private IEnumerator FadeInRoutine(float duration)
+    {
+        for (float t = 0f; t < duration; t += Time.unscaledDeltaTime)
+        {
+            if (!musicPlayer) yield break;
+            musicPlayer.Source.volume = Mathf.Lerp(0f, musicVolume, t / duration);
+            yield return null;
+        }
+        if (musicPlayer) musicPlayer.Source.volume = musicVolume;
+        musicFadeCoroutine = null;
     }
 
     public void SetMasterVolume(float volume)

@@ -408,11 +408,6 @@ public class InteractionTarget : MonoBehaviour
             return InteractionDistancePreset.Portal;
         }
 
-        if (TryGetDraggable(out _))
-        {
-            return InteractionDistancePreset.Reach;
-        }
-
         return InteractionDistancePreset.Standard;
     }
 
